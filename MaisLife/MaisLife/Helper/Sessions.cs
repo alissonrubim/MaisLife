@@ -12,5 +12,6 @@ namespace MaisLife.Helper
     public class Sessions
     {
         
+
     }
 }

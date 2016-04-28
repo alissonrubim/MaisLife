@@ -84,6 +84,10 @@ namespace MaisLifeModel
 			{
 				return this._carrinho_produtos;
 			}
+            set
+            {
+                this._carrinho_produtos = value;
+            }
 		}
 		
 		#region ISerializable Implementation

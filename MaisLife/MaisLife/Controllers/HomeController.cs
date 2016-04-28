@@ -13,15 +13,23 @@ namespace MaisLife.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            AddProductInShoppingCart(new Produto() 
+                {
+                    Id = 3,
+                    Nome = "aaa"
+                }
+            );
+
             return View();
         }
 
-        public ActionResult Tezst() {
+        public ActionResult Tezst() 
+        {
 
             return View();
         }
 
-        //--------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         public Usuario Login(Usuario user)
         {
@@ -62,6 +70,91 @@ namespace MaisLife.Controllers
         {
             Session.Remove("User");
             Request.Cookies.Remove("UserMaisLife");
+        }
+
+        public void AddProductInShoppingCart(Produto produto)
+        {
+            string[] productsString;
+            List<string> productsList = new List<string>();
+
+            //RECUPERA O COOKIE
+            HttpCookie cookie = Request.Cookies["shoppingCartMaisLife"];
+            
+
+            if (cookie != null)
+            {
+                bool existingProduct = false;
+                //DIVIDE A STRING EM ARRAY
+                productsString = cookie.Value.ToString().Split(new Char[] { ',' });
+
+                //ARRAY PARA LISTA PARA MANIPULAÇÃO
+                for (int i = 0; i <= productsString.Length - 1; i++)
+                {
+                    productsList.Add(productsString[i]);
+                }
+                //AUXILIARES PARA ADD E DELETE DOS PRODUTOS
+                string productToDelete = "";
+                string productToAdd = "";
+
+                foreach (string p in productsList)
+                {
+                    //CONVERT PARA INT PARA MANIPULAÇÃO
+                    string[] aux = p.Split(new Char[] { ':' });
+                    int idProduct = Convert.ToInt16(aux[0]);
+                    int amount = Convert.ToInt16(aux[1]);
+
+                    if (idProduct == produto.Id)
+                    {
+                        amount = (amount + 1);
+                        productToDelete = p;
+                        productToAdd = idProduct + ":" + amount;
+                        existingProduct = true;
+                    }
+                }
+
+                if (!existingProduct)
+                {
+                    //ADD NOVO PRODUTO
+                    productsList.Add(produto.Id + ":1");
+                }
+                else
+                {
+                    //ADD PRODUTO COM NOVA QTD E EXCLUI ANTIGO
+                    productsList.Add(productToAdd);
+                    productsList.Remove(productToDelete);
+                }
+
+            }
+            else
+            {
+                //ADD NOVO PRODUTO
+                productsList.Add(produto.Id + ":1");
+            }
+
+            //PASSA LISTA PARA STRING
+            string productCookie = "";
+            int cont = 1;
+            foreach (string p in productsList)
+            {
+                if (!(cont == (productsList.Count)))
+                {
+                    productCookie += p + ",";
+                }
+                else
+                {
+                    productCookie += p;
+                }
+                cont++;
+            }
+
+            //DEFINE COOKIE
+            Request.Cookies.Remove("shoppingCartMaisLife");
+            cookie = new HttpCookie("shoppingCartMaisLife");
+            cookie.Value = productCookie;
+            TimeSpan expiration = new TimeSpan(365, 0, 0, 0);
+            cookie.Expires = DateTime.Now + expiration;
+            Response.Cookies.Add(cookie);
+
         }
 
     }
