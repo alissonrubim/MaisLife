@@ -30,6 +30,14 @@ a:hover, a:focus, a:active {
     border-radius: 0;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
 /* 
  LAYOUT PROPERTY - UPPER BAR
 */
@@ -373,11 +381,16 @@ footer .brand-footer div .footer-menu ul li a:hover {
  PAGE PROPERTY - HOME - PRODUCTS
 */
 .products {
-    
+    background-image: url('../Images/bg_products.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 800px;
+    padding: 0 0;
 }
 
 .products .carousel {
-
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.48);
 }
 
 .products .carousel .item {
@@ -385,9 +398,213 @@ footer .brand-footer div .footer-menu ul li a:hover {
 }
 
 .products .carousel .item img {
+    width: 100%;
+    max-height: 710px;
+}
+
+.products .carousel .item {
+  
+}
+
+.products .carousel .item .item-product{
+    float: left;
+    width: 100%;
+    padding: 130px 170px;    
+}
+
+.products .carousel .item .item-product .product {  
+   padding: 15px;
+   background-color: rgba(255, 255, 255, 0.68);
+   border: 1px solid #FFFFFF;
+   width: 40%;
+   min-width: 150px;
+}
+
+.products .carousel .item .item-product .product .product-img {
+    
+}
+
+.products .carousel .item .item-product .product .product-info {
 
 }
 
-.products .carousel .item .carousel-caption {
+.products .carousel .item .item-product .product .product-info .list-group .list-group-item {
+    border: none;
+    background-color: transparent;
+    padding: 3px 5px;   
+}
 
+.products .carousel .item .item-product .product .product-info .list-group .list-group-item:first-child, .products .carousel .item .item-product .product .product-info .list-group .list-group-item:last-child {
+    text-align: center;
+    font-weight: bold;
+}
+
+.products .carousel .item .item-product .product .product-info .list-group .list-group-item:last-child {
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .products .carousel .item .item-product .product {
+        width: 100%;
+        padding: 3px;
+        margin-bottom: 10px;
+        float: left;
+        clear: both;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .products {
+        height: auto;
+    }
+    
+    .products .carousel .item .item-product .product .product-info .list-group .list-group-item:last-child {
+        padding: 0;
+    }
+}
+
+/*
+ PAGE PROPERTY - HOME - HEALTH
+*/
+.health {
+    float: left;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.health .health-row {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.health .health-row > div {    
+    padding: 10px;
+    max-width: 60%;
+}
+
+
+.health .health-row .intro {
+    float: right;
+    padding-right: 10%;    
+}
+
+
+.health .health-row .intro .custom-text {
+
+}
+
+.health .health-row .intro .custom-text .custom-title {
+    color: #4F6939;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.health .health-row .unfreeze {
+    float: left;
+    padding-left: 10%;    
+    background-color: #759EB7;
+}
+
+
+.health .health-row .unfreeze .custom-text p {
+    color: #FFFFFF;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-title {
+    text-transform: uppercase;   
+    font-size: 20px;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-title span {
+    color: #4F6939;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no {
+   
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no .unfreeze-no-title {
+     float: left;
+     font-size: 24px;
+     text-transform: uppercase;
+     color: #4F6939;
+     font-weight: bold;
+     margin-top: 25px;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no .unfreeze-no-steps {
+     float: left;
+     margin-left: 10px;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no .unfreeze-no-steps ul {
+
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no .unfreeze-no-steps ul li {
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+.health .health-row .unfreeze .custom-text .unfreeze-no .unfreeze-no-steps ul li span {
+    color: #8C1919;
+}
+
+.health .health-row .benefits {    
+    float: right;
+    padding-right: 10%;  
+    background-color: #4F6939;  
+}
+
+.health .health-row .benefits .custom-text {
+
+}
+
+.health .health-row .benefits .custom-text .custom-title {
+    border-bottom: 1px solid #FFFFFF;    
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.health .health-row .benefits .custom-text .custom-title h1 {
+    color: #FFFFFF;
+}
+
+.health .health-row .benefits .custom-text .custom-title h1 small {
+    color: #FFFFFF;
+}
+
+.health .health-row .benefits .custom-text ul {
+    background-color: #F5F5F5;
+}
+
+.health .health-row .benefits .custom-text ul li {
+    background-color: transparent;
+    border: none;
+    padding: 3px 10px;    
+    color: #333333;
+}
+
+.health .health-row .benefits .custom-text ul li {
+    border-top: 1px solid #CCCCCC;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;    
+}
+
+.health .health-row .benefits .custom-text ul li > span {
+    cursor: pointer;
+    color: #759EB7;
+}
+
+.health .health-row .benefits .custom-text ul li > span:hover {
+    color: #333333;
+}
+
+.health .health-row .benefits .custom-text ul .more {
+    display: none;
 }

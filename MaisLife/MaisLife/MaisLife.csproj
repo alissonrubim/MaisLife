@@ -85,9 +85,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bg_products.jpg" />
     <Content Include="Images\face-icon.png" />
     <Content Include="Images\know-img.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="JavaScripts\Home.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\Montserrat-Bold.ttf" />
