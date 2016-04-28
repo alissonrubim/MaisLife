@@ -38,6 +38,14 @@ a:hover, a:focus, a:active {
     float: right;
 }
 
+.btn-success {
+    background-color: #4F6939;
+}
+
+.btn-success:hover{
+    background-color: #6B8C4F;
+}
+
 /* 
  LAYOUT PROPERTY - UPPER BAR
 */
