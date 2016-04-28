@@ -5,7 +5,10 @@ $(document).on("click", "a[data-content='scroll-link']", function () {
 
     $('html, body').stop().animate({
         'scrollTop': target.offset().top
-    }, 900, 'swing', function () {
+    },
+    900,
+    'swing',
+    function () {
         window.location.hash = target;
     });
 });
@@ -17,7 +20,10 @@ var benefits = {
 
         $('html, body').stop().animate({
             'scrollTop': target.offset().top
-        }, 900, 'swing', function () {
+        },
+        900,
+        'swing',
+        function () {
             window.location.hash = target;
         });
     },

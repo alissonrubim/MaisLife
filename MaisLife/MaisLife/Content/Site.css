@@ -297,11 +297,11 @@ footer .brand-footer div .footer-menu ul li a:hover {
 */
 
 .know {
-    background-color: #AAB9B8;
+    background-color: rgba(117, 158, 183, 0.27);   
 }
 
 .know div div .custom-text {
-    padding-top: 120px;
+    padding-top: 65px;
 }
 
 .know div div .custom-text p {
@@ -323,8 +323,18 @@ footer .brand-footer div .footer-menu ul li a:hover {
 
 
 @media (max-width: 768px) {
+    .know div {
+        text-align:center;
+        margin-bottom: 20px;
+    }
+
+    .know div div .btn {
+        margin-top: 5px;
+    }
+    
     .know div div .custom-text {
         padding-top: 30px;
+        margin-bottom: 5px;
     }
     
     .know div div .btn {
@@ -338,6 +348,11 @@ footer .brand-footer div .footer-menu ul li a:hover {
 
     .know div .col-lg-8 {
         padding-top: 25px;
+    }
+
+    .know div div img {      
+        max-width: 300px;
+        margin: 0 auto;        
     }
     
 }
@@ -398,7 +413,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
     background-image: url('../Images/bg_products.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 800px;
+    height: 490px;
     padding: 0 0;   
 }
 
@@ -423,14 +438,13 @@ footer .brand-footer div .footer-menu ul li a:hover {
 .products .carousel .item .item-product{
     float: left;
     width: 100%;
-    padding: 130px 170px;    
+    padding: 30px 170px;    
 }
 
 .products .carousel .item .item-product .product {  
    padding: 15px;
    background-color: rgba(255, 255, 255, 0.68);
-   border: 1px solid #FFFFFF;
-   width: 40%;
+   border: 1px solid #FFFFFF;  
    min-width: 150px;
 }
 
@@ -574,7 +588,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
     float: right;
     padding-right: 10%;  
     background-color: #4F6939; 
-    width: 60%; 
+    width: 60% !important; 
 }
 
 .health .health-row .benefits .custom-text {
@@ -626,12 +640,18 @@ footer .brand-footer div .footer-menu ul li a:hover {
     display: none;
 }
 
+@media (max-width: 768px) {
+    .health .health-row .intro, .health .health-row .unfreeze, .health .health-row .benefits {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
 /*
  PAGE PROPERTY - HOME - CONTACT
 */
 .contact {
-    background-color: #EEEEEE;    
-    border-top: 1px solid #CCCCCC;
+    background-color: #EEEEEE;       
 }
 
 .contact .container {
