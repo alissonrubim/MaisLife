@@ -13,13 +13,6 @@ namespace MaisLife.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            AddProductInShoppingCart(new Produto() 
-                {
-                    Id = 3,
-                    Nome = "aaa"
-                }
-            );
-
             return View();
         }
 
@@ -154,6 +147,40 @@ namespace MaisLife.Controllers
             TimeSpan expiration = new TimeSpan(365, 0, 0, 0);
             cookie.Expires = DateTime.Now + expiration;
             Response.Cookies.Add(cookie);
+
+        }
+
+        public void FindShoppingCart()
+        {
+            Session.Remove("shoppingCar");
+
+            Carrinho cart = new Carrinho();
+            List<Carrinho_produto> relProducts = new List<Carrinho_produto>();
+            
+
+            string[] productsString;
+
+            HttpCookie cookie = Request.Cookies["shoppingCartMaisLife"];
+            productsString = cookie.Value.ToString().Split(new Char[] { ',' });
+
+            for (int i = 0; i <= productsString.Length - 1; i++)
+            {
+                string[] aux = productsString[i].Split(new Char[] { ':' });
+                int idProduct = Convert.ToInt16(aux[0]);
+                int amount = Convert.ToInt16(aux[1]);
+
+                Carrinho_produto relProduct = new Carrinho_produto();
+                relProduct.Carrinho1 = cart;
+
+                Produto product = ConfigDB.Model.Produtos.Where(f => f.Id == idProduct).First();
+                relProduct.Produto1 = product;
+                relProduct.Quantidade = amount;
+
+                relProducts.Add(relProduct);                
+            }
+
+            cart.Carrinho_produtos = relProducts;
+            Session["shoppingCar"] = cart;
 
         }
 
