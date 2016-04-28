@@ -278,6 +278,20 @@ footer .brand-footer div .footer-menu ul li a:hover {
     padding: 15px 0;
 }
 
+.know, .health, .products, .about, .contact, .footer, .brand-footer {
+    float: left;
+    width: 100%;   
+}
+
+@media (min-width: 1570px) {
+    .know, .health, .products, .about, .contact {
+        float: none;
+        margin:0 auto;
+        width: 1170px;
+        clear: both;
+    }
+}   
+
 /*
  PAGE PROPERTY - HOME - KNOW
 */
@@ -338,7 +352,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
  PAGE PROPERTY - HOME - ABOUT
 */
 .about {
-    background-color: #FFFFFF;
+    background-color: #FFFFFF;   
 }
 
 .about div .col-lg-4 {
@@ -385,7 +399,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
     background-repeat: no-repeat;
     background-size: cover;
     height: 800px;
-    padding: 0 0;
+    padding: 0 0;   
 }
 
 .products .carousel {
@@ -444,6 +458,10 @@ footer .brand-footer div .footer-menu ul li a:hover {
 }
 
 @media (max-width: 768px) {
+    .products .carousel .item .item-product {
+        padding: 80px;   
+    }
+    
     .products .carousel .item .item-product .product {
         width: 100%;
         padding: 3px;
@@ -467,9 +485,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
 /*
  PAGE PROPERTY - HOME - HEALTH
 */
-.health {
-    float: left;
-    width: 100%;
+.health {   
     background-color: #FFFFFF;
 }
 
@@ -614,9 +630,8 @@ footer .brand-footer div .footer-menu ul li a:hover {
  PAGE PROPERTY - HOME - CONTACT
 */
 .contact {
-    background-color: #F5F5F5;
-    float: left;
-    width: 100%;
+    background-color: #EEEEEE;    
+    border-top: 1px solid #CCCCCC;
 }
 
 .contact .container {
