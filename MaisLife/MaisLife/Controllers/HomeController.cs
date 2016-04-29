@@ -23,7 +23,7 @@ namespace MaisLife.Controllers
             return View();
         }
 
-        public ActionResult CreateContato(ContatoAdapter contato)
+        public ActionResult CreateContact(ContatoAdapter contato)
         {
             ConfigDB.Model.Add(contato.ToContato());
             if (ConfigDB.Model.HasChanges)
@@ -31,16 +31,6 @@ namespace MaisLife.Controllers
                 ConfigDB.Model.SaveChanges();
             }
             return RedirectToAction("Index");
-        }
-
-        public bool CreateUsuario(Usuario usuario)
-        {
-            return true;
-        }
-
-        public bool LoginUsuario(Usuario usuario)
-        {
-            return true;
         }
 
     }
