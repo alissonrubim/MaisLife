@@ -3,6 +3,10 @@ $(document).on("click", "a[data-content='scroll-link']", function () {
     var id = $(this).attr("data-target");
     var target = $("#" + id);
 
+    if (id == "login") {
+        target.slideDown();
+    }
+
     $('html, body').stop().animate({
         'scrollTop': target.offset().top
     },

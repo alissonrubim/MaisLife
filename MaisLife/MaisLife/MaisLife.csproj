@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Helper\Sessions.cs" />
     <Compile Include="Models\Adapter\ContatoAdapter.cs" />
+    <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

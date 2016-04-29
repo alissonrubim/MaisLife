@@ -33,5 +33,15 @@ namespace MaisLife.Controllers
             return RedirectToAction("Index");
         }
 
+        public bool CreateUsuario(Usuario usuario)
+        {
+            return true;
+        }
+
+        public bool LoginUsuario(Usuario usuario)
+        {
+            return true;
+        }
+
     }
 }

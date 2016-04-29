@@ -46,6 +46,10 @@ a:hover, a:focus, a:active {
     background-color: #6B8C4F;
 }
 
+input, textarea, select {
+    border-radius: 0 !important;
+}
+
 /* 
  LAYOUT PROPERTY - UPPER BAR
 */
@@ -189,9 +193,54 @@ a:hover, a:focus, a:active {
 }
 
 /*
+ LAYOUT PROPERTY - LOGIN
+*/
+.login {
+    border-bottom: 1px solid #769B55;
+    display: none;
+}
+
+.login div {
+
+}
+
+.login div .signup {
+    border-right: 1px solid #CCCCCC;
+}
+
+.login div .signup h2 {
+    text-align: right;
+}
+
+.login div div h2 {
+    color: #4F6939;
+}
+
+.login div .signup form .form-group {
+    float: right;
+    width: 60%;
+}
+
+.login div .signup form .form-group > div {
+    padding: 3px;
+}
+
+.login div .signup form .form-group input[type='submit'] {
+    float: right;
+}
+
+.login div .signin form .form-group {
+    float: left;
+    width: 60%;
+}
+
+.login div .signin form .form-group > div {
+    padding: 3px;
+}
+
+/*
  LAYOUT PROPERTY - FOOTER - MAIN FOOTER
 */
-
 footer .footer {
     background-color: #506F82;
     min-height: 210px;    
