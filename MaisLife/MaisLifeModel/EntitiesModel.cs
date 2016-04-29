@@ -106,6 +106,14 @@ namespace MaisLifeModel
 			}
 		}
 		
+		public IQueryable<Contato> Contatos 
+		{
+			get
+			{
+				return this.GetAll<Contato>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -152,6 +160,10 @@ namespace MaisLifeModel
 			get;
 		}
 		IQueryable<Carrinho> Carrinhos
+		{
+			get;
+		}
+		IQueryable<Contato> Contatos
 		{
 			get;
 		}

@@ -144,9 +144,6 @@
         <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="87aae71d-612d-4d4a-bd9e-f78ab432ad94" type="System.String">
           <orm:column name="status" sql-type="enum" nullable="true" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_produto_pedidos" property="Produto_pedidos" behavior="readwrite" uniqueId="cbbee1fa-a115-4202-978e-a3799922fa47" type="MaisLifeModel.Produto_pedido">
-          <orm:collection element-class="MaisLifeModel.Produto_pedido" inverse-field="_pedido1" order-by="" uniqueId="32cbf77d-3c4e-4504-840d-2536c845a499" />
-        </orm:field>
         <orm:field name="_endereco1" property="Endereco1" behavior="readwrite" uniqueId="6f4c6ac1-fdd3-4109-832a-68766d353ef0" type="MaisLifeModel.Endereco">
           <orm:reference uniqueId="5d51b2af-1184-42ed-93e1-9a45877bf75c" association-name="PedidoHasEndereco">
             <orm:sharedfield name="_endereco" target-class="MaisLifeModel.Endereco" target-field="_id" />
@@ -158,6 +155,9 @@
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_pedido_usuario" delete-action="cascade" destination-table="usuario" />
           </orm:reference>
+        </orm:field>
+        <orm:field name="_produto_pedidos" property="Produto_pedidos" behavior="readwrite" uniqueId="cbbee1fa-a115-4202-978e-a3799922fa47" type="MaisLifeModel.Produto_pedido">
+          <orm:collection element-class="MaisLifeModel.Produto_pedido" inverse-field="_pedido1" order-by="" uniqueId="32cbf77d-3c4e-4504-840d-2536c845a499" />
         </orm:field>
         <orm:index name="fk_pedido_endereco_idx">
           <orm:columnMapping>
@@ -206,14 +206,14 @@
         <orm:field name="_cep" property="Cep" behavior="readwrite" uniqueId="97154891-fd9a-442f-939b-219688828b15" type="System.String">
           <orm:column name="cep" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="4addcd2b-9da7-4d3f-a00a-7b6608b086ff" type="MaisLifeModel.Pedido">
-          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_endereco1" order-by="" uniqueId="5d51b2af-1184-42ed-93e1-9a45877bf75c" />
-        </orm:field>
         <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="be96df5c-1975-483e-9b54-7581116a8813" type="MaisLifeModel.Usuario">
           <orm:reference uniqueId="ea95ec5d-62b8-445c-882f-ca042438b42b" association-name="EnderecoHasUsuario">
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_endereco_usuario" delete-action="cascade" destination-table="usuario" />
           </orm:reference>
+        </orm:field>
+        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="4addcd2b-9da7-4d3f-a00a-7b6608b086ff" type="MaisLifeModel.Pedido">
+          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_endereco1" order-by="" uniqueId="5d51b2af-1184-42ed-93e1-9a45877bf75c" />
         </orm:field>
         <orm:index name="fk_endereco_usuario_idx">
           <orm:columnMapping>
@@ -283,20 +283,48 @@
         <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="7bc85e3a-cc1e-4901-b2b8-3061383b5d8c" type="System.String">
           <orm:column name="status" sql-type="enum" nullable="true" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="a99951f6-ca94-4baf-9825-7ca3f6e3ce45" type="MaisLifeModel.Carrinho_produto">
-          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_carrinho1" order-by="" uniqueId="9954482d-aace-4dc4-8679-8cd29d3ee95d" />
-        </orm:field>
         <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="2fe256bf-347c-4e60-960a-a451ab61689e" type="MaisLifeModel.Usuario">
           <orm:reference uniqueId="965b6416-0831-4144-bb67-4c08acee40cb" association-name="CarrinhoHasUsuario">
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_carrinho_usuario" delete-action="cascade" destination-table="usuario" />
           </orm:reference>
         </orm:field>
+        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="a99951f6-ca94-4baf-9825-7ca3f6e3ce45" type="MaisLifeModel.Carrinho_produto">
+          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_carrinho1" order-by="" uniqueId="9954482d-aace-4dc4-8679-8cd29d3ee95d" />
+        </orm:field>
         <orm:index name="fk_carrinho_usuario_idx">
           <orm:columnMapping>
             <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
+      </orm:class>
+      <orm:class name="Contato" uniqueId="57e1bfd0-bb64-4d44-af4f-062c1537f1c6">
+        <orm:table name="contato" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="e0d627e8-b316-4569-b3fd-efc0134c73d6" type="System.Int32">
+          <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="64a9848e-4099-4ab3-bb13-fda0efaad758" type="System.String">
+          <orm:column name="nome" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_assunto" property="Assunto" behavior="readwrite" uniqueId="eafc2bc2-99e0-4c52-a27b-22b7792f243a" type="System.String">
+          <orm:column name="assunto" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="911a3287-4d03-4715-b409-7063a3616164" type="System.String">
+          <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="d0fab918-a44e-49aa-bddd-41cd0b55693f" type="System.String">
+          <orm:column name="telefone" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_mensagem" property="Mensagem" behavior="readwrite" uniqueId="d4bbb7aa-eef6-4248-9cb4-d33c23a4fbfc" type="System.String">
+          <orm:column name="mensagem" sql-type="nvarchar" nullable="true" length="500" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -416,6 +444,14 @@
           <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:constraint>
       </orm:table>
+      <orm:table name="contato">
+        <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nome" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="assunto" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="telefone" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="mensagem" sql-type="nvarchar" nullable="true" length="500" scale="0" ado-type="UnicodeStringVariableLength" />
+      </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
       <orm:source-strategy>Property</orm:source-strategy>
@@ -424,7 +460,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>Connection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>Persist Security Info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=5bb36aac;</AppConfigConnectionString>
+    <AppConfigConnectionString>persist security info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=5bb36aac</AppConfigConnectionString>
     <NamingSettings>
       <ClassRules>
         <CaseMode>PascalCase</CaseMode>
@@ -680,6 +716,14 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="57e1bfd0-bb64-4d44-af4f-062c1537f1c6" name="Contato" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="e0d627e8-b316-4569-b3fd-efc0134c73d6" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="eafc2bc2-99e0-4c52-a27b-22b7792f243a" name="Assunto" label="Assunto : String" kind="Persistent" fieldName="_assunto" />
+      <Property Id="911a3287-4d03-4715-b409-7063a3616164" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
+      <Property Id="d4bbb7aa-eef6-4248-9cb4-d33c23a4fbfc" name="Mensagem" label="Mensagem : String" kind="Persistent" fieldName="_mensagem" />
+      <Property Id="64a9848e-4099-4ab3-bb13-fda0efaad758" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="d0fab918-a44e-49aa-bddd-41cd0b55693f" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="f996cbe1-3a77-475c-a3dd-d31241666f47">
@@ -691,6 +735,7 @@
         <entitySetProperty name="Enderecos" namespace="MaisLifeModel" type="Endereco" label="Enderecos : IQueryable&lt;MaisLifeModel.Endereco&gt;" />
         <entitySetProperty name="Carrinho_produtos" namespace="MaisLifeModel" type="Carrinho_produto" label="Carrinho_produtos : IQueryable&lt;MaisLifeModel.Carrinho_produto&gt;" />
         <entitySetProperty name="Carrinhos" namespace="MaisLifeModel" type="Carrinho" label="Carrinhos : IQueryable&lt;MaisLifeModel.Carrinho&gt;" />
+        <entitySetProperty name="Contatos" namespace="MaisLifeModel" type="Contato" label="Contatos : IQueryable&lt;MaisLifeModel.Contato&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

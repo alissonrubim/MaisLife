@@ -18,12 +18,11 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using MaisLifeModel;
 
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Carrinho : System.Runtime.Serialization.ISerializable
+	public partial class Contato : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,77 +37,96 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _usuario;
-		public virtual int? Usuario
+		private string _nome;
+		public virtual string Nome
 		{
 			get
 			{
-				return this._usuario;
+				return this._nome;
 			}
 			set
 			{
-				this._usuario = value;
+				this._nome = value;
 			}
 		}
 		
-		private string _status;
-		public virtual string Status
+		private string _assunto;
+		public virtual string Assunto
 		{
 			get
 			{
-				return this._status;
+				return this._assunto;
 			}
 			set
 			{
-				this._status = value;
+				this._assunto = value;
 			}
 		}
 		
-		private Usuario _usuario1;
-		public virtual Usuario Usuario1
+		private string _email;
+		public virtual string Email
 		{
 			get
 			{
-				return this._usuario1;
+				return this._email;
 			}
 			set
 			{
-				this._usuario1 = value;
+				this._email = value;
 			}
 		}
 		
-		private IList<Carrinho_produto> _carrinho_produtos = new List<Carrinho_produto>();
-		public virtual IList<Carrinho_produto> Carrinho_produtos
+		private string _telefone;
+		public virtual string Telefone
 		{
 			get
 			{
-				return this._carrinho_produtos;
+				return this._telefone;
 			}
-            set
+			set
 			{
-				 this._carrinho_produtos = value;
+				this._telefone = value;
+			}
+		}
+		
+		private string _mensagem;
+		public virtual string Mensagem
+		{
+			get
+			{
+				return this._mensagem;
+			}
+			set
+			{
+				this._mensagem = value;
 			}
 		}
 		
 		#region ISerializable Implementation
 		
-		public Carrinho()
+		public Contato()
 		{
 		}
 		
-		protected Carrinho(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Contato(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Usuario = (int?)info.GetValue("Usuario", typeof(int?));
-			this.Status = info.GetString("Status");
+			this.Nome = info.GetString("Nome");
+			this.Assunto = info.GetString("Assunto");
+			this.Email = info.GetString("Email");
+			this.Telefone = info.GetString("Telefone");
+			this.Mensagem = info.GetString("Mensagem");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Usuario", this.Usuario, typeof(int?));
-			info.AddValue("Status", this.Status, typeof(string));
+			info.AddValue("Nome", this.Nome, typeof(string));
+			info.AddValue("Assunto", this.Assunto, typeof(string));
+			info.AddValue("Email", this.Email, typeof(string));
+			info.AddValue("Telefone", this.Telefone, typeof(string));
+			info.AddValue("Mensagem", this.Mensagem, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		
