@@ -1,4 +1,5 @@
 ﻿using MaisLife.Helper;
+using MaisLife.Models.Adapter;
 using MaisLifeModel;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,16 @@ namespace MaisLife.Controllers
         {
 
             return View();
+        }
+
+        public ActionResult CreateContato(ContatoAdapter contato)
+        {
+            ConfigDB.Model.Add(contato.ToContato());
+            if (ConfigDB.Model.HasChanges)
+            {
+                ConfigDB.Model.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
     }
