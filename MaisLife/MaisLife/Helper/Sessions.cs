@@ -11,7 +11,7 @@ namespace MaisLife.Helper
 {
     public class Sessions
     {
-        public static Usuario Login(Usuario user)
+        private static Usuario Login(Usuario user)
         {
             if (user != null)
             {
@@ -26,9 +26,8 @@ namespace MaisLife.Helper
             HttpContext.Current.Request.Cookies.Remove("UserMaisLife");
         }
 
-        public static Usuario CreateCookie(string email, string senha, Boolean keep)
+        public static Usuario CreateCookie(Usuario user, Boolean keep)
         {
-            Usuario user = ConfigDB.Model.Usuarios.Where(f => f.Email == email && f.Senha == senha).First();
             if (user != null)
             {
 

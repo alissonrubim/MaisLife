@@ -33,5 +33,25 @@ namespace MaisLife.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult CreateUser(UsuarioAdapter user)
+        {
+            if (Validation.ExistingEmailValidation(user.Email))
+            {
+                ConfigDB.Model.Add(user.toUsuario());
+                if (ConfigDB.Model.HasChanges)
+                {
+                    ConfigDB.Model.SaveChanges();
+
+                    Sessions.CreateCookie(user.toUsuario(), false);
+                }
+            }
+            else
+            {
+                TempData["MessageErroRegister"] = "E-mail ja cadastrado";
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -109,12 +110,11 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signup">
                 <h2>Cadastre-se</h2>
                 @model MaisLife.Models.Adapter.UsuarioAdapter
-                @using (Html.BeginForm("CreateUsuario", "Home"))
+                @using (Html.BeginForm("CreateUser", "Home"))
                 {
                     @Html.AntiForgeryToken()
-
+                    
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
 
                     <div class="form-group">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -135,6 +135,9 @@
                             @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
                             @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                         </div>
+                        <div class="text-danger">
+                            @TempData["MessageErroRegister"]
+                        </div>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Cadastrar" class="btn btn-success" />
@@ -143,7 +146,7 @@
     </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signin">
                 <h2>ou conecte-se...</h2>                
-                @using (Html.BeginForm("LoginUsuario", "Home"))
+                @using (Html.BeginForm("LoginUser", "Home"))
                 {
                     @Html.AntiForgeryToken()
 

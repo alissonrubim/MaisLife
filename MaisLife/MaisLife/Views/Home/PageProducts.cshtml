@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MaisLifeModel.Produto>
+
+@{
+    ViewBag.Title = "PageProducts";
+}
+
+<h2>PageProducts</h2>
+
+
+        @foreach (var item in Model)
+        {
+            
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="~/Images/know-img.png" class="img-responsive" />
+                    </div>
+                    <div class="product-info">
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Nome)</li>
+                            <li class="list-group-item">3 Un.<div class="right">R$ @Html.DisplayFor(modelItem => item.Preco)</div></li>
+                            <li class="list-group-item">
+                                <button type="button" class="btn btn-success">Comprar</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+
