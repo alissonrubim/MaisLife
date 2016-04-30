@@ -17,12 +17,6 @@ namespace MaisLife.Controllers
             return View();
         }
 
-        public ActionResult Tezst() 
-        {
-
-            return View();
-        }
-
         public ActionResult CreateContact(ContatoAdapter contato)
         {
             ConfigDB.Model.Add(contato.ToContato());
