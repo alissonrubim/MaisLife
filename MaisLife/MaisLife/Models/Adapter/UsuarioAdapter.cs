@@ -24,7 +24,7 @@ namespace MaisLife.Models.Adapter
         [StringLength(10, MinimumLength = 6, ErrorMessage = "A senha deve conter de 6 a 10 dígitos")]  
         public string Senha { get; set; }               
 
-        public Usuario toUsuario()
+        public Usuario ToUsuario()
         {
             return new Usuario()
             {
@@ -36,7 +36,7 @@ namespace MaisLife.Models.Adapter
             };
         }
 
-        public UsuarioAdapter toUsuarioAdapter(Usuario usuario)
+        public UsuarioAdapter ToUsuarioAdapter(Usuario usuario)
         {
             return new UsuarioAdapter()
             {

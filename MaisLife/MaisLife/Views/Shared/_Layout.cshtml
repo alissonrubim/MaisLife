@@ -135,8 +135,8 @@
                             @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
                             @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                         </div>
-                        <div class="text-danger">
-                            @TempData["MessageErroRegister"]
+                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                            <div class="text-danger">@TempData["MessageErroRegister"]</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -162,10 +162,14 @@
                             @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
                             @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                         </div>
+                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                            <div class="text-danger"> @TempData["MessageErroLogin"]</div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Conectar" class="btn btn-success" />
                     </div>
+                    
                 }
             </div>
         </div>

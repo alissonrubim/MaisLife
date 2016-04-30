@@ -15,7 +15,7 @@ namespace MaisLife.Helper
         {
             if (user != null)
             {
-                HttpContext.Current.Session["user"] = user;
+                HttpContext.Current.Session["user"] = ConfigDB.Model.Usuarios.Where(f => f.Email == user.Email).FirstOrDefault();
             }
             return user;
         }

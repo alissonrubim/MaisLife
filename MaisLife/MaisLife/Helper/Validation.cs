@@ -9,9 +9,9 @@ namespace MaisLife.Helper
 {
     public class Validation
     {
-        public static bool ValidationLogin(string email, string senha)
+        public static bool ValidationLogin(UsuarioAdapter u)
         {
-            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == email && f.Senha == senha).FirstOrDefault();
+            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == u.Email && f.Senha == u.Senha).FirstOrDefault();
 
             if (user != null)
                 return true;
@@ -19,9 +19,9 @@ namespace MaisLife.Helper
             return false;
         }
 
-        public static bool ExistingEmailValidation(string email)
+        public static bool ExistingEmailValidation(UsuarioAdapter u)
         {
-            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == email).FirstOrDefault();
+            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == u.Email).FirstOrDefault();
 
             if (user == null)
                 return true;

@@ -35,21 +35,32 @@ namespace MaisLife.Controllers
 
         public ActionResult CreateUser(UsuarioAdapter user)
         {
-            if (Validation.ExistingEmailValidation(user.Email))
+            if (Validation.ExistingEmailValidation(user))
             {
-                ConfigDB.Model.Add(user.toUsuario());
+                ConfigDB.Model.Add(user.ToUsuario());
                 if (ConfigDB.Model.HasChanges)
                 {
                     ConfigDB.Model.SaveChanges();
-
-                    Sessions.CreateCookie(user.toUsuario(), false);
+                    Sessions.CreateCookie(user.ToUsuario(), false);
                 }
             }
             else
             {
                 TempData["MessageErroRegister"] = "E-mail ja cadastrado";
             }
+            return RedirectToAction("Index");
+        }
 
+        public ActionResult LoginUser(UsuarioAdapter user)
+        {
+            if(Validation.ValidationLogin(user))
+            {
+                Sessions.CreateCookie(user.ToUsuario(), false);
+            }
+            else
+            {
+                TempData["MessageErroLogin"] = "E-mail ou senha incorretos";
+            }
             return RedirectToAction("Index");
         }
 
