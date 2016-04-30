@@ -64,5 +64,12 @@ namespace MaisLife.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult LogoutUser()
+        {
+            Sessions.Logout();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -16,8 +16,13 @@
     <div class="navbar navbar-default upper-bar  hidden-sm hidden-xs">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li><a href="#" data-content="scroll-link" data-target="login">Cadastre-se / Entre</a></li>
-                <li><a href="#">Meus pedidos</a></li>
+                @{
+                    var session = @Session["user"];
+                 }
+
+                  @( session == null ? Html.Raw("<li><a href='#' data-content='scroll-link' data-target='login'>Cadastre-se / Entre</a></li>") :
+                                               Html.Raw("<li><a href='#'>Meus pedidos</a></li><li><a href='/Home/LogoutUser'>Sair</a></li>"))
+                
                 <li class="navbar-right navbar-iconbox">
                     <img src="~/Images/face-icon.png" />
                 </li>
