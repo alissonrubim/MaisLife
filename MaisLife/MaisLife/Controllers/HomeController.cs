@@ -17,6 +17,26 @@ namespace MaisLife.Controllers
             return View();
         }
 
+        public ActionResult Produtos()
+        {
+            var products = ConfigDB.Model.Produtos.ToList();
+            ViewBag.Products = products; 
+            return View();
+        }
+
+        public ActionResult Produto(int id)
+        {
+            var products = ConfigDB.Model.Produtos;
+            var product = products.FirstOrDefault(f => f.Id == id);
+            if (product != null)
+            {
+                ViewBag.Products = products.ToList();
+                ViewBag.Product = product;
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+        
         public ActionResult CreateContact(ContatoAdapter contato)
         {
             ConfigDB.Model.Add(contato.ToContato());
@@ -40,7 +60,7 @@ namespace MaisLife.Controllers
             }
             else
             {
-                TempData["MessageErroRegister"] = "E-mail ja cadastrado";
+                TempData["MessageErroRegister"] = "E-mail já cadastrado";
             }
             return RedirectToAction("Index");
         }

@@ -102,13 +102,16 @@
           <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="_descricao" property="Descricao" behavior="readwrite" uniqueId="64fc24f7-d7fd-492b-b4d2-2262b0448ab9" type="System.String">
-          <orm:column name="descricao" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+          <orm:column name="descricao" sql-type="text" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         </orm:field>
-        <orm:field name="_preco" property="Preco" behavior="readwrite" uniqueId="02f922b5-7d06-437b-975a-03df1ef76e9a" type="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
-          <orm:column name="preco" sql-type="decimal" nullable="true" length="10" scale="2" ado-type="Decimal" />
+        <orm:field name="_preco" property="Preco" behavior="readwrite" uniqueId="02f922b5-7d06-437b-975a-03df1ef76e9a" type="System.Decimal">
+          <orm:column name="preco" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
         <orm:field name="_imagem" property="Imagem" behavior="readwrite" uniqueId="6f29828e-f31e-4027-ae1d-d1d515b5f470" type="System.String">
           <orm:column name="imagem" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_unidade" property="Unidade" behavior="readwrite" uniqueId="230da304-798d-41ce-83ef-2de73656a46d" type="System.Int32">
+          <orm:column name="unidade" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
         <orm:field name="_produto_pedidos" property="Produto_pedidos" behavior="readwrite" uniqueId="5415ddb8-1dc1-4a61-99ed-9f8522fbb8d7" type="MaisLifeModel.Produto_pedido">
           <orm:collection element-class="MaisLifeModel.Produto_pedido" inverse-field="_produto1" order-by="" uniqueId="0e0a2d3d-12bc-419b-a6ed-7d37f01fde38" />
@@ -362,9 +365,10 @@
       <orm:table name="produto">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="descricao" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
-        <orm:column name="preco" sql-type="decimal" nullable="true" length="10" scale="2" ado-type="Decimal" />
+        <orm:column name="descricao" sql-type="text" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="preco" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         <orm:column name="imagem" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="unidade" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
       </orm:table>
       <orm:table name="pedido">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
@@ -555,7 +559,8 @@
       <Property Id="64fc24f7-d7fd-492b-b4d2-2262b0448ab9" name="Descricao" label="Descricao : String" kind="Persistent" fieldName="_descricao" />
       <Property Id="6f29828e-f31e-4027-ae1d-d1d515b5f470" name="Imagem" label="Imagem : String" kind="Persistent" fieldName="_imagem" />
       <Property Id="d67a8ee7-7c9e-453e-9649-3449f2577251" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="02f922b5-7d06-437b-975a-03df1ef76e9a" name="Preco" type="Decimal" label="Preco : Decimal" nullable="true" kind="Persistent" fieldName="_preco" />
+      <Property Id="02f922b5-7d06-437b-975a-03df1ef76e9a" name="Preco" type="Decimal" label="Preco : Decimal" kind="Persistent" fieldName="_preco" />
+      <Property Id="230da304-798d-41ce-83ef-2de73656a46d" name="Unidade" type="Int32" label="Unidade : Int32" kind="Persistent" fieldName="_unidade" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="6a1ef61c-489a-4399-a0ef-728a26641585">
           <NavigationalProperty Id="5415ddb8-1dc1-4a61-99ed-9f8522fbb8d7" name="Produto_pedidos" type="IList&lt;Produto_pedido&gt;" label="Produto_pedidos : IList&lt;Produto_pedido&gt;" nullable="true" kind="Persistent" fieldName="_produto_pedidos" isDependent="false" isManaged="false" />

@@ -198,6 +198,7 @@ input, textarea, select {
 .login {
     border-bottom: 1px solid #769B55;
     display: none;
+    box-shadow: 12px 3px 10px #333333;
 }
 
 .login div {
@@ -755,4 +756,134 @@ footer .brand-footer div .footer-menu ul li a:hover {
 .contact .container form .form-group button {
     width: 150px;
     border-radius: 0;
+}
+
+/*
+ PAGE PROPERTY - STORE - GLOBAL
+*/
+.store-page {
+    border-right: 1px solid #CCCCCC;
+    border-left:  1px solid #CCCCCC;
+    padding: 20px;
+}
+
+/*
+ PAGE PROPERTY - STORE - ALL PRODUCTS
+*/
+.product-box {
+    
+}
+
+.product-box a {
+    color: #333333;
+}
+
+.product-box a:hover {
+    color: #333333;
+    text-decoration: none;
+}
+
+.product-box a .product {
+    border: 1px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
+    padding: 5px;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+}
+
+.product-box a .product:hover {
+    background-color: rgba(117, 158, 183, 0.36);
+    border-bottom: 2px solid #759EB7;
+}
+
+.product-box a .product .product-img {
+
+}
+
+.product-box a .product .product-info {
+
+}
+
+.product-box a .product .product-info ul {
+
+}
+
+.product-box a .product .product-info ul li {
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+}
+
+.product-box a .product .product-info ul li:first-child {
+    text-align: center;
+    font-weight: bold;
+}
+
+.product-box a .product .product-info ul li a {
+
+}
+
+/*
+ PAGE PROPERTY - STORE - SINGLE PRODUCT
+*/
+.product-page {
+    
+}
+
+.product-page .page-header h1 small {
+    color: #333333;
+}
+
+.product-page .row {
+    padding-bottom: 20px;  
+   
+}  
+}
+
+.product-page .row:last-child {
+    border-bottom: none;
+    padding-top: 20px;
+}
+
+.product-page .row > div:last-child {
+    border-right: none;
+}
+
+.product-page .row .product-img-box {
+    border-right: 1px solid #EEEEEE;
+}
+
+.product-page .row .product-info-box {
+
+}
+
+.product-page .row .product-info-box .product-price {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin-bottom: 5px;   
+}
+
+.product-page .row .product-info-box .product-description {    
+    
+}
+
+.product-page .row .product-btn-box {
+
+}
+
+.product-page .row .product-btn-box button {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.product-page .row .product-btn-box button a {
+    color: #FFFFFF;
+}
+
+.product-others{
+    float: left;
+    padding: 20px;
+    border-top: 1px solid #CCCCCC;
+    background-color: rgba(118, 155, 85, 0.24);
 }
