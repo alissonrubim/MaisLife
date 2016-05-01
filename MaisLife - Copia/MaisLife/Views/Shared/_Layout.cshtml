@@ -1,0 +1,220 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MaisLife</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/JavaScripts/Home.js"></script>
+</head>
+<body>
+    <!-- UPPER BAR START -->
+    <div class="navbar navbar-default upper-bar  hidden-sm hidden-xs">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                @{
+                    var session = @Session["user"];
+                }
+
+                @( session == null ? Html.Raw("<li><a href='#' data-content='scroll-link' data-target='login'>Cadastre-se / Entre</a></li>") :
+                                               Html.Raw("<li><a href='#'>Meus pedidos</a></li><li><a href='/Home/LogoutUser'>Sair</a></li>"))
+
+                <li class="navbar-right navbar-iconbox">
+                    <img src="~/Images/face-icon.png" />
+                </li>
+                <li class="navbar-right navbar-content">
+                    <p>Entrega gratuita em compras a partir de R$ 100,00</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- UPPER BAR END -->
+    <!-- HEADER START -->
+    <div class="navbar navbar-default header">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="~/Images/logo.png">
+                    </a>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                    <div>Compre por telefone!</div>
+                    <span class="glyphicon glyphicon-earphone"></span>
+                    <div class="header-item-text">
+                        <p>
+                            32 32365268 <br />
+                            32 99866525
+                        </p>
+                    </div>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                    <div>Onde estamos!</div>
+                    <span class="glyphicon glyphicon-globe"></span>
+                    <div class="header-item-text">
+                        <p>
+                            Av. Dos Andradas <br />
+                            619, Centro
+                        </p>
+                    </div>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                    <div>Carrinho de compras</div>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    <div class="header-item-text">
+                        <p>
+                            Nenhum item <br />
+                            :(
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- HEADER END -->
+    <!-- MENU START -->
+    <div class="navbar navbar-default menu">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav hidden-sm hidden-xs">
+                    <li><a href="#" data-content="scroll-link" data-target="know">Nosso produtos</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="about">Quem somos</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="products">Loja virtual</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="health">Para a saúde</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="">Onde comprar</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="contact">Contato</a></li>
+                </ul>
+                <ul class="nav navbar-nav hidden-lg hidden-md">
+                    <li><a href="#">Minha conta / Login</a></li>
+                    <li><a href="#">Meus pedidos</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="know">Nosso produtos</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="about">Quem somos</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="products">Loja virtual</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="health">Para a saúde</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="">Onde comprar</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="contact">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- MENU END -->
+    <!-- LOGIN START -->
+    <div id="login" class="content-row login">
+        <div class="container">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signup">
+                <h2>Cadastre-se</h2>
+                @model MaisLife.Models.Adapter.UsuarioAdapter
+                @using (Html.BeginForm("CreateUser", "Home"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            @Html.EditorFor(model => model.Sobrenome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sobrenome" } })
+                            @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
+                            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                            <div class="text-danger">@TempData["MessageErroRegister"]</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signin">
+                <h2>ou conecte-se...</h2>
+                @using (Html.BeginForm("LoginUser", "Home"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
+                            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                            <div class="text-danger"> @TempData["MessageErroLogin"]</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Conectar" class="btn btn-success" />
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    <!-- LOGIN END -->
+
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="footer">
+            <div class="container">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">a</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">b</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">c</div>
+            </div>
+        </div>
+        <div class="brand-footer">
+            <div class="container">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <img src="~/Images/logo.png" />
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <div class="copyright">+Life Todos os direitos reservados &#169; @DateTime.Now.Year - Desenvolvimento QWERT</div>
+                    <div class="footer-menu">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Quem somos</a></li>
+                            <li><a href="#">Loja virtual</a></li>
+                            <li><a href="#">Contato</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
