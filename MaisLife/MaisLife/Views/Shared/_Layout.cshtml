@@ -115,7 +115,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signup">
                 <h2>Cadastre-se</h2>
                 @model MaisLife.Models.Adapter.UsuarioAdapter
-                @using (Html.BeginForm("CreateUser", "Home"))
+                @using (Html.BeginForm("CreateUser", "Home"))               
                 {
                     @Html.AntiForgeryToken()
 

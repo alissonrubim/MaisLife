@@ -120,6 +120,7 @@
     <Compile Include="Helper\Sessions.cs" />
     <Compile Include="Helper\Validation.cs" />
     <Compile Include="Models\Adapter\ContatoAdapter.cs" />
+    <Compile Include="Models\Adapter\ProdutoAdapter.cs" />
     <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -132,6 +133,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Views\Home\Produtos.cshtml" />
+    <Content Include="Views\Home\Produto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
