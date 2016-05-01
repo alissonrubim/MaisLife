@@ -136,9 +136,9 @@ namespace MaisLife.Helper
 
         public static void FindShoppingCart()
         {
+
             HttpContext.Current.Session.Remove("shoppingCar");
 
-            Carrinho cart = new Carrinho();
             List<Carrinho_produto> relProducts = new List<Carrinho_produto>();
 
 
@@ -154,7 +154,6 @@ namespace MaisLife.Helper
                 int amount = Convert.ToInt16(aux[1]);
 
                 Carrinho_produto relProduct = new Carrinho_produto();
-                relProduct.Carrinho1 = cart;
 
                 Produto product = ConfigDB.Model.Produtos.Where(f => f.Id == idProduct).First();
                 relProduct.Produto1 = product;
@@ -163,8 +162,82 @@ namespace MaisLife.Helper
                 relProducts.Add(relProduct);
             }
 
-            cart.Carrinho_produtos = relProducts;
-            HttpContext.Current.Session["shoppingCar"] = cart;
+            HttpContext.Current.Session["shoppingCar"] = relProducts;
+
+        }
+
+        public static void EditProductInShoppingCart(int id, int amount)
+        {
+            string[] productsString;
+            List<string> productsList = new List<string>();
+
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["shoppingCartMaisLife"];
+
+
+            if (cookie != null)
+            {
+                productsString = cookie.Value.ToString().Split(new Char[] { ',' });
+
+                for (int i = 0; i <= productsString.Length - 1; i++)
+                {
+                    productsList.Add(productsString[i]);
+                }
+                //AUXILIARES PARA ADD E DELETE DOS PRODUTOS
+                string productToDelete = "";
+                string productToAdd = "";
+
+                foreach (string p in productsList)
+                {
+                    //CONVERT PARA INT PARA MANIPULAÇÃO
+                    string[] aux = p.Split(new Char[] { ':' });
+                    int idProduct = Convert.ToInt16(aux[0]);
+
+                    if (idProduct == id)
+                    {
+                        productToDelete = p;
+                        productToAdd = idProduct + ":" + amount;
+                    }
+                }
+
+                if(amount > 0)
+                {
+                    productsList.Add(productToAdd);
+                    productsList.Remove(productToDelete);
+                }
+                else
+                {
+                    productsList.Remove(productToDelete);
+                }
+                
+
+
+            }
+
+            string productCookie = "";
+            int cont = 1;
+            foreach (string p in productsList)
+            {
+                if (!(cont == (productsList.Count)))
+                {
+                    productCookie += p + ",";
+                }
+                else
+                {
+                    productCookie += p;
+                }
+                cont++;
+            }
+
+            HttpContext.Current.Request.Cookies.Remove("shoppingCartMaisLife");
+
+            if(productCookie != ""){
+                cookie = new HttpCookie("shoppingCartMaisLife");
+                cookie.Value = productCookie;
+                TimeSpan expiration = new TimeSpan(365, 0, 0, 0);
+                cookie.Expires = DateTime.Now + expiration;
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            
 
         }
     }

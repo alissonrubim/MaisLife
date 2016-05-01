@@ -14,6 +14,11 @@ namespace MaisLife.Controllers
         // GET: Home
         public ActionResult Index()
         {
+
+            Sessions.EditProductInShoppingCart(2, 0);
+
+            HttpCookie cookie = Request.Cookies["shoppingCartMaisLife"];
+
             return View();
         }
 
