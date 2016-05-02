@@ -114,6 +114,14 @@ namespace MaisLifeModel
 			}
 		}
 		
+		public IQueryable<Bairro> Bairros 
+		{
+			get
+			{
+				return this.GetAll<Bairro>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -164,6 +172,10 @@ namespace MaisLifeModel
 			get;
 		}
 		IQueryable<Contato> Contatos
+		{
+			get;
+		}
+		IQueryable<Bairro> Bairros
 		{
 			get;
 		}

@@ -185,26 +185,26 @@
         <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="6babe7c1-6916-4bcf-ba7d-22f39d23b136" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="118a0157-0572-4bbf-a428-09b00227326b" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
-          <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="118a0157-0572-4bbf-a428-09b00227326b" type="System.Int32">
+          <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
         <orm:field name="_pais" property="Pais" behavior="readwrite" uniqueId="f5f2823e-d52c-4a08-8722-b2b7a10e2670" type="System.String">
-          <orm:column name="pais" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+          <orm:column name="pais" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="_estado" property="Estado" behavior="readwrite" uniqueId="591903dd-47f2-40f1-8e7c-2c351a9be922" type="System.String">
-          <orm:column name="estado" sql-type="nvarchar" nullable="true" length="2" scale="0" ado-type="UnicodeStringVariableLength" />
+          <orm:column name="estado" sql-type="nvarchar" nullable="false" length="2" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="_cidade" property="Cidade" behavior="readwrite" uniqueId="f6ced084-2fb6-4f09-8dba-641723ac9727" type="System.String">
-          <orm:column name="cidade" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+          <orm:column name="cidade" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="50487533-d89c-43c6-b048-69901394903e" type="System.String">
-          <orm:column name="bairro" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="50487533-d89c-43c6-b048-69901394903e" type="System.Int32">
+          <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
         <orm:field name="_rua" property="Rua" behavior="readwrite" uniqueId="ae85e085-753c-4e78-ab9e-bbd15c673d7a" type="System.String">
-          <orm:column name="rua" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+          <orm:column name="rua" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="_numero" property="Numero" behavior="readwrite" uniqueId="3395c6ca-f1cd-4d52-8813-ccada9ef3e8a" type="System.String">
-          <orm:column name="numero" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+          <orm:column name="numero" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="_cep" property="Cep" behavior="readwrite" uniqueId="97154891-fd9a-442f-939b-219688828b15" type="System.String">
           <orm:column name="cep" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
@@ -218,9 +218,20 @@
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="4addcd2b-9da7-4d3f-a00a-7b6608b086ff" type="MaisLifeModel.Pedido">
           <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_endereco1" order-by="" uniqueId="5d51b2af-1184-42ed-93e1-9a45877bf75c" />
         </orm:field>
+        <orm:field name="_bairro1" property="Bairro1" behavior="readwrite" uniqueId="279c48d5-4362-48aa-8ad3-795b1fb66d3e" type="MaisLifeModel.Bairro">
+          <orm:reference uniqueId="acf321b9-8f63-468f-b8da-8cf9a43d7167" association-name="EnderecoHasBairro">
+            <orm:sharedfield name="_bairro" target-class="MaisLifeModel.Bairro" target-field="_id" />
+            <orm:constraint name="fk_endereco_bairro" delete-action="cascade" destination-table="bairro" />
+          </orm:reference>
+        </orm:field>
         <orm:index name="fk_endereco_usuario_idx">
           <orm:columnMapping>
-            <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+            <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="fk_endereco_bairro_idx">
+          <orm:columnMapping>
+            <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:class>
@@ -329,6 +340,28 @@
           <orm:column name="mensagem" sql-type="nvarchar" nullable="true" length="500" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
       </orm:class>
+      <orm:class name="Bairro" uniqueId="1e8b322a-e66c-49a5-b0e5-a592cac3bfad">
+        <orm:table name="bairro" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="be4b0bfc-4172-4543-b895-b86a5a34bee3" type="System.Int32">
+          <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="a0b4ee95-5cea-4062-8723-7e93f8287311" type="System.String">
+          <orm:column name="nome" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_taxa" property="Taxa" behavior="readwrite" uniqueId="f0f9d1ad-dc07-4e19-9e44-edcec2e96ae0" type="System.Decimal">
+          <orm:column name="taxa" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Decimal" />
+        </orm:field>
+        <orm:field name="_enderecos" property="Enderecos" behavior="readwrite" uniqueId="684e0fee-0bc5-4e4a-a1cd-0036ea3aee8a" type="MaisLifeModel.Endereco">
+          <orm:collection element-class="MaisLifeModel.Endereco" inverse-field="_bairro1" order-by="" uniqueId="acf321b9-8f63-468f-b8da-8cf9a43d7167" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="usuario">
@@ -396,21 +429,29 @@
       </orm:table>
       <orm:table name="endereco">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
-        <orm:column name="pais" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="estado" sql-type="nvarchar" nullable="true" length="2" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="cidade" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="bairro" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="rua" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
-        <orm:column name="numero" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="pais" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="estado" sql-type="nvarchar" nullable="false" length="2" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="cidade" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="rua" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="numero" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="cep" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:index name="fk_endereco_usuario_idx">
           <orm:columnMapping>
-            <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+            <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="fk_endereco_bairro_idx">
+          <orm:columnMapping>
+            <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
         <orm:constraint name="fk_endereco_usuario" delete-action="cascade" destination-table="usuario">
-          <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+          <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+        <orm:constraint name="fk_endereco_bairro" delete-action="cascade" destination-table="bairro">
+          <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:constraint>
       </orm:table>
       <orm:table name="carrinho_produto">
@@ -455,6 +496,11 @@
         <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="telefone" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="mensagem" sql-type="nvarchar" nullable="true" length="500" scale="0" ado-type="UnicodeStringVariableLength" />
+      </orm:table>
+      <orm:table name="bairro">
+        <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nome" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="StringVariableLength" />
+        <orm:column name="taxa" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Decimal" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -619,14 +665,14 @@
     </DomainClass>
     <DomainClass Id="4188f653-101a-4e83-afcf-56da603c5b5c" name="Endereco" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
       <Property Id="6babe7c1-6916-4bcf-ba7d-22f39d23b136" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="50487533-d89c-43c6-b048-69901394903e" name="Bairro" label="Bairro : String" kind="Persistent" fieldName="_bairro" />
+      <Property Id="50487533-d89c-43c6-b048-69901394903e" name="Bairro" type="Int32" label="Bairro : Int32" kind="Persistent" fieldName="_bairro" />
       <Property Id="97154891-fd9a-442f-939b-219688828b15" name="Cep" label="Cep : String" kind="Persistent" fieldName="_cep" />
       <Property Id="f6ced084-2fb6-4f09-8dba-641723ac9727" name="Cidade" label="Cidade : String" kind="Persistent" fieldName="_cidade" />
       <Property Id="591903dd-47f2-40f1-8e7c-2c351a9be922" name="Estado" label="Estado : String" kind="Persistent" fieldName="_estado" />
       <Property Id="3395c6ca-f1cd-4d52-8813-ccada9ef3e8a" name="Numero" label="Numero : String" kind="Persistent" fieldName="_numero" />
       <Property Id="f5f2823e-d52c-4a08-8722-b2b7a10e2670" name="Pais" label="Pais : String" kind="Persistent" fieldName="_pais" />
       <Property Id="ae85e085-753c-4e78-ab9e-bbd15c673d7a" name="Rua" label="Rua : String" kind="Persistent" fieldName="_rua" />
-      <Property Id="118a0157-0572-4bbf-a428-09b00227326b" name="Usuario" type="Int32" label="Usuario : Int32" nullable="true" kind="Persistent" fieldName="_usuario" />
+      <Property Id="118a0157-0572-4bbf-a428-09b00227326b" name="Usuario" type="Int32" label="Usuario : Int32" kind="Persistent" fieldName="_usuario" />
       <AssociationTargets>
         <Association Id="ea95ec5d-62b8-445c-882f-ca042438b42b" SourceMultiplicity="ZeroOne" name="EnderecoHasUsuario">
           <DomainClassMoniker name="/EntitiesModel/Usuario" />
@@ -641,6 +687,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="acf321b9-8f63-468f-b8da-8cf9a43d7167" SourceMultiplicity="One" name="EnderecoHasBairro">
+          <DomainClassMoniker name="/EntitiesModel/Bairro" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="75be4cbd-7a12-45e4-9d28-b94b1737ba96">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Bairro/Enderecos" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="ca77f190-f43d-4878-ad52-ef00f7b93fb2">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Endereco/Bairro1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="2b6de911-9f7c-4a5e-9f5e-b09cc7225845">
@@ -648,6 +707,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="4e13aa04-ff31-4855-bde8-51fb655a996b">
           <NavigationalProperty Id="be96df5c-1975-483e-9b54-7581116a8813" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="feb9b846-f1a9-4c69-aa8b-f0b6e5fd4f60">
+          <NavigationalProperty Id="279c48d5-4362-48aa-8ad3-795b1fb66d3e" name="Bairro1" type="Bairro" label="Bairro1 : Bairro" nullable="true" kind="Persistent" fieldName="_bairro1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -729,6 +791,16 @@
       <Property Id="64a9848e-4099-4ab3-bb13-fda0efaad758" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
       <Property Id="d0fab918-a44e-49aa-bddd-41cd0b55693f" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
     </DomainClass>
+    <DomainClass Id="1e8b322a-e66c-49a5-b0e5-a592cac3bfad" name="Bairro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="be4b0bfc-4172-4543-b895-b86a5a34bee3" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="a0b4ee95-5cea-4062-8723-7e93f8287311" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="f0f9d1ad-dc07-4e19-9e44-edcec2e96ae0" name="Taxa" type="Decimal" label="Taxa : Decimal" kind="Persistent" fieldName="_taxa" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="5f694d84-947f-4895-a27c-f2d185468612">
+          <NavigationalProperty Id="684e0fee-0bc5-4e4a-a1cd-0036ea3aee8a" name="Enderecos" type="IList&lt;Endereco&gt;" label="Enderecos : IList&lt;Endereco&gt;" nullable="true" kind="Persistent" fieldName="_enderecos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="f996cbe1-3a77-475c-a3dd-d31241666f47">
@@ -741,6 +813,7 @@
         <entitySetProperty name="Carrinho_produtos" namespace="MaisLifeModel" type="Carrinho_produto" label="Carrinho_produtos : IQueryable&lt;MaisLifeModel.Carrinho_produto&gt;" />
         <entitySetProperty name="Carrinhos" namespace="MaisLifeModel" type="Carrinho" label="Carrinhos : IQueryable&lt;MaisLifeModel.Carrinho&gt;" />
         <entitySetProperty name="Contatos" namespace="MaisLifeModel" type="Contato" label="Contatos : IQueryable&lt;MaisLifeModel.Contato&gt;" />
+        <entitySetProperty name="Bairros" namespace="MaisLifeModel" type="Bairro" label="Bairros : IQueryable&lt;MaisLifeModel.Bairro&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

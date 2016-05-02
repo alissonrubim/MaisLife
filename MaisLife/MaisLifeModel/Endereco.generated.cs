@@ -38,8 +38,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _usuario;
-		public virtual int? Usuario
+		private int _usuario;
+		public virtual int Usuario
 		{
 			get
 			{
@@ -90,8 +90,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private string _bairro;
-		public virtual string Bairro
+		private int _bairro;
+		public virtual int Bairro
 		{
 			get
 			{
@@ -155,6 +155,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private Bairro _bairro1;
+		public virtual Bairro Bairro1
+		{
+			get
+			{
+				return this._bairro1;
+			}
+			set
+			{
+				this._bairro1 = value;
+			}
+		}
+		
 		private IList<Pedido> _pedidos = new List<Pedido>();
 		public virtual IList<Pedido> Pedidos
 		{
@@ -173,11 +186,11 @@ namespace MaisLifeModel
 		protected Endereco(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Usuario = (int?)info.GetValue("Usuario", typeof(int?));
+			this.Usuario = info.GetInt32("Usuario");
 			this.Pais = info.GetString("Pais");
 			this.Estado = info.GetString("Estado");
 			this.Cidade = info.GetString("Cidade");
-			this.Bairro = info.GetString("Bairro");
+			this.Bairro = info.GetInt32("Bairro");
 			this.Rua = info.GetString("Rua");
 			this.Numero = info.GetString("Numero");
 			this.Cep = info.GetString("Cep");
@@ -187,11 +200,11 @@ namespace MaisLifeModel
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Usuario", this.Usuario, typeof(int?));
+			info.AddValue("Usuario", this.Usuario, typeof(int));
 			info.AddValue("Pais", this.Pais, typeof(string));
 			info.AddValue("Estado", this.Estado, typeof(string));
 			info.AddValue("Cidade", this.Cidade, typeof(string));
-			info.AddValue("Bairro", this.Bairro, typeof(string));
+			info.AddValue("Bairro", this.Bairro, typeof(int));
 			info.AddValue("Rua", this.Rua, typeof(string));
 			info.AddValue("Numero", this.Numero, typeof(string));
 			info.AddValue("Cep", this.Cep, typeof(string));

@@ -23,7 +23,7 @@ using MaisLifeModel;
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Carrinho : System.Runtime.Serialization.ISerializable
+	public partial class Bairro : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,96 +38,60 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _usuario;
-		public virtual int? Usuario
+		private string _nome;
+		public virtual string Nome
 		{
 			get
 			{
-				return this._usuario;
+				return this._nome;
 			}
 			set
 			{
-				this._usuario = value;
+				this._nome = value;
 			}
 		}
 		
-		private string _status;
-		public virtual string Status
+		private decimal _taxa;
+		public virtual decimal Taxa
 		{
 			get
 			{
-				return this._status;
+				return this._taxa;
 			}
 			set
 			{
-				this._status = value;
+				this._taxa = value;
 			}
 		}
 		
-		private Usuario _usuario1;
-		public virtual Usuario Usuario1
+		private IList<Endereco> _enderecos = new List<Endereco>();
+		public virtual IList<Endereco> Enderecos
 		{
 			get
 			{
-				return this._usuario1;
-			}
-			set
-			{
-				this._usuario1 = value;
+				return this._enderecos;
 			}
 		}
-		
-		private IList<Carrinho_produto> _carrinho_produtos = new List<Carrinho_produto>();
-		public virtual IList<Carrinho_produto> Carrinho_produtos
-		{
-			get
-			{
-				return this._carrinho_produtos;
-			}
-		}
-
-        public Carrinho_produto checkProduct(Produto produto)
-        {
-            foreach (var rel in Carrinho_produtos)
-            {
-                if (rel.Produto == produto.Id)
-                    return rel;
-            }
-
-            return null;
-        }
-
-        public decimal Total(decimal sum)
-        {
-            decimal? total = 0;
-            foreach (var rel in Carrinho_produtos)
-            {
-                total += rel.Quantidade * rel.Produto1.Preco;
-            }
-
-            return (decimal) total + sum;
-
-        }
 		
 		#region ISerializable Implementation
 		
-		public Carrinho()
+		public Bairro()
 		{
 		}
 		
-		protected Carrinho(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Bairro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Usuario = (int?)info.GetValue("Usuario", typeof(int?));
-			this.Status = info.GetString("Status");
+			this.Nome = info.GetString("Nome");
+			this.Taxa = info.GetDecimal("Taxa");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Usuario", this.Usuario, typeof(int?));
-			info.AddValue("Status", this.Status, typeof(string));
+			info.AddValue("Nome", this.Nome, typeof(string));
+			info.AddValue("Taxa", this.Taxa, typeof(decimal));
 			CustomizeSerializationProcess(info, context);
 		}
 		
