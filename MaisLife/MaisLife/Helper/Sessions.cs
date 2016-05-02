@@ -134,35 +134,41 @@ namespace MaisLife.Helper
 
         }
 
-        public static void FindShoppingCart()
+        public static Carrinho FindShoppingCart()
         {
 
-            HttpContext.Current.Session.Remove("shoppingCar");
-
             List<Carrinho_produto> relProducts = new List<Carrinho_produto>();
-
 
             string[] productsString;
 
             HttpCookie cookie = HttpContext.Current.Request.Cookies["shoppingCartMaisLife"];
-            productsString = cookie.Value.ToString().Split(new Char[] { ',' });
-
-            for (int i = 0; i <= productsString.Length - 1; i++)
+            if(cookie != null)
             {
-                string[] aux = productsString[i].Split(new Char[] { ':' });
-                int idProduct = Convert.ToInt16(aux[0]);
-                int amount = Convert.ToInt16(aux[1]);
+               productsString = cookie.Value.ToString().Split(new Char[] { ',' });
 
-                Carrinho_produto relProduct = new Carrinho_produto();
+               for (int i = 0; i <= productsString.Length - 1; i++)
+               {
+                   string[] aux = productsString[i].Split(new Char[] { ':' });
+                   int idProduct = Convert.ToInt16(aux[0]);
+                   int amount = Convert.ToInt16(aux[1]);
 
-                Produto product = ConfigDB.Model.Produtos.Where(f => f.Id == idProduct).First();
-                relProduct.Produto1 = product;
-                relProduct.Quantidade = amount;
+                   Carrinho_produto relProduct = new Carrinho_produto();
 
-                relProducts.Add(relProduct);
+                   Produto product = ConfigDB.Model.Produtos.Where(f => f.Id == idProduct).First();
+                   relProduct.Produto1 = product;
+                   relProduct.Quantidade = amount;
+
+                   relProducts.Add(relProduct);
+               }
             }
 
-            HttpContext.Current.Session["shoppingCar"] = relProducts;
+            Carrinho cart = new Carrinho()
+            {
+                Carrinho_produtos = relProducts,
+                Status = "Ativo"
+            };
+
+            return cart;
 
         }
 

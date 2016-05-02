@@ -139,6 +139,7 @@
     <Content Include="Views\Home\Produto.cshtml" />
     <Content Include="Views\Home\Carrinho.cshtml" />
     <Content Include="Views\Home\EnderecoEPagamento.cshtml" />
+    <Content Include="Views\Home\CadastroELogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

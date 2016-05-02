@@ -16,10 +16,6 @@ namespace MaisLife.Controllers
         public ActionResult Index()
         {
 
-            Sessions.EditProductInShoppingCart(2, 0);
-
-            HttpCookie cookie = Request.Cookies["shoppingCartMaisLife"];
-
             return View();
         }
 
@@ -96,6 +92,15 @@ namespace MaisLife.Controllers
                         ViewBag.User = user;
 
                     }
+                    else
+                    {
+                        Produto produto = new Produto(){
+                            Id = id
+                        };
+
+                        Sessions.AddProductInShoppingCart(produto);
+                        ViewBag.Cart = Sessions.FindShoppingCart();
+                    }
 
                 }
             }
@@ -103,7 +108,8 @@ namespace MaisLife.Controllers
             {
                 Usuario user = (Usuario)HttpContext.Session["user"];
                  // CHECAMOS DE HÁ ALGUM USUÁRIO LOGADO
-                if (user != null)                {
+                if (user != null)
+                {
                     Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
                     if (cart == null)
                     {
@@ -120,6 +126,10 @@ namespace MaisLife.Controllers
 
                     ViewBag.Cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
                     ViewBag.User = user;
+                }
+                else
+                {
+                    ViewBag.Cart = Sessions.FindShoppingCart();
                 }
                 
             }
@@ -182,11 +192,17 @@ namespace MaisLife.Controllers
         {
             
             Usuario user = (Usuario)HttpContext.Session["user"];
-            ViewBag.User = user;
-            
-            Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-            ViewBag.Cart = cart;
-            return View();
+
+            if(user != null)
+            {
+                ViewBag.User = user;
+                Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                ViewBag.Cart = cart;
+
+                return View();
+            }
+
+            return RedirectToAction("CadastroELogin", "Home");
         }
 
         public ActionResult CalcularEntrega()        {
@@ -194,7 +210,7 @@ namespace MaisLife.Controllers
             var localString = Request.Form["local"];
             int local = 0;
 
-            if (localString != "")
+            if (localString != "0" && localString != "")
             {
                 local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == localString).Id;
             }            
@@ -210,16 +226,20 @@ namespace MaisLife.Controllers
             {
                 Usuario user = (Usuario)HttpContext.Session["user"];
 
-                endereco.Usuario = user.Id;
-                endereco.Pais = "Brasil";
-                endereco.Estado = "MG";
+                if (user != null)
+                {
+                    endereco.Usuario = user.Id;
+                    endereco.Pais = "Brasil";
+                    endereco.Estado = "MG";
 
-                var end = endereco.ToEndereco();
-                end.Bairro1 = bairro;
+                    var end = endereco.ToEndereco();
+                    end.Bairro1 = bairro;
 
-                ConfigDB.Model.Add(end);
-                if (ConfigDB.Model.HasChanges)
-                    ConfigDB.Model.SaveChanges();
+                    ConfigDB.Model.Add(end);
+                    if (ConfigDB.Model.HasChanges)
+                        ConfigDB.Model.SaveChanges();
+                }
+                
             }           
 
             return RedirectToAction("EnderecoEPagamento", "Home");
@@ -272,6 +292,19 @@ namespace MaisLife.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult FinalizarPedido()
+        {
+
+            return RedirectToAction("EnderecoEPagamento", "Home");
+        }
+
+        public ActionResult CadastroELogin()
+        {
+            return View();
+        }
+
+
 
     }
 }

@@ -3,8 +3,8 @@
 
 @{
     ViewBag.Title = "Carrinho";
-    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var user = (MaisLifeModel.Usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
 }
 
@@ -101,17 +101,18 @@
             <div class="col-lg-3 cart-select">
                 <input type="radio" name="address-type" data-content="address-type" value="0" checked />
                 <select class="form-control" name="local" data-id="local-select">
-                    @if (user.Enderecos.Count == 0)
+                    @if (user == null || user.Enderecos.Count == 0)
                     {
                         <option value="0">Nenhum endereço</option>
                     }
-                    else
+                    else if (user != null && user.Enderecos.Count > 0)
                     {
                         foreach (var local in user.Enderecos)
                         {
                             <option value="@local.Bairro1.Nome">@local.Bairro1.Nome</option>
                         }
                     }
+
 
                 </select>
             </div>
