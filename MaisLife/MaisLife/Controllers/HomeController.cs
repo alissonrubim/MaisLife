@@ -179,7 +179,17 @@ namespace MaisLife.Controllers
                             ConfigDB.Model.SaveChanges();
 
                     }
-                   
+
+                }
+                else
+                {
+                    for (var i = 1; i <= amount; i++)
+                    {
+                        var qtd = Convert.ToInt32(Request.Form["qtd-" + i]);
+                        var id = Convert.ToInt32(Request.Form["hidden-" + i]);
+
+                        Sessions.EditProductInShoppingCart(id, qtd);
+                    }
                 }
 
             }

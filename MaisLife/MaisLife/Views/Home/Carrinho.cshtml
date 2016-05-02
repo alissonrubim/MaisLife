@@ -52,8 +52,17 @@
                         @rel.Produto1.Preco
                     </td>
                     <td>
-                        <input type="hidden" name="@rel.Id" value="@rel.Id" />
-                        <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Id" value="@rel.Quantidade" />
+                        @if (user != null)
+                        {
+                            <input type="hidden" name="@rel.Id" value="@rel.Id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Id" value="@rel.Quantidade" />
+                        }
+                        else
+                        {
+                            <input type="hidden" name="@rel.Produto1.Id" value="@rel.Produto1.Id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Produto1.Id" value="@rel.Quantidade" />
+                        }
+                        
                     </td>
                     <td>
                         <span class="glyphicon glyphicon-remove"></span>
