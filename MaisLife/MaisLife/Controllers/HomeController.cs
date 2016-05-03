@@ -285,14 +285,105 @@ namespace MaisLife.Controllers
 
         public ActionResult LoginUser(UsuarioAdapter user)
         {
-            if (Validation.ValidationLogin(user))
-            {
-                Sessions.CreateCookie(user.ToUsuario(), false);
-            }
-            else
+            var usuario = Validation.ValidationLogin(user);
+            if (usuario == null)
             {
                 TempData["MessageErroLogin"] = "E-mail ou senha incorretos";
             }
+            else
+            {
+                Sessions.CreateCookie(usuario, false);
+
+                //RECUPERA LISTA DE RELAÇÕES DO COOKIE
+                Carrinho cartCookie = Sessions.FindShoppingCart();
+
+                if (cartCookie != null && cartCookie.Carrinho_produtos.Count() > 0)
+                {
+                    //RECUPERA CARRINHO BD
+                    Carrinho cartBd = usuario.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                    List<Carrinho_produto> relCartCookie = cartCookie.Carrinho_produtos.ToList();
+
+                    //PASSANDO DADOS RELAÇÃO BD PARA LISTA AXU
+                    List<Carrinho_produto> relCartAxu = new List<Carrinho_produto>();
+                    foreach (Carrinho_produto relCokie in relCartCookie)
+                    {
+                        relCartAxu.Add(relCokie);
+                    }
+                    //SE EXISTE UM CARRINHO
+                    if (cartBd != null)
+                    {
+                        //LISTA COM RELAÇOES DO BD
+                        List<Carrinho_produto> relCartBd = cartBd.Carrinho_produtos.ToList();
+
+                        //PERCORRE AS DUAS LSITAS PROCURANDO POR PRODUTOS IGUAIS
+                        foreach (Carrinho_produto relacaoCookie in relCartCookie)
+                        {
+                            foreach (Carrinho_produto relacaoBd in relCartBd)
+                            {
+                                // SE É =
+                                if (relacaoCookie.Produto1.Id == relacaoBd.Produto1.Id)
+                                {
+                                    //REMOVE DA LISTA AUXILIAR
+                                    relCartAxu.Remove(relacaoCookie);
+                                    //MDA JUNTA AS QUANTIDADES
+                                    relacaoBd.Quantidade += relacaoCookie.Quantidade;
+                                    
+                                    if (ConfigDB.Model.HasChanges)
+                                        ConfigDB.Model.SaveChanges();
+                                    
+
+
+                                }
+                            }
+                        }
+
+                        //INSERE COMO NOVO PRODUTO OS QUE NÃO FORAM ENCONTRADOS NA RELAÇÃO EXISTENTE
+                        if (relCartAxu.Count > 0)
+                        {
+                            foreach (Carrinho_produto cp in relCartAxu)
+                            {
+                                cp.Carrinho1 = cartBd;
+
+                                ConfigDB.Model.Add(cp);
+
+                                if (ConfigDB.Model.HasChanges)
+                                    ConfigDB.Model.SaveChanges();
+                            }
+                        }
+                    }
+                    //CRIA E INSERE UM CARRINHO CASO NÃO EXISTA
+                    else
+                    {
+                        cartBd = new Carrinho()
+                        {
+                            Usuario1 = usuario,
+                            Status = "Ativo"
+                        };
+
+                        ConfigDB.Model.Add(cartBd);
+
+                        if (ConfigDB.Model.HasChanges)
+                            ConfigDB.Model.SaveChanges();
+
+                        //BUSCA CARRINHO INSERIDO
+                        Carrinho cartInserted = ConfigDB.Model.Carrinhos.FirstOrDefault
+                            (f => f.Usuario1.Id == usuario.Id && f.Status == "Ativo");
+
+                        //SETA CARRINHO DAS RELAÇÕES E INSERE RELAÇÃO
+                        foreach (Carrinho_produto cp in relCartCookie)
+                        {
+                            cp.Carrinho1 = cartInserted;
+
+                            ConfigDB.Model.Add(cp);
+
+                            if (ConfigDB.Model.HasChanges)
+                                ConfigDB.Model.SaveChanges();
+                        }
+                    }
+                }
+                Sessions.LimparCookie();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -313,8 +404,6 @@ namespace MaisLife.Controllers
         {
             return View();
         }
-
-
 
     }
 }

@@ -58,7 +58,7 @@ namespace MaisLife.Helper
             HttpCookie cookie = HttpContext.Current.Request.Cookies["shoppingCartMaisLife"];
 
 
-            if (cookie != null)
+            if (cookie != null && cookie.Value != "")
             {
                 bool existingProduct = false;
                 //DIVIDE A STRING EM ARRAY
@@ -124,14 +124,20 @@ namespace MaisLife.Helper
                 cont++;
             }
 
-            //DEFINE COOKIE
+            //REMOVE E DEFINE NOVO COOKIE
             HttpContext.Current.Request.Cookies.Remove("shoppingCartMaisLife");
+            
             cookie = new HttpCookie("shoppingCartMaisLife");
             cookie.Value = productCookie;
             TimeSpan expiration = new TimeSpan(365, 0, 0, 0);
             cookie.Expires = DateTime.Now + expiration;
             HttpContext.Current.Response.Cookies.Add(cookie);
 
+        }
+
+        public static void LimparCookie()
+        {
+            HttpContext.Current.Response.Cookies["shoppingCartMaisLife"].Expires = DateTime.Now.AddDays(-1);
         }
 
         public static Carrinho FindShoppingCart()
@@ -142,7 +148,7 @@ namespace MaisLife.Helper
             string[] productsString;
 
             HttpCookie cookie = HttpContext.Current.Request.Cookies["shoppingCartMaisLife"];
-            if(cookie != null)
+            if(cookie != null && cookie.Value != "")
             {
                productsString = cookie.Value.ToString().Split(new Char[] { ',' });
 
@@ -236,13 +242,11 @@ namespace MaisLife.Helper
 
             HttpContext.Current.Request.Cookies.Remove("shoppingCartMaisLife");
 
-            if(productCookie != ""){
                 cookie = new HttpCookie("shoppingCartMaisLife");
                 cookie.Value = productCookie;
                 TimeSpan expiration = new TimeSpan(365, 0, 0, 0);
                 cookie.Expires = DateTime.Now + expiration;
                 HttpContext.Current.Response.Cookies.Add(cookie);
-            }
             
 
         }

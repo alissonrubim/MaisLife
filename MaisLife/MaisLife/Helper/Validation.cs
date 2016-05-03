@@ -9,14 +9,11 @@ namespace MaisLife.Helper
 {
     public class Validation
     {
-        public static bool ValidationLogin(UsuarioAdapter u)
+        public static Usuario ValidationLogin(UsuarioAdapter u)
         {
             var user = ConfigDB.Model.Usuarios.Where(f => f.Email == u.Email && f.Senha == u.Senha).FirstOrDefault();
 
-            if (user != null)
-                return true;
-
-            return false;
+            return user;
         }
 
         public static bool ExistingEmailValidation(UsuarioAdapter u)
