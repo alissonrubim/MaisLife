@@ -47,7 +47,7 @@ namespace MaisLife.Models.Adapter
             return new EnderecoAdapter()
             {
                 Id = endereco.Id,
-                Usuario = endereco.Usuario,
+                Usuario = (int) endereco.Usuario,
                 Pais = endereco.Pais,
                 Estado = endereco.Estado,
                 Cidade = endereco.Cidade,

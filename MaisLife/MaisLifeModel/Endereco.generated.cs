@@ -38,8 +38,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int _usuario;
-		public virtual int Usuario
+		private int? _usuario;
+		public virtual int? Usuario
 		{
 			get
 			{
@@ -90,8 +90,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int _bairro;
-		public virtual int Bairro
+		private int? _bairro;
+		public virtual int? Bairro
 		{
 			get
 			{
@@ -186,11 +186,11 @@ namespace MaisLifeModel
 		protected Endereco(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Usuario = info.GetInt32("Usuario");
+			this.Usuario = (int?)info.GetValue("Usuario", typeof(int?));
 			this.Pais = info.GetString("Pais");
 			this.Estado = info.GetString("Estado");
 			this.Cidade = info.GetString("Cidade");
-			this.Bairro = info.GetInt32("Bairro");
+			this.Bairro = (int?)info.GetValue("Bairro", typeof(int?));
 			this.Rua = info.GetString("Rua");
 			this.Numero = info.GetString("Numero");
 			this.Cep = info.GetString("Cep");
@@ -200,11 +200,11 @@ namespace MaisLifeModel
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Usuario", this.Usuario, typeof(int));
+			info.AddValue("Usuario", this.Usuario, typeof(int?));
 			info.AddValue("Pais", this.Pais, typeof(string));
 			info.AddValue("Estado", this.Estado, typeof(string));
 			info.AddValue("Cidade", this.Cidade, typeof(string));
-			info.AddValue("Bairro", this.Bairro, typeof(int));
+			info.AddValue("Bairro", this.Bairro, typeof(int?));
 			info.AddValue("Rua", this.Rua, typeof(string));
 			info.AddValue("Numero", this.Numero, typeof(string));
 			info.AddValue("Cep", this.Cep, typeof(string));

@@ -89,6 +89,15 @@ namespace MaisLifeModel
                 this._carrinho_produtos = value;
             }
 		}
+		
+		private IList<Pedido> _pedidos = new List<Pedido>();
+		public virtual IList<Pedido> Pedidos
+		{
+			get
+			{
+				return this._pedidos;
+			}
+		}
 
         public Carrinho_produto checkProduct(Produto produto)
         {
@@ -109,7 +118,7 @@ namespace MaisLifeModel
                 total += rel.Quantidade * rel.Produto1.Preco;
             }
 
-            return (decimal) total + sum;
+            return (decimal)total + sum;
 
         }
 		

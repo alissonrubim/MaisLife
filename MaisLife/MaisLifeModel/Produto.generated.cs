@@ -64,8 +64,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private decimal _preco;
-		public virtual decimal Preco
+		private decimal? _preco;
+		public virtual decimal? Preco
 		{
 			get
 			{
@@ -90,8 +90,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int _unidade;
-		public virtual int Unidade
+		private int? _unidade;
+		public virtual int? Unidade
 		{
 			get
 			{
@@ -132,9 +132,9 @@ namespace MaisLifeModel
 			this.Id = info.GetInt32("Id");
 			this.Nome = info.GetString("Nome");
 			this.Descricao = info.GetString("Descricao");
-			this.Preco = info.GetDecimal("Preco");
+			this.Preco = (decimal?)info.GetValue("Preco", typeof(decimal?));
 			this.Imagem = info.GetString("Imagem");
-			this.Unidade = info.GetInt32("Unidade");
+			this.Unidade = (int?)info.GetValue("Unidade", typeof(int?));
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -143,9 +143,9 @@ namespace MaisLifeModel
 			info.AddValue("Id", this.Id, typeof(int));
 			info.AddValue("Nome", this.Nome, typeof(string));
 			info.AddValue("Descricao", this.Descricao, typeof(string));
-			info.AddValue("Preco", this.Preco, typeof(decimal));
+			info.AddValue("Preco", this.Preco, typeof(decimal?));
 			info.AddValue("Imagem", this.Imagem, typeof(string));
-			info.AddValue("Unidade", this.Unidade, typeof(int));
+			info.AddValue("Unidade", this.Unidade, typeof(int?));
 			CustomizeSerializationProcess(info, context);
 		}
 		

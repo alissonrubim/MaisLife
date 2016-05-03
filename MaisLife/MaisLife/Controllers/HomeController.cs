@@ -1,4 +1,5 @@
 ﻿using MaisLife.Helper;
+using MaisLife.Models;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
 using System;
@@ -215,6 +216,86 @@ namespace MaisLife.Controllers
             return RedirectToAction("CadastroELogin", "Home");
         }
 
+        public ActionResult FinalizarPedido()
+        {
+
+            Error error = null;
+            
+            try { 
+                var id = Convert.ToInt32(Request.Form["address"]);
+                Endereco address = ConfigDB.Model.Enderecos.FirstOrDefault(f => f.Id == id);
+                if (address != null)
+                {
+                    Usuario user = (Usuario)HttpContext.Session["user"];
+                    Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+
+                    var payValue = Convert.ToDecimal(Request.Form["payValue"]);
+                    if (payValue < cart.Total(address.Bairro1.Taxa))
+                    {
+
+                        error = new Error()
+                        {
+                            Message = "O valor digitado é menor que o valor da compra."
+                        };
+                        ViewBag.Error = error;
+                        return RedirectToAction("EnderecoEPagamento", "Home");
+                    }
+                    else
+                    {
+                        Pedido order = new Pedido()
+                        {
+                            Usuario1 = user,
+                            Valor = cart.Total(address.Bairro1.Taxa),
+                            Carrinho1 = cart,
+                            Endereco1 = address,
+                            Pago = payValue,
+                            Status = "Enviado",
+                            Data = DateTime.Now
+                        };
+
+                        ConfigDB.Model.Add(order);
+
+                        cart.Status = "Fechado";
+                        ConfigDB.Model.Add(cart);
+
+                        Carrinho newCart = new Carrinho()
+                        {
+                            Usuario1 = user,
+                            Status = "Ativo"
+                        };
+
+                        ConfigDB.Model.Add(newCart);
+
+                        if (ConfigDB.Model.HasChanges)
+                            ConfigDB.Model.SaveChanges();
+
+                        return View();
+                    }
+
+                }
+                else
+                {
+                    error = new Error()
+                    {
+                        Message = "Endereço não informado."
+                    };
+                    ViewBag.Error = error;
+                    return RedirectToAction("EnderecoEPagamento", "Home");
+                }
+                    
+
+
+            }catch(Exception ex){
+                error = new Error()
+                {
+                    Message = "Houve um erro na autenticação."
+                };
+                ViewBag.Error = error;
+                return RedirectToAction("EnderecoEPagamento", "Home");
+            }
+            
+        }
+        
         public ActionResult CalcularEntrega()        {
             
             var localString = Request.Form["local"];
@@ -392,12 +473,6 @@ namespace MaisLife.Controllers
             Sessions.Logout();
 
             return RedirectToAction("Index");
-        }
-
-        public ActionResult FinalizarPedido()
-        {
-
-            return RedirectToAction("EnderecoEPagamento", "Home");
         }
 
         public ActionResult CadastroELogin()

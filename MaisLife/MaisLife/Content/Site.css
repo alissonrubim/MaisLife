@@ -1109,6 +1109,20 @@ footer .brand-footer div .footer-menu ul li a:hover {
     border: none;
 }
 
+.address-page .row .payment .btn ul li .product-list {
+    margin-bottom: 0;
+}
+
+.address-page .row .payment .btn ul li .product-list li {
+    padding: 5px;
+    text-align: left;
+}
+
+.address-page .row .payment .btn ul li .product-list li:last-child {
+    padding: 10px;
+    text-align: center;    
+}
+
 .address-page .row .payment .btn ul li label {
     float: left;
     margin-right: 10px;   
@@ -1125,5 +1139,13 @@ footer .brand-footer div .footer-menu ul li a:hover {
 .address-page .modal-dialog .modal-header {
     background-color: #759EB7;
     color: #FFFFFF;
+}
+
+
+.address-page .row .payment .btn ul li .chng-text {
+    padding: 5px 0;
+    text-align: left;
+    font-size: 13px;
+    
 }
 

@@ -83,7 +83,7 @@ namespace MaisLifeModel
 		{
 			this.Id = info.GetInt32("Id");
 			this.Nome = info.GetString("Nome");
-			this.Taxa = info.GetDecimal("Taxa");
+			this.Taxa = (decimal)info.GetValue("Taxa", typeof(decimal?));
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -91,7 +91,7 @@ namespace MaisLifeModel
 		{
 			info.AddValue("Id", this.Id, typeof(int));
 			info.AddValue("Nome", this.Nome, typeof(string));
-			info.AddValue("Taxa", this.Taxa, typeof(decimal));
+			info.AddValue("Taxa", this.Taxa, typeof(decimal?));
 			CustomizeSerializationProcess(info, context);
 		}
 		

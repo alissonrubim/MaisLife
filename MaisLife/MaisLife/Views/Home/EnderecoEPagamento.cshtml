@@ -3,6 +3,7 @@
     ViewBag.Title = "Endereco e pagamento";
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+    var error = (MaisLife.Models.Error)ViewBag.Error;
 }
 
 <div class="container store-page address-page">
@@ -77,9 +78,12 @@
                     {
                         foreach (var address in user.Enderecos)
                         {
-                            <div data-content="address" class="btn btn-primary btn-address ">
+                            <div data-content="address" data-id="@address.Id" class="btn btn-primary btn-address ">
                                 <input type="radio" name="options" id="option1" autocomplete="off">
                                 <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <label>Cidade:</label> @address.Cidade
+                                    </li>
                                     <li class="list-group-item">
                                         <label>Bairro:</label> @address.Bairro1.Nome
                                     </li>
@@ -97,13 +101,29 @@
                         }
                     }
 
-                </div>
+                </div>                
+                @if (error != null)
+                {
+                    <div class="alert alert-danger">
+                        @error.Message
+                    </div>
+                }
+                
             </div>
         }
         
         <div class="col-lg-4 payment">
             <div class="btn btn-default">
                 <ul class="list-group">
+                    <li class="list-group-item">
+                        <ul class="list-group product-list">
+                            @foreach (var rel in cart.Carrinho_produtos)
+                            {
+                                <li class="list-group-item">@rel.Produto1.Nome<div class="right">@rel.Quantidade x R$ @rel.Produto1.Preco</div></li>
+                            }
+                            <li class="list-group-item">Subtotal: <strong>R$ @cart.Total(0)</strong></li>
+                        </ul>
+                    </li>
                     <li class="list-group-item">
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
@@ -113,19 +133,26 @@
                                 <input type="radio" name="options" id="option2" autocomplete="off"> <span class="glyphicon glyphicon-credit-card"></span> Cartão
                             </label>
                         </div>
+                    </li>                    
+                    <li class="list-group-item">
+                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$ 0,0" data-id="address-shipping" readonly value="" />
                     </li>
+                    <li class="list-group-item">
+                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" data-content="@cart.Total(0)" readonly value="R$ @cart.Total(0)" />
+                    </li>                    
                     <li class="list-group-item">
                         <label>Troco para R$:</label>
-                        <input type="text" class="form-control" name="payment-chng" />
+                        <input type="text" class="form-control" name="payment-chng" data-id="chng" />
+                        <div class="chng-text" data-reactid="chng">Troco: R$ 0,0</div>
                     </li>
                     <li class="list-group-item">
-                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$" data-id="address-shipping" readonly value="" />
-                    </li>
-                    <li class="list-group-item">
-                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" readonly value="R$ @cart.Total(0)" />
-                    </li>
-                    <li class="list-group-item">
-                        <button type="submit" class="btn btn-success"><a href="@Url.Action("FinalizarPedido", "Home")">Finalizar pedido</button>
+                        <form action="~/Home/FinalizarPedido" method="POST">
+                            <input type="hidden" name="address" value="0" />
+                            <input type="hidden" name="payValue" value="0.0" />
+                            <button type="submit" data-id="buy-submit" class="btn btn-success">
+                                Finalizar pedido
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

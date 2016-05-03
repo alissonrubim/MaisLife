@@ -38,8 +38,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _usuario;
-		public virtual int? Usuario
+		private int _usuario;
+		public virtual int Usuario
 		{
 			get
 			{
@@ -51,8 +51,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _endereco;
-		public virtual int? Endereco
+		private int _endereco;
+		public virtual int Endereco
 		{
 			get
 			{
@@ -64,8 +64,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private decimal? _valor;
-		public virtual decimal? Valor
+		private decimal _valor;
+		public virtual decimal Valor
 		{
 			get
 			{
@@ -77,8 +77,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private DateTime? _data;
-		public virtual DateTime? Data
+		private DateTime _data;
+		public virtual DateTime Data
 		{
 			get
 			{
@@ -100,6 +100,32 @@ namespace MaisLifeModel
 			set
 			{
 				this._status = value;
+			}
+		}
+		
+		private int _carrinho;
+		public virtual int Carrinho
+		{
+			get
+			{
+				return this._carrinho;
+			}
+			set
+			{
+				this._carrinho = value;
+			}
+		}
+		
+		private decimal _pago;
+		public virtual decimal Pago
+		{
+			get
+			{
+				return this._pago;
+			}
+			set
+			{
+				this._pago = value;
 			}
 		}
 		
@@ -129,6 +155,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private Carrinho _carrinho1;
+		public virtual Carrinho Carrinho1
+		{
+			get
+			{
+				return this._carrinho1;
+			}
+			set
+			{
+				this._carrinho1 = value;
+			}
+		}
+		
 		private IList<Produto_pedido> _produto_pedidos = new List<Produto_pedido>();
 		public virtual IList<Produto_pedido> Produto_pedidos
 		{
@@ -147,22 +186,26 @@ namespace MaisLifeModel
 		protected Pedido(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Usuario = (int?)info.GetValue("Usuario", typeof(int?));
-			this.Endereco = (int?)info.GetValue("Endereco", typeof(int?));
-			this.Valor = (decimal?)info.GetValue("Valor", typeof(decimal?));
-			this.Data = (DateTime?)info.GetValue("Data", typeof(DateTime?));
+			this.Usuario = info.GetInt32("Usuario");
+			this.Endereco = info.GetInt32("Endereco");
+			this.Valor = info.GetDecimal("Valor");
+			this.Data = (DateTime)info.GetValue("Data", typeof(DateTime));
 			this.Status = info.GetString("Status");
+			this.Carrinho = info.GetInt32("Carrinho");
+			this.Pago = info.GetDecimal("Pago");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Usuario", this.Usuario, typeof(int?));
-			info.AddValue("Endereco", this.Endereco, typeof(int?));
-			info.AddValue("Valor", this.Valor, typeof(decimal?));
-			info.AddValue("Data", this.Data, typeof(DateTime?));
+			info.AddValue("Usuario", this.Usuario, typeof(int));
+			info.AddValue("Endereco", this.Endereco, typeof(int));
+			info.AddValue("Valor", this.Valor, typeof(decimal));
+			info.AddValue("Data", this.Data, typeof(DateTime));
 			info.AddValue("Status", this.Status, typeof(string));
+			info.AddValue("Carrinho", this.Carrinho, typeof(int));
+			info.AddValue("Pago", this.Pago, typeof(decimal));
 			CustomizeSerializationProcess(info, context);
 		}
 		
