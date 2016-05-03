@@ -94,6 +94,7 @@
     <Content Include="Images\face-icon.png" />
     <Content Include="Images\know-img.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="JavaScripts\Address&amp;Shipping.js" />
     <Content Include="JavaScripts\Cart.js" />
     <Content Include="JavaScripts\Home.js" />
     <Content Include="Scripts\bootstrap.js" />

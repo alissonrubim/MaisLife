@@ -1,4 +1,5 @@
-﻿@{
+﻿<script src="~/JavaScripts/Address&Shipping.js"></script>
+@{
     ViewBag.Title = "Endereco e pagamento";
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
@@ -62,34 +63,44 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="btn-group" data-toggle="buttons">
-                @if(user != null)
-                {
-                    foreach (var address in user.Enderecos)
-                    {
-                        <div class="btn btn-primary btn-address ">
-                            <input type="radio" name="options" id="option1" autocomplete="off">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <label>Bairro:</label> @address.Bairro1.Nome
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Rua:</label> @address.Rua
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Número:</label> @address.Numero
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Taxa:</label> R$ @address.Bairro1.Taxa
-                                </li>
-                            </ul>
-                        </div>
-                    }
-                }
-                
+        @if (user.Enderecos.Count == 0)
+        {
+            <div class="col-lg-8 no-item">
+                <span data-toggle="modal" data-target="#new-address"> Cadastre um novo endereço</span>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="col-lg-8">
+                <div class="btn-group" data-toggle="buttons">
+                    @if (user != null)
+                    {
+                        foreach (var address in user.Enderecos)
+                        {
+                            <div data-content="address" class="btn btn-primary btn-address ">
+                                <input type="radio" name="options" id="option1" autocomplete="off">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <label>Bairro:</label> @address.Bairro1.Nome
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label>Rua:</label> @address.Rua
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label>Número:</label> @address.Numero
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label>Taxa:</label> R$<span data-id="address-tax"> @address.Bairro1.Taxa</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        }
+        
         <div class="col-lg-4 payment">
             <div class="btn btn-default">
                 <ul class="list-group">
@@ -108,10 +119,10 @@
                         <input type="text" class="form-control" name="payment-chng" />
                     </li>
                     <li class="list-group-item">
-                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$" readonly value="R$ 10,00" />
+                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$" data-id="address-shipping" readonly value="" />
                     </li>
                     <li class="list-group-item">
-                        <label>Total:</label> <input type="text" class="form-control" placeholder="R$" readonly value="R$ @cart.Total(0)" />
+                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" readonly value="R$ @cart.Total(0)" />
                     </li>
                     <li class="list-group-item">
                         <button type="submit" class="btn btn-success"><a href="@Url.Action("FinalizarPedido", "Home")">Finalizar pedido</button>

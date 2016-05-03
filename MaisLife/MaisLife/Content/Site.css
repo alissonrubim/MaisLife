@@ -157,6 +157,7 @@ input, textarea, select {
 */
 
 .menu {
+    display: none;
     background-color: #769B55;
     min-height: 30px;
     border: none;
@@ -1021,6 +1022,20 @@ footer .brand-footer div .footer-menu ul li a:hover {
 .address-page .row {
    border-bottom: 1px solid #CCCCCC;
    padding-bottom: 20px;   
+}
+
+.address-page .row .no-item {
+    text-align: center;    
+}
+
+.address-page .row .no-item span {    
+    font-size: 22px;
+    cursor: pointer;
+    color: #3173AC;
+}
+
+.address-page .row .no-item span:hover{
+    color: #506F82;
 }
 
 .address-page .row:last-child {
