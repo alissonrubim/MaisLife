@@ -54,6 +54,18 @@ a{
     color: #333333;
 }
 
+.fixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 5px 0;
+    background-color: rgba(118, 155, 85, 0.61) !important;
+}
+
+.fixed:hover {
+    background-color: #4F6939;
+}
+
 /* 
  LAYOUT PROPERTY - UPPER BAR
 */
@@ -170,7 +182,8 @@ a{
     min-height: 30px;
     border: none;
     margin-bottom: 0;
-}   
+}  
+
 
 .menu .container .navbar-header {
     margin-left: 0;

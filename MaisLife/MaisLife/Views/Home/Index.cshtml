@@ -3,6 +3,13 @@
 }
 <script>
     $(".menu").css("display", "block");
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 250) {
+            $('.menu').addClass('fixed');
+        } else {
+            $('.menu').removeClass('fixed');
+        }
+    });
 </script>
 <div id="know" class="content-row know">
     <div class="container">
