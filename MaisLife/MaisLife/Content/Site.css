@@ -50,6 +50,10 @@ input, textarea, select {
     border-radius: 0 !important;
 }
 
+a{
+    color: #333333;
+}
+
 /* 
  LAYOUT PROPERTY - UPPER BAR
 */
@@ -117,6 +121,10 @@ input, textarea, select {
     text-align: center;
     border-right: 1px solid #CCCCCC;
     height: 100%;
+}
+
+.header .container ul li a {
+    color: #FFFFFF;
 }
 
 .header .container ul li:last-child {
@@ -521,6 +529,11 @@ footer .brand-footer div .footer-menu ul li a:hover {
     border: none;
     background-color: transparent;
     padding: 3px 5px;   
+}
+
+.products .carousel .item .item-product .product .product-info .list-group .list-group-item button a {
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 .products .carousel .item .item-product .product .product-info .list-group .list-group-item:first-child, .products .carousel .item .item-product .product .product-info .list-group .list-group-item:last-child {
@@ -976,11 +989,11 @@ footer .brand-footer div .footer-menu ul li a:hover {
      margin-top: 10px;
 }
 
-.cart-page .cart-text input[type='text'] {
+.cart-page .cart-text select {
      margin-left: 10px;
 }
 
-.cart-page .cart-select input, .cart-page .cart-select select, .cart-page .cart-text input, .cart-page .cart-btn input {
+.cart-page .cart-select input, .cart-page .cart-select select, .cart-page .cart-text input, .cart-page .cart-text select, .cart-page .cart-btn input {
     float: left;
     max-width: 200px;
 }
@@ -1072,6 +1085,12 @@ footer .brand-footer div .footer-menu ul li a:hover {
 
 .address-page .row .btn-group .btn ul li:last-child {
     border-bottom: none;
+}
+
+.address-page .row .alert {
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 0;
 }
 
 .address-page .row .payment > .btn {

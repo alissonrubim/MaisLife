@@ -1,8 +1,6 @@
 ﻿@{
     ViewBag.Title = "Principal";
 }
-
-@Html.ActionLink("Carrinho", "Carrinho", new { id = 0, local = 1 })
 <script>
     $(".menu").css("display", "block");
 </script>
@@ -15,7 +13,7 @@
                 <p>é entregue</p>
                 <p>CONGELADA!</p>
             </div>
-            <button class="btn btn-default">Conheça nossos<br /> produtos</button>
+            <button class="btn btn-default"><a href="@Url.Action("Produtos", "Home")">Conheça nossos<br /> produtos</a></button>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12  hidden-xs">
             <img src="~/Images/know-img.png" class="img-responsive" />

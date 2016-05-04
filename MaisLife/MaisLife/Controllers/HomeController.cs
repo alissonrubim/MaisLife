@@ -15,26 +15,28 @@ namespace MaisLife.Controllers
     {
         // GET: Home
         public ActionResult Index()
-        {
-
+        {            
+            Injections.LayoutInjection(this);
             return View();
         }
 
         public ActionResult Produtos()
-        {
+        {           
             var products = ConfigDB.Model.Produtos.ToList();
             ViewBag.Products = products;
+            Injections.LayoutInjection(this);
             return View();
         }
 
         public ActionResult Produto(int id)
-        {
+        {           
             var products = ConfigDB.Model.Produtos;
             var product = products.FirstOrDefault(f => f.Id == id);
             if (product != null)
             {
                 ViewBag.Products = products.ToList();
                 ViewBag.Product = product;
+                Injections.LayoutInjection(this);
                 return View();
             }
             return RedirectToAction("Index");
@@ -88,10 +90,6 @@ namespace MaisLife.Controllers
                         if (ConfigDB.Model.HasChanges)
                             ConfigDB.Model.SaveChanges();
 
-
-                        ViewBag.Cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-                        ViewBag.User = user;
-
                     }
                     else
                     {
@@ -99,8 +97,7 @@ namespace MaisLife.Controllers
                             Id = id
                         };
 
-                        Sessions.AddProductInShoppingCart(produto);
-                        ViewBag.Cart = Sessions.FindShoppingCart();
+                        Sessions.AddProductInShoppingCart(produto);                        
                     }
 
                 }
@@ -124,9 +121,6 @@ namespace MaisLife.Controllers
                         if (ConfigDB.Model.HasChanges)
                             ConfigDB.Model.SaveChanges();
                     }
-
-                    ViewBag.Cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-                    ViewBag.User = user;
                 }
                 else
                 {
@@ -135,11 +129,14 @@ namespace MaisLife.Controllers
                 
             }
 
-            if ( local != null && local != 0 )
+            if ( local != 0 )
             {
                 ViewBag.Local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == local); ;
             }
 
+            ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
+
+            Injections.LayoutInjection(this);
             return View();
         }
 
@@ -201,15 +198,12 @@ namespace MaisLife.Controllers
 
         public ActionResult EnderecoEPagamento() 
         {
-            
+           
             Usuario user = (Usuario)HttpContext.Session["user"];
 
             if(user != null)
             {
-                ViewBag.User = user;
-                Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-                ViewBag.Cart = cart;
-
+                Injections.LayoutInjection(this);
                 return View();
             }
 
@@ -217,10 +211,7 @@ namespace MaisLife.Controllers
         }
 
         public ActionResult FinalizarPedido()
-        {
-
-            Error error = null;
-            
+        {           
             try { 
                 var id = Convert.ToInt32(Request.Form["address"]);
                 Endereco address = ConfigDB.Model.Enderecos.FirstOrDefault(f => f.Id == id);
@@ -233,11 +224,7 @@ namespace MaisLife.Controllers
                     if (payValue < cart.Total(address.Bairro1.Taxa))
                     {
 
-                        error = new Error()
-                        {
-                            Message = "O valor digitado é menor que o valor da compra."
-                        };
-                        ViewBag.Error = error;
+                        TempData["Error"] = "Valor digitado é menor que o valor total da compra.";
                         return RedirectToAction("EnderecoEPagamento", "Home");
                     }
                     else
@@ -269,28 +256,21 @@ namespace MaisLife.Controllers
                         if (ConfigDB.Model.HasChanges)
                             ConfigDB.Model.SaveChanges();
 
+                        Injections.LayoutInjection(this);
                         return View();
                     }
 
                 }
                 else
                 {
-                    error = new Error()
-                    {
-                        Message = "Endereço não informado."
-                    };
-                    ViewBag.Error = error;
+                    TempData["Error"] = "Endereço não informado.";                   
                     return RedirectToAction("EnderecoEPagamento", "Home");
                 }
                     
 
 
             }catch(Exception ex){
-                error = new Error()
-                {
-                    Message = "Houve um erro na autenticação."
-                };
-                ViewBag.Error = error;
+                TempData["Error"] = "Houve um erro na autenticação.";  
                 return RedirectToAction("EnderecoEPagamento", "Home");
             }
             
@@ -477,8 +457,10 @@ namespace MaisLife.Controllers
 
         public ActionResult CadastroELogin()
         {
+            Injections.LayoutInjection(this);
             return View();
         }
+       
 
     }
 }

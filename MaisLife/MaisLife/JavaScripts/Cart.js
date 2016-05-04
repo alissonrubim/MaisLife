@@ -36,7 +36,7 @@ var shipping = {
     enable: function (radio) {
         var id = radio.val();
         var select = $("select[data-id='local-select']");
-        var text = $("input[data-id='local-text']");
+        var text = $("select[data-id='local-text']");
         if (id == '0') {
             select.prop("disabled", false);
             text.prop("disabled", true);

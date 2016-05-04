@@ -121,7 +121,18 @@ namespace MaisLifeModel
             return (decimal)total + sum;
 
         }
-		
+
+
+        public int TotalItens()
+        {
+            int amount = 0;
+            foreach (var rel in Carrinho_produtos)
+            {
+                amount += (int) rel.Quantidade;
+            }
+
+            return amount;
+        }
 		#region ISerializable Implementation
 		
 		public Carrinho()

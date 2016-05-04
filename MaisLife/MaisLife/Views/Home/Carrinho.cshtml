@@ -6,6 +6,7 @@
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
+    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
 }
 
 <script>
@@ -77,16 +78,17 @@
                     </td>
                 </tr>
             }
-            @if (cart.Carrinho_produtos.Count > 0) { 
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button type="button" class="btn btn-primary" data-id="update-cart">Alterar carrinho</button>
-                </td>
-            </tr>
+            @if (cart.Carrinho_produtos.Count > 0)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-id="update-cart">Alterar carrinho</button>
+                    </td>
+                </tr>
             }
         </table>
     </form>
@@ -137,7 +139,13 @@
             </div>
             <div class="col-lg-3 cart-text">
                 <input type="radio" name="address-type" data-content="address-type" value="1" />
-                <input type="text" name="local" data-id="local-text" class="form-control" placeholder="Seu bairro" disabled>
+                <select class="form-control" name="local" data-id="local-text" disabled>
+                    @foreach (var local in locals)
+                    {
+                        <option value="@local.Nome">@local.Nome</option>
+                    }
+                </select>
+                <!-- <input type="text" name="local" data-id="local-text" class="form-control" placeholder="Seu bairro" disabled> -->
             </div>
 
             <div class="col-lg-2 cart-btn">

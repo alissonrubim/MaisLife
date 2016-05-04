@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    var user = (MaisLifeModel.Usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +18,7 @@
 <body>
     <!-- UPPER BAR START -->
     <div class="navbar navbar-default upper-bar  hidden-sm hidden-xs">
-        <div class="container">
+        <div class="container">               
             <ul class="nav navbar-nav">
                 @{
                     var session = @Session["user"];
@@ -38,7 +42,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <li class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                         <img alt="Brand" src="~/Images/logo.png">
                     </a>
                 </li>
@@ -63,14 +67,27 @@
                     </div>
                 </li>
                 <li class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
-                    <div>Carrinho de compras</div>
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                    <div class="header-item-text">
-                        <p>
-                            Nenhum item <br />
-                            :(
-                        </p>
-                    </div>
+                    <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0})">
+                        <div>Carrinho de compras</div>
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        <div class="header-item-text">
+                            @if (cart.Carrinho_produtos.Count() == 0)
+                            {
+                                <p>
+                                    Nenhum item <br />
+                                    :(
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @cart.TotalItens() <br />
+                                    Item(s)
+                                </p>
+                            }
+
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>

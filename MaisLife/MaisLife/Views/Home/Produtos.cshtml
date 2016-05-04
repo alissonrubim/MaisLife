@@ -1,12 +1,13 @@
 ﻿@{
     ViewBag.Title = "Produtos";
+    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
 }
 
 <div class="container store-page products-page">
     <div class="page-header">
-        <h1>Todos os produtos<small class="right">0</small></h1>
+        <h1>Todos os produtos<small class="right">@products.Count() produtos</small></h1>
     </div>
-    @foreach (var item in (List<MaisLifeModel.Produto>)ViewBag.Products)
+    @foreach (var item in products)
     {
         <div class="col-lg-3 product-box">
             <a href="@Url.Action("Produto", "Home", new { id = item.Id })">
