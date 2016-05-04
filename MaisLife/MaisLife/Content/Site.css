@@ -156,7 +156,7 @@ a{
 
 @media (min-width: 992px) {
   .header .container ul {
-      height: 180px;  
+      height: 200px;  
   }
 }
 
@@ -371,6 +371,10 @@ footer .brand-footer div .footer-menu ul li a:hover {
 
 .know div div .custom-text {
     padding-top: 65px;
+}
+
+.know div div .custom-text h3 {
+    color: #4F6939;
 }
 
 .know div div .custom-text p {
