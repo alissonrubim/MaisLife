@@ -103,7 +103,8 @@ a{
     position: absolute;
     left: -45px;
     top: 20px;
-    height: 90px;    
+    height: 90px; 
+    z-index: 99999;   
 }
 
 .upper-bar .container ul .navbar-content p {

@@ -10,7 +10,7 @@
 </script>
 <div class="container store-page profile-page">
     <div class="page-header">
-        <h1>Seu painel de controle<small class="right"></small></h1>
+        <h1>Pedidos<small class="right"></small></h1>
     </div>
 
     <div class="row">
@@ -34,7 +34,7 @@
                             <th>Data</th>
                             <th>Valor</th>
                             <th>Método de pagamento</th>
-                            <th>Status <span data-toggle="tooltip" data-placement="left" title="Tooltip on left" class="glyphicon glyphicon-question-sign"></span></th>
+                            <th>Status <span id="status-icon" data-toggle="tooltip" data-placement="left" title="Tooltip on left" class="glyphicon glyphicon-question-sign"></span></th>
                         </tr>
                         @if (user.Pedidos.Count() > 0)
                         {
