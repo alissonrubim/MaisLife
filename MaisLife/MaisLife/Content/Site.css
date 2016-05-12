@@ -1172,7 +1172,11 @@ footer .brand-footer div .footer-menu ul li a:hover {
     max-width: 290px;
 }
 
-.address-page .modal-dialog .modal-header {
+.container-free-delivery .modal-dialog{
+    max-width: 290px;
+}
+
+.modal-dialog .modal-header {
     background-color: #759EB7;
     color: #FFFFFF;
 }
@@ -1183,5 +1187,9 @@ footer .brand-footer div .footer-menu ul li a:hover {
     text-align: left;
     font-size: 13px;
     
+}
+
+.container-free-delivery ul{
+    list-style:none;
 }
 
