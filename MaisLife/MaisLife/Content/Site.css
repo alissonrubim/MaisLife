@@ -1185,3 +1185,90 @@ footer .brand-footer div .footer-menu ul li a:hover {
     
 }
 
+/*
+ PAGE PROPERTY - STORE - PROFILE PAGE
+*/
+.profile-page {
+
+}
+
+.profile-page .row {
+    
+}
+
+.profile-page .row .profile-menu {
+
+}
+
+.profile-page .row .profile-menu ul {
+
+}
+
+.profile-page .row .profile-menu ul li {
+    background-color: transparent;
+    border: none;
+}
+
+.profile-page .row .profile-menu ul li a {
+    color: #4F6939;
+    font-weight: bold;
+}
+
+.profile-page .row .profile-menu ul li a:hover {    
+    margin-left: 5px;
+}
+
+.profile-page .row .profile-menu ul li:first-child, .profile-page .row .history ul li:first-child {
+    font-size: 22px;
+    background: #4F6939;
+    border-bottom: 1px solid #CCC;
+    border-radius: 0;
+    color: #FFF;
+}
+
+.profile-page .row .history {
+
+}
+
+.profile-page .row .history ul {
+
+}
+
+.profile-page .row .history ul li {
+    border: 0;
+}
+
+.profile-page .row .history ul li table {
+    width: 100%;
+}
+
+.profile-page .row .history ul li table tr {
+   
+}
+
+.profile-page .row .history ul li table tr th {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.profile-page .row .history ul li table tr td {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.rel-order{
+    width: 100%;
+    font-size: 18px;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 5px;
+}
+
+.rel-order:last-child{
+    border:0;
+}
+
+.rel-order .right {
+
+}
+
+

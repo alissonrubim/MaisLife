@@ -63,3 +63,31 @@ $(document).on("keyup", "input[data-id='chng']", function () {
 $(document).on("click", "button[data-id='buy-submit']", function () {   
     address.form();
 });
+
+method = {
+    change: function (method) {
+        var input = $("input[data-id='chng']");
+        var phse = $("div[data-reactid='chng']");
+        var methodInput = $("input[name='payMethod']");
+
+        if (method == "creditcard") {
+            input.prop("disabled", true);
+            input.val("0");
+            phse.text("Troco apenas para pagamento em dinheiro");
+            methodInput.val("Cartão");
+        }else{
+            input.prop("disabled", false);
+            input.val("0");
+            phse.text("Valor insuficiente");
+            methodInput.val("Dinheiro");
+        }
+    }
+};
+
+$(document).on("click", "label[data-id='method-cash']", function () {
+    method.change("cash");
+});
+
+$(document).on("click", "label[data-id='method-creditcard']", function () {
+    method.change("creditcard");
+});

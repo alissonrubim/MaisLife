@@ -144,6 +144,7 @@
     <Content Include="Views\Home\EnderecoEPagamento.cshtml" />
     <Content Include="Views\Home\CadastroELogin.cshtml" />
     <Content Include="Views\Home\FinalizarPedido.cshtml" />
+    <Content Include="Views\Home\Perfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

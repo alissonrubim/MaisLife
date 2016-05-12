@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Perfil";
+    var user = (MaisLifeModel.Usuario)ViewBag.User;  
+}
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+<div class="container store-page profile-page">
+    <div class="page-header">
+        <h1>Seu painel de controle<small class="right"></small></h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 profile-menu">
+            <ul class="list-group">
+                <li class="list-group-item">Mais Life</li>
+                <li class="list-group-item"><a href="Produtos"><i class="glyphicon glyphicon-shopping-cart"></i> Loja Virtual</a></li>
+                <li class="list-group-item"><a href="Index#about"><i class="glyphicon glyphicon-flag"></i> Quem Somos</a></li>
+                <li class="list-group-item"><a href="Index#health"><i class="glyphicon glyphicon-heart-empty"></i> Saúde</a></li>
+                <li class="list-group-item"><a href="Index#contact"><i class="glyphicon glyphicon-list-alt"></i> Contato</a></li>
+                <li class="list-group-item"><a href="Index#about"><i class="glyphicon glyphicon-thumbs-up"></i> Frete Grátis</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 history">
+            <ul class="list-group">
+                <li class="list-group-item">Histórico de pedidos</li>
+                <li class="list-group-item">
+                    <table class="table-hover">
+                        <tr>
+                            <th>Produtos</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Método de pagamento</th>
+                            <th>Status <span data-toggle="tooltip" data-placement="left" title="Tooltip on left" class="glyphicon glyphicon-question-sign"></span></th>
+                        </tr>
+                        @if (user.Pedidos.Count() > 0)
+                        {
+                            foreach (var order in user.Pedidos)
+                            {
+                                <tr>
+                                    <td><a data-toggle="modal" data-target="#order-modal-@order.Id" href="#"><span class="glyphicon glyphicon-list"></span></a></td>
+                                    <td>@order.Data</td>
+                                    <td>@order.Valor</td>
+                                    <td>@order.Metodo</td>
+                                    <td>@order.Status</td>
+                                </tr>
+                                <div class="modal fade" id="order-modal-@order.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Produtos</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                @foreach (var rel in @order.Carrinho1.Carrinho_produtos)
+                                                {
+                                                    <div class="rel-order">@rel.Produto1.Nome (@rel.Quantidade x)<span class="right">R$ @rel.Produto1.Preco</span></div>
+                                                }
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="no-item">Nenhum pedido :(</td>                                
+                            </tr>
+                        }
+                        
+                    </table>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+</div>
+

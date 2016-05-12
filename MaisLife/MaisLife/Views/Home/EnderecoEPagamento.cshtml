@@ -126,10 +126,10 @@
                     </li>
                     <li class="list-group-item">
                         <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
+                            <label data-id="method-cash" class="btn btn-primary active">
                                 <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-credit-card"></span> Dinheiro
                             </label>
-                            <label class="btn btn-primary">
+                            <label data-id="method-creditcard"  class="btn btn-primary">
                                 <input type="radio" name="options" id="option2" autocomplete="off"> <span class="glyphicon glyphicon-credit-card"></span> Cartão
                             </label>
                         </div>
@@ -149,6 +149,7 @@
                         <form action="~/Home/FinalizarPedido" method="POST">
                             <input type="hidden" name="address" value="0" />
                             <input type="hidden" name="payValue" value="0.0" />
+                            <input type="hidden" name="payMethod" value="Cartão" />
                             <button type="submit" data-id="buy-submit" class="btn btn-success">
                                 Finalizar pedido
                             </button>

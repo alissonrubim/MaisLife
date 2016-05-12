@@ -10,7 +10,7 @@ namespace MaisLifeModel
     {
 
         public static string StringConexao =
-           "Persist Security Info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=5bb36aac";
+           "Persist Security Info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=123456";
 
         private static EntitiesModel _instance;
         public static EntitiesModel Model

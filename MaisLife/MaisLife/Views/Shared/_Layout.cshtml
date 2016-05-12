@@ -24,8 +24,14 @@
                     var session = @Session["user"];
                 }
 
-                @( session == null ? Html.Raw("<li><a href='#' data-content='scroll-link' data-target='login'>Cadastre-se / Entre</a></li>") :
-                                               Html.Raw("<li><a href='#'>Meus pedidos</a></li><li><a href='/Home/LogoutUser'>Sair</a></li>"))
+                @if ( user == null ){
+                    <li><a href='#' data-content='scroll-link' data-target='login'>Cadastre-se / Entre</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Perfil", "Home")">Meus pedidos</a></li>
+                    <li><a href='/Home/LogoutUser'>Sair</a></li>
+                }
 
                 <li class="navbar-right navbar-iconbox">
                     <img src="~/Images/face-icon.png" />

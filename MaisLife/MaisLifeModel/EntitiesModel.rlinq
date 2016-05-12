@@ -153,6 +153,9 @@
         <orm:field name="_pago" property="Pago" behavior="readwrite" uniqueId="5fd406a8-8607-421c-8abd-a31ae123ae77" type="System.Decimal">
           <orm:column name="pago" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
+        <orm:field name="_metodo" property="Metodo" behavior="readwrite" uniqueId="cb93fbb2-b92d-4759-abcf-f2a41fa28450" type="System.String">
+          <orm:column name="metodo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
+        </orm:field>
         <orm:field name="_endereco1" property="Endereco1" behavior="readwrite" uniqueId="6f4c6ac1-fdd3-4109-832a-68766d353ef0" type="MaisLifeModel.Endereco">
           <orm:reference uniqueId="5d51b2af-1184-42ed-93e1-9a45877bf75c" association-name="PedidoHasEndereco">
             <orm:sharedfield name="_endereco" target-class="MaisLifeModel.Endereco" target-field="_id" />
@@ -432,6 +435,7 @@
         <orm:column name="status" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
         <orm:column name="carrinho" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         <orm:column name="pago" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
+        <orm:column name="metodo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
         <orm:index name="fk_pedido_endereco_idx">
           <orm:columnMapping>
             <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
@@ -540,7 +544,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>Connection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>persist security info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=5bb36aac</AppConfigConnectionString>
+    <AppConfigConnectionString>persist security info=False;server=localhost;port=3306;database=maislife;uid=root;pwd=123456</AppConfigConnectionString>
     <NamingSettings>
       <ClassRules>
         <CaseMode>PascalCase</CaseMode>
@@ -655,6 +659,7 @@
       <Property Id="c57e425b-7102-4ed2-abd5-5097a7a281a2" name="Valor" type="Decimal" label="Valor : Decimal" kind="Persistent" fieldName="_valor" />
       <Property Id="ea8f10f9-19c5-4d93-abaa-ec7e7d6f73e1" name="Carrinho" type="Int32" label="Carrinho : Int32" kind="Persistent" fieldName="_carrinho" />
       <Property Id="5fd406a8-8607-421c-8abd-a31ae123ae77" name="Pago" type="Decimal" label="Pago : Decimal" kind="Persistent" fieldName="_pago" />
+      <Property Id="cb93fbb2-b92d-4759-abcf-f2a41fa28450" name="Metodo" label="Metodo : String" kind="Persistent" fieldName="_metodo" />
       <AssociationTargets>
         <Association Id="5d51b2af-1184-42ed-93e1-9a45877bf75c" SourceMultiplicity="ZeroOne" name="PedidoHasEndereco">
           <DomainClassMoniker name="/EntitiesModel/Endereco" />

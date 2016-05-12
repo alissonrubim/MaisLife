@@ -129,6 +129,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private string _metodo;
+		public virtual string Metodo
+		{
+			get
+			{
+				return this._metodo;
+			}
+			set
+			{
+				this._metodo = value;
+			}
+		}
+		
 		private Endereco _endereco1;
 		public virtual Endereco Endereco1
 		{
@@ -193,6 +206,7 @@ namespace MaisLifeModel
 			this.Status = info.GetString("Status");
 			this.Carrinho = info.GetInt32("Carrinho");
 			this.Pago = info.GetDecimal("Pago");
+			this.Metodo = info.GetString("Metodo");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -206,6 +220,7 @@ namespace MaisLifeModel
 			info.AddValue("Status", this.Status, typeof(string));
 			info.AddValue("Carrinho", this.Carrinho, typeof(int));
 			info.AddValue("Pago", this.Pago, typeof(decimal));
+			info.AddValue("Metodo", this.Metodo, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		

@@ -220,10 +220,10 @@ namespace MaisLife.Controllers
                     Usuario user = (Usuario)HttpContext.Session["user"];
                     Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
 
+                    var metodo = Request.Form["payMethod"];
                     var payValue = Convert.ToDecimal(Request.Form["payValue"]);
-                    if (payValue < cart.Total(address.Bairro1.Taxa))
+                    if (payValue < cart.Total(address.Bairro1.Taxa) && metodo == "Dinheiro")
                     {
-
                         TempData["Error"] = "Valor digitado é menor que o valor total da compra.";
                         return RedirectToAction("EnderecoEPagamento", "Home");
                     }
@@ -236,6 +236,7 @@ namespace MaisLife.Controllers
                             Carrinho1 = cart,
                             Endereco1 = address,
                             Pago = payValue,
+                            Metodo = metodo,
                             Status = "Enviado",
                             Data = DateTime.Now
                         };
@@ -255,9 +256,8 @@ namespace MaisLife.Controllers
 
                         if (ConfigDB.Model.HasChanges)
                             ConfigDB.Model.SaveChanges();
-
-                        Injections.LayoutInjection(this);
-                        return View();
+                        
+                        return RedirectToAction("Perfil", "Home");
                     }
 
                 }
@@ -459,6 +459,22 @@ namespace MaisLife.Controllers
         {
             Injections.LayoutInjection(this);
             return View();
+        }
+
+        public ActionResult Perfil()
+        {
+            Injections.LayoutInjection(this);
+            
+            Usuario user = (Usuario)HttpContext.Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }else{
+                ViewBag.User = user;
+                return View();
+            }
+
+            
         }
        
 
