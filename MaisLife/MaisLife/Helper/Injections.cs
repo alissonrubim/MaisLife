@@ -22,6 +22,7 @@ namespace MaisLife.Helper
             {
                 home.ViewBag.Cart = Sessions.FindShoppingCart();
             }
+            home.ViewBag.Products = ConfigDB.Model.Produtos.ToList();
         }
 
     }

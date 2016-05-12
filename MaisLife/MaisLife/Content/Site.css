@@ -277,8 +277,44 @@ footer .footer > div {
     text-align: center;    
 }
 
+footer .footer > div div ul {
+      
+}
+
+footer .footer > div div ul li {
+    background-color: transparent;
+    border: none;   
+}
+
+footer .footer > div div ul li .footer-item {
+  
+}
+
+footer .footer > div div ul li span{   
+    font-size: 32px;    
+}
+
+
+
 footer .footer > div, footer .brand-footer > div {
     padding: 15px;
+}
+
+footer .footer > div .footer-product ul {
+      
+}
+
+footer .footer > div .footer-products ul li {
+    padding: 3px;
+    text-align: left;      
+}
+ 
+footer .footer > div .footer-products ul li a {
+    color: #FFFFFF;   
+}
+
+footer .footer > div .footer-products ul li a span {
+    font-size: 13px;    
 }
 
 /*

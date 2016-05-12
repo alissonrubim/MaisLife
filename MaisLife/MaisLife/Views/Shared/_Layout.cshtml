@@ -1,6 +1,7 @@
 ﻿@{
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
 }
 
 <!DOCTYPE html>
@@ -19,13 +20,14 @@
 <body>
     <!-- UPPER BAR START -->
     <div class="navbar navbar-default upper-bar  hidden-sm hidden-xs">
-        <div class="container">               
+        <div class="container">
             <ul class="nav navbar-nav">
                 @{
                     var session = @Session["user"];
                 }
 
-                @if ( user == null ){
+                @if (user == null)
+                {
                     <li><a href='#' data-content='scroll-link' data-target='login'>Cadastre-se / Entre</a></li>
                 }
                 else
@@ -44,7 +46,6 @@
         </div>
     </div>
     <!-- UPPER BAR END -->
-
     <!-- Modal -->
     <div class="container-free-delivery">
         <div class="modal fade" id="free-delivery" tabindex="-1" role="dialog">
@@ -75,8 +76,6 @@
         </div>
     </div>
     <!-- Modal END -->
-
-
     <!-- HEADER START -->
     <div class="navbar navbar-default header">
         <div class="container">
@@ -92,8 +91,8 @@
                     <div class="header-item-text">
                         <p>
                             (32) 98807-1956 <br />
-                            (32) 98702-8482 
-                            
+                            (32) 98702-8482
+
                         </p>
                     </div>
                 </li>
@@ -103,8 +102,8 @@
                     <div class="header-item-text">
                         <p>
                             Rua Francisco Valadares <br />
-                            255, Vila Ideal 
-                           
+                            255, Vila Ideal
+
                         </p>
                     </div>
                 </li>
@@ -174,7 +173,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 signup">
                 <h2>Cadastre-se</h2>
                 @model MaisLife.Models.Adapter.UsuarioAdapter
-                @using (Html.BeginForm("CreateUser", "Home"))               
+                @using (Html.BeginForm("CreateUser", "Home"))
                 {
                     @Html.AntiForgeryToken()
 
@@ -249,9 +248,36 @@
     <footer>
         <div class="footer">
             <div class="container">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">a</div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">b</div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">c</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">                            
+                            <span class="glyphicon glyphicon-globe"></span>
+                            <div class="footer-item">                                
+                                Rua Francisco Valadares <br />
+                                255, Vila Ideal
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-earphone"></span>
+                            <div class="footer-item">                              
+                                (32) 98807-1956 <br />
+                                (32) 98702-8482
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 footer-products">
+                    <ul class="list-group">
+                        @foreach (var product in products)
+                        {
+                            <li class="list-group-item">
+                                <a href="@Url.Action("Produto", "Home", new { id = product.Id })"><span class="glyphicon glyphicon-inbox"></span> @product.Nome</a>
+</li>
+                        }                        
+                       
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
             </div>
         </div>
         <div class="brand-footer">
