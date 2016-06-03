@@ -397,13 +397,13 @@ footer .brand-footer div .footer-menu ul li a:hover {
     padding: 15px 0;
 }
 
-.know, .health, .products, .about, .contact, .footer, .brand-footer {
+.know, .health, .products, .about, .patners, .contact, .footer, .brand-footer {
     float: left;
     width: 100%;   
 }
 
 @media (min-width: 1570px) {
-    .know, .health, .products, .about, .contact {
+    .know, .health, .products, .about, .contact, .patners {
         float: none;
         margin:0 auto;
         width: 1170px;
@@ -776,10 +776,54 @@ footer .brand-footer div .footer-menu ul li a:hover {
 }
 
 /*
+ PAGE PROPERTY - HOME - PATNERS
+*/
+.patners {
+    border-top: 2px solid #CCCCCC;
+    background-color: #EEEEEE;
+}
+
+.patners div div .custom-text {
+    padding-top: 25px;
+}
+
+.patners div div .custom-text h1 {
+    color: #4F6939;
+    text-transform: uppercase;
+}
+
+.patners div div .patner-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.patners div div .patner-box .patner-img {
+    width: 180px;
+    height: 180px;
+}
+
+.patners div div .patner-box .patner-social {
+    width: 60px;
+    margin: 10px auto 0;
+}
+
+.patners div div .patner-box .patner-social .patner-social-item {
+    float: left;
+    width: 30px;
+}
+
+.patners div div .patner-box .patner-social .patner-social-item a span {
+   
+}
+
+
+
+/*
  PAGE PROPERTY - HOME - CONTACT
 */
 .contact {
-    background-color: #EEEEEE;       
+    border-top: 2px solid #CCCCCC;
+    background-color: #FFFFFF;       
 }
 
 .contact .container {

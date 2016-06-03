@@ -18,12 +18,11 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using MaisLifeModel;
 
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Produto_pedido : System.Runtime.Serialization.ISerializable
+	public partial class Parceiro : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,92 +37,111 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _produto;
-		public virtual int? Produto
+		private string _nome;
+		public virtual string Nome
 		{
 			get
 			{
-				return this._produto;
+				return this._nome;
 			}
 			set
 			{
-				this._produto = value;
+				this._nome = value;
 			}
 		}
 		
-		private int? _pedido;
-		public virtual int? Pedido
+		private string _imagem;
+		public virtual string Imagem
 		{
 			get
 			{
-				return this._pedido;
+				return this._imagem;
 			}
 			set
 			{
-				this._pedido = value;
+				this._imagem = value;
 			}
 		}
 		
-		private int? _quantidade;
-		public virtual int? Quantidade
+		private string _enderec;
+		public virtual string Enderec
 		{
 			get
 			{
-				return this._quantidade;
+				return this._enderec;
 			}
 			set
 			{
-				this._quantidade = value;
+				this._enderec = value;
 			}
 		}
 		
-		private Pedido _pedido1;
-		public virtual Pedido Pedido1
+		private string _telefone;
+		public virtual string Telefone
 		{
 			get
 			{
-				return this._pedido1;
+				return this._telefone;
 			}
 			set
 			{
-				this._pedido1 = value;
+				this._telefone = value;
 			}
 		}
 		
-		private Produto _produto1;
-		public virtual Produto Produto1
+		private string _site;
+		public virtual string Site
 		{
 			get
 			{
-				return this._produto1;
+				return this._site;
 			}
 			set
 			{
-				this._produto1 = value;
+				this._site = value;
+			}
+		}
+		
+		private string _facebook;
+		public virtual string Facebook
+		{
+			get
+			{
+				return this._facebook;
+			}
+			set
+			{
+				this._facebook = value;
 			}
 		}
 		
 		#region ISerializable Implementation
 		
-		public Produto_pedido()
+		public Parceiro()
 		{
 		}
 		
-		protected Produto_pedido(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Parceiro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Produto = (int?)info.GetValue("Produto", typeof(int?));
-			this.Pedido = (int?)info.GetValue("Pedido", typeof(int?));
-			this.Quantidade = (int?)info.GetValue("Quantidade", typeof(int?));
+			this.Nome = info.GetString("Nome");
+			this.Imagem = info.GetString("Imagem");
+			this.Enderec = info.GetString("Enderec");
+			this.Telefone = info.GetString("Telefone");
+			this.Site = info.GetString("Site");
+			this.Facebook = info.GetString("Facebook");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Produto", this.Produto, typeof(int?));
-			info.AddValue("Pedido", this.Pedido, typeof(int?));
-			info.AddValue("Quantidade", this.Quantidade, typeof(int?));
+			info.AddValue("Nome", this.Nome, typeof(string));
+			info.AddValue("Imagem", this.Imagem, typeof(string));
+			info.AddValue("Enderec", this.Enderec, typeof(string));
+			info.AddValue("Telefone", this.Telefone, typeof(string));
+			info.AddValue("Site", this.Site, typeof(string));
+			info.AddValue("Facebook", this.Facebook, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		

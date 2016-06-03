@@ -58,11 +58,11 @@ namespace MaisLifeModel
 			}
 		}
 		
-		public IQueryable<Produto_pedido> Produto_pedidos 
+		public IQueryable<Produto_bairro> Produto_bairros 
 		{
 			get
 			{
-				return this.GetAll<Produto_pedido>();
+				return this.GetAll<Produto_bairro>();
 			}
 		}
 		
@@ -82,11 +82,27 @@ namespace MaisLifeModel
 			}
 		}
 		
+		public IQueryable<Parceiro> Parceiros 
+		{
+			get
+			{
+				return this.GetAll<Parceiro>();
+			}
+		}
+		
 		public IQueryable<Endereco> Enderecos 
 		{
 			get
 			{
 				return this.GetAll<Endereco>();
+			}
+		}
+		
+		public IQueryable<Contato> Contatos 
+		{
+			get
+			{
+				return this.GetAll<Contato>();
 			}
 		}
 		
@@ -103,14 +119,6 @@ namespace MaisLifeModel
 			get
 			{
 				return this.GetAll<Carrinho>();
-			}
-		}
-		
-		public IQueryable<Contato> Contatos 
-		{
-			get
-			{
-				return this.GetAll<Contato>();
 			}
 		}
 		
@@ -147,7 +155,7 @@ namespace MaisLifeModel
 		{
 			get;
 		}
-		IQueryable<Produto_pedido> Produto_pedidos
+		IQueryable<Produto_bairro> Produto_bairros
 		{
 			get;
 		}
@@ -159,7 +167,15 @@ namespace MaisLifeModel
 		{
 			get;
 		}
+		IQueryable<Parceiro> Parceiros
+		{
+			get;
+		}
 		IQueryable<Endereco> Enderecos
+		{
+			get;
+		}
+		IQueryable<Contato> Contatos
 		{
 			get;
 		}
@@ -168,10 +184,6 @@ namespace MaisLifeModel
 			get;
 		}
 		IQueryable<Carrinho> Carrinhos
-		{
-			get;
-		}
-		IQueryable<Contato> Contatos
 		{
 			get;
 		}

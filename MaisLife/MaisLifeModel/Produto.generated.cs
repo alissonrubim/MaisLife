@@ -103,12 +103,12 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private IList<Produto_pedido> _produto_pedidos = new List<Produto_pedido>();
-		public virtual IList<Produto_pedido> Produto_pedidos
+		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
+		public virtual IList<Produto_bairro> Produto_bairros
 		{
 			get
 			{
-				return this._produto_pedidos;
+				return this._produto_bairros;
 			}
 		}
 		

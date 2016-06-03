@@ -1,5 +1,6 @@
 ﻿// LINK SCROLL
-$(document).on("click", "a[data-content='scroll-link']", function () {    
+$(document).on("click", "a[data-content='scroll-link']", function (e) {    
+    e.preventDefault;
     var id = $(this).attr("data-target");
     var target = $("#" + id);
 

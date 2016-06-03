@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Parceiros";
+    var patners = (List<MaisLifeModel.Parceiro>)ViewBag.Patners;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="upper-menu">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="#"><span class="fa fa-plus" aria-hidden="true"></span></a>
+        </li>
+        <li class="list-group-item disabled" data-id="item-edit">
+            <a href="#"><span class="fa fa-edit" aria-hidden="true"></span></a>
+        </li> 
+        <li class="list-group-item disabled" data-id="item-remove">
+            <a href="#"><span class="fa fa-remove" aria-hidden="true"></span></a>
+        </li>   
+    </ul>
+</div>
+<div class="container admin-page patner-page">
+    <div class="page-header">
+        <h1>Parceiros <small class="right">Gerenciamento (@patners.Count)</small></h1>
+    </div>
+    <table class="table-hover">
+        <tr>
+            <th></th>
+            <th>Parceiro</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Mídias</th>
+        </tr>
+        @foreach (var patner in patners)
+        {
+            <tr data-id="@patner.Id" data-content="patner-row" data-info="unselected">
+                <td>
+                    <img src="@patner.Imagem" class="img-responsive patner-img" />
+                </td>
+                <td>
+                    @patner.Nome
+                </td>
+                <td>
+                    @patner.Enderec
+                </td>
+                <td>
+                    @if (patner.Telefone != null)
+                    {
+                        <div class="patner-phone">@patner.Telefone</div>
+                    }
+                    else
+                    {
+                        <div class="patner-phone">Não informado</div>
+                    }
+                    
+                </td>
+                <td>
+                    @if (patner.Facebook != null)
+                    {
+                        <div class="patner-social-item">
+                            <a href="@patner.Facebook" target="_blank"><span class="fa fa-facebook"></span></a>
+                        </div>
+                    }
+                    @if (patner.Site != null)
+                    {
+                        <div class="patner-social-item">
+                            <a href="@patner.Site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }        
+    </table>
+    <form name="item-remove" method="POST" action="~/Admin/RemoverParceiro"></form>
+</div>
+<div class="fade-io">
+    <div class="panel panel-default confirm-panel">
+        <div class="panel-heading">
+            Você tem certeza que deseja remover estes itens?
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-danger" data-id="confirm-panel-yes">Remover</button>
+            <button class="btn btn-default" data-id="confirm-panel-close">Fechar</button>
+        </div>
+    </div>
+</div>
+

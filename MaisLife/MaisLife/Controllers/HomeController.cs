@@ -17,6 +17,7 @@ namespace MaisLife.Controllers
         public ActionResult Index()
         {            
             Injections.LayoutInjection(this);
+            ViewBag.patners = ConfigDB.Model.Parceiros.ToList();
             return View();
         }
 
@@ -330,7 +331,10 @@ namespace MaisLife.Controllers
         {
             if (Validation.ExistingEmailValidation(user))
             {
-                ConfigDB.Model.Add(user.ToUsuario());
+                var newUser = user.ToUsuario();
+                newUser.Permissao = 0;
+                newUser.Tipo = "client";
+                ConfigDB.Model.Add(newUser);
                 if (ConfigDB.Model.HasChanges)
                 {
                     ConfigDB.Model.SaveChanges();

@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Principal";
+    var patners = (List<MaisLifeModel.Parceiro>)ViewBag.patners;
 }
 <script>
     $(".menu").css("display", "block");
@@ -255,6 +256,50 @@
         </div>
     </div>
 </div>
+@if (patners.Count > 0) { 
+    <div id="patners" class="content-row patners">
+        <div class="container">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="custom-text">
+                    <div class="custom-title">
+                        <h1>Parceiros</h1>
+                    </div>                           
+                </div>
+                @foreach (var patner in patners)
+                {
+                    <div class="col-lg-3 patner-box">
+                        <img src="http://spacenews.com.br/wp-content/uploads/2015/11/maxresdefault.jpg" class="img-circle patner-img" />
+                        <div class="patner-name"><h3>Bahamas</h3></div>                    
+                        <div class="patner-address">Av Getulio Vargas, 713, Centro</div>
+                        @if (patner.Telefone != null)
+                        {
+                            <div class="patner-phone">@patner.Telefone</div>
+                        }
+                        else
+                        {
+                            <div class="patner-phone">&nbsp;</div>
+                        }                    
+                        <div class="patner-social">
+                            @if (patner.Facebook != null)
+                            {
+                                <div class="patner-social-item">
+                                    <a href="@patner.Facebook" target="_blank"><span class="fa fa-facebook"></span></a>
+                                </div>
+                            }
+                            @if (patner.Site != null)
+                            {
+                                <div class="patner-social-item">
+                                    <a href="@patner.Site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
+                                </div>
+                            }
+                        
+                        </div>
+                    </div>
+                }       
+            </div>
+        </div>
+    </div>
+}
 <div id="contact" class="content-row contact">
     <div class="container">
         <div class="custom-text">

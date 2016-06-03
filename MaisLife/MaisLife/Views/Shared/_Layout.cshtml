@@ -11,7 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MaisLife</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />  
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" type="text/css" />  
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />    
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -34,6 +36,10 @@
                 {
                     <li><a href="@Url.Action("Perfil", "Home")">Meus pedidos</a></li>
                     <li><a href='/Home/LogoutUser'>Sair</a></li>
+                    if (user.Permissao > 0)
+                    {
+                        <li><a href="@Url.Action("Index", "Admin")">Painel de Controle</a></li>
+                    }
                 }
 
                 <li class="navbar-right navbar-iconbox">
@@ -150,7 +156,7 @@
                     <li><a href="#" data-content="scroll-link" data-target="about">Quem somos</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="products">Loja virtual</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="health">Para a saúde</a></li>
-                    <li><a href="#" data-content="scroll-link" data-target="">Onde comprar</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="patners">Onde comprar</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="contact">Contato</a></li>
                 </ul>
                 <ul class="nav navbar-nav hidden-lg hidden-md">
@@ -160,7 +166,7 @@
                     <li><a href="#" data-content="scroll-link" data-target="about">Quem somos</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="products">Loja virtual</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="health">Para a saúde</a></li>
-                    <li><a href="#" data-content="scroll-link" data-target="">Onde comprar</a></li>
+                    <li><a href="#" data-content="scroll-link" data-target="patners">Onde comprar</a></li>
                     <li><a href="#" data-content="scroll-link" data-target="contact">Contato</a></li>
                 </ul>
             </div>

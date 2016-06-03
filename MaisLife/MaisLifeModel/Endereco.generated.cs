@@ -142,19 +142,6 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private Usuario _usuario1;
-		public virtual Usuario Usuario1
-		{
-			get
-			{
-				return this._usuario1;
-			}
-			set
-			{
-				this._usuario1 = value;
-			}
-		}
-		
 		private Bairro _bairro1;
 		public virtual Bairro Bairro1
 		{
@@ -165,6 +152,19 @@ namespace MaisLifeModel
 			set
 			{
 				this._bairro1 = value;
+			}
+		}
+		
+		private Usuario _usuario1;
+		public virtual Usuario Usuario1
+		{
+			get
+			{
+				return this._usuario1;
+			}
+			set
+			{
+				this._usuario1 = value;
 			}
 		}
 		

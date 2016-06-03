@@ -15,8 +15,24 @@ namespace MaisLife.Helper
             if (user != null)
             {
                 Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                if (cart == null)
+                {
+                    cart = new Carrinho()
+                    {
+                        Usuario1 = user,
+                        Status = "Ativo"
+                    };
+
+                    ConfigDB.Model.Add(cart);
+
+                    if (ConfigDB.Model.HasChanges)
+                        ConfigDB.Model.SaveChanges();
+
+                    cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                }
                 home.ViewBag.User = user;
                 home.ViewBag.Cart = cart;
+               
             }
             else
             {

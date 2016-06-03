@@ -142,6 +142,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private Carrinho _carrinho1;
+		public virtual Carrinho Carrinho1
+		{
+			get
+			{
+				return this._carrinho1;
+			}
+			set
+			{
+				this._carrinho1 = value;
+			}
+		}
+		
 		private Endereco _endereco1;
 		public virtual Endereco Endereco1
 		{
@@ -165,28 +178,6 @@ namespace MaisLifeModel
 			set
 			{
 				this._usuario1 = value;
-			}
-		}
-		
-		private Carrinho _carrinho1;
-		public virtual Carrinho Carrinho1
-		{
-			get
-			{
-				return this._carrinho1;
-			}
-			set
-			{
-				this._carrinho1 = value;
-			}
-		}
-		
-		private IList<Produto_pedido> _produto_pedidos = new List<Produto_pedido>();
-		public virtual IList<Produto_pedido> Produto_pedidos
-		{
-			get
-			{
-				return this._produto_pedidos;
 			}
 		}
 		
