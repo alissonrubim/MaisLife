@@ -136,6 +136,7 @@
     <Compile Include="Helper\Validation.cs" />
     <Compile Include="Models\Adapter\ContatoAdapter.cs" />
     <Compile Include="Models\Adapter\EnderecoAdapter.cs" />
+    <Compile Include="Models\Adapter\ParceiroAdapter.cs" />
     <Compile Include="Models\Adapter\ProdutoAdapter.cs" />
     <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Models\Error.cs" />
@@ -160,6 +161,8 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Parceiros.cshtml" />
+    <Content Include="Views\Admin\Partials\_PatnerTable.cshtml" />
+    <Content Include="Views\Admin\Partials\_PatnerAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -169,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaisLifeModel\MaisLifeModel.csproj">

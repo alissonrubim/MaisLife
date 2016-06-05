@@ -7,6 +7,22 @@ body {
     font-family: 'Montserrat', Arial, sans-serif;
 }
 
+input, select, textarea, button, a {
+    border-radius: 0 !important;
+}
+
+.btn-success {
+    background-color: #4F6939;
+}
+
+.btn-success:hover{
+    background-color: #6B8C4F;
+}
+
+.panel-submit {
+    width: 200px;
+}
+
 /* 
  LAYOUT PROPERTY - SIDE MENU
 */
@@ -139,6 +155,39 @@ body {
 
 .patner-page {
 
+}
+
+.patner-page .form-horizontal {
+
+}
+
+.patner-page .form-horizontal .form-group {
+    position: relative;   
+    background-color: #F5F5F5;
+    margin-right: 0;
+    margin-left: 0;
+    padding: 10px;
+    border: 1px solid #CCCCCC;   
+}
+
+.patner-page .form-horizontal .image-group {
+
+}
+
+.patner-page .form-horizontal .form-group .form-label {
+    letter-spacing: 1px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.patner-page .form-horizontal .form-group .form-input {
+
+}
+
+.patner-page .form-horizontal .form-group .form-input input {
+   margin-top: 10px;
 }
 
 .patner-page table {

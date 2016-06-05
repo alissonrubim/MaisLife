@@ -6,6 +6,10 @@ $(document).on("click", "li[data-id='item-remove']", function () {
     patner.callDeleteConfirm();
 });
 
+$(document).on("click", "li[data-id='item-edit']", function () {
+    patner.completeFields();
+});
+
 $(document).on("click", "button[data-id='confirm-panel-close']", function () {
     patner.closeDeleteConfirm();
 });
@@ -67,6 +71,14 @@ var patner = {
         });        
         return check;
     },
+    pickSelected: function () {
+        var id = 0;
+        $("tr[data-content='patner-row']").each(function () {
+            if ($(this).attr("data-info") == "selected")
+                id = $(this).attr("data-id");
+        });        
+        return id;
+    },
     callDeleteConfirm: function () {
         if (patner.checkItemCount() > 0) {           
             var fade = $(".fade-io");
@@ -96,7 +108,20 @@ var patner = {
         });
 
         form.append(input);
+        form.submit();
+    },
+    completeFields: function () {
+        var id = patner.pickSelected(); 
+        var form = $("form[name='item-edit']");
 
+        var input = $("<input>");
+        input.attr({
+            type: "hidden",
+            name: "patner",
+            value: id
+        });
+
+        form.append(input);
         form.submit();
     }
 };
