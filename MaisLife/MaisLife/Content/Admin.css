@@ -186,12 +186,40 @@ input, select, textarea, button, a {
 
 }
 
+.patner-page .form-horizontal .form-group .form-input div{
+    margin-bottom: 10px;
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-box {
+    position: relative;
+    float: left;
+    width: 70%;
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-box select {
+
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-box input {
+    margin-top: 0;
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-more {
+    float: right;
+    width: 25%;
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-more button {
+
+}
+
 .patner-page .form-horizontal .form-group .form-input input {
    margin-top: 10px;
 }
 
 .patner-page table {
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .patner-page table tr {
@@ -207,12 +235,12 @@ input, select, textarea, button, a {
 }
 
 .patner-page table tr th{
-    padding: 10px 0;
+    padding: 10px 15px;
     border-bottom: 1px solid #CCCCCC;
 }
 
 .patner-page table tr td{
-     padding: 10px 0;    
+     padding: 10px 15px;    
 }
 
 .patner-page table tr td .patner-img {

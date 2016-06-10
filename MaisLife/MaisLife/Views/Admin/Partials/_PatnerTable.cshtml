@@ -11,7 +11,14 @@
     {
         <tr data-id="@patner.Id" data-content="patner-row" data-info="unselected">
             <td>
-                <img src="@Url.Content("~/Images/Uploads/" + @patner.Imagem)" class="img-responsive patner-img" />
+                @if (@patner.Imagem.Contains("http"))
+                {
+                    <img src="@patner.Imagem" class="img-responsive patner-img" />
+                }
+                else
+                {
+                    <img src="@Url.Content("~/Images/Uploads/" + @patner.Imagem)" class="img-responsive patner-img" />
+                }               
             </td>
             <td>
                 @patner.Nome

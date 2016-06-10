@@ -19,6 +19,89 @@ $(document).on("click", "button[data-id='confirm-panel-yes']", function () {
     patner.closeDeleteConfirm();
 });
 
+$(document).on("click", "button[data-id='more-delivery']", function () {
+    delivery.cloneBox();
+});
+
+$(document).on("click", "button[data-id='remove-delivery']", function () {
+    delivery.removeBox($(this));
+});
+
+$(document).on("click", "button[data-id='panel-submit']", function () {    
+    delivery.listFields();
+    $(this).closest("form").submit();
+});
+
+var delivery = {
+    cloneBox: function () {
+        var box = $("div[data-id='delivery-box']");
+        var clone = box.clone();
+
+        clone.attr("data-id", false);
+        clone.find("button[data-id='more-delivery']").remove();
+        var input = clone.find("input[data-id='delivery-tax']");
+        input.val("");
+
+        var icon = $("<span>");
+        icon.addClass("glyphicon glyphicon-remove");
+
+        var button = $("<button>");
+        button.attr({
+            "data-id": "remove-delivery",
+            type: "button"
+
+        });
+        button.addClass("btn btn-danger");
+        button.append(icon);
+
+        clone.find(".field-more").append(button);
+        
+        var content = $("div[data-id='delivery-content']");
+        content.append(clone);       
+    },
+    removeBox: function (btn) {
+        btn.closest("div[data-content='delivery-field']").remove();       
+    },
+    report: function () {
+        /*
+        var report = $("div[data-id='delivery-report']");
+        var same = false;
+        var locals = [];
+        $("select[data-id='delivery-local']").each(function () {            
+            console.log("fdsfsd");
+            for (var i = 0; i < locals.length; i++) {
+                if ($(this).val() == locals[i] && $(this).val() != "0")
+                    same = true;
+                else
+                    locals.push($(this).val());
+            }
+
+            if (same) {
+                report.text("Existem dois bairros iguais!");
+                report.show();
+            }               
+
+        });
+        */
+    },
+    listFields: function () {
+        var content = $("div[data-id='deliverys']");
+        var i = 1;
+        content.find(".field-box").each(function () {
+            var select = $(this).find("select");
+            if ( select.val() != "0" ){
+                select.attr("name", "delivery-local-" + i);                
+                $(this).find("input").attr("name", "delivery-tax-" + i);
+                i++;
+            }
+            
+        });
+        var amount = $("input[name='delivery-amount']");
+        amount.val(i - 1);
+
+    }
+}
+
 
 
 
@@ -117,7 +200,7 @@ var patner = {
         var input = $("<input>");
         input.attr({
             type: "hidden",
-            name: "patner",
+            name: "item",
             value: id
         });
 

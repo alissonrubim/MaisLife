@@ -17,25 +17,43 @@ namespace MaisLife.Models.Adapter
         public string Descricao { get; set; }
         [Required]       
         public decimal Preco { get; set; }
+        [Required]
+        public int Unidade { get; set; }
+        [Required]
+        public string Imagem { get; set; }
+        public IList<Produto_bairro> Bairros { 
+            get {
+                return ConfigDB.Model.Produto_bairros.Where(pb => pb.Produto == Id).ToList();
+            }           
+        }
 
         public Produto ToProduto()
         {
             return new Produto()
             {
+                Id = this.Id,
                 Nome = this.Nome,
                 Descricao = this.Descricao,
-                Preco = this.Preco
+                Preco = this.Preco,
+                Unidade = this.Unidade,
+                Imagem = this.Imagem,
+                Produto_bairros = this.Bairros
             };
         }
 
         public ProdutoAdapter ToProdutoAdapter(Produto produto)
         {
-            return new ProdutoAdapter()
+            var adapter = new ProdutoAdapter()
             {
+                Id = produto.Id,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
-                Preco = (Decimal) produto.Preco
-            };
+                Preco = (Decimal)produto.Preco,
+                Unidade = (int)produto.Unidade,
+                Imagem = produto.Imagem               
+            };            
+
+            return adapter;
         }
 
     }

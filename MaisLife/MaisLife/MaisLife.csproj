@@ -163,6 +163,9 @@
     <Content Include="Views\Admin\Parceiros.cshtml" />
     <Content Include="Views\Admin\Partials\_PatnerTable.cshtml" />
     <Content Include="Views\Admin\Partials\_PatnerAdd.cshtml" />
+    <Content Include="Views\Admin\Produtos.cshtml" />
+    <Content Include="Views\Admin\Partials\_ProductAdd.cshtml" />
+    <Content Include="Views\Admin\Partials\_ProductTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
