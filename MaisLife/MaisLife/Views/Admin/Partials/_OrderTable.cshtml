@@ -11,7 +11,7 @@
     </tr>
     @foreach (var order in @Model)
     {
-        <tr data-id="@order." data-content="patner-row" data-info="unselected">
+        <tr data-id="@order.Id" data-content="patner-row" data-info="unselected">
             <td style="width:100px; height: 100px;">               
                 @order.Usuario_externo1.Telefone
             </td>

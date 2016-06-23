@@ -51,16 +51,21 @@ $(document).on("change", "select[data-id='product-select']", function () {
 $(document).on("change", "input[name='product-count']", function () {
     var dad = $(this).closest(".field-box");    
     var select = dad.find("select");
-    if (select.val() > 0)
+    if (select.val() > 0) {
         externalOrderProducts.amountChange($(this));
+    } else {
+        $(this).val("");
+    }
+        
 });
 
 $(document).on("click", "button[data-id='more-product']", function () {
-    externalOrderProductsManager.cloneBox();
+    externalOrderProductsManager.cloneBox();    
 });
 
 $(document).on("click", "button[data-id='remove-product']", function () {
     externalOrderProductsManager.removeBox($(this));
+    //externalOrderProducts.calculateTotal();
 });
 
 $(document).on("click", "button[data-id='panel-submit']", function (e) {
@@ -291,6 +296,7 @@ var externalOrderProducts = {
         var amount = dad.find("input[name='product-count']");
         var price = dad.find("input[name='product-price']");
         var total = dad.find("input[name='product-total']");
+        var orderTotal = $("input[name='total']");
 
         var inputs = [];
         inputs.push(un, amount, price, total);
@@ -320,11 +326,14 @@ var externalOrderProducts = {
                 inputs[2].val("R$ " + result.Preco);
                 inputs[3].val("R$ " + result.Preco);
 
+                externalOrderProducts.calculateTotal();
+
             },
             error: function () {
                 alert("Erro com o servidor!");
             }
         });
+        
     },
     amountChange: function (object) {       
         var inputs = externalOrderProducts.getInputs(object);
@@ -332,6 +341,20 @@ var externalOrderProducts = {
         var amount = parseInt(inputs[1].val());       
         var price = parseFloat(inputs[2].val().split(" ")[1]);        
         inputs[3].val("R$ " + amount * price);
+        externalOrderProducts.calculateTotal();
+    },
+    calculateTotal: function () {        
+        var content = $("div[data-id='products']");       
+        var total = 0;
+        content.find(".field-box").each(function () {
+            var price = parseFloat($(this).find("input[name='product-price']").val().split(" ")[1]);           
+            var count = parseInt($(this).find("input[name='product-count']").val());            
+            total += price * count;
+        });
+        
+        var totalInput = $("#total");
+        totalInput.val("R$ " + total);
+
     }
 }
 
@@ -343,7 +366,13 @@ var externalOrderProductsManager = {
 
         clone.attr("data-id", false);
         clone.find("button[data-id='more-product']").remove();
-        var input = clone.find("input[name='product-amount']");
+        var input = clone.find("input[name='product-un']");
+        input.val("");
+        var input = clone.find("input[name='product-count']");
+        input.val("");
+        var input = clone.find("input[name='product-total']");
+        input.val("");
+        var input = clone.find("input[name='product-price']");
         input.val("");
 
         var icon = $("<span>");
@@ -361,7 +390,7 @@ var externalOrderProductsManager = {
         clone.find(".field-more").append(button);
 
         var content = $("div[data-id='product-content']");
-        content.append(clone);
+        content.append(clone);       
     },
     removeBox: function (btn) {
         btn.closest("div[data-content='product-field']").remove();

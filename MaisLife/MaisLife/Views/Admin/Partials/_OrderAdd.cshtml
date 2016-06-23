@@ -2,6 +2,8 @@
 @{
     var outsideClients = (List<MaisLifeModel.Usuario_externo>)ViewBag.OutsideClients;
     var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var user = (MaisLifeModel.Usuario)ViewBag.User;
+    var sellers = (List<MaisLifeModel.Usuario>)ViewBag.Sellers;  
 }
 @using (Ajax.BeginForm("ManagerExternalOrder", "Admin", new AjaxOptions()
 {
@@ -38,9 +40,17 @@
                 <div class="form-label">
                     Nome:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-name" class="form-control" placeholder="Nome"/>  
-                </div>               
+                @if (Model.Id > 0)
+                {
+                    @Html.EditorFor(model => model.UsuarioExterno.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+                }
+                else
+                {
+                    <div class="form-input">
+                        <input type="text" name="client-name" class="form-control" placeholder="Nome" />
+                    </div>
+                }
+                              
             </div>
         </div>
         <div class="col-lg-2">
@@ -48,9 +58,16 @@
                 <div class="form-label">
                     Contato:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-phone" class="form-control" placeholder="Telefone" />
-                </div>
+                @if (Model.Id > 0)
+                {
+                    @Html.EditorFor(model => model.UsuarioExterno.Telefone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefone" } })
+                }
+                else
+                {
+                    <div class="form-input">
+                        <input type="text" name="client-phone" class="form-control" placeholder="Telefone" />
+                    </div>
+                }                
             </div>
         </div>
         <div class="col-lg-5">
@@ -164,7 +181,75 @@
                    
                 </div>
             </div>
-        </div>           
+        </div> 
+        <div class="col-lg-3">
+            <div class="form-group">
+                <div class="form-label">
+                    Pagamento:
+                </div>
+                <div class="form-input">
+                    <select name="client-payment" class="form-control">
+                        <option value="Dinheiro">Dinheiro</option>
+                        <option value="Cartao">Cartão de crédito</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <div class="form-label">
+                    Valor a pagar (opcional):
+                </div>
+                <div class="form-input">
+                    <input type="text" name="client-payValue" class="form-control" placeholder="Valor a pagar" />
+                </div>  
+            </div>
+        </div>         
+        <div class="col-lg-3">
+            <div class="form-group">
+                <div class="form-label">
+                    Vendedor:
+                </div>
+                <div class="form-input">
+                    @if (@user.Permissao < 2)
+                    {
+                        <select name="client-payment" class="form-control" disabled>
+                            <option value="@user.Id">@user.Nome</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select name="client-payment" class="form-control">
+                            @foreach (var seller in sellers)
+                            {
+                                <option value="@seller.Id">@seller.Nome</option>
+                            } 
+                        </select>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <div class="form-label">
+                    Total:
+                </div>
+                <div class="form-input">
+                    @if (Model.Id > 0)
+                    {
+                        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone", disabled = true, id = "total" } })
+                    }
+                    else
+                    {
+                        <div class="form-input">
+                            <input id="total" type="text" class="form-control" placeholder="Total" disabled />
+                        </div>
+                    }    
+                    
+                </div>
+            </div>
+        </div>                 
                 
         <div class="col-lg-11">
             @if (Model.Id > 0)

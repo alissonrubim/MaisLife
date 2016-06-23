@@ -37,7 +37,7 @@ namespace MaisLife.Controllers
             else
                 return View();
         }
-
+       
         public ActionResult VendasExternas(PedidoAdapter order = null)
         {
             var logged = (Usuario) HttpContext.Session["user"];
@@ -46,6 +46,7 @@ namespace MaisLife.Controllers
             ViewBag.User = logged;
             ViewBag.OutsideClients = ConfigDB.Model.Usuario_externos.ToList();
             ViewBag.Products = ConfigDB.Model.Produtos.ToList();
+            ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(u => u.Permissao >= 1).ToList();
             if (order != null)               
                 return View(order);
             else
@@ -207,6 +208,14 @@ namespace MaisLife.Controllers
                 }
 
                 Usuario_externo client;
+
+                var method = Request.Form["client-payment"];
+                if (method.Contains("Car"))
+                    method = "Cartão";
+                else
+                    method = "Dinheiro";
+
+                var paid = Convert.ToDecimal(Request.Form["client-pay"]);
                 
                 var clientid = Convert.ToInt32(Request.Form["client"]);
                 if ( clientid > 0 ){
@@ -248,8 +257,8 @@ namespace MaisLife.Controllers
                     Usuario1 = user,
                     Data = DateTime.Now,
                     Endereco1 = client.Endereco1,
-                    Metodo = "Dinheiro",
-                    Pago = 0,
+                    Metodo = method,
+                    Pago = paid,
                     Status = "Enviado",
                     Usuario_externo1 = client,
                     Valor = orderValue
@@ -318,6 +327,26 @@ namespace MaisLife.Controllers
             var adapter = new ProdutoAdapter().ToProdutoAdapter(product);
 
             return RedirectToAction("Produtos", new RouteValueDictionary(adapter));
+        }
+
+        [HttpPost]
+        public ActionResult EditarVendaExterna()
+        {
+            var id = Convert.ToInt32(Request.Form["item"]);
+
+            var user = (Usuario) HttpContext.Session["user"];
+
+            var external = ConfigDB.Model.Pedidos.FirstOrDefault(o => o.Id == id);
+            var adapter = new PedidoAdapter().ToPedidoAdapter(external);
+            if ( user.Permissao < 2 ){
+                if ( external.Status == "Enviado" ){
+                    return RedirectToAction("VendasExternas", new RouteValueDictionary(adapter));
+                }else
+                    return RedirectToAction("VendasExternas");
+            }else{
+                return RedirectToAction("VendasExternas", new RouteValueDictionary(adapter));                    
+            }
+            
         }
 
         public string ExternalUsersAjax()
