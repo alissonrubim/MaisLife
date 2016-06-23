@@ -204,6 +204,16 @@ input, select, textarea, button, a {
     margin-top: 0;
 }
 
+.patner-page .form-horizontal .form-group .form-input div .field-box .group-input {
+   
+}
+
+.patner-page .form-horizontal .form-group .form-input div .field-box .group-input input {
+    width: 50%;
+    float: left;
+}
+
+
 .patner-page .form-horizontal .form-group .form-input div .field-more {
     float: right;
     width: 25%;
@@ -223,14 +233,12 @@ input, select, textarea, button, a {
 }
 
 .patner-page table tr {
-   cursor: pointer;
-   border: 1px solid transparent;
+   cursor: pointer;   
    border-left: 5px solid transparent;
 }
 
 .patner-page table .selected {
-    background: #EEEEEE;
-    border: 1px solid #CCCCCC;
+    background: #EEEEEE;   
     border-left: 5px solid #CCCCCC;
 }
 

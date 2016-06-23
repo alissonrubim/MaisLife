@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 
 namespace MaisLife.Controllers
 {
@@ -27,12 +28,26 @@ namespace MaisLife.Controllers
                 return View();
         }
 
-        public ActionResult Produtos(ProdutoAdapter product)
+        public ActionResult Produtos(ProdutoAdapter product = null)
         {
             ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
             ViewBag.Products = ConfigDB.Model.Produtos.ToList();
             if (product != null)
                 return View(product);
+            else
+                return View();
+        }
+
+        public ActionResult VendasExternas(PedidoAdapter order = null)
+        {
+            var logged = (Usuario) HttpContext.Session["user"];
+
+            ViewBag.Orders = ConfigDB.Model.Pedidos.Where(o => o.Usuario == logged.Id && o.Origem == "Vendedor").ToList();
+            ViewBag.User = logged;
+            ViewBag.OutsideClients = ConfigDB.Model.Usuario_externos.ToList();
+            ViewBag.Products = ConfigDB.Model.Produtos.ToList();
+            if (order != null)               
+                return View(order);
             else
                 return View();
         }
@@ -157,6 +172,99 @@ namespace MaisLife.Controllers
         }
 
         [HttpPost]
+        public ActionResult ManagerExternalOrder(PedidoAdapter adapter)
+        {
+            var user = (Usuario) HttpContext.Session["user"];
+            
+            var amount = Convert.ToInt32(Request.Form["product-amount"]);
+            if (amount > 0)
+            {
+                decimal orderValue = 0;
+                
+                var cart = new Carrinho()
+                {
+                    Carrinho_produtos = new List<Carrinho_produto>(),
+                    Status = "Ativo",
+                    Usuario1 = user
+                };
+                
+                for (var i = 1; i <= amount; i++)
+                {
+                    var productid = Convert.ToInt32(Request.Form["product-" + i]);
+                    var productcount = Convert.ToInt32(Request.Form["product-count-" + i]);
+
+                    var product = ConfigDB.Model.Produtos.FirstOrDefault(p => p.Id == productid);
+
+                    var rel = new Carrinho_produto()
+                    {
+                        Produto1 = product,
+                        Quantidade = productcount
+                    };
+
+                    cart.Carrinho_produtos.Add(rel);
+
+                    orderValue += (decimal) product.Preco * productcount; 
+                }
+
+                Usuario_externo client;
+                
+                var clientid = Convert.ToInt32(Request.Form["client"]);
+                if ( clientid > 0 ){
+                    client = ConfigDB.Model.Usuario_externos.FirstOrDefault(c => c.Idusuario == clientid);
+                }else{
+                    
+                    var clientName = Request.Form["client-name"];
+                    var clientContact = Request.Form["client-phone"];
+                    var clientDoc = Request.Form["client-doc"];
+
+                    var clientCity = Request.Form["client-city"];
+                    var clientLocal = Request.Form["client-local"];
+                    var clientStreet = Request.Form["client-street"];
+                    var clientNumber = Request.Form["client-number"];
+  
+                    var clientAddress = new Endereco(){
+                        Pais = "Brasil",
+                        Estado = "MG",
+                        Cidade = clientCity,
+                        Bairro1 = ConfigDB.Model.Bairros.FirstOrDefault(b => b.Nome == clientLocal),
+                        Rua = clientStreet,
+                        Numero = clientNumber,
+                        Usuario = 1
+                    };
+
+                    client = new Usuario_externo(){
+                        Nome = clientName,
+                        Telefone = clientContact,
+                        Documento = clientDoc,
+                        Endereco1 = clientAddress
+                    };
+
+                }
+
+                var order = new Pedido()
+                {
+                    Carrinho1 = cart,
+                    Origem = "Vendedor",
+                    Usuario1 = user,
+                    Data = DateTime.Now,
+                    Endereco1 = client.Endereco1,
+                    Metodo = "Dinheiro",
+                    Pago = 0,
+                    Status = "Enviado",
+                    Usuario_externo1 = client,
+                    Valor = orderValue
+                };
+
+                ConfigDB.Model.Add(order);
+                if ( ConfigDB.Model.HasChanges )
+                    ConfigDB.Model.SaveChanges();
+
+            }
+
+            return RedirectToAction("VendasExternas");
+        }
+
+        [HttpPost]
         public ActionResult RemoverParceiro()
         {
             var count = Convert.ToInt32(Request.Form["count"]);
@@ -210,6 +318,34 @@ namespace MaisLife.Controllers
             var adapter = new ProdutoAdapter().ToProdutoAdapter(product);
 
             return RedirectToAction("Produtos", new RouteValueDictionary(adapter));
+        }
+
+        public string ExternalUsersAjax()
+        {
+            var id = Convert.ToInt32(Request.Form["id"]);
+            var externalUser = ConfigDB.Model.Usuario_externos.FirstOrDefault(eu => eu.Idusuario == id);
+            
+            // ANULAR REFERÊNCIAS
+            externalUser.Endereco1.Bairro1.Enderecos = null;
+            externalUser.Endereco1.Usuario_externos = null;
+            externalUser.Endereco1.Usuario1 = null;           
+            externalUser.Pedidos = null;
+            externalUser.Endereco1.Pedidos = null;
+            
+            var serializer = new JavaScriptSerializer();
+            return serializer.Serialize(externalUser);
+        }
+
+        public string ExternalUsersProductsAjax() {
+            var id = Convert.ToInt32(Request.Form["id"]);
+            var product = ConfigDB.Model.Produtos.FirstOrDefault(p => p.Id == id);
+
+            // ANULAR REFERÊNCIAS
+            product.Produto_bairros = null;
+            product.Carrinho_produtos = null;
+            
+            var serializer = new JavaScriptSerializer();
+            return serializer.Serialize(product);
         }
     }
 }

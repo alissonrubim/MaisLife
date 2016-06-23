@@ -137,6 +137,7 @@
     <Compile Include="Models\Adapter\ContatoAdapter.cs" />
     <Compile Include="Models\Adapter\EnderecoAdapter.cs" />
     <Compile Include="Models\Adapter\ParceiroAdapter.cs" />
+    <Compile Include="Models\Adapter\PedidoAdapter.cs" />
     <Compile Include="Models\Adapter\ProdutoAdapter.cs" />
     <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Models\Error.cs" />
@@ -166,6 +167,9 @@
     <Content Include="Views\Admin\Produtos.cshtml" />
     <Content Include="Views\Admin\Partials\_ProductAdd.cshtml" />
     <Content Include="Views\Admin\Partials\_ProductTable.cshtml" />
+    <Content Include="Views\Admin\VendasExternas.cshtml" />
+    <Content Include="Views\Admin\Partials\_OrderAdd.cshtml" />
+    <Content Include="Views\Admin\Partials\_OrderTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

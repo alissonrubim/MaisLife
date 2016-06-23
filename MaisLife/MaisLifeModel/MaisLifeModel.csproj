@@ -79,6 +79,9 @@
     <Compile Include="Usuario.generated.cs">
       <DependentUpon>EntitiesModel.rlinq</DependentUpon>
     </Compile>
+    <Compile Include="Usuario_externo.generated.cs">
+      <DependentUpon>EntitiesModel.rlinq</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <OpenAccessDeploy Include="EntitiesModel.rlinq">

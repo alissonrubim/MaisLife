@@ -50,6 +50,14 @@ namespace MaisLifeModel
 			:base(connection, backendConfiguration, metadataSource)
 		{ }
 			
+		public IQueryable<Usuario_externo> Usuario_externos 
+		{
+			get
+			{
+				return this.GetAll<Usuario_externo>();
+			}
+		}
+		
 		public IQueryable<Usuario> Usuarios 
 		{
 			get
@@ -151,6 +159,10 @@ namespace MaisLifeModel
 	
 	public interface IEntitiesModelUnitOfWork : IUnitOfWork
 	{
+		IQueryable<Usuario_externo> Usuario_externos
+		{
+			get;
+		}
 		IQueryable<Usuario> Usuarios
 		{
 			get;

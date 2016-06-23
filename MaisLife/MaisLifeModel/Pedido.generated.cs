@@ -142,6 +142,32 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private int? _usuario_externo;
+		public virtual int? Usuario_externo
+		{
+			get
+			{
+				return this._usuario_externo;
+			}
+			set
+			{
+				this._usuario_externo = value;
+			}
+		}
+		
+		private string _origem;
+		public virtual string Origem
+		{
+			get
+			{
+				return this._origem;
+			}
+			set
+			{
+				this._origem = value;
+			}
+		}
+		
 		private Carrinho _carrinho1;
 		public virtual Carrinho Carrinho1
 		{
@@ -181,6 +207,26 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private Usuario_externo _usuario_externo1;
+		public virtual Usuario_externo Usuario_externo1
+		{
+			get
+			{
+				return this._usuario_externo1;
+			}
+			set
+			{
+				this._usuario_externo1 = value;
+			}
+		}
+
+        public decimal Troco() {
+            if (this.Pago > 0)
+                return this.Pago - this.Valor;
+            else
+                return 0;
+        }
+		
 		#region ISerializable Implementation
 		
 		public Pedido()
@@ -198,6 +244,8 @@ namespace MaisLifeModel
 			this.Carrinho = info.GetInt32("Carrinho");
 			this.Pago = info.GetDecimal("Pago");
 			this.Metodo = info.GetString("Metodo");
+			this.Usuario_externo = (int?)info.GetValue("Usuario_externo", typeof(int?));
+			this.Origem = info.GetString("Origem");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -212,6 +260,8 @@ namespace MaisLifeModel
 			info.AddValue("Carrinho", this.Carrinho, typeof(int));
 			info.AddValue("Pago", this.Pago, typeof(decimal));
 			info.AddValue("Metodo", this.Metodo, typeof(string));
+			info.AddValue("Usuario_externo", this.Usuario_externo, typeof(int?));
+			info.AddValue("Origem", this.Origem, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		

@@ -168,6 +168,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private IList<Usuario_externo> _usuario_externos = new List<Usuario_externo>();
+		public virtual IList<Usuario_externo> Usuario_externos
+		{
+			get
+			{
+				return this._usuario_externos;
+			}
+            set
+			{
+                this._usuario_externos = value;
+			}
+		}
+		
 		private IList<Pedido> _pedidos = new List<Pedido>();
 		public virtual IList<Pedido> Pedidos
 		{
@@ -175,6 +188,10 @@ namespace MaisLifeModel
 			{
 				return this._pedidos;
 			}
+            set
+            {
+                this._pedidos = value;
+            }
 		}
 		
 		#region ISerializable Implementation

@@ -9,7 +9,7 @@ $(document).on("click", "a[data-content='scroll-link']", function (e) {
     }
 
     $('html, body').stop().animate({
-        'scrollTop': target.offset().top
+        'scrollTop': target.offset().top - 30
     },
     900,
     'swing',

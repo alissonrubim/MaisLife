@@ -110,9 +110,10 @@ namespace MaisLifeModel
 			{
 				return this._produto_bairros;
 			}
-            set{
-                this._produto_bairros = value;
-            }
+            set
+			{
+				this._produto_bairros = value;
+			}
 		}
 		
 		private IList<Carrinho_produto> _carrinho_produtos = new List<Carrinho_produto>();
@@ -121,6 +122,10 @@ namespace MaisLifeModel
 			get
 			{
 				return this._carrinho_produtos;
+			}
+            set
+			{
+                this._carrinho_produtos = value;
 			}
 		}
 		

@@ -2,7 +2,46 @@
 <DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="EntitiesModel" namespace="MaisLifeModel" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
   <orm:orm name="EntitiesModel" backend="mysql" xmlns:orm="http://tempuri.org/ORM">
     <orm:namespace name="MaisLifeModel" default="true">
-      <orm:class name="Usuario" uniqueId="28d4c847-d064-4ec4-9b4a-d6bdda5d6970">
+      <orm:class name="Usuario_externo" uniqueId="bdd535b4-71fd-4eab-94fb-a48af4eb81ba">
+        <orm:table name="usuario_externo" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Idusuario" />
+          </orm:key-generator>
+          <orm:single-field field-name="_idusuario" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_idusuario" property="Idusuario" behavior="readwrite" uniqueId="c37d35d7-cdbf-443c-b680-b646aa035055" type="System.Int32">
+          <orm:column name="idusuario" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="848218c5-5fd4-41ae-931e-147f641e773c" type="System.String">
+          <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_documento" property="Documento" behavior="readwrite" uniqueId="cd44e495-57d1-457d-9ddf-38f87c765a57" type="System.String">
+          <orm:column name="documento" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="542b1aad-aeb4-4b46-978c-625b504f5063" type="System.String">
+          <orm:column name="telefone" sql-type="nvarchar" nullable="false" length="55" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_endereco" property="Endereco" behavior="readwrite" uniqueId="6282511b-22e0-475e-a156-ed9fecbd09ce" type="System.Int32">
+          <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_endereco1" property="Endereco1" behavior="readwrite" uniqueId="567bcad4-9e3a-4268-b415-45f488d44096" type="MaisLifeModel.Endereco">
+          <orm:reference uniqueId="506713cf-2b53-4e11-93e1-3737622299eb" association-name="Usuario_externoHasEndereco">
+            <orm:sharedfield name="_endereco" target-class="MaisLifeModel.Endereco" target-field="_id" />
+            <orm:constraint name="fk_usuarioExterno_endereco" delete-action="dbdefaultrule" destination-table="endereco" />
+          </orm:reference>
+        </orm:field>
+        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="b234a42f-ad5f-4220-9eb0-8520940211aa" type="MaisLifeModel.Pedido">
+          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_usuario_externo1" order-by="" uniqueId="c52d3096-63c5-4235-b48e-a49ef38d8a17" />
+        </orm:field>
+        <orm:index name="fk_usuarioExterno_endereco_idx">
+          <orm:columnMapping>
+            <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="Usuario" uniqueId="34081f41-7924-434e-b911-5a5df650f02a">
         <orm:table name="usuario" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -11,38 +50,38 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="a9a99f9c-4260-45f1-8d2d-3c30834bd947" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="dd702050-0ddd-4944-9eda-df3821e398a1" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="4882a1e9-4283-4669-a6f4-3bc3a050d07d" type="System.String">
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="13c7dde3-62da-459d-824c-48f9a1fa2253" type="System.String">
           <orm:column name="nome" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_sobrenome" property="Sobrenome" behavior="readwrite" uniqueId="ccfdc51a-e689-4faf-939b-34a05a9f7ee1" type="System.String">
+        <orm:field name="_sobrenome" property="Sobrenome" behavior="readwrite" uniqueId="5f52a86c-c060-4128-9124-8b50c5d4fc3f" type="System.String">
           <orm:column name="sobrenome" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="4bf403e5-6b14-47b0-9c97-c3d85c4e0a6d" type="System.String">
+        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="852be5f8-db66-4fd8-9125-edee6ed68e21" type="System.String">
           <orm:column name="email" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_senha" property="Senha" behavior="readwrite" uniqueId="36b3d70b-4dbc-4201-9142-d319eefe2616" type="System.String">
+        <orm:field name="_senha" property="Senha" behavior="readwrite" uniqueId="9c3e52f5-49ab-4ea7-95b8-4daa05a66695" type="System.String">
           <orm:column name="senha" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_tipo" property="Tipo" behavior="readwrite" uniqueId="5f6d5e24-959d-494f-847c-7fdb369dfb7b" type="System.String">
+        <orm:field name="_tipo" property="Tipo" behavior="readwrite" uniqueId="ac4aed60-44c4-4c93-b6b6-e8124bc424d5" type="System.String">
           <orm:column name="tipo" sql-type="enum" nullable="true" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_permissao" property="Permissao" behavior="readwrite" uniqueId="d2495f2c-bddf-455f-8632-6cc9ec25df00" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_permissao" property="Permissao" behavior="readwrite" uniqueId="f6a1afcf-b1df-4f43-85f7-5e6827add894" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="permissao" sql-type="integer" nullable="true" length="0" scale="0" has-default-value="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="5774df0a-8201-4d0f-a89a-d727e5672da1" type="MaisLifeModel.Pedido">
-          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_usuario1" order-by="" uniqueId="561ef29f-7106-411a-9f69-ad171faba870" />
+        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="25e2bd9c-ff67-4e0a-9779-cb656226b3a4" type="MaisLifeModel.Pedido">
+          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_usuario1" order-by="" uniqueId="806516f7-1d04-4d8e-9a87-dacbe4d29be4" />
         </orm:field>
-        <orm:field name="_enderecos" property="Enderecos" behavior="readwrite" uniqueId="6b3b68ad-1e12-4aac-8022-6cc09e425f70" type="MaisLifeModel.Endereco">
-          <orm:collection element-class="MaisLifeModel.Endereco" inverse-field="_usuario1" order-by="" uniqueId="55c35f01-8f32-4eb9-816e-aaf9c157eb5c" />
+        <orm:field name="_enderecos" property="Enderecos" behavior="readwrite" uniqueId="590deeb5-f72c-46b5-b584-953c46f89bc4" type="MaisLifeModel.Endereco">
+          <orm:collection element-class="MaisLifeModel.Endereco" inverse-field="_usuario1" order-by="" uniqueId="c09b218c-cc94-485b-b625-a525747e85c7" />
         </orm:field>
-        <orm:field name="_carrinhos" property="Carrinhos" behavior="readwrite" uniqueId="f6fd708d-ec23-4e7a-a7c3-18d5d71062c3" type="MaisLifeModel.Carrinho">
-          <orm:collection element-class="MaisLifeModel.Carrinho" inverse-field="_usuario1" order-by="" uniqueId="590ae041-0bfa-41d0-ac9b-1757ab302e9d" />
+        <orm:field name="_carrinhos" property="Carrinhos" behavior="readwrite" uniqueId="d3d60f7e-afd7-420a-94bd-32d907c13307" type="MaisLifeModel.Carrinho">
+          <orm:collection element-class="MaisLifeModel.Carrinho" inverse-field="_usuario1" order-by="" uniqueId="55e99b80-a6c5-48f5-a848-d08d6ea0243f" />
         </orm:field>
       </orm:class>
-      <orm:class name="Produto_bairro" uniqueId="1da3a598-9c07-4128-8686-83644c2a5145">
+      <orm:class name="Produto_bairro" uniqueId="97f79864-119c-4927-8352-94180a325d5b">
         <orm:table name="produto_bairro" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -51,26 +90,26 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="0ac17d0a-ace0-405d-adab-ffcf330ba3c1" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="58d544bf-8503-4bee-826d-057d2536be09" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_produto" property="Produto" behavior="readwrite" uniqueId="0d577fc0-fa79-4634-b127-137bf00540f0" type="System.Int32">
+        <orm:field name="_produto" property="Produto" behavior="readwrite" uniqueId="5b682a61-01f2-4caf-985d-4b3301f66125" type="System.Int32">
           <orm:column name="produto" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="eb51f5c4-efe0-4678-8f7a-fc0a9790bc05" type="System.Int32">
+        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="933b9e40-5bb6-4045-8a95-25744a9640d1" type="System.Int32">
           <orm:column name="bairro" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_taxa" property="Taxa" behavior="readwrite" uniqueId="7bf9ce6b-413c-411f-ab76-e6e5f281ea7c" type="System.Decimal">
+        <orm:field name="_taxa" property="Taxa" behavior="readwrite" uniqueId="354c539d-b583-4193-820d-3be0f9135776" type="System.Decimal">
           <orm:column name="taxa" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
-        <orm:field name="_bairro1" property="Bairro1" behavior="readwrite" uniqueId="592eeef4-ecd6-49ab-893d-0f7a4c33ca80" type="MaisLifeModel.Bairro">
-          <orm:reference uniqueId="6a27921e-1359-4911-aafb-9931a7852582" association-name="Produto_bairroHasBairro">
+        <orm:field name="_bairro1" property="Bairro1" behavior="readwrite" uniqueId="6a5c82c2-b8f7-4277-8822-02f77c67097a" type="MaisLifeModel.Bairro">
+          <orm:reference uniqueId="e26c8366-31b6-4863-8fa8-174623f8f46c" association-name="Produto_bairroHasBairro">
             <orm:sharedfield name="_bairro" target-class="MaisLifeModel.Bairro" target-field="_id" />
             <orm:constraint name="fk_produtoBairro_bairro" delete-action="cascade" destination-table="bairro" />
           </orm:reference>
         </orm:field>
-        <orm:field name="_produto1" property="Produto1" behavior="readwrite" uniqueId="0dfc86fc-d688-4f5c-b49a-1c41d7c7e338" type="MaisLifeModel.Produto">
-          <orm:reference uniqueId="5d119eb5-4b87-4300-b828-7c5daa907d30" association-name="Produto_bairroHasProduto">
+        <orm:field name="_produto1" property="Produto1" behavior="readwrite" uniqueId="fb2d6e58-6078-4fa3-bc63-d688fe1e0ec0" type="MaisLifeModel.Produto">
+          <orm:reference uniqueId="c15d7222-45e0-4e4d-9705-12a74d06ec3d" association-name="Produto_bairroHasProduto">
             <orm:sharedfield name="_produto" target-class="MaisLifeModel.Produto" target-field="_id" />
             <orm:constraint name="fk_produtoBairro_produto" delete-action="cascade" destination-table="produto" />
           </orm:reference>
@@ -86,7 +125,7 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Produto" uniqueId="0d478b04-3d2d-4be8-a581-63c7ccee9eca">
+      <orm:class name="Produto" uniqueId="04b27166-ab1d-47c2-b8c4-3e5623eaf88c">
         <orm:table name="produto" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -95,32 +134,32 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="c6b9d11e-59ce-4a00-b761-68848922d504" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="6b19d3c0-47f0-4dfd-837b-76f8fca74f0b" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="be71e8f6-cc31-4ce0-85d0-142ca583d4bb" type="System.String">
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="5e512604-2a5d-403a-b25e-4b1040ae94ae" type="System.String">
           <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_descricao" property="Descricao" behavior="readwrite" uniqueId="ff2a29d0-40f1-479e-a9ea-fc694453670c" type="System.String">
+        <orm:field name="_descricao" property="Descricao" behavior="readwrite" uniqueId="ad962be0-dcdc-49a4-a8b6-21a4e6033315" type="System.String">
           <orm:column name="descricao" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         </orm:field>
-        <orm:field name="_preco" property="Preco" behavior="readwrite" uniqueId="4de5a217-b0f1-4b76-bf9d-cd5807bb6c37" type="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_preco" property="Preco" behavior="readwrite" uniqueId="6c819e75-7b0a-4aec-9267-882d29089321" type="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="preco" sql-type="decimal" nullable="true" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
-        <orm:field name="_imagem" property="Imagem" behavior="readwrite" uniqueId="8e5b0457-59b4-4420-b00e-ced0d44aecd6" type="System.String">
+        <orm:field name="_imagem" property="Imagem" behavior="readwrite" uniqueId="9c72cd13-4b05-4b6b-8b63-2c2e249b79e1" type="System.String">
           <orm:column name="imagem" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_unidade" property="Unidade" behavior="readwrite" uniqueId="755ec8ee-29e5-4386-97ef-24e0ae5ebf0f" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_unidade" property="Unidade" behavior="readwrite" uniqueId="b31321fa-ac4f-44eb-976f-eb88ea5de84e" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="unidade" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_produto_bairros" property="Produto_bairros" behavior="readwrite" uniqueId="216c7b7f-8214-46eb-8873-d2a7f7352a68" type="MaisLifeModel.Produto_bairro">
-          <orm:collection element-class="MaisLifeModel.Produto_bairro" inverse-field="_produto1" order-by="" uniqueId="5d119eb5-4b87-4300-b828-7c5daa907d30" />
+        <orm:field name="_produto_bairros" property="Produto_bairros" behavior="readwrite" uniqueId="329b42ad-c451-4f9f-a0e4-40362363efda" type="MaisLifeModel.Produto_bairro">
+          <orm:collection element-class="MaisLifeModel.Produto_bairro" inverse-field="_produto1" order-by="" uniqueId="c15d7222-45e0-4e4d-9705-12a74d06ec3d" />
         </orm:field>
-        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="06bea8bd-9c03-4523-ad72-c72b34017403" type="MaisLifeModel.Carrinho_produto">
-          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_produto1" order-by="" uniqueId="f1b12c51-98b4-4b1d-8daf-c85c1c79a07a" />
+        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="a1c4b5c7-e075-4212-9f35-9ac4156246a9" type="MaisLifeModel.Carrinho_produto">
+          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_produto1" order-by="" uniqueId="94c17bdd-b3be-4f22-94d2-a58aff647d15" />
         </orm:field>
       </orm:class>
-      <orm:class name="Pedido" uniqueId="f65ce4b3-a182-4c0f-ab3c-4ac4f1267ba8">
+      <orm:class name="Pedido" uniqueId="aa2b5f0d-a413-4256-bb2a-66eaa67f459d">
         <orm:table name="pedido" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -129,49 +168,61 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="f1ae73b7-e289-4fe9-b6b2-1112de804290" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="81dad2da-a445-4dde-b9ac-8a22569a67ac" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="53895cf9-174d-4aa7-a861-f506c3016597" type="System.Int32">
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="66a96325-b34d-4968-b0b3-1591e8369aad" type="System.Int32">
           <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_endereco" property="Endereco" behavior="readwrite" uniqueId="af219d76-412e-4b5c-8035-acb8e8e37952" type="System.Int32">
+        <orm:field name="_endereco" property="Endereco" behavior="readwrite" uniqueId="04219a7a-0e81-4828-a4a1-7d7d413ff8c5" type="System.Int32">
           <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_valor" property="Valor" behavior="readwrite" uniqueId="4f6db2e2-87a7-448a-b5c3-30a9e71bbe16" type="System.Decimal">
+        <orm:field name="_valor" property="Valor" behavior="readwrite" uniqueId="72a244e6-05a0-468f-a1ea-60a8056c1024" type="System.Decimal">
           <orm:column name="valor" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
-        <orm:field name="_data" property="Data" behavior="readwrite" uniqueId="cd90069d-c4ed-49cb-9f81-8daa8c014b45" type="System.DateTime">
+        <orm:field name="_data" property="Data" behavior="readwrite" uniqueId="b7db43a4-5553-4c04-9dfe-72d27f8aa0f8" type="System.DateTime">
           <orm:column name="data" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
         </orm:field>
-        <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="ab38fd7d-fdc7-4dfa-a6e5-92d477901569" type="System.String">
+        <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="71738ea5-5b2b-42d6-ba6a-0bc9a1f383d6" type="System.String">
           <orm:column name="status" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_carrinho" property="Carrinho" behavior="readwrite" uniqueId="11e60f22-f1df-497a-b199-3f91d3dbbadc" type="System.Int32">
+        <orm:field name="_carrinho" property="Carrinho" behavior="readwrite" uniqueId="47d934b4-98cd-4a09-a08f-a543026581cd" type="System.Int32">
           <orm:column name="carrinho" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_pago" property="Pago" behavior="readwrite" uniqueId="54c7523a-1f0d-4fe6-9e1e-22285727831c" type="System.Decimal">
+        <orm:field name="_pago" property="Pago" behavior="readwrite" uniqueId="b428a9fd-9e8f-448e-907a-7ae115e5db70" type="System.Decimal">
           <orm:column name="pago" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         </orm:field>
-        <orm:field name="_metodo" property="Metodo" behavior="readwrite" uniqueId="b8b58604-7119-4d00-be24-ac992f5792a0" type="System.String">
+        <orm:field name="_metodo" property="Metodo" behavior="readwrite" uniqueId="39b5b52f-3d38-4fd9-bdd4-39da7e59176f" type="System.String">
           <orm:column name="metodo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_carrinho1" property="Carrinho1" behavior="readwrite" uniqueId="86936d72-14cb-46e6-a122-d1c7e109ea03" type="MaisLifeModel.Carrinho">
-          <orm:reference uniqueId="0fedba14-4957-4c03-b078-9b447577e897" association-name="PedidoHasCarrinho">
+        <orm:field name="_usuario_externo" property="Usuario_externo" behavior="readwrite" uniqueId="42841dd9-ede9-414d-b151-df4ef11bb117" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="usuario_externo" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_origem" property="Origem" behavior="readwrite" uniqueId="80309f72-b1ae-49f0-a16c-c61caf592991" type="System.String">
+          <orm:column name="origem" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_carrinho1" property="Carrinho1" behavior="readwrite" uniqueId="7057926d-c64a-4fcf-80ba-a376dfe7ebc9" type="MaisLifeModel.Carrinho">
+          <orm:reference uniqueId="c7024289-c27f-46da-b8ae-de6b6eab8173" association-name="PedidoHasCarrinho">
             <orm:sharedfield name="_carrinho" target-class="MaisLifeModel.Carrinho" target-field="_id" />
             <orm:constraint name="fk_pedido_carrinho" delete-action="cascade" destination-table="carrinho" />
           </orm:reference>
         </orm:field>
-        <orm:field name="_endereco1" property="Endereco1" behavior="readwrite" uniqueId="7b3b609e-29b9-4cee-abc5-7fd9d7232318" type="MaisLifeModel.Endereco">
-          <orm:reference uniqueId="2f728af7-6837-4484-bac0-e446eeb21e02" association-name="PedidoHasEndereco">
+        <orm:field name="_endereco1" property="Endereco1" behavior="readwrite" uniqueId="eb0507b5-9417-4a77-993b-5682e6ae32a3" type="MaisLifeModel.Endereco">
+          <orm:reference uniqueId="9477bf74-c8fe-4e3a-8518-c2a80625e711" association-name="PedidoHasEndereco">
             <orm:sharedfield name="_endereco" target-class="MaisLifeModel.Endereco" target-field="_id" />
             <orm:constraint name="fk_pedido_endereco" delete-action="cascade" destination-table="endereco" />
           </orm:reference>
         </orm:field>
-        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="86e56310-1ec6-4350-ae35-29a5ab24d7aa" type="MaisLifeModel.Usuario">
-          <orm:reference uniqueId="561ef29f-7106-411a-9f69-ad171faba870" association-name="PedidoHasUsuario">
+        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="05254270-0324-4ca2-a81c-f5701eb4929e" type="MaisLifeModel.Usuario">
+          <orm:reference uniqueId="806516f7-1d04-4d8e-9a87-dacbe4d29be4" association-name="PedidoHasUsuario">
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_pedido_usuario" delete-action="cascade" destination-table="usuario" />
+          </orm:reference>
+        </orm:field>
+        <orm:field name="_usuario_externo1" property="Usuario_externo1" behavior="readwrite" uniqueId="af819adb-f84c-4bf3-b8e8-b759fc357939" type="MaisLifeModel.Usuario_externo">
+          <orm:reference uniqueId="c52d3096-63c5-4235-b48e-a49ef38d8a17" association-name="PedidoHasUsuario_externo">
+            <orm:sharedfield name="_usuario_externo" target-class="MaisLifeModel.Usuario_externo" target-field="_idusuario" />
+            <orm:constraint name="fk_pedido_usuario_externo" delete-action="cascade" destination-table="usuario_externo" />
           </orm:reference>
         </orm:field>
         <orm:index name="fk_pedido_carrinho_idx">
@@ -184,13 +235,18 @@
             <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
+        <orm:index name="fk_pedido_usuario_externo_idx">
+          <orm:columnMapping>
+            <orm:column name="usuario_externo" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
         <orm:index name="fk_pedido_usuario_idx">
           <orm:columnMapping>
             <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Parceiro" uniqueId="8414b3ad-ba14-46dc-86b8-0823eb4a07bf">
+      <orm:class name="Parceiro" uniqueId="f1f33f4a-945f-474b-9abb-0e4d4e8a4ac8">
         <orm:table name="parceiro" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -199,29 +255,29 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="747f5f3e-f0e7-42a6-99f2-9e96384bdd08" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="b179f743-4232-42c0-911b-76802164a1a7" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="fc82e20f-7a26-4291-bf82-169c87059768" type="System.String">
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="32834bf4-de1e-4c44-8788-73f8e3240b5a" type="System.String">
           <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_imagem" property="Imagem" behavior="readwrite" uniqueId="fcde8999-7a31-4c24-a0ea-52d8b8cdbcb8" type="System.String">
+        <orm:field name="_imagem" property="Imagem" behavior="readwrite" uniqueId="a135fab4-3331-489b-ac14-772c56e7e021" type="System.String">
           <orm:column name="imagem" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_enderec" property="Enderec" behavior="readwrite" uniqueId="f37d150d-0e2e-474a-91c2-3d05dcb5a052" type="System.String">
+        <orm:field name="_enderec" property="Enderec" behavior="readwrite" uniqueId="d9086dd0-7280-45d6-8787-41334caed437" type="System.String">
           <orm:column name="enderec" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="d09be6fa-e737-48c8-bb58-dd6a6c077510" type="System.String">
+        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="9a7b9b61-c9f9-404d-8c3b-d95930048bbd" type="System.String">
           <orm:column name="telefone" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_site" property="Site" behavior="readwrite" uniqueId="e9045a24-299b-4dce-80ca-ff822695bb8c" type="System.String">
+        <orm:field name="_site" property="Site" behavior="readwrite" uniqueId="18e9f09e-5549-46ca-8ae4-5fe1f94c0a0c" type="System.String">
           <orm:column name="site" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_facebook" property="Facebook" behavior="readwrite" uniqueId="15f29af6-afcf-4956-958c-890bd852bcb2" type="System.String">
+        <orm:field name="_facebook" property="Facebook" behavior="readwrite" uniqueId="d5f873cc-4710-42ec-8bfd-1d464d8712d6" type="System.String">
           <orm:column name="facebook" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
       </orm:class>
-      <orm:class name="Endereco" uniqueId="d9404908-e2a3-40f5-9841-1d32cb4f5d57">
+      <orm:class name="Endereco" uniqueId="69e30538-2216-4024-92c1-25f0ba166c17">
         <orm:table name="endereco" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -230,44 +286,47 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="a71b9fce-bc22-4ad3-b90c-2fa8abeea98f" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="864485ea-242b-4169-b0fd-a3f9ef4d936d" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="9b20f745-ae20-4859-bab1-6e2c9ad88068" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="64cb906e-e26c-40b3-a637-19ba7c0231c2" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_pais" property="Pais" behavior="readwrite" uniqueId="12727a40-534f-4fd9-8b00-fbdaef7db613" type="System.String">
+        <orm:field name="_pais" property="Pais" behavior="readwrite" uniqueId="bc4c36e0-47f7-4412-8522-8b2a5009229c" type="System.String">
           <orm:column name="pais" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_estado" property="Estado" behavior="readwrite" uniqueId="56bb0540-8502-4d6a-8a0d-e47e13034aea" type="System.String">
+        <orm:field name="_estado" property="Estado" behavior="readwrite" uniqueId="903f991d-a7ff-4ea6-af97-d0f2fb96b48e" type="System.String">
           <orm:column name="estado" sql-type="nvarchar" nullable="true" length="2" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_cidade" property="Cidade" behavior="readwrite" uniqueId="e371c228-dedd-42cf-8c07-b92b68ded7b2" type="System.String">
+        <orm:field name="_cidade" property="Cidade" behavior="readwrite" uniqueId="8d59b5bf-2d92-4fd6-8d71-9bccc7301f03" type="System.String">
           <orm:column name="cidade" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="34e135dc-32af-4850-bece-ef15e88c7f7a" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_bairro" property="Bairro" behavior="readwrite" uniqueId="366391c5-f0c4-428d-b44f-45003d6e4cc4" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="bairro" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_rua" property="Rua" behavior="readwrite" uniqueId="19bd439d-d91b-42b9-b162-24f4d886c7fc" type="System.String">
+        <orm:field name="_rua" property="Rua" behavior="readwrite" uniqueId="8e8979c2-3f17-4c40-a7d6-fb04da1395b9" type="System.String">
           <orm:column name="rua" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_numero" property="Numero" behavior="readwrite" uniqueId="5a23894c-81d3-483f-be72-4e77f2331aa6" type="System.String">
+        <orm:field name="_numero" property="Numero" behavior="readwrite" uniqueId="ec66ab45-2f41-4a3b-81f2-e673550f6e95" type="System.String">
           <orm:column name="numero" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_cep" property="Cep" behavior="readwrite" uniqueId="cb080c8e-56c9-4751-a1a4-828344a203ed" type="System.String">
+        <orm:field name="_cep" property="Cep" behavior="readwrite" uniqueId="d91db5ae-e5b0-4620-af83-2f8b0b1869df" type="System.String">
           <orm:column name="cep" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="e7f80a75-5b50-4635-a3d2-f414c0c3a8ce" type="MaisLifeModel.Pedido">
-          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_endereco1" order-by="" uniqueId="2f728af7-6837-4484-bac0-e446eeb21e02" />
+        <orm:field name="_usuario_externos" property="Usuario_externos" behavior="readwrite" uniqueId="e5fb1587-adb1-4fb4-bfc9-ca97036e0f31" type="MaisLifeModel.Usuario_externo">
+          <orm:collection element-class="MaisLifeModel.Usuario_externo" inverse-field="_endereco1" order-by="" uniqueId="506713cf-2b53-4e11-93e1-3737622299eb" />
         </orm:field>
-        <orm:field name="_bairro1" property="Bairro1" behavior="readwrite" uniqueId="818b1536-4d39-4e9e-8988-3560f3c55672" type="MaisLifeModel.Bairro">
-          <orm:reference uniqueId="5f06b2ac-906e-4dd7-bee4-6a07b39bcf7e" association-name="EnderecoHasBairro">
+        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="05942c43-a42a-4d75-8ad1-a7b35ee0f5bd" type="MaisLifeModel.Pedido">
+          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_endereco1" order-by="" uniqueId="9477bf74-c8fe-4e3a-8518-c2a80625e711" />
+        </orm:field>
+        <orm:field name="_bairro1" property="Bairro1" behavior="readwrite" uniqueId="013ae477-0c64-4be4-88c2-2776dcb4b91a" type="MaisLifeModel.Bairro">
+          <orm:reference uniqueId="2d434809-5768-46e2-ab1d-e8b3fbb8964c" association-name="EnderecoHasBairro">
             <orm:sharedfield name="_bairro" target-class="MaisLifeModel.Bairro" target-field="_id" />
             <orm:constraint name="fk_endereco_bairro" delete-action="cascade" destination-table="bairro" />
           </orm:reference>
         </orm:field>
-        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="7e41003a-8730-4711-a3db-9e5319ca34c2" type="MaisLifeModel.Usuario">
-          <orm:reference uniqueId="55c35f01-8f32-4eb9-816e-aaf9c157eb5c" association-name="EnderecoHasUsuario">
+        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="6d27e5c4-f6a5-42d2-8f85-864bb969d642" type="MaisLifeModel.Usuario">
+          <orm:reference uniqueId="c09b218c-cc94-485b-b625-a525747e85c7" association-name="EnderecoHasUsuario">
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_endereco_usuario" delete-action="cascade" destination-table="usuario" />
           </orm:reference>
@@ -283,7 +342,7 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Contato" uniqueId="58bddbd2-c84f-46e1-ae8d-fe2e03c227d7">
+      <orm:class name="Contato" uniqueId="936154a1-e53f-47bf-b2a8-5e1ab74156fb">
         <orm:table name="contato" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -292,26 +351,26 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="4431aedb-fa54-4bc4-b1fd-f465b2dd1f00" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="5bd1c7d8-855d-4b04-917b-e344b1355aef" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="b04c2074-a6e3-4ac4-9380-77c7ccedcd2b" type="System.String">
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="d16f5d17-970b-4b08-a5be-966d94a1271e" type="System.String">
           <orm:column name="nome" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_assunto" property="Assunto" behavior="readwrite" uniqueId="b16a2091-5689-45a1-9457-7ce89f76f9a9" type="System.String">
+        <orm:field name="_assunto" property="Assunto" behavior="readwrite" uniqueId="c3b35d5c-851f-41be-8437-07bfde17c6e2" type="System.String">
           <orm:column name="assunto" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="f9985ed2-20cf-4b3b-89a7-74a42a72e374" type="System.String">
+        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="0e109b01-8fc9-402e-9e9f-fdb05f86c769" type="System.String">
           <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="ae90b908-e47e-4c5b-baed-2702fb1423b6" type="System.String">
+        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="0cedcce6-e973-4ee7-b2cc-0fffebcf18c4" type="System.String">
           <orm:column name="telefone" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_mensagem" property="Mensagem" behavior="readwrite" uniqueId="05588f51-dcbd-43dc-bfaf-86e09b910af4" type="System.String">
+        <orm:field name="_mensagem" property="Mensagem" behavior="readwrite" uniqueId="0e14a789-3a84-4768-83c2-5df0d221eee2" type="System.String">
           <orm:column name="mensagem" sql-type="nvarchar" nullable="true" length="500" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
       </orm:class>
-      <orm:class name="Carrinho_produto" uniqueId="b715dca2-0fb0-49a5-9764-3b7d8ac9413b">
+      <orm:class name="Carrinho_produto" uniqueId="dc7c6e62-99e0-4a20-97c3-16df13d7d4b2">
         <orm:table name="carrinho_produto" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -320,26 +379,26 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="c15e943e-b543-4e6f-9932-a99018b39abb" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="0ae0e1f4-5161-4651-a26d-9efae64d1e46" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_produto" property="Produto" behavior="readwrite" uniqueId="5fc3ff0f-ad4a-43f6-b01f-8dd1e4261f6d" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_produto" property="Produto" behavior="readwrite" uniqueId="542de2af-0571-4640-9eb1-b19a53298cb2" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="produto" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_carrinho" property="Carrinho" behavior="readwrite" uniqueId="100276dd-9fcf-4379-9fe1-ca73db455e2a" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_carrinho" property="Carrinho" behavior="readwrite" uniqueId="aab1e85d-d88f-455f-88b0-65473996eda4" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="carrinho" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_quantidade" property="Quantidade" behavior="readwrite" uniqueId="70494742-5a71-45f6-bb4b-ae1b0499bc52" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_quantidade" property="Quantidade" behavior="readwrite" uniqueId="b28849c4-344f-42dc-9b2a-730dd74b719e" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="quantidade" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_carrinho1" property="Carrinho1" behavior="readwrite" uniqueId="a18506ce-5856-44d4-b45e-a11e8692cbb4" type="MaisLifeModel.Carrinho">
-          <orm:reference uniqueId="2bde517b-7781-4f1c-b247-e376d8e47f06" association-name="Carrinho_produtoHasCarrinho">
+        <orm:field name="_carrinho1" property="Carrinho1" behavior="readwrite" uniqueId="075de3ac-8afc-45a9-b409-bf24490a4abe" type="MaisLifeModel.Carrinho">
+          <orm:reference uniqueId="5d18f7f4-a68e-4302-b696-02f224150db4" association-name="Carrinho_produtoHasCarrinho">
             <orm:sharedfield name="_carrinho" target-class="MaisLifeModel.Carrinho" target-field="_id" />
             <orm:constraint name="fk_carrinhoProduto_carrinho" delete-action="cascade" destination-table="carrinho" />
           </orm:reference>
         </orm:field>
-        <orm:field name="_produto1" property="Produto1" behavior="readwrite" uniqueId="52fa766b-f59f-4a55-b2c7-39c0b2de8db6" type="MaisLifeModel.Produto">
-          <orm:reference uniqueId="f1b12c51-98b4-4b1d-8daf-c85c1c79a07a" association-name="Carrinho_produtoHasProduto">
+        <orm:field name="_produto1" property="Produto1" behavior="readwrite" uniqueId="d394f497-5b9a-43c7-817e-3d6caa826229" type="MaisLifeModel.Produto">
+          <orm:reference uniqueId="94c17bdd-b3be-4f22-94d2-a58aff647d15" association-name="Carrinho_produtoHasProduto">
             <orm:sharedfield name="_produto" target-class="MaisLifeModel.Produto" target-field="_id" />
             <orm:constraint name="fk_carrinhoProduto_produto" delete-action="cascade" destination-table="produto" />
           </orm:reference>
@@ -355,7 +414,7 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Carrinho" uniqueId="4d6ad2c6-32fa-47b7-bb68-048d9411933b">
+      <orm:class name="Carrinho" uniqueId="69f56c06-fd49-4ff9-80f2-26e44a0b4ab8">
         <orm:table name="carrinho" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -364,23 +423,23 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="e5dfa0b6-c890-4359-97de-cfcea960e1ca" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="c2ea0444-ac1f-49a8-966f-60941238e5d8" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="dc6adc7c-232a-493b-bb80-afc9488ebad4" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="85cc6c52-86bd-4267-8d4a-a6355213ecbf" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="usuario" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="6c0b9911-b10d-4996-882c-6d0a88a19a74" type="System.String">
+        <orm:field name="_status" property="Status" behavior="readwrite" uniqueId="ea6b22a8-2e2f-4ed5-809b-537f594112a5" type="System.String">
           <orm:column name="status" sql-type="enum" nullable="true" length="0" scale="0" ado-type="Character" />
         </orm:field>
-        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="12eeea85-bef1-46a1-8309-b1b18a97b25d" type="MaisLifeModel.Pedido">
-          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_carrinho1" order-by="" uniqueId="0fedba14-4957-4c03-b078-9b447577e897" />
+        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="f79c7e84-ee1f-495c-8065-467e9359a1ff" type="MaisLifeModel.Pedido">
+          <orm:collection element-class="MaisLifeModel.Pedido" inverse-field="_carrinho1" order-by="" uniqueId="c7024289-c27f-46da-b8ae-de6b6eab8173" />
         </orm:field>
-        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="32e46866-20a7-4e49-b16c-b6275020ddac" type="MaisLifeModel.Carrinho_produto">
-          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_carrinho1" order-by="" uniqueId="2bde517b-7781-4f1c-b247-e376d8e47f06" />
+        <orm:field name="_carrinho_produtos" property="Carrinho_produtos" behavior="readwrite" uniqueId="cbeff1e5-76ef-4e9f-9b69-1143f452e1e1" type="MaisLifeModel.Carrinho_produto">
+          <orm:collection element-class="MaisLifeModel.Carrinho_produto" inverse-field="_carrinho1" order-by="" uniqueId="5d18f7f4-a68e-4302-b696-02f224150db4" />
         </orm:field>
-        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="6e064360-5d22-4b70-b90d-b95008df3053" type="MaisLifeModel.Usuario">
-          <orm:reference uniqueId="590ae041-0bfa-41d0-ac9b-1757ab302e9d" association-name="CarrinhoHasUsuario">
+        <orm:field name="_usuario1" property="Usuario1" behavior="readwrite" uniqueId="85432e2c-bac4-48a0-ab9d-98cf5bd7ff77" type="MaisLifeModel.Usuario">
+          <orm:reference uniqueId="55e99b80-a6c5-48f5-a848-d08d6ea0243f" association-name="CarrinhoHasUsuario">
             <orm:sharedfield name="_usuario" target-class="MaisLifeModel.Usuario" target-field="_id" />
             <orm:constraint name="fk_carrinho_usuario" delete-action="cascade" destination-table="usuario" />
           </orm:reference>
@@ -391,7 +450,7 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Bairro" uniqueId="2285dd6d-6b3b-46f8-ba57-f1154d6ba5fb">
+      <orm:class name="Bairro" uniqueId="f6494eaa-d2b9-41a4-a5df-54af13dfdbb4">
         <orm:table name="bairro" />
         <orm:identity>
           <orm:key-generator name="autoinc">
@@ -400,24 +459,39 @@
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
-        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="ca01caea-0a7d-41b9-8b20-c117074685de" type="System.Int32">
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="6def6170-29c9-4af0-884b-0a950c44795c" type="System.Int32">
           <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="0b450f2b-b53a-4356-9588-fe4521502d33" type="System.String">
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="dca57230-9fa5-49d1-8d6f-72bb617392f0" type="System.String">
           <orm:column name="nome" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
-        <orm:field name="_taxa" property="Taxa" behavior="readwrite" uniqueId="10be483f-fbc1-4cc7-a3dc-ef6f0e9c1b17" type="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+        <orm:field name="_taxa" property="Taxa" behavior="readwrite" uniqueId="3e5ff6b8-54b4-4d1f-8bef-a5acb14499d2" type="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="taxa" sql-type="decimal" nullable="true" length="5" scale="2" ado-type="Decimal" />
         </orm:field>
-        <orm:field name="_produto_bairros" property="Produto_bairros" behavior="readwrite" uniqueId="f0c76c78-a442-49ac-a6b1-9d9e8207628d" type="MaisLifeModel.Produto_bairro">
-          <orm:collection element-class="MaisLifeModel.Produto_bairro" inverse-field="_bairro1" order-by="" uniqueId="6a27921e-1359-4911-aafb-9931a7852582" />
+        <orm:field name="_produto_bairros" property="Produto_bairros" behavior="readwrite" uniqueId="78e6c3ee-12f5-4be5-9861-a6baf9c0b3e0" type="MaisLifeModel.Produto_bairro">
+          <orm:collection element-class="MaisLifeModel.Produto_bairro" inverse-field="_bairro1" order-by="" uniqueId="e26c8366-31b6-4863-8fa8-174623f8f46c" />
         </orm:field>
-        <orm:field name="_enderecos" property="Enderecos" behavior="readwrite" uniqueId="01cad3b0-9d20-49bf-bb29-0786fd44fb35" type="MaisLifeModel.Endereco">
-          <orm:collection element-class="MaisLifeModel.Endereco" inverse-field="_bairro1" order-by="" uniqueId="5f06b2ac-906e-4dd7-bee4-6a07b39bcf7e" />
+        <orm:field name="_enderecos" property="Enderecos" behavior="readwrite" uniqueId="41848da4-4438-4884-9cc1-bedce5fad4bd" type="MaisLifeModel.Endereco">
+          <orm:collection element-class="MaisLifeModel.Endereco" inverse-field="_bairro1" order-by="" uniqueId="2d434809-5768-46e2-ab1d-e8b3fbb8964c" />
         </orm:field>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
+      <orm:table name="usuario_externo">
+        <orm:column name="idusuario" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nome" sql-type="nvarchar" nullable="false" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="documento" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="telefone" sql-type="nvarchar" nullable="false" length="55" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:index name="fk_usuarioExterno_endereco_idx">
+          <orm:columnMapping>
+            <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="fk_usuarioExterno_endereco" delete-action="dbdefaultrule" destination-table="endereco">
+          <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+      </orm:table>
       <orm:table name="usuario">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         <orm:column name="nome" sql-type="nvarchar" nullable="true" length="255" scale="0" ado-type="UnicodeStringVariableLength" />
@@ -467,6 +541,8 @@
         <orm:column name="carrinho" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         <orm:column name="pago" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Decimal" />
         <orm:column name="metodo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
+        <orm:column name="usuario_externo" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="origem" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:index name="fk_pedido_carrinho_idx">
           <orm:columnMapping>
             <orm:column name="carrinho" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
@@ -475,6 +551,11 @@
         <orm:index name="fk_pedido_endereco_idx">
           <orm:columnMapping>
             <orm:column name="endereco" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="fk_pedido_usuario_externo_idx">
+          <orm:columnMapping>
+            <orm:column name="usuario_externo" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
         <orm:index name="fk_pedido_usuario_idx">
@@ -490,6 +571,9 @@
         </orm:constraint>
         <orm:constraint name="fk_pedido_usuario" delete-action="cascade" destination-table="usuario">
           <orm:column name="usuario" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+        <orm:constraint name="fk_pedido_usuario_externo" delete-action="cascade" destination-table="usuario_externo">
+          <orm:column name="usuario_externo" sql-type="integer" nullable="true" length="0" scale="0" ado-type="Int32" />
         </orm:constraint>
       </orm:table>
       <orm:table name="parceiro">
@@ -612,304 +696,356 @@
     </BackendConfigurationSettings>
   </ModelSettings>
   <Types>
-    <DomainClass Id="28d4c847-d064-4ec4-9b4a-d6bdda5d6970" name="Usuario" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="a9a99f9c-4260-45f1-8d2d-3c30834bd947" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="4bf403e5-6b14-47b0-9c97-c3d85c4e0a6d" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
-      <Property Id="4882a1e9-4283-4669-a6f4-3bc3a050d07d" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="d2495f2c-bddf-455f-8632-6cc9ec25df00" name="Permissao" type="Int32" label="Permissao : Int32" nullable="true" kind="Persistent" fieldName="_permissao" />
-      <Property Id="36b3d70b-4dbc-4201-9142-d319eefe2616" name="Senha" label="Senha : String" kind="Persistent" fieldName="_senha" />
-      <Property Id="ccfdc51a-e689-4faf-939b-34a05a9f7ee1" name="Sobrenome" label="Sobrenome : String" kind="Persistent" fieldName="_sobrenome" />
-      <Property Id="5f6d5e24-959d-494f-847c-7fdb369dfb7b" name="Tipo" label="Tipo : String" kind="Persistent" fieldName="_tipo" />
+    <DomainClass Id="bdd535b4-71fd-4eab-94fb-a48af4eb81ba" name="Usuario_externo" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Idusuario">
+      <Property Id="c37d35d7-cdbf-443c-b680-b646aa035055" name="Idusuario" type="Int32" label="Idusuario : Int32" kind="Persistent" identity="true" fieldName="_idusuario" />
+      <Property Id="cd44e495-57d1-457d-9ddf-38f87c765a57" name="Documento" label="Documento : String" kind="Persistent" fieldName="_documento" />
+      <Property Id="6282511b-22e0-475e-a156-ed9fecbd09ce" name="Endereco" type="Int32" label="Endereco : Int32" kind="Persistent" fieldName="_endereco" />
+      <Property Id="848218c5-5fd4-41ae-931e-147f641e773c" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="542b1aad-aeb4-4b46-978c-625b504f5063" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
+      <AssociationTargets>
+        <Association Id="506713cf-2b53-4e11-93e1-3737622299eb" SourceMultiplicity="One" name="Usuario_externoHasEndereco">
+          <DomainClassMoniker name="/EntitiesModel/Endereco" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="dd5c8f6d-30a7-48df-87d2-66a8cd2be051">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Endereco/Usuario_externos" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="0ec6413c-eaee-4c72-80f9-516c6005be09">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Usuario_externo/Endereco1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="29662b18-d935-4fe7-bff0-ec5fb5aefcc3">
-          <NavigationalProperty Id="5774df0a-8201-4d0f-a89a-d727e5672da1" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="f6797fa8-d06c-4ef1-850f-016c5494088a">
+          <NavigationalProperty Id="567bcad4-9e3a-4268-b415-45f488d44096" name="Endereco1" type="Endereco" label="Endereco1 : Endereco" nullable="true" kind="Persistent" fieldName="_endereco1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="1b0876b0-3816-4eeb-9ef0-c2aea23efaad">
-          <NavigationalProperty Id="6b3b68ad-1e12-4aac-8022-6cc09e425f70" name="Enderecos" type="IList&lt;Endereco&gt;" label="Enderecos : IList&lt;Endereco&gt;" nullable="true" kind="Persistent" fieldName="_enderecos" isDependent="false" isManaged="false" />
-        </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="d69f3308-6869-4424-8eb8-f2117da3cf25">
-          <NavigationalProperty Id="f6fd708d-ec23-4e7a-a7c3-18d5d71062c3" name="Carrinhos" type="IList&lt;Carrinho&gt;" label="Carrinhos : IList&lt;Carrinho&gt;" nullable="true" kind="Persistent" fieldName="_carrinhos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="79556c8e-5115-48ac-a253-5dc7d99edfa1">
+          <NavigationalProperty Id="b234a42f-ad5f-4220-9eb0-8520940211aa" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="1da3a598-9c07-4128-8686-83644c2a5145" name="Produto_bairro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="0ac17d0a-ace0-405d-adab-ffcf330ba3c1" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="eb51f5c4-efe0-4678-8f7a-fc0a9790bc05" name="Bairro" type="Int32" label="Bairro : Int32" kind="Persistent" fieldName="_bairro" />
-      <Property Id="0d577fc0-fa79-4634-b127-137bf00540f0" name="Produto" type="Int32" label="Produto : Int32" kind="Persistent" fieldName="_produto" />
-      <Property Id="7bf9ce6b-413c-411f-ab76-e6e5f281ea7c" name="Taxa" type="Decimal" label="Taxa : Decimal" kind="Persistent" fieldName="_taxa" />
+    <DomainClass Id="34081f41-7924-434e-b911-5a5df650f02a" name="Usuario" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="dd702050-0ddd-4944-9eda-df3821e398a1" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="852be5f8-db66-4fd8-9125-edee6ed68e21" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
+      <Property Id="13c7dde3-62da-459d-824c-48f9a1fa2253" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="f6a1afcf-b1df-4f43-85f7-5e6827add894" name="Permissao" type="Int32" label="Permissao : Int32" nullable="true" kind="Persistent" fieldName="_permissao" />
+      <Property Id="9c3e52f5-49ab-4ea7-95b8-4daa05a66695" name="Senha" label="Senha : String" kind="Persistent" fieldName="_senha" />
+      <Property Id="5f52a86c-c060-4128-9124-8b50c5d4fc3f" name="Sobrenome" label="Sobrenome : String" kind="Persistent" fieldName="_sobrenome" />
+      <Property Id="ac4aed60-44c4-4c93-b6b6-e8124bc424d5" name="Tipo" label="Tipo : String" kind="Persistent" fieldName="_tipo" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="dc8f2e40-a727-48c9-8f35-5f7e8b4f45b2">
+          <NavigationalProperty Id="25e2bd9c-ff67-4e0a-9779-cb656226b3a4" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="627c39dd-f843-42ee-b746-5ba9565ab6d3">
+          <NavigationalProperty Id="590deeb5-f72c-46b5-b584-953c46f89bc4" name="Enderecos" type="IList&lt;Endereco&gt;" label="Enderecos : IList&lt;Endereco&gt;" nullable="true" kind="Persistent" fieldName="_enderecos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="6c88d903-1fdc-4dbb-8c82-dc8d3519aea0">
+          <NavigationalProperty Id="d3d60f7e-afd7-420a-94bd-32d907c13307" name="Carrinhos" type="IList&lt;Carrinho&gt;" label="Carrinhos : IList&lt;Carrinho&gt;" nullable="true" kind="Persistent" fieldName="_carrinhos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="97f79864-119c-4927-8352-94180a325d5b" name="Produto_bairro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="58d544bf-8503-4bee-826d-057d2536be09" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="933b9e40-5bb6-4045-8a95-25744a9640d1" name="Bairro" type="Int32" label="Bairro : Int32" kind="Persistent" fieldName="_bairro" />
+      <Property Id="5b682a61-01f2-4caf-985d-4b3301f66125" name="Produto" type="Int32" label="Produto : Int32" kind="Persistent" fieldName="_produto" />
+      <Property Id="354c539d-b583-4193-820d-3be0f9135776" name="Taxa" type="Decimal" label="Taxa : Decimal" kind="Persistent" fieldName="_taxa" />
       <AssociationTargets>
-        <Association Id="6a27921e-1359-4911-aafb-9931a7852582" SourceMultiplicity="One" name="Produto_bairroHasBairro">
+        <Association Id="e26c8366-31b6-4863-8fa8-174623f8f46c" SourceMultiplicity="One" name="Produto_bairroHasBairro">
           <DomainClassMoniker name="/EntitiesModel/Bairro" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="bcbede62-fc0e-4dbb-907b-22d2574c2a98">
+            <associationDefinesTargetProperty Id="5eba8536-aba8-49f1-9574-9ed67592e934">
               <NavigationalPropertyMoniker name="/EntitiesModel/Bairro/Produto_bairros" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="5b36ed91-7444-45a5-b95f-dcedaeed0ae2">
+            <associationDefinesSourceProperty Id="7a5919be-3c86-42f5-8624-331a3b61ca0e">
               <NavigationalPropertyMoniker name="/EntitiesModel/Produto_bairro/Bairro1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
-        <Association Id="5d119eb5-4b87-4300-b828-7c5daa907d30" SourceMultiplicity="One" name="Produto_bairroHasProduto">
+        <Association Id="c15d7222-45e0-4e4d-9705-12a74d06ec3d" SourceMultiplicity="One" name="Produto_bairroHasProduto">
           <DomainClassMoniker name="/EntitiesModel/Produto" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="b88b58dc-72e1-4991-9cda-2eff9234573a">
+            <associationDefinesTargetProperty Id="2153d961-3da5-4adf-b845-2b07b197e31f">
               <NavigationalPropertyMoniker name="/EntitiesModel/Produto/Produto_bairros" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="6c8932bf-ad13-48d7-bf1c-50b00556fa19">
+            <associationDefinesSourceProperty Id="f0f5b3d2-ce6d-42b9-b139-04943bd5aa93">
               <NavigationalPropertyMoniker name="/EntitiesModel/Produto_bairro/Produto1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
       </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="7d1c027a-9c18-43f1-9eae-283aa2340d81">
-          <NavigationalProperty Id="592eeef4-ecd6-49ab-893d-0f7a4c33ca80" name="Bairro1" type="Bairro" label="Bairro1 : Bairro" nullable="true" kind="Persistent" fieldName="_bairro1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="8a62eeac-cd84-497b-b9a4-ed8820088943">
+          <NavigationalProperty Id="6a5c82c2-b8f7-4277-8822-02f77c67097a" name="Bairro1" type="Bairro" label="Bairro1 : Bairro" nullable="true" kind="Persistent" fieldName="_bairro1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="8affc2e1-a0aa-40c4-84a6-4c88fdceebdb">
-          <NavigationalProperty Id="0dfc86fc-d688-4f5c-b49a-1c41d7c7e338" name="Produto1" type="Produto" label="Produto1 : Produto" nullable="true" kind="Persistent" fieldName="_produto1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="a81c303c-e044-4439-8991-2c3bb4bcedcb">
+          <NavigationalProperty Id="fb2d6e58-6078-4fa3-bc63-d688fe1e0ec0" name="Produto1" type="Produto" label="Produto1 : Produto" nullable="true" kind="Persistent" fieldName="_produto1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="0d478b04-3d2d-4be8-a581-63c7ccee9eca" name="Produto" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="c6b9d11e-59ce-4a00-b761-68848922d504" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="ff2a29d0-40f1-479e-a9ea-fc694453670c" name="Descricao" label="Descricao : String" kind="Persistent" fieldName="_descricao" />
-      <Property Id="8e5b0457-59b4-4420-b00e-ced0d44aecd6" name="Imagem" label="Imagem : String" kind="Persistent" fieldName="_imagem" />
-      <Property Id="be71e8f6-cc31-4ce0-85d0-142ca583d4bb" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="4de5a217-b0f1-4b76-bf9d-cd5807bb6c37" name="Preco" type="Decimal" label="Preco : Decimal" nullable="true" kind="Persistent" fieldName="_preco" />
-      <Property Id="755ec8ee-29e5-4386-97ef-24e0ae5ebf0f" name="Unidade" type="Int32" label="Unidade : Int32" nullable="true" kind="Persistent" fieldName="_unidade" />
+    <DomainClass Id="04b27166-ab1d-47c2-b8c4-3e5623eaf88c" name="Produto" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="6b19d3c0-47f0-4dfd-837b-76f8fca74f0b" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="ad962be0-dcdc-49a4-a8b6-21a4e6033315" name="Descricao" label="Descricao : String" kind="Persistent" fieldName="_descricao" />
+      <Property Id="9c72cd13-4b05-4b6b-8b63-2c2e249b79e1" name="Imagem" label="Imagem : String" kind="Persistent" fieldName="_imagem" />
+      <Property Id="5e512604-2a5d-403a-b25e-4b1040ae94ae" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="6c819e75-7b0a-4aec-9267-882d29089321" name="Preco" type="Decimal" label="Preco : Decimal" nullable="true" kind="Persistent" fieldName="_preco" />
+      <Property Id="b31321fa-ac4f-44eb-976f-eb88ea5de84e" name="Unidade" type="Int32" label="Unidade : Int32" nullable="true" kind="Persistent" fieldName="_unidade" />
       <navigationalProperties>
-        <classHasNavigationalProperties Id="7b9413cb-efdb-421b-b83f-772dcecf31c6">
-          <NavigationalProperty Id="216c7b7f-8214-46eb-8873-d2a7f7352a68" name="Produto_bairros" type="IList&lt;Produto_bairro&gt;" label="Produto_bairros : IList&lt;Produto_bairro&gt;" nullable="true" kind="Persistent" fieldName="_produto_bairros" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="0da71992-e1bb-487c-8392-94cf8a176005">
+          <NavigationalProperty Id="329b42ad-c451-4f9f-a0e4-40362363efda" name="Produto_bairros" type="IList&lt;Produto_bairro&gt;" label="Produto_bairros : IList&lt;Produto_bairro&gt;" nullable="true" kind="Persistent" fieldName="_produto_bairros" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="3aca6b3a-9761-4029-bdcc-685f4809f06e">
-          <NavigationalProperty Id="06bea8bd-9c03-4523-ad72-c72b34017403" name="Carrinho_produtos" type="IList&lt;Carrinho_produto&gt;" label="Carrinho_produtos : IList&lt;Carrinho_produto&gt;" nullable="true" kind="Persistent" fieldName="_carrinho_produtos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="b3bb3a8c-9258-4926-bc35-1c753f651e5e">
+          <NavigationalProperty Id="a1c4b5c7-e075-4212-9f35-9ac4156246a9" name="Carrinho_produtos" type="IList&lt;Carrinho_produto&gt;" label="Carrinho_produtos : IList&lt;Carrinho_produto&gt;" nullable="true" kind="Persistent" fieldName="_carrinho_produtos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="f65ce4b3-a182-4c0f-ab3c-4ac4f1267ba8" name="Pedido" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="f1ae73b7-e289-4fe9-b6b2-1112de804290" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="11e60f22-f1df-497a-b199-3f91d3dbbadc" name="Carrinho" type="Int32" label="Carrinho : Int32" kind="Persistent" fieldName="_carrinho" />
-      <Property Id="cd90069d-c4ed-49cb-9f81-8daa8c014b45" name="Data" type="DateTime" label="Data : DateTime" kind="Persistent" fieldName="_data" />
-      <Property Id="af219d76-412e-4b5c-8035-acb8e8e37952" name="Endereco" type="Int32" label="Endereco : Int32" kind="Persistent" fieldName="_endereco" />
-      <Property Id="b8b58604-7119-4d00-be24-ac992f5792a0" name="Metodo" label="Metodo : String" kind="Persistent" fieldName="_metodo" />
-      <Property Id="54c7523a-1f0d-4fe6-9e1e-22285727831c" name="Pago" type="Decimal" label="Pago : Decimal" kind="Persistent" fieldName="_pago" />
-      <Property Id="ab38fd7d-fdc7-4dfa-a6e5-92d477901569" name="Status" label="Status : String" kind="Persistent" fieldName="_status" />
-      <Property Id="53895cf9-174d-4aa7-a861-f506c3016597" name="Usuario" type="Int32" label="Usuario : Int32" kind="Persistent" fieldName="_usuario" />
-      <Property Id="4f6db2e2-87a7-448a-b5c3-30a9e71bbe16" name="Valor" type="Decimal" label="Valor : Decimal" kind="Persistent" fieldName="_valor" />
+    <DomainClass Id="aa2b5f0d-a413-4256-bb2a-66eaa67f459d" name="Pedido" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="81dad2da-a445-4dde-b9ac-8a22569a67ac" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="47d934b4-98cd-4a09-a08f-a543026581cd" name="Carrinho" type="Int32" label="Carrinho : Int32" kind="Persistent" fieldName="_carrinho" />
+      <Property Id="b7db43a4-5553-4c04-9dfe-72d27f8aa0f8" name="Data" type="DateTime" label="Data : DateTime" kind="Persistent" fieldName="_data" />
+      <Property Id="04219a7a-0e81-4828-a4a1-7d7d413ff8c5" name="Endereco" type="Int32" label="Endereco : Int32" kind="Persistent" fieldName="_endereco" />
+      <Property Id="39b5b52f-3d38-4fd9-bdd4-39da7e59176f" name="Metodo" label="Metodo : String" kind="Persistent" fieldName="_metodo" />
+      <Property Id="80309f72-b1ae-49f0-a16c-c61caf592991" name="Origem" label="Origem : String" kind="Persistent" fieldName="_origem" />
+      <Property Id="b428a9fd-9e8f-448e-907a-7ae115e5db70" name="Pago" type="Decimal" label="Pago : Decimal" kind="Persistent" fieldName="_pago" />
+      <Property Id="71738ea5-5b2b-42d6-ba6a-0bc9a1f383d6" name="Status" label="Status : String" kind="Persistent" fieldName="_status" />
+      <Property Id="66a96325-b34d-4968-b0b3-1591e8369aad" name="Usuario" type="Int32" label="Usuario : Int32" kind="Persistent" fieldName="_usuario" />
+      <Property Id="42841dd9-ede9-414d-b151-df4ef11bb117" name="Usuario_externo" type="Int32" label="Usuario_externo : Int32" nullable="true" kind="Persistent" fieldName="_usuario_externo" />
+      <Property Id="72a244e6-05a0-468f-a1ea-60a8056c1024" name="Valor" type="Decimal" label="Valor : Decimal" kind="Persistent" fieldName="_valor" />
       <AssociationTargets>
-        <Association Id="0fedba14-4957-4c03-b078-9b447577e897" SourceMultiplicity="One" name="PedidoHasCarrinho">
+        <Association Id="c7024289-c27f-46da-b8ae-de6b6eab8173" SourceMultiplicity="One" name="PedidoHasCarrinho">
           <DomainClassMoniker name="/EntitiesModel/Carrinho" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="aa486479-9232-435d-b029-4f9b7c2ba31b">
+            <associationDefinesTargetProperty Id="9c1990b4-57ec-478d-9658-2180931eec8b">
               <NavigationalPropertyMoniker name="/EntitiesModel/Carrinho/Pedidos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="6dabf3dc-1636-4305-a124-145b26750015">
+            <associationDefinesSourceProperty Id="8f551a2f-04a3-473d-9f9f-ac633cc19d07">
               <NavigationalPropertyMoniker name="/EntitiesModel/Pedido/Carrinho1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
-        <Association Id="2f728af7-6837-4484-bac0-e446eeb21e02" SourceMultiplicity="One" name="PedidoHasEndereco">
+        <Association Id="9477bf74-c8fe-4e3a-8518-c2a80625e711" SourceMultiplicity="One" name="PedidoHasEndereco">
           <DomainClassMoniker name="/EntitiesModel/Endereco" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="5633f037-7d0d-44a3-a677-f48575fa2ae7">
+            <associationDefinesTargetProperty Id="4da2ed0c-e189-4cd1-9bf6-107e40c53a5a">
               <NavigationalPropertyMoniker name="/EntitiesModel/Endereco/Pedidos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="2073389f-17e5-41bc-9f46-1880f009aa30">
+            <associationDefinesSourceProperty Id="a6b87e0e-412f-4f4e-bc4c-493cb118c4cc">
               <NavigationalPropertyMoniker name="/EntitiesModel/Pedido/Endereco1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
-        <Association Id="561ef29f-7106-411a-9f69-ad171faba870" SourceMultiplicity="One" name="PedidoHasUsuario">
+        <Association Id="806516f7-1d04-4d8e-9a87-dacbe4d29be4" SourceMultiplicity="One" name="PedidoHasUsuario">
           <DomainClassMoniker name="/EntitiesModel/Usuario" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="3a16aa31-9c25-45e3-a12c-3da04fbe09f0">
+            <associationDefinesTargetProperty Id="8516038a-b823-4d99-b938-b408b1678563">
               <NavigationalPropertyMoniker name="/EntitiesModel/Usuario/Pedidos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="6cc2f8c1-7e1b-483a-b4a6-7bc192853774">
+            <associationDefinesSourceProperty Id="744e72d2-a8cc-40de-b78e-0bae5e13cf81">
               <NavigationalPropertyMoniker name="/EntitiesModel/Pedido/Usuario1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="c52d3096-63c5-4235-b48e-a49ef38d8a17" SourceMultiplicity="ZeroOne" name="PedidoHasUsuario_externo">
+          <DomainClassMoniker name="/EntitiesModel/Usuario_externo" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="55cde05b-7506-4b49-b1c9-17258f16b61b">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Usuario_externo/Pedidos" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="aa91b75d-8a65-4136-bcb6-601277c54d69">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Pedido/Usuario_externo1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
       </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="b63d4f99-96e7-422b-adfc-17e5e59a9b1e">
-          <NavigationalProperty Id="86936d72-14cb-46e6-a122-d1c7e109ea03" name="Carrinho1" type="Carrinho" label="Carrinho1 : Carrinho" nullable="true" kind="Persistent" fieldName="_carrinho1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="38d10c21-865e-4310-ab1a-ebc0737e306a">
+          <NavigationalProperty Id="7057926d-c64a-4fcf-80ba-a376dfe7ebc9" name="Carrinho1" type="Carrinho" label="Carrinho1 : Carrinho" nullable="true" kind="Persistent" fieldName="_carrinho1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="44627633-ebe1-44ad-aa5a-41f736f199d6">
-          <NavigationalProperty Id="7b3b609e-29b9-4cee-abc5-7fd9d7232318" name="Endereco1" type="Endereco" label="Endereco1 : Endereco" nullable="true" kind="Persistent" fieldName="_endereco1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="cc3acdf9-e2f1-4924-a7b1-9cbc41b771ea">
+          <NavigationalProperty Id="eb0507b5-9417-4a77-993b-5682e6ae32a3" name="Endereco1" type="Endereco" label="Endereco1 : Endereco" nullable="true" kind="Persistent" fieldName="_endereco1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="3836c738-65de-46e4-aa7e-c94fbd06190a">
-          <NavigationalProperty Id="86e56310-1ec6-4350-ae35-29a5ab24d7aa" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="860e8f2a-20f3-4cd3-aabe-cb1963e56cc6">
+          <NavigationalProperty Id="05254270-0324-4ca2-a81c-f5701eb4929e" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="600f533e-02b4-4bd5-8acb-bdc873b7e260">
+          <NavigationalProperty Id="af819adb-f84c-4bf3-b8e8-b759fc357939" name="Usuario_externo1" type="Usuario_externo" label="Usuario_externo1 : Usuario_externo" nullable="true" kind="Persistent" fieldName="_usuario_externo1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="8414b3ad-ba14-46dc-86b8-0823eb4a07bf" name="Parceiro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="747f5f3e-f0e7-42a6-99f2-9e96384bdd08" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="f37d150d-0e2e-474a-91c2-3d05dcb5a052" name="Enderec" label="Enderec : String" kind="Persistent" fieldName="_enderec" />
-      <Property Id="15f29af6-afcf-4956-958c-890bd852bcb2" name="Facebook" label="Facebook : String" kind="Persistent" fieldName="_facebook" />
-      <Property Id="fcde8999-7a31-4c24-a0ea-52d8b8cdbcb8" name="Imagem" label="Imagem : String" kind="Persistent" fieldName="_imagem" />
-      <Property Id="fc82e20f-7a26-4291-bf82-169c87059768" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="e9045a24-299b-4dce-80ca-ff822695bb8c" name="Site" label="Site : String" kind="Persistent" fieldName="_site" />
-      <Property Id="d09be6fa-e737-48c8-bb58-dd6a6c077510" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
+    <DomainClass Id="f1f33f4a-945f-474b-9abb-0e4d4e8a4ac8" name="Parceiro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="b179f743-4232-42c0-911b-76802164a1a7" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="d9086dd0-7280-45d6-8787-41334caed437" name="Enderec" label="Enderec : String" kind="Persistent" fieldName="_enderec" />
+      <Property Id="d5f873cc-4710-42ec-8bfd-1d464d8712d6" name="Facebook" label="Facebook : String" kind="Persistent" fieldName="_facebook" />
+      <Property Id="a135fab4-3331-489b-ac14-772c56e7e021" name="Imagem" label="Imagem : String" kind="Persistent" fieldName="_imagem" />
+      <Property Id="32834bf4-de1e-4c44-8788-73f8e3240b5a" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="18e9f09e-5549-46ca-8ae4-5fe1f94c0a0c" name="Site" label="Site : String" kind="Persistent" fieldName="_site" />
+      <Property Id="9a7b9b61-c9f9-404d-8c3b-d95930048bbd" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
     </DomainClass>
-    <DomainClass Id="d9404908-e2a3-40f5-9841-1d32cb4f5d57" name="Endereco" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="a71b9fce-bc22-4ad3-b90c-2fa8abeea98f" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="34e135dc-32af-4850-bece-ef15e88c7f7a" name="Bairro" type="Int32" label="Bairro : Int32" nullable="true" kind="Persistent" fieldName="_bairro" />
-      <Property Id="cb080c8e-56c9-4751-a1a4-828344a203ed" name="Cep" label="Cep : String" kind="Persistent" fieldName="_cep" />
-      <Property Id="e371c228-dedd-42cf-8c07-b92b68ded7b2" name="Cidade" label="Cidade : String" kind="Persistent" fieldName="_cidade" />
-      <Property Id="56bb0540-8502-4d6a-8a0d-e47e13034aea" name="Estado" label="Estado : String" kind="Persistent" fieldName="_estado" />
-      <Property Id="5a23894c-81d3-483f-be72-4e77f2331aa6" name="Numero" label="Numero : String" kind="Persistent" fieldName="_numero" />
-      <Property Id="12727a40-534f-4fd9-8b00-fbdaef7db613" name="Pais" label="Pais : String" kind="Persistent" fieldName="_pais" />
-      <Property Id="19bd439d-d91b-42b9-b162-24f4d886c7fc" name="Rua" label="Rua : String" kind="Persistent" fieldName="_rua" />
-      <Property Id="9b20f745-ae20-4859-bab1-6e2c9ad88068" name="Usuario" type="Int32" label="Usuario : Int32" nullable="true" kind="Persistent" fieldName="_usuario" />
+    <DomainClass Id="69e30538-2216-4024-92c1-25f0ba166c17" name="Endereco" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="864485ea-242b-4169-b0fd-a3f9ef4d936d" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="366391c5-f0c4-428d-b44f-45003d6e4cc4" name="Bairro" type="Int32" label="Bairro : Int32" nullable="true" kind="Persistent" fieldName="_bairro" />
+      <Property Id="d91db5ae-e5b0-4620-af83-2f8b0b1869df" name="Cep" label="Cep : String" kind="Persistent" fieldName="_cep" />
+      <Property Id="8d59b5bf-2d92-4fd6-8d71-9bccc7301f03" name="Cidade" label="Cidade : String" kind="Persistent" fieldName="_cidade" />
+      <Property Id="903f991d-a7ff-4ea6-af97-d0f2fb96b48e" name="Estado" label="Estado : String" kind="Persistent" fieldName="_estado" />
+      <Property Id="ec66ab45-2f41-4a3b-81f2-e673550f6e95" name="Numero" label="Numero : String" kind="Persistent" fieldName="_numero" />
+      <Property Id="bc4c36e0-47f7-4412-8522-8b2a5009229c" name="Pais" label="Pais : String" kind="Persistent" fieldName="_pais" />
+      <Property Id="8e8979c2-3f17-4c40-a7d6-fb04da1395b9" name="Rua" label="Rua : String" kind="Persistent" fieldName="_rua" />
+      <Property Id="64cb906e-e26c-40b3-a637-19ba7c0231c2" name="Usuario" type="Int32" label="Usuario : Int32" nullable="true" kind="Persistent" fieldName="_usuario" />
       <AssociationTargets>
-        <Association Id="5f06b2ac-906e-4dd7-bee4-6a07b39bcf7e" SourceMultiplicity="ZeroOne" name="EnderecoHasBairro">
+        <Association Id="2d434809-5768-46e2-ab1d-e8b3fbb8964c" SourceMultiplicity="ZeroOne" name="EnderecoHasBairro">
           <DomainClassMoniker name="/EntitiesModel/Bairro" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="38cebd68-0b7e-4e1e-b0f2-3668d4f37dda">
+            <associationDefinesTargetProperty Id="8f8ebe89-e412-4f50-8f73-2a2204447aaf">
               <NavigationalPropertyMoniker name="/EntitiesModel/Bairro/Enderecos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="bade74ab-54fd-404c-864b-87f357ad4faa">
+            <associationDefinesSourceProperty Id="1c43c570-386f-49e5-b0c3-68a4cb6d3318">
               <NavigationalPropertyMoniker name="/EntitiesModel/Endereco/Bairro1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
-        <Association Id="55c35f01-8f32-4eb9-816e-aaf9c157eb5c" SourceMultiplicity="ZeroOne" name="EnderecoHasUsuario">
+        <Association Id="c09b218c-cc94-485b-b625-a525747e85c7" SourceMultiplicity="ZeroOne" name="EnderecoHasUsuario">
           <DomainClassMoniker name="/EntitiesModel/Usuario" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="e182e580-1b56-4b44-a30f-937184091cc9">
+            <associationDefinesTargetProperty Id="33b1908f-8408-46fb-85df-319eee0af955">
               <NavigationalPropertyMoniker name="/EntitiesModel/Usuario/Enderecos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="ec27b96c-5e7f-4f7e-95b9-4e1b5635b9da">
+            <associationDefinesSourceProperty Id="0fa63fbd-9428-4a91-94b1-f8a57da28733">
               <NavigationalPropertyMoniker name="/EntitiesModel/Endereco/Usuario1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
       </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="465cfaa4-49a0-4066-83af-c7e014422d47">
-          <NavigationalProperty Id="e7f80a75-5b50-4635-a3d2-f414c0c3a8ce" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="c747bcfd-8277-461f-be8a-01d7c6c82fad">
+          <NavigationalProperty Id="e5fb1587-adb1-4fb4-bfc9-ca97036e0f31" name="Usuario_externos" type="IList&lt;Usuario_externo&gt;" label="Usuario_externos : IList&lt;Usuario_externo&gt;" nullable="true" kind="Persistent" fieldName="_usuario_externos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="9581c026-6d41-4698-9ee7-8f69ead1c5ca">
-          <NavigationalProperty Id="818b1536-4d39-4e9e-8988-3560f3c55672" name="Bairro1" type="Bairro" label="Bairro1 : Bairro" nullable="true" kind="Persistent" fieldName="_bairro1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="77ffc00e-e3a4-41bd-8f71-1ea9edc29f0e">
+          <NavigationalProperty Id="05942c43-a42a-4d75-8ad1-a7b35ee0f5bd" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="75abbf11-8ab2-4dd5-96b7-0a9eed34e0b6">
-          <NavigationalProperty Id="7e41003a-8730-4711-a3db-9e5319ca34c2" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="86549823-17b8-4509-aeca-c5e42a35eb5f">
+          <NavigationalProperty Id="013ae477-0c64-4be4-88c2-2776dcb4b91a" name="Bairro1" type="Bairro" label="Bairro1 : Bairro" nullable="true" kind="Persistent" fieldName="_bairro1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="97c9eef8-176f-4091-93b9-0aada0d5da9a">
+          <NavigationalProperty Id="6d27e5c4-f6a5-42d2-8f85-864bb969d642" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="58bddbd2-c84f-46e1-ae8d-fe2e03c227d7" name="Contato" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="4431aedb-fa54-4bc4-b1fd-f465b2dd1f00" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="b16a2091-5689-45a1-9457-7ce89f76f9a9" name="Assunto" label="Assunto : String" kind="Persistent" fieldName="_assunto" />
-      <Property Id="f9985ed2-20cf-4b3b-89a7-74a42a72e374" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
-      <Property Id="05588f51-dcbd-43dc-bfaf-86e09b910af4" name="Mensagem" label="Mensagem : String" kind="Persistent" fieldName="_mensagem" />
-      <Property Id="b04c2074-a6e3-4ac4-9380-77c7ccedcd2b" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="ae90b908-e47e-4c5b-baed-2702fb1423b6" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
+    <DomainClass Id="936154a1-e53f-47bf-b2a8-5e1ab74156fb" name="Contato" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="5bd1c7d8-855d-4b04-917b-e344b1355aef" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="c3b35d5c-851f-41be-8437-07bfde17c6e2" name="Assunto" label="Assunto : String" kind="Persistent" fieldName="_assunto" />
+      <Property Id="0e109b01-8fc9-402e-9e9f-fdb05f86c769" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
+      <Property Id="0e14a789-3a84-4768-83c2-5df0d221eee2" name="Mensagem" label="Mensagem : String" kind="Persistent" fieldName="_mensagem" />
+      <Property Id="d16f5d17-970b-4b08-a5be-966d94a1271e" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="0cedcce6-e973-4ee7-b2cc-0fffebcf18c4" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
     </DomainClass>
-    <DomainClass Id="b715dca2-0fb0-49a5-9764-3b7d8ac9413b" name="Carrinho_produto" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="c15e943e-b543-4e6f-9932-a99018b39abb" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="100276dd-9fcf-4379-9fe1-ca73db455e2a" name="Carrinho" type="Int32" label="Carrinho : Int32" nullable="true" kind="Persistent" fieldName="_carrinho" />
-      <Property Id="5fc3ff0f-ad4a-43f6-b01f-8dd1e4261f6d" name="Produto" type="Int32" label="Produto : Int32" nullable="true" kind="Persistent" fieldName="_produto" />
-      <Property Id="70494742-5a71-45f6-bb4b-ae1b0499bc52" name="Quantidade" type="Int32" label="Quantidade : Int32" nullable="true" kind="Persistent" fieldName="_quantidade" />
+    <DomainClass Id="dc7c6e62-99e0-4a20-97c3-16df13d7d4b2" name="Carrinho_produto" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="0ae0e1f4-5161-4651-a26d-9efae64d1e46" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="aab1e85d-d88f-455f-88b0-65473996eda4" name="Carrinho" type="Int32" label="Carrinho : Int32" nullable="true" kind="Persistent" fieldName="_carrinho" />
+      <Property Id="542de2af-0571-4640-9eb1-b19a53298cb2" name="Produto" type="Int32" label="Produto : Int32" nullable="true" kind="Persistent" fieldName="_produto" />
+      <Property Id="b28849c4-344f-42dc-9b2a-730dd74b719e" name="Quantidade" type="Int32" label="Quantidade : Int32" nullable="true" kind="Persistent" fieldName="_quantidade" />
       <AssociationTargets>
-        <Association Id="2bde517b-7781-4f1c-b247-e376d8e47f06" SourceMultiplicity="ZeroOne" name="Carrinho_produtoHasCarrinho">
+        <Association Id="5d18f7f4-a68e-4302-b696-02f224150db4" SourceMultiplicity="ZeroOne" name="Carrinho_produtoHasCarrinho">
           <DomainClassMoniker name="/EntitiesModel/Carrinho" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="44e0a6a1-983f-4824-b4f4-58238ec93055">
+            <associationDefinesTargetProperty Id="6d7ed31c-4291-4e53-aa1f-b158050d2c4f">
               <NavigationalPropertyMoniker name="/EntitiesModel/Carrinho/Carrinho_produtos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="d88a8db8-ad79-4f71-a345-3fa6037fe710">
+            <associationDefinesSourceProperty Id="9baaa066-aca5-4804-aad8-6459c6101c14">
               <NavigationalPropertyMoniker name="/EntitiesModel/Carrinho_produto/Carrinho1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
-        <Association Id="f1b12c51-98b4-4b1d-8daf-c85c1c79a07a" SourceMultiplicity="ZeroOne" name="Carrinho_produtoHasProduto">
+        <Association Id="94c17bdd-b3be-4f22-94d2-a58aff647d15" SourceMultiplicity="ZeroOne" name="Carrinho_produtoHasProduto">
           <DomainClassMoniker name="/EntitiesModel/Produto" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="43d9453a-21a2-4565-ad5b-49955f0e1b1d">
+            <associationDefinesTargetProperty Id="f1ed44e1-a61e-4a72-82e5-b2874792a507">
               <NavigationalPropertyMoniker name="/EntitiesModel/Produto/Carrinho_produtos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="32fb8fcd-bda8-44f3-9ebf-268d6c44168c">
+            <associationDefinesSourceProperty Id="23980c8e-9a26-41e0-86ea-b0c612ca6cce">
               <NavigationalPropertyMoniker name="/EntitiesModel/Carrinho_produto/Produto1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
       </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="43cbef74-6c7b-4cde-9fcb-632bea3caec3">
-          <NavigationalProperty Id="a18506ce-5856-44d4-b45e-a11e8692cbb4" name="Carrinho1" type="Carrinho" label="Carrinho1 : Carrinho" nullable="true" kind="Persistent" fieldName="_carrinho1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="cbaa44b8-f10e-4590-ba38-c8e2a6b508f7">
+          <NavigationalProperty Id="075de3ac-8afc-45a9-b409-bf24490a4abe" name="Carrinho1" type="Carrinho" label="Carrinho1 : Carrinho" nullable="true" kind="Persistent" fieldName="_carrinho1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="4e4ca61e-99b5-4261-8467-49a317eaf496">
-          <NavigationalProperty Id="52fa766b-f59f-4a55-b2c7-39c0b2de8db6" name="Produto1" type="Produto" label="Produto1 : Produto" nullable="true" kind="Persistent" fieldName="_produto1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="963b18fb-c24a-4a0d-8163-ac027f8673a3">
+          <NavigationalProperty Id="d394f497-5b9a-43c7-817e-3d6caa826229" name="Produto1" type="Produto" label="Produto1 : Produto" nullable="true" kind="Persistent" fieldName="_produto1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="4d6ad2c6-32fa-47b7-bb68-048d9411933b" name="Carrinho" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="e5dfa0b6-c890-4359-97de-cfcea960e1ca" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="6c0b9911-b10d-4996-882c-6d0a88a19a74" name="Status" label="Status : String" kind="Persistent" fieldName="_status" />
-      <Property Id="dc6adc7c-232a-493b-bb80-afc9488ebad4" name="Usuario" type="Int32" label="Usuario : Int32" nullable="true" kind="Persistent" fieldName="_usuario" />
+    <DomainClass Id="69f56c06-fd49-4ff9-80f2-26e44a0b4ab8" name="Carrinho" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="c2ea0444-ac1f-49a8-966f-60941238e5d8" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="ea6b22a8-2e2f-4ed5-809b-537f594112a5" name="Status" label="Status : String" kind="Persistent" fieldName="_status" />
+      <Property Id="85cc6c52-86bd-4267-8d4a-a6355213ecbf" name="Usuario" type="Int32" label="Usuario : Int32" nullable="true" kind="Persistent" fieldName="_usuario" />
       <AssociationTargets>
-        <Association Id="590ae041-0bfa-41d0-ac9b-1757ab302e9d" SourceMultiplicity="ZeroOne" name="CarrinhoHasUsuario">
+        <Association Id="55e99b80-a6c5-48f5-a848-d08d6ea0243f" SourceMultiplicity="ZeroOne" name="CarrinhoHasUsuario">
           <DomainClassMoniker name="/EntitiesModel/Usuario" />
           <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="35a2c69c-0a68-492d-be88-0eb6affd82aa">
+            <associationDefinesTargetProperty Id="acf06581-3db1-4850-94bd-5949f0bd0175">
               <NavigationalPropertyMoniker name="/EntitiesModel/Usuario/Carrinhos" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="0d52be50-79da-460d-a747-0f466b73fb12">
+            <associationDefinesSourceProperty Id="8cccfe4e-7d83-49f8-80c1-0f23f44daa45">
               <NavigationalPropertyMoniker name="/EntitiesModel/Carrinho/Usuario1" />
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
       </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="3f55df7e-b66e-4243-8a26-dec8b7246e6f">
-          <NavigationalProperty Id="12eeea85-bef1-46a1-8309-b1b18a97b25d" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="7e1df4d6-15e7-4de8-923f-e0edf9d364af">
+          <NavigationalProperty Id="f79c7e84-ee1f-495c-8065-467e9359a1ff" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="79d5918e-fdb6-4ce7-b371-7efe7f202c5b">
-          <NavigationalProperty Id="32e46866-20a7-4e49-b16c-b6275020ddac" name="Carrinho_produtos" type="IList&lt;Carrinho_produto&gt;" label="Carrinho_produtos : IList&lt;Carrinho_produto&gt;" nullable="true" kind="Persistent" fieldName="_carrinho_produtos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="5904ac30-87d6-4927-a8be-69d8c5ab0e1f">
+          <NavigationalProperty Id="cbeff1e5-76ef-4e9f-9b69-1143f452e1e1" name="Carrinho_produtos" type="IList&lt;Carrinho_produto&gt;" label="Carrinho_produtos : IList&lt;Carrinho_produto&gt;" nullable="true" kind="Persistent" fieldName="_carrinho_produtos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="f0f4261a-805b-469b-8a78-dfa134ce5c49">
-          <NavigationalProperty Id="6e064360-5d22-4b70-b90d-b95008df3053" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="81814349-2aaf-4efa-9054-6e7d6f295f4a">
+          <NavigationalProperty Id="85432e2c-bac4-48a0-ab9d-98cf5bd7ff77" name="Usuario1" type="Usuario" label="Usuario1 : Usuario" nullable="true" kind="Persistent" fieldName="_usuario1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="2285dd6d-6b3b-46f8-ba57-f1154d6ba5fb" name="Bairro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
-      <Property Id="ca01caea-0a7d-41b9-8b20-c117074685de" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
-      <Property Id="0b450f2b-b53a-4356-9588-fe4521502d33" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
-      <Property Id="10be483f-fbc1-4cc7-a3dc-ef6f0e9c1b17" name="Taxa" type="Decimal" label="Taxa : Decimal" nullable="true" kind="Persistent" fieldName="_taxa" />
+    <DomainClass Id="f6494eaa-d2b9-41a4-a5df-54af13dfdbb4" name="Bairro" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="6def6170-29c9-4af0-884b-0a950c44795c" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="dca57230-9fa5-49d1-8d6f-72bb617392f0" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="3e5ff6b8-54b4-4d1f-8bef-a5acb14499d2" name="Taxa" type="Decimal" label="Taxa : Decimal" nullable="true" kind="Persistent" fieldName="_taxa" />
       <navigationalProperties>
-        <classHasNavigationalProperties Id="fd34a98a-f51c-4841-b857-6551a5a4b0a9">
-          <NavigationalProperty Id="f0c76c78-a442-49ac-a6b1-9d9e8207628d" name="Produto_bairros" type="IList&lt;Produto_bairro&gt;" label="Produto_bairros : IList&lt;Produto_bairro&gt;" nullable="true" kind="Persistent" fieldName="_produto_bairros" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="696b8ad2-0ff1-4ebb-b1f6-894973f3ebd7">
+          <NavigationalProperty Id="78e6c3ee-12f5-4be5-9861-a6baf9c0b3e0" name="Produto_bairros" type="IList&lt;Produto_bairro&gt;" label="Produto_bairros : IList&lt;Produto_bairro&gt;" nullable="true" kind="Persistent" fieldName="_produto_bairros" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="06957207-dbda-41bb-8e16-f67978e3550a">
-          <NavigationalProperty Id="01cad3b0-9d20-49bf-bb29-0786fd44fb35" name="Enderecos" type="IList&lt;Endereco&gt;" label="Enderecos : IList&lt;Endereco&gt;" nullable="true" kind="Persistent" fieldName="_enderecos" isDependent="false" isManaged="false" />
+        <classHasNavigationalProperties Id="ad78d796-cce9-4fe9-a7a4-f6f0ce3ce99f">
+          <NavigationalProperty Id="41848da4-4438-4884-9cc1-bedce5fad4bd" name="Enderecos" type="IList&lt;Endereco&gt;" label="Enderecos : IList&lt;Endereco&gt;" nullable="true" kind="Persistent" fieldName="_enderecos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
   </Types>
   <domainContext>
-    <domainModelHasDomainContext Id="aa6dc211-0885-43e0-8c03-159d33443d03">
+    <domainModelHasDomainContext Id="cdf88837-69b5-4d89-b695-aec324aef653">
       <domainContainer name="EntitiesModel" namespace="MaisLifeModel" showPropertiesCompartment="true">
+        <entitySetProperty name="Usuario_externos" namespace="MaisLifeModel" type="Usuario_externo" label="Usuario_externos : IQueryable&lt;MaisLifeModel.Usuario_externo&gt;" />
         <entitySetProperty name="Usuarios" namespace="MaisLifeModel" type="Usuario" label="Usuarios : IQueryable&lt;MaisLifeModel.Usuario&gt;" />
         <entitySetProperty name="Produto_bairros" namespace="MaisLifeModel" type="Produto_bairro" label="Produto_bairros : IQueryable&lt;MaisLifeModel.Produto_bairro&gt;" />
         <entitySetProperty name="Produtos" namespace="MaisLifeModel" type="Produto" label="Produtos : IQueryable&lt;MaisLifeModel.Produto&gt;" />

@@ -1,6 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Produtos";
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    ViewBag.Title = "Vendas Externas";
+    var orders = (List<MaisLifeModel.Pedido>)ViewBag.Orders;
+    var user = (MaisLifeModel.Usuario)ViewBag.User;    
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -18,15 +19,15 @@
 </div>
 <div id="productForm" class="container admin-page patner-page">
     <div class="page-header">
-        <h3>Inserir Produto</h3>
+        <h3>Vendedor: @user.Nome @user.Sobrenome </h3>
     </div>
-    @Html.Partial("Partials/_ProductAdd")
+    @Html.Partial("Partials/_orderAdd")
 </div>
-<div id="productTable" class="container admin-page patner-page">
+<div id="orderTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Produtos <small class="right">Gerenciamento (@products.Count)</small></h1>
+        <h1>Produtos <small class="right">Gerenciamento (@orders.Count)</small></h1>
     </div>
-    @Html.Partial("Partials/_ProductTable", products)
+    @Html.Partial("Partials/_orderTable", orders)
     <form name="item-remove" method="POST" action="~/Admin/RemoverProduto"></form>
     <form name="item-edit" method="POST" action="~/Admin/EditarProduto"></form>
 </div>

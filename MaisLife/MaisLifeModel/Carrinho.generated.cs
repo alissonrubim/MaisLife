@@ -88,14 +88,15 @@ namespace MaisLifeModel
 		
 		private IList<Carrinho_produto> _carrinho_produtos = new List<Carrinho_produto>();
 		public virtual IList<Carrinho_produto> Carrinho_produtos
-		{
-			get
+		{			
+            get
 			{
 				return this._carrinho_produtos;
 			}
-            set{
-                this._carrinho_produtos = value;    
-            }
+            set
+			{
+                this._carrinho_produtos = value;
+			}
 		}
 
         public Carrinho_produto checkProduct(Produto produto)

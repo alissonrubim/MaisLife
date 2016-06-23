@@ -32,6 +32,43 @@ $(document).on("click", "button[data-id='panel-submit']", function () {
     $(this).closest("form").submit();
 });
 
+$(document).on("change", "select[data-id='client-select']", function () {
+    var val = $(this).val();
+    if (val > 0)
+        externalOrder.addressChange(val);
+    else
+        externalOrder.resetInputs();
+});
+
+$(document).on("change", "select[data-id='product-select']", function () {
+    var val = $(this).val();
+    if (val > 0)
+        externalOrderProducts.productSelect($(this));
+    else
+        externalOrderProducts.resetInputs($(this));
+});
+
+$(document).on("change", "input[name='product-count']", function () {
+    var dad = $(this).closest(".field-box");    
+    var select = dad.find("select");
+    if (select.val() > 0)
+        externalOrderProducts.amountChange($(this));
+});
+
+$(document).on("click", "button[data-id='more-product']", function () {
+    externalOrderProductsManager.cloneBox();
+});
+
+$(document).on("click", "button[data-id='remove-product']", function () {
+    externalOrderProductsManager.removeBox($(this));
+});
+
+$(document).on("click", "button[data-id='panel-submit']", function (e) {
+    e.preventDefault();
+    externalOrderProductsManager.listFields();
+    $(this).closest("form").submit();
+});
+
 var delivery = {
     cloneBox: function () {
         var box = $("div[data-id='delivery-box']");
@@ -62,36 +99,15 @@ var delivery = {
     removeBox: function (btn) {
         btn.closest("div[data-content='delivery-field']").remove();       
     },
-    report: function () {
-        /*
-        var report = $("div[data-id='delivery-report']");
-        var same = false;
-        var locals = [];
-        $("select[data-id='delivery-local']").each(function () {            
-            console.log("fdsfsd");
-            for (var i = 0; i < locals.length; i++) {
-                if ($(this).val() == locals[i] && $(this).val() != "0")
-                    same = true;
-                else
-                    locals.push($(this).val());
-            }
-
-            if (same) {
-                report.text("Existem dois bairros iguais!");
-                report.show();
-            }               
-
-        });
-        */
-    },
     listFields: function () {
         var content = $("div[data-id='deliverys']");
         var i = 1;
         content.find(".field-box").each(function () {
             var select = $(this).find("select");
-            if ( select.val() != "0" ){
+            var input = $(this).find("input");
+            if ( select.val() != "0" && input.val() != ""){
                 select.attr("name", "delivery-local-" + i);                
-                $(this).find("input").attr("name", "delivery-tax-" + i);
+                input.attr("name", "delivery-tax-" + i);
                 i++;
             }
             
@@ -208,3 +224,163 @@ var patner = {
         form.submit();
     }
 };
+
+
+var externalOrder = {
+    getInputs: function () {
+        var name = $("input[name='client-name']");
+        var contact = $("input[name='client-phone']");
+        var document = $("input[name='client-doc']");
+
+        var city = $("input[name='client-city']");
+        var local = $("input[name='client-local']");
+        var street = $("input[name='client-street']");
+        var number = $("input[name='client-number']");
+
+        var inputs = [];
+        inputs.push(name, contact, document, city, local, street, number);
+
+        return inputs;
+    },
+    resetInputs: function () {
+        var inputs = externalOrder.getInputs();
+
+        inputs.forEach(function (item) {
+            item.attr("disabled", false);
+            item.val("");
+        });
+    },
+    addressChange: function (id) {
+        var inputs = externalOrder.getInputs();
+        $.ajax({
+            type: "POST",
+            url: '../ExternalUsersAjax',
+            data: {
+                id: id
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+
+                inputs[0].val(result.Nome);
+                inputs[1].val(result.Telefone);
+                inputs[2].val(result.Documento);
+                inputs[3].val(result.Endereco1.Cidade);
+                inputs[4].val(result.Endereco1.Bairro1.Nome);
+                inputs[5].val(result.Endereco1.Rua);
+                inputs[6].val(result.Endereco1.Numero);
+
+                inputs.forEach(function (item) {
+                    item.attr("disabled", true);
+                });
+
+
+
+            },
+            error: function () {
+                alert("Erro com o servidor!");
+            }
+        });
+    }
+};
+
+var externalOrderProducts = {    
+    getInputs: function (object) {
+        var dad = object.closest(".field-box");
+
+        var un = dad.find("input[name='product-un']");
+        var amount = dad.find("input[name='product-count']");
+        var price = dad.find("input[name='product-price']");
+        var total = dad.find("input[name='product-total']");
+
+        var inputs = [];
+        inputs.push(un, amount, price, total);
+
+        return inputs;        
+    },
+    resetInputs: function (object) {
+        var inputs = externalOrderProducts.getInputs(object);
+
+        inputs.forEach(function (item) {            
+            item.val("");
+        });
+    },
+    productSelect: function (object) {
+        var inputs = externalOrderProducts.getInputs(object);
+        $.ajax({
+            type: "POST",
+            url: '../ExternalUsersProductsAjax',
+            data: {
+                id: object.val()
+            },
+            success: function (data) {
+                var result = JSON.parse(data);               
+
+                inputs[0].val(result.Unidade + "Un");                
+                inputs[1].val("1");
+                inputs[2].val("R$ " + result.Preco);
+                inputs[3].val("R$ " + result.Preco);
+
+            },
+            error: function () {
+                alert("Erro com o servidor!");
+            }
+        });
+    },
+    amountChange: function (object) {       
+        var inputs = externalOrderProducts.getInputs(object);
+
+        var amount = parseInt(inputs[1].val());       
+        var price = parseFloat(inputs[2].val().split(" ")[1]);        
+        inputs[3].val("R$ " + amount * price);
+    }
+}
+
+
+var externalOrderProductsManager = {
+    cloneBox: function () {
+        var box = $("div[data-id='product-box']");
+        var clone = box.clone();
+
+        clone.attr("data-id", false);
+        clone.find("button[data-id='more-product']").remove();
+        var input = clone.find("input[name='product-amount']");
+        input.val("");
+
+        var icon = $("<span>");
+        icon.addClass("glyphicon glyphicon-remove");
+
+        var button = $("<button>");
+        button.attr({
+            "data-id": "remove-product",
+            type: "button"
+
+        });
+        button.addClass("btn btn-danger");
+        button.append(icon);
+
+        clone.find(".field-more").append(button);
+
+        var content = $("div[data-id='product-content']");
+        content.append(clone);
+    },
+    removeBox: function (btn) {
+        btn.closest("div[data-content='product-field']").remove();
+    },
+    listFields: function () {
+        var content = $("div[data-id='products']");
+        var i = 1;
+        content.find(".field-box").each(function () {
+            var select = $(this).find("select");
+            var input = $(this).find("input[name='product-count']");
+            if (select.val() > 0 && input.val() > 0) {
+                select.attr("name", "product-" + i);
+                input.attr("name", "product-count-" + i);
+                i++;
+            }
+
+        });
+        var amount = $("input[name='product-amount']");
+        amount.val(i - 1);
+
+    }
+}

@@ -80,6 +80,10 @@ namespace MaisLifeModel
 			{
 				return this._enderecos;
 			}
+            set
+			{
+                this._enderecos = value;
+			}
 		}
 		
 		#region ISerializable Implementation
