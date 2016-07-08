@@ -1112,13 +1112,13 @@ footer .brand-footer div .footer-menu ul li a:hover {
     float: left; 
 }
 
-.cart-page .cart-shipping button {   
+.cart-page .cart-shipping a {   
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.cart-page .cart-shipping button a {
+.cart-page .cart-shipping a {
     color: #FFFFFF;
 }
 

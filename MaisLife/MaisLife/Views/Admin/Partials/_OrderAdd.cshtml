@@ -3,7 +3,13 @@
     var outsideClients = (List<MaisLifeModel.Usuario_externo>)ViewBag.OutsideClients;
     var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
     var user = (MaisLifeModel.Usuario)ViewBag.User;
-    var sellers = (List<MaisLifeModel.Usuario>)ViewBag.Sellers;  
+    var sellers = (List<MaisLifeModel.Usuario>)ViewBag.Sellers; 
+    var locals = (List<MaisLifeModel.Bairro>) ViewBag.Locals;
+    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+    var methods = new List<string>();
+    methods.Add("Dinheiro");
+    methods.Add("Cartão");
+   
 }
 @using (Ajax.BeginForm("ManagerExternalOrder", "Admin", new AjaxOptions()
 {
@@ -17,7 +23,7 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
+        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })      
         <input type="hidden" name="product-amount" value="0" />
         <div class="col-lg-3">
             <div class="form-group">
@@ -25,13 +31,14 @@
                     Cliente:
                 </div>
                 <div class="form-input">
-                    <select data-id="client-select" name="client" class="form-control">
-                        <option value="0">Novo cliente</option>
-                        @foreach (var outside in outsideClients)
-                        {
-                            <option value="@outside.Idusuario">@outside.Nome</option>
-                        }
-                    </select>
+                    @Html.DropDownListFor(model => model.UsuarioExterno.Idusuario,
+                        (outsideClients).Select(option => new SelectListItem
+                            {
+                                Text = option.Nome,
+                                Value = option.Idusuario + ""
+                            }),
+                            "Novo cliente",
+                        new { @class = "form-control" })                    
                 </div>                
             </div>
         </div>
@@ -40,16 +47,7 @@
                 <div class="form-label">
                     Nome:
                 </div>
-                @if (Model.Id > 0)
-                {
-                    @Html.EditorFor(model => model.UsuarioExterno.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
-                }
-                else
-                {
-                    <div class="form-input">
-                        <input type="text" name="client-name" class="form-control" placeholder="Nome" />
-                    </div>
-                }
+                @Html.EditorFor(model => model.UsuarioExterno.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })              
                               
             </div>
         </div>
@@ -58,26 +56,15 @@
                 <div class="form-label">
                     Contato:
                 </div>
-                @if (Model.Id > 0)
-                {
-                    @Html.EditorFor(model => model.UsuarioExterno.Telefone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefone" } })
-                }
-                else
-                {
-                    <div class="form-input">
-                        <input type="text" name="client-phone" class="form-control" placeholder="Telefone" />
-                    </div>
-                }                
+                @Html.EditorFor(model => model.UsuarioExterno.Telefone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefone" } })
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="form-group">
+            <div class="form-group">                
                 <div class="form-label">
                     Documento:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-doc" class="form-control" placeholder="CPF/CNPJ" />
-                </div>
+                @Html.EditorFor(model => model.UsuarioExterno.Documento, new { htmlAttributes = new { @class = "form-control", @placeholder = "CPF" } })  
             </div>
         </div>  
         <div class="col-lg-3">
@@ -86,7 +73,7 @@
                     Cidade:
                 </div>
                 <div class="form-input">
-                    <input type="text" name="client-city" class="form-control" placeholder="Cidade" />
+                    @Html.EditorFor(model => model.UsuarioExterno.Endereco1.Cidade, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cidade" } })  
                 </div>                
             </div>
         </div>
@@ -95,19 +82,22 @@
                 <div class="form-label">
                     Bairro:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-local" class="form-control" placeholder="Bairro" />
-                </div> 
-            </div>
+                        @Html.DropDownListFor(model => model.UsuarioExterno.Endereco1.Bairro1.Id,
+                            (locals).Select(option => new SelectListItem
+                            {
+                                Text = option.Nome,
+                                Value = option.Id + ""
+                            }),
+                            "Bairro",
+                        new { @class = "form-control" })
+                </div>
         </div> 
         <div class="col-lg-3">
             <div class="form-group">
                 <div class="form-label">
                     Rua:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-street" class="form-control" placeholder="Rua" />
-                </div> 
+                @Html.EditorFor(model => model.UsuarioExterno.Endereco1.Rua, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rua" } })   
             </div>
         </div> 
         <div class="col-lg-3">
@@ -115,9 +105,7 @@
                 <div class="form-label">
                     Número:
                 </div>
-                <div class="form-input">
-                    <input type="text" name="client-number" class="form-control" placeholder="Número" />
-                </div>
+                @Html.EditorFor(model => model.UsuarioExterno.Endereco1.Numero, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nº" } })   
             </div>
         </div>
         <div class="col-lg-12" style="float: left;">
@@ -126,10 +114,10 @@
                     Produtos:
                 </div>
                 <div data-id="product-content" class="form-input">
-                    <div data-id="product-box" data-content="product-field" class="col-lg-3">
-                        <div class="field-box">
+                    <div data-id="product-box" data-content="product-field" class="col-lg-4">
+                        <div class="field-box">                            
                             <select class="form-control" data-id="product-select">
-                                <option value="0">Produto</option>
+                                <option value="0">Produto</option>                                
                                 @foreach (var product in products)
                                 {
                                     <option value="@product.Id">@product.Nome</option>
@@ -137,8 +125,8 @@
                             </select>
                             <div class="group-input">
                                 <input type="text" class="form-control" placeholder="Un" name="product-un" disabled />
-                                <input type="text" class="form-control" placeholder="Preço" name="product-price" disabled />                                
-                            </div>                            
+                                <input type="text" class="form-control" placeholder="Preço" name="product-price" disabled />
+                            </div>
                             <div class="group-input">
                                 <input type="number" class="form-control" placeholder="Qtd" name="product-count" min="0" />
                                 <input type="text" class="form-control" placeholder="Total" name="product-total" disabled />
@@ -148,36 +136,41 @@
                             <button type="button" class="btn btn-primary" data-id="more-product"><span class="glyphicon glyphicon-plus"></span></button>
                         </div>
                     </div>
-                     
-                    @*@if (Model.Id > 0)
-                    {
-                        foreach (var delivery in @Model.Bairros)
-                        {
 
-                            <div data-content="delivery-field" class="col-lg-3">
-                                <div class="field-box">
-                                    <select class="form-control" data-id="delivery-local">
-                                        <option value="0">Bairro</option>
-                                        @foreach (var local in locals)
-                                        {
-                                            if (local.Nome == delivery.Bairro1.Nome)
+
+                        @if (Model != null)
+                        {
+                            foreach (var relationships in cart.Carrinho_produtos)
+                            {
+
+                                <div data-content="product-field" class="col-lg-4">
+                                    <div class="field-box">                                        
+                                        <select class="form-control" data-id="product-select">
+                                            <option value="0">Produto</option>
+                                            @foreach (var product in products)
                                             {
-                                                <option value="@local.Id" selected>@local.Nome</option>
+                                                if ( product.Id == relationships.Produto1.Id ){
+                                                    <option value="@product.Id" selected>@product.Nome</option>
+                                                }else{
+                                                    <option value="@product.Id">@product.Nome</option>
+                                                }
                                             }
-                                            else
-                                            {
-                                                <option value="@local.Id">@local.Nome</option>
-                                            }
-                                        }
-                                    </select>
-                                    <input type="text" class="form-control" placeholder="Taxa" value="@delivery.Taxa" />
+                                        </select>
+                                        <div class="group-input">
+                                            <input type="text" class="form-control" placeholder="Un" name="product-un" value="@relationships.Produto1.Unidade" disabled />
+                                            <input type="text" class="form-control" placeholder="Preço" name="product-price" value="R$ @relationships.Produto1.Preco" disabled />
+                                        </div>
+                                        <div class="group-input">
+                                            <input type="number" class="form-control" placeholder="Qtd" name="product-count" min="0" value="@relationships.Quantidade" />
+                                            <input type="text" class="form-control" placeholder="Total" name="product-total" value="R$ @(relationships.Quantidade * relationships.Produto1.Preco)" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="field-more">
+                                        <button type="button" class="btn btn-danger" data-id="remove-product"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>
                                 </div>
-                                <div class="field-more">
-                                    <button type="button" class="btn btn-danger" data-id="remove-delivery"><span class="glyphicon glyphicon-remove"></span></button>
-                                </div>
-                            </div>
+                            }
                         }
-                    }*@
                    
                 </div>
             </div>
@@ -186,12 +179,14 @@
             <div class="form-group">
                 <div class="form-label">
                     Pagamento:
-                </div>
-                <div class="form-input">
-                    <select name="client-payment" class="form-control">
-                        <option value="Dinheiro">Dinheiro</option>
-                        <option value="Cartao">Cartão de crédito</option>
-                    </select>
+                </div>                
+                <div class="form-input">                                 
+                    @Html.DropDownListFor(model => model.Metodo,
+                            (methods).Select(option => new SelectListItem
+                            {
+                                Text = option,
+                                Value = option
+                            }), new { @class = "form-control" })                    
                 </div>
             </div>
         </div>
@@ -201,7 +196,8 @@
                     Valor a pagar (opcional):
                 </div>
                 <div class="form-input">
-                    <input type="text" name="client-payValue" class="form-control" placeholder="Valor a pagar" />
+                    @Html.EditorFor(model => model.Pago, new { htmlAttributes = new { @class = "form-control", @placeholder = "Valor a pagar" } })  
+                    
                 </div>  
             </div>
         </div>         
@@ -210,7 +206,7 @@
                 <div class="form-label">
                     Vendedor:
                 </div>
-                <div class="form-input">
+                <div class="form-input">                    
                     @if (@user.Permissao < 2)
                     {
                         <select name="client-payment" class="form-control" disabled>
@@ -219,12 +215,14 @@
                     }
                     else
                     {
-                        <select name="client-payment" class="form-control">
-                            @foreach (var seller in sellers)
+                        @Html.DropDownListFor(model => model.Usuario.Id,
+                            ((IEnumerable<MaisLifeModel.Usuario>)ViewBag.Sellers).Select(option => new SelectListItem
                             {
-                                <option value="@seller.Id">@seller.Nome</option>
-                            } 
-                        </select>
+                                Text = option.Nome + " " + option.Sobrenome,
+                                Value = option.Id+""  
+                            }),
+                            "Vendedor",
+                        new { @class = "form-control" })
                     }
                     
                 </div>
@@ -236,26 +234,17 @@
                     Total:
                 </div>
                 <div class="form-input">
-                    @if (Model.Id > 0)
-                    {
-                        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefone", disabled = true, id = "total" } })
-                    }
-                    else
-                    {
-                        <div class="form-input">
-                            <input id="total" type="text" class="form-control" placeholder="Total" disabled />
-                        </div>
-                    }    
+                    @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", @placeholder = "Total" } })   
                     
                 </div>
             </div>
         </div>                 
                 
         <div class="col-lg-11">
-            @if (Model.Id > 0)
+            @if (Model != null)
             {
                 <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Alterar</button>
-                <a class="btn btn-default" href="@Url.Action("Parceiros", "Admin", new RouteValueDictionary(new MaisLife.Models.Adapter.ParceiroAdapter()))">Voltar</a>
+                <a class="btn btn-default" href="@Url.Action("VendasExternas", "Admin", new { id = 0 })">Voltar</a>
             }
             else
             {

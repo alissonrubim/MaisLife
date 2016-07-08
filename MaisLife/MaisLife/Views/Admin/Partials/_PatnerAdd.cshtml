@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="col-lg-11">
-            @if (Model.Id > 0)
+            @if (Model != null)
             {
                 <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Alterar</button>
                 <a class="btn btn-default" href="@Url.Action("Parceiros", "Admin", new RouteValueDictionary(new MaisLife.Models.Adapter.ParceiroAdapter()))">Voltar</a>

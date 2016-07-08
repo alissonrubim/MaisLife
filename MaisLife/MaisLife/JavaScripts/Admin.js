@@ -32,7 +32,7 @@ $(document).on("click", "button[data-id='panel-submit']", function () {
     $(this).closest("form").submit();
 });
 
-$(document).on("change", "select[data-id='client-select']", function () {
+$(document).on("change", "#UsuarioExterno_Idusuario", function () {
     var val = $(this).val();
     if (val > 0)
         externalOrder.addressChange(val);
@@ -233,14 +233,14 @@ var patner = {
 
 var externalOrder = {
     getInputs: function () {
-        var name = $("input[name='client-name']");
-        var contact = $("input[name='client-phone']");
-        var document = $("input[name='client-doc']");
+        var name = $("input[name='UsuarioExterno.Nome']");
+        var contact = $("input[name='UsuarioExterno.Telefone']");
+        var document = $("input[name='UsuarioExterno.Documento']");
 
-        var city = $("input[name='client-city']");
-        var local = $("input[name='client-local']");
-        var street = $("input[name='client-street']");
-        var number = $("input[name='client-number']");
+        var city = $("input[name='UsuarioExterno.Endereco1.Cidade']");
+        var local = $("select[name='UsuarioExterno.Endereco1.Bairro1.Id']");
+        var street = $("input[name='UsuarioExterno.Endereco1.Rua']");
+        var number = $("input[name='UsuarioExterno.Endereco1.Numero']");
 
         var inputs = [];
         inputs.push(name, contact, document, city, local, street, number);
@@ -270,7 +270,7 @@ var externalOrder = {
                 inputs[1].val(result.Telefone);
                 inputs[2].val(result.Documento);
                 inputs[3].val(result.Endereco1.Cidade);
-                inputs[4].val(result.Endereco1.Bairro1.Nome);
+                inputs[4].val(result.Endereco1.Bairro1.Id);
                 inputs[5].val(result.Endereco1.Rua);
                 inputs[6].val(result.Endereco1.Numero);
 
