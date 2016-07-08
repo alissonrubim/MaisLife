@@ -4,6 +4,7 @@
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var error = TempData["Error"];
+    var delivery = ViewBag.Delivery;
 }
 
 <div class="container store-page address-page">
@@ -93,9 +94,9 @@
                                     <li class="list-group-item">
                                         <label>Número:</label> @address.Numero
                                     </li>
-                                    <li class="list-group-item">
+                                    @*<li class="list-group-item">
                                         <label>Taxa:</label> R$<span data-id="address-tax"> @address.Bairro1.Taxa</span>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                         }
@@ -135,10 +136,10 @@
                         </div>
                     </li>                    
                     <li class="list-group-item">
-                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$ 0,0" data-id="address-shipping" readonly value="" />
+                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$ 0,0" data-id="address-shipping" readonly value="R$ @delivery" />
                     </li>
                     <li class="list-group-item">
-                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" data-content="@cart.Total(0)" readonly value="R$ @cart.Total(0)" />
+                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" data-content="@cart.Total(delivery)" readonly value="R$ @cart.Total(delivery)" />
                     </li>                    
                     <li class="list-group-item">
                         <label>Troco para R$:</label>

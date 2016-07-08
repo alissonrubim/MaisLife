@@ -50,7 +50,7 @@ namespace MaisLife.Controllers
                 return View(adapter);
             else
                 return View();
-        }       
+        }
        
         public ActionResult VendasExternas(int id = 0)
         {
@@ -65,7 +65,7 @@ namespace MaisLife.Controllers
             var logged = (Usuario) HttpContext.Session["user"];
 
             if ( logged.Permissao < 2 )
-                ViewBag.Orders = ConfigDB.Model.Pedidos.Where(o => o.Usuario == logged.Id && o.Origem == "Vendedor").ToList();
+            ViewBag.Orders = ConfigDB.Model.Pedidos.Where(o => o.Usuario == logged.Id && o.Origem == "Vendedor").ToList();
             else
                 ViewBag.Orders = ConfigDB.Model.Pedidos.ToList();
             ViewBag.User = logged;
@@ -240,16 +240,16 @@ namespace MaisLife.Controllers
                 }
 
                 order.Carrinho1 = cart;
-        
+
                 if ( order.Usuario_externo1.Idusuario > 0 )
                     order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(c => c.Idusuario == order.Usuario_externo1.Idusuario);
-                                
+
                 order.Origem = "Vendedor";
                 order.Data = DateTime.Now;               
                 order.Endereco1 = order.Usuario_externo1.Endereco1;
                 order.Status = "Enviado";
                 order.Valor = orderValue;
-               
+
 
                 ConfigDB.Model.Add(order);
                 if ( ConfigDB.Model.HasChanges )
@@ -280,7 +280,7 @@ namespace MaisLife.Controllers
         [HttpPost]
         public ActionResult EditarParceiro()
         {
-            var id = Convert.ToInt32(Request.Form["item"]);            
+            var id = Convert.ToInt32(Request.Form["item"]);
 
             return RedirectToAction("Parceiros", new { id = id });
         }
@@ -315,7 +315,7 @@ namespace MaisLife.Controllers
         {
             var id = Convert.ToInt32(Request.Form["item"]);
             var user = (Usuario) HttpContext.Session["user"];
-            var external = ConfigDB.Model.Pedidos.FirstOrDefault(o => o.Id == id);           
+            var external = ConfigDB.Model.Pedidos.FirstOrDefault(o => o.Id == id);
             if ( user.Permissao < 2 ){
                 if ( external.Status == "Enviado" ){
                     return RedirectToAction("VendasExternas", new { id = id} );
