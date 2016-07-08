@@ -38,6 +38,7 @@ namespace MaisLife.Controllers
                 return View();
         }
        
+       
         public ActionResult VendasExternas(PedidoAdapter order = null)
         {
             var logged = (Usuario) HttpContext.Session["user"];

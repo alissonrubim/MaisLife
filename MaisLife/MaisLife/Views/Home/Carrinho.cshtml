@@ -7,6 +7,8 @@
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
     var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
+    var delivery = ViewBag.Delivery == null ? 0 : ViewBag.Delivery;
+    
 }
 
 <script>
@@ -105,7 +107,7 @@
             <span>
                 Total:
                 <strong>
-                    @cart.Total(localObj.Taxa)
+                    @cart.Total(delivery)
                 </strong>
                 (Incluindo taxa de entrega)
             </span>
@@ -155,9 +157,9 @@
         else
         {
             <div class="col-lg-2 cart-shipping">
-                <input type="text" class="form-control" value="R$ @localObj.Taxa" readonly data-toggle="tooltip" data-placement="top" title="@localObj.Nome" />
+                <input type="text" class="form-control" value="R$ @delivery" readonly data-toggle="tooltip" data-placement="top" title="@localObj.Nome" />
                 <button type="button" class="btn btn-primary">
-                    <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0 })">
+                    <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0, delivery = 0 })">
                         <span class="glyphicon glyphicon-refresh"></span>
                     </a>
                 </button>
@@ -166,7 +168,7 @@
     </form>
     <div class="col-lg-2 cart-btn">
         <button type="submit" data-id="close-buy" class="btn btn-success">
-            <a href="@Url.Action("EnderecoEPagamento", "Home")">
+            <a href="@Url.Action("EnderecoEPagamento", "Home", new {valueDelivery = @delivery })">
                 Finalizar
             </a>
         </button>

@@ -43,7 +43,7 @@ namespace MaisLife.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Carrinho(int id, int local)
+        public ActionResult Carrinho(int id, int local, decimal delivery)
         {
 
             // CHECAMOS DE FOI PASSADO ALGUM PRODUTO PARA A PÁGINA
@@ -135,7 +135,14 @@ namespace MaisLife.Controllers
                 ViewBag.Local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == local); ;
             }
 
+            if(delivery != null && delivery != 0)
+            {
+                ViewBag.Delivery = delivery;
+            }
+
             ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
+
+            
 
             Injections.LayoutInjection(this);
             return View();
@@ -197,10 +204,14 @@ namespace MaisLife.Controllers
             return RedirectToAction("Carrinho", "Home", new { id = 0, local = 0 });
         }
 
-        public ActionResult EnderecoEPagamento() 
+        public ActionResult EnderecoEPagamento(decimal valueDelivery) 
         {
            
             Usuario user = (Usuario)HttpContext.Session["user"];
+
+
+            ViewBag.Delivery = valueDelivery;
+
 
             if(user != null)
             {
@@ -220,6 +231,7 @@ namespace MaisLife.Controllers
                 {
                     Usuario user = (Usuario)HttpContext.Session["user"];
                     Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                    
 
                     var metodo = Request.Form["payMethod"];
                     var payValue = Convert.ToDecimal(Request.Form["payValue"]);
@@ -277,17 +289,35 @@ namespace MaisLife.Controllers
             
         }
         
-        public ActionResult CalcularEntrega()        {
+        public ActionResult CalcularEntrega(){
+
+            Carrinho cart;
+
+            //VERIFICA SE EXISTE USUARIO LOGADO
+            Usuario user = (Usuario)HttpContext.Session["user"];
+            if (user == null)
+            {
+                //RECUPERA CARRINHO DO COOKIE
+                cart = Sessions.FindShoppingCart();
+            }
+            else
+            {
+                //RECUPERA CARRINHO DO BD
+                cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+            }
             
+            //RECUPERA BAIRRO
             var localString = Request.Form["local"];
-            int local = 0;
+            Bairro local = null;
 
             if (localString != "0" && localString != "")
             {
-                local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == localString).Id;
-            }            
+                local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == localString);
+            }
 
-            return RedirectToAction("Carrinho", "Home", new { id = 0, local = local});
+            decimal valueDelivery = CalculateShipping.Calculate(cart, local);
+
+            return RedirectToAction("Carrinho", "Home", new { id = 0, local = local.Id, delivery = valueDelivery});
 
         }
 
