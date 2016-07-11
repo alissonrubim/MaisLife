@@ -127,11 +127,16 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Admin\ParceiroController.cs" />
+    <Compile Include="Controllers\Admin\ProdutoController.cs" />
+    <Compile Include="Controllers\Admin\VendaExternaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\App.cs" />
     <Compile Include="Helper\CalculateShipping.cs" />
+    <Compile Include="Helper\FastRequest.cs" />
     <Compile Include="Helper\Injections.cs" />
     <Compile Include="Helper\Sessions.cs" />
     <Compile Include="Helper\Validation.cs" />
@@ -143,6 +148,9 @@
     <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdminViewModels\ParceiroViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\ProdutoViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\VendaExternaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -162,15 +170,15 @@
     <Content Include="Views\Home\Perfil.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Parceiros.cshtml" />
-    <Content Include="Views\Admin\Partials\_PatnerTable.cshtml" />
-    <Content Include="Views\Admin\Partials\_PatnerAdd.cshtml" />
-    <Content Include="Views\Admin\Produtos.cshtml" />
-    <Content Include="Views\Admin\Partials\_ProductAdd.cshtml" />
-    <Content Include="Views\Admin\Partials\_ProductTable.cshtml" />
-    <Content Include="Views\Admin\VendasExternas.cshtml" />
-    <Content Include="Views\Admin\Partials\_OrderAdd.cshtml" />
-    <Content Include="Views\Admin\Partials\_OrderTable.cshtml" />
+    <Content Include="Views\Parceiro\Partials\_PatnerTable.cshtml" />
+    <Content Include="Views\Parceiro\Partials\_PatnerAdd.cshtml" />
+    <Content Include="Views\Produto\Partials\_ProductAdd.cshtml" />
+    <Content Include="Views\Produto\Partials\_ProductTable.cshtml" />
+    <Content Include="Views\VendaExterna\Partials\_OrderAdd.cshtml" />
+    <Content Include="Views\VendaExterna\Partials\_OrderTable.cshtml" />
+    <Content Include="Views\VendaExterna\Index.cshtml" />
+    <Content Include="Views\Parceiro\Index.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -259,9 +259,9 @@ var externalOrder = {
         var inputs = externalOrder.getInputs();
         $.ajax({
             type: "POST",
-            url: '../ExternalUsersAjax',
+            url: '/VendaExterna/AjaxUse_ClientsQuery',
             data: {
-                id: id
+                exid: id
             },
             success: function (data) {
                 var result = JSON.parse(data);
@@ -296,10 +296,10 @@ var externalOrderProducts = {
         var amount = dad.find("input[name='product-count']");
         var price = dad.find("input[name='product-price']");
         var total = dad.find("input[name='product-total']");
-        var orderTotal = $("input[name='total']");
+        var orderTotal = $("input[name='Valor']");
 
         var inputs = [];
-        inputs.push(un, amount, price, total);
+        inputs.push(un, amount, price, total, orderTotal);
 
         return inputs;        
     },
@@ -314,7 +314,7 @@ var externalOrderProducts = {
         var inputs = externalOrderProducts.getInputs(object);
         $.ajax({
             type: "POST",
-            url: '../ExternalUsersProductsAjax',
+            url: '/VendaExterna/AjaxUse_ProductsQuery',
             data: {
                 id: object.val()
             },
@@ -325,6 +325,7 @@ var externalOrderProducts = {
                 inputs[1].val("1");
                 inputs[2].val("R$ " + result.Preco);
                 inputs[3].val("R$ " + result.Preco);
+                inputs[4].val("R$ " + result.Preco);
 
                 externalOrderProducts.calculateTotal();
 
@@ -352,7 +353,7 @@ var externalOrderProducts = {
             total += price * count;
         });
         
-        var totalInput = $("#total");
+        var totalInput = $("input[name='Valor']");
         totalInput.val("R$ " + total);
 
     }

@@ -24,8 +24,9 @@ namespace MaisLife.Models.Adapter
         public IList<Produto_bairro> Bairros { 
             get {
                 return ConfigDB.Model.Produto_bairros.Where(pb => pb.Produto == Id).ToList();
-            }           
+            }  
         }
+        public HttpPostedFileBase File { get; set; }
 
         public Produto ToProduto()
         {

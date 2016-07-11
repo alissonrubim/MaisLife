@@ -1,0 +1,138 @@
+﻿@model MaisLife.Models.Adapter.ProdutoAdapter
+
+@{
+    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
+}
+
+@using (Ajax.BeginForm("CreateOrEditProduto", "Produto", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "productTable"
+    //LoadingElementId = "divProgress"
+}, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
+        <input type="hidden" name="delivery-amount" value="0" />
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Nome:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })                   
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Unidades:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Unidade, new { htmlAttributes = new { @class = "form-control", @placeholder = "Unidades" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Preço:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" style="float: left;">
+            <div class="form-group">
+                <div class="form-label">
+                    Imagem:
+                </div>
+                <div class="form-input">
+                    <input type="file" name="file" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" style="float: left;">
+            <div class="form-group">
+                <div class="form-label">
+                    Descrição:
+                </div>
+                <div class="form-input">
+                    @Html.TextAreaFor(model => model.Descricao, new { rows = 10, columns = 40, @class = "form-control", @style = "width: 100%;" })
+                </div>                  
+            </div>
+        </div>
+        <div class="col-lg-12" style="float: left;">
+            <div class="form-group" data-id="deliverys">
+                <div class="form-label">
+                    Taxas de fretes diferenciados:
+                </div>
+                <div data-id="delivery-content" class="form-input">
+                    <div data-id="delivery-box" data-content="delivery-field" class="col-lg-3">
+                        <div class="field-box">
+                            <select class="form-control" data-id="delivery-local">
+                                <option value="0">Bairro</option>
+                                @foreach (var local in locals)
+                                {
+                                    <option value="@local.Id">@local.Nome</option>
+                                }
+                            </select>
+                            <input type="text" class="form-control" placeholder="Taxa" data-id="delivery-tax" />
+                        </div>
+                        <div class="field-more">
+                            <button type="button" class="btn btn-primary" data-id="more-delivery"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                    @if (Model != null)
+                    {
+                        foreach (var delivery in @Model.Bairros)
+                        {
+
+                            <div data-content="delivery-field" class="col-lg-3">
+                                <div class="field-box">
+                                    <select class="form-control" data-id="delivery-local">
+                                        <option value="0">Bairro</option>
+                                        @foreach (var local in locals)
+                                        {
+                                            if (local.Nome == delivery.Bairro1.Nome)
+                                            {
+                                                <option value="@local.Id" selected>@local.Nome</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@local.Id">@local.Nome</option>
+                                            }
+                                        }
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="Taxa" value="@delivery.Taxa" />
+                                </div>
+                                <div class="field-more">
+                                    <button type="button" class="btn btn-danger" data-id="remove-delivery"><span class="glyphicon glyphicon-remove"></span></button>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>               
+            </div>
+        </div>            
+        <div class="col-lg-11">           
+            @if (Model != null)
+            {
+                <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Alterar</button>
+                <a class="btn btn-default" href="@Url.Action("Index", "Produto", new { id = 0 })">Voltar</a>
+            }
+            else
+            {
+                <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Inserir</button>
+            }
+
+        </div>
+
+    </div>
+}
