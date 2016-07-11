@@ -67,8 +67,8 @@ namespace MaisLife.ViewModels
                 }
 
                 // CHECA SE UM CLIENTE PRONTO FOI SELECIONADO
-                if (this.Order.Usuario_externo1.Idusuario > 0)
-                    this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Idusuario == this.Order.Usuario_externo1.Idusuario);
+                if (this.Order.Usuario_externo1.Id > 0)
+                    this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
 
                 this.Order.Origem = Source;
                 this.Order.Data = DateTime.Now;

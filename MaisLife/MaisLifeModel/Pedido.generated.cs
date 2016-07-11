@@ -142,8 +142,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int? _usuario_externo;
-		public virtual int? Usuario_externo
+		private int _usuario_externo;
+		public virtual int Usuario_externo
 		{
 			get
 			{
@@ -165,6 +165,71 @@ namespace MaisLifeModel
 			set
 			{
 				this._origem = value;
+			}
+		}
+		
+		private DateTime _vencimento;
+		public virtual DateTime Vencimento
+		{
+			get
+			{
+				return this._vencimento;
+			}
+			set
+			{
+				this._vencimento = value;
+			}
+		}
+		
+		private string _tipo;
+		public virtual string Tipo
+		{
+			get
+			{
+				return this._tipo;
+			}
+			set
+			{
+				this._tipo = value;
+			}
+		}
+		
+		private int _parcelas;
+		public virtual int Parcelas
+		{
+			get
+			{
+				return this._parcelas;
+			}
+			set
+			{
+				this._parcelas = value;
+			}
+		}
+		
+		private string _motivo_troca;
+		public virtual string Motivo_troca
+		{
+			get
+			{
+				return this._motivo_troca;
+			}
+			set
+			{
+				this._motivo_troca = value;
+			}
+		}
+		
+		private int _desconto;
+		public virtual int Desconto
+		{
+			get
+			{
+				return this._desconto;
+			}
+			set
+			{
+				this._desconto = value;
 			}
 		}
 		
@@ -219,8 +284,18 @@ namespace MaisLifeModel
 				this._usuario_externo1 = value;
 			}
 		}
+		
+		private IList<Mapa_pedido> _mapa_pedidos = new List<Mapa_pedido>();
+		public virtual IList<Mapa_pedido> Mapa_pedidos
+		{
+			get
+			{
+				return this._mapa_pedidos;
+			}
+		}
 
-        public decimal Troco() {
+        public decimal Troco()
+        {
             if (this.Pago > 0)
                 return this.Pago - this.Valor;
             else
@@ -242,10 +317,15 @@ namespace MaisLifeModel
 			this.Data = (DateTime)info.GetValue("Data", typeof(DateTime));
 			this.Status = info.GetString("Status");
 			this.Carrinho = info.GetInt32("Carrinho");
-			this.Pago = info.GetDecimal("Pago");
+			this.Pago = (decimal)info.GetValue("Pago", typeof(decimal?));
 			this.Metodo = info.GetString("Metodo");
-			this.Usuario_externo = (int?)info.GetValue("Usuario_externo", typeof(int?));
+			this.Usuario_externo = (int)info.GetValue("Usuario_externo", typeof(int?));
 			this.Origem = info.GetString("Origem");
+			this.Vencimento = (DateTime)info.GetValue("Vencimento", typeof(DateTime?));
+			this.Tipo = info.GetString("Tipo");
+			this.Parcelas = (int)info.GetValue("Parcelas", typeof(int?));
+			this.Motivo_troca = info.GetString("Motivo_troca");
+			this.Desconto = (int)info.GetValue("Desconto", typeof(int?));
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -258,10 +338,15 @@ namespace MaisLifeModel
 			info.AddValue("Data", this.Data, typeof(DateTime));
 			info.AddValue("Status", this.Status, typeof(string));
 			info.AddValue("Carrinho", this.Carrinho, typeof(int));
-			info.AddValue("Pago", this.Pago, typeof(decimal));
+			info.AddValue("Pago", this.Pago, typeof(decimal?));
 			info.AddValue("Metodo", this.Metodo, typeof(string));
 			info.AddValue("Usuario_externo", this.Usuario_externo, typeof(int?));
 			info.AddValue("Origem", this.Origem, typeof(string));
+			info.AddValue("Vencimento", this.Vencimento, typeof(DateTime?));
+			info.AddValue("Tipo", this.Tipo, typeof(string));
+			info.AddValue("Parcelas", this.Parcelas, typeof(int?));
+			info.AddValue("Motivo_troca", this.Motivo_troca, typeof(string));
+			info.AddValue("Desconto", this.Desconto, typeof(int?));
 			CustomizeSerializationProcess(info, context);
 		}
 		

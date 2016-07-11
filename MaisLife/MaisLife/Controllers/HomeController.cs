@@ -282,7 +282,7 @@ namespace MaisLife.Controllers
                     
 
 
-            }catch(Exception ex){
+            }catch(Exception){
                 TempData["Error"] = "Houve um erro na autenticação.";  
                 return RedirectToAction("EnderecoEPagamento", "Home");
             }

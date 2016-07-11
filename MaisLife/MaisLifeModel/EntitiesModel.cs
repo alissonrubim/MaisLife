@@ -138,6 +138,38 @@ namespace MaisLifeModel
 			}
 		}
 		
+		public IQueryable<Mapaentrega> Mapaentregas 
+		{
+			get
+			{
+				return this.GetAll<Mapaentrega>();
+			}
+		}
+		
+		public IQueryable<Mapa_pedido> Mapa_pedidos 
+		{
+			get
+			{
+				return this.GetAll<Mapa_pedido>();
+			}
+		}
+		
+		public IQueryable<Devolucao_produto> Devolucao_produtos 
+		{
+			get
+			{
+				return this.GetAll<Devolucao_produto>();
+			}
+		}
+		
+		public IQueryable<Devolucao> Devolucaos 
+		{
+			get
+			{
+				return this.GetAll<Devolucao>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -200,6 +232,22 @@ namespace MaisLifeModel
 			get;
 		}
 		IQueryable<Bairro> Bairros
+		{
+			get;
+		}
+		IQueryable<Mapaentrega> Mapaentregas
+		{
+			get;
+		}
+		IQueryable<Mapa_pedido> Mapa_pedidos
+		{
+			get;
+		}
+		IQueryable<Devolucao_produto> Devolucao_produtos
+		{
+			get;
+		}
+		IQueryable<Devolucao> Devolucaos
 		{
 			get;
 		}

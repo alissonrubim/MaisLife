@@ -23,7 +23,7 @@ using MaisLifeModel;
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Bairro : System.Runtime.Serialization.ISerializable
+	public partial class Mapa_pedido : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,77 +38,77 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private string _nome;
-		public virtual string Nome
+		private int _mapa;
+		public virtual int Mapa
 		{
 			get
 			{
-				return this._nome;
+				return this._mapa;
 			}
 			set
 			{
-				this._nome = value;
+				this._mapa = value;
 			}
 		}
 		
-		private decimal _taxa;
-		public virtual decimal Taxa
+		private int _pedido;
+		public virtual int Pedido
 		{
 			get
 			{
-				return this._taxa;
+				return this._pedido;
 			}
 			set
 			{
-				this._taxa = value;
+				this._pedido = value;
 			}
 		}
 		
-		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
-		public virtual IList<Produto_bairro> Produto_bairros
+		private Pedido _pedido1;
+		public virtual Pedido Pedido1
 		{
 			get
 			{
-				return this._produto_bairros;
+				return this._pedido1;
 			}
-            set
+			set
 			{
-				this._produto_bairros = value;
+				this._pedido1 = value;
 			}
 		}
 		
-		private IList<Endereco> _enderecos = new List<Endereco>();
-		public virtual IList<Endereco> Enderecos
+		private Mapaentrega _mapaentrega;
+		public virtual Mapaentrega Mapaentrega
 		{
 			get
 			{
-				return this._enderecos;
+				return this._mapaentrega;
 			}
-            set
-            {
-                this._enderecos = value;
-            }
+			set
+			{
+				this._mapaentrega = value;
+			}
 		}
 		
 		#region ISerializable Implementation
 		
-		public Bairro()
+		public Mapa_pedido()
 		{
 		}
 		
-		protected Bairro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Mapa_pedido(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Nome = info.GetString("Nome");
-			this.Taxa = (decimal)info.GetValue("Taxa", typeof(decimal?));
+			this.Mapa = info.GetInt32("Mapa");
+			this.Pedido = info.GetInt32("Pedido");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Nome", this.Nome, typeof(string));
-			info.AddValue("Taxa", this.Taxa, typeof(decimal?));
+			info.AddValue("Mapa", this.Mapa, typeof(int));
+			info.AddValue("Pedido", this.Pedido, typeof(int));
 			CustomizeSerializationProcess(info, context);
 		}
 		

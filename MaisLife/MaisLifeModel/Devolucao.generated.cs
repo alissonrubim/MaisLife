@@ -23,7 +23,7 @@ using MaisLifeModel;
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Bairro : System.Runtime.Serialization.ISerializable
+	public partial class Devolucao : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,77 +38,90 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private string _nome;
-		public virtual string Nome
+		private DateTime _data;
+		public virtual DateTime Data
 		{
 			get
 			{
-				return this._nome;
+				return this._data;
 			}
 			set
 			{
-				this._nome = value;
+				this._data = value;
 			}
 		}
 		
-		private decimal _taxa;
-		public virtual decimal Taxa
+		private string _tipo;
+		public virtual string Tipo
 		{
 			get
 			{
-				return this._taxa;
+				return this._tipo;
 			}
 			set
 			{
-				this._taxa = value;
+				this._tipo = value;
 			}
 		}
 		
-		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
-		public virtual IList<Produto_bairro> Produto_bairros
+		private int _cliente;
+		public virtual int Cliente
 		{
 			get
 			{
-				return this._produto_bairros;
+				return this._cliente;
 			}
-            set
+			set
 			{
-				this._produto_bairros = value;
+				this._cliente = value;
 			}
 		}
 		
-		private IList<Endereco> _enderecos = new List<Endereco>();
-		public virtual IList<Endereco> Enderecos
+		private string _motivo;
+		public virtual string Motivo
 		{
 			get
 			{
-				return this._enderecos;
+				return this._motivo;
 			}
-            set
-            {
-                this._enderecos = value;
-            }
+			set
+			{
+				this._motivo = value;
+			}
+		}
+		
+		private IList<Devolucao_produto> _devolucao_produtos = new List<Devolucao_produto>();
+		public virtual IList<Devolucao_produto> Devolucao_produtos
+		{
+			get
+			{
+				return this._devolucao_produtos;
+			}
 		}
 		
 		#region ISerializable Implementation
 		
-		public Bairro()
+		public Devolucao()
 		{
 		}
 		
-		protected Bairro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Devolucao(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Nome = info.GetString("Nome");
-			this.Taxa = (decimal)info.GetValue("Taxa", typeof(decimal?));
+			this.Data = (DateTime)info.GetValue("Data", typeof(DateTime));
+			this.Tipo = info.GetString("Tipo");
+			this.Cliente = info.GetInt32("Cliente");
+			this.Motivo = info.GetString("Motivo");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Nome", this.Nome, typeof(string));
-			info.AddValue("Taxa", this.Taxa, typeof(decimal?));
+			info.AddValue("Data", this.Data, typeof(DateTime));
+			info.AddValue("Tipo", this.Tipo, typeof(string));
+			info.AddValue("Cliente", this.Cliente, typeof(int));
+			info.AddValue("Motivo", this.Motivo, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		

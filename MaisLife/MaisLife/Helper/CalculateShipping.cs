@@ -11,7 +11,7 @@ namespace MaisLife.Helper
         
         public static decimal Calculate(Carrinho cart, Bairro local)
         {
-            List<decimal> prices = new List<decimal>();
+            var prices = new List<decimal>();
 
             foreach(Carrinho_produto cp in cart.Carrinho_produtos){
                 var value = ConfigDB.Model.Produto_bairros.FirstOrDefault

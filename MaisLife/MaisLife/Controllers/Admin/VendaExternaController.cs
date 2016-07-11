@@ -59,7 +59,7 @@ namespace MaisLife.Controllers.Admin
         public string AjaxUse_ClientsQuery()
         {
             var id = Convert.ToInt32(Request.Form["exid"]);
-            var externalUser = ConfigDB.Model.Usuario_externos.FirstOrDefault(eu => eu.Idusuario == id);
+            var externalUser = ConfigDB.Model.Usuario_externos.FirstOrDefault(eu => eu.Id == id);
 
             // ANULAR REFERÊNCIAS
             externalUser.Endereco1.Bairro1.Enderecos = null;

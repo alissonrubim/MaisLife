@@ -64,8 +64,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private decimal? _preco;
-		public virtual decimal? Preco
+		private decimal _preco;
+		public virtual decimal Preco
 		{
 			get
 			{
@@ -103,6 +103,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private int _dias_entrega;
+		public virtual int Dias_entrega
+		{
+			get
+			{
+				return this._dias_entrega;
+			}
+			set
+			{
+				this._dias_entrega = value;
+			}
+		}
+		
 		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
 		public virtual IList<Produto_bairro> Produto_bairros
 		{
@@ -111,9 +124,9 @@ namespace MaisLifeModel
 				return this._produto_bairros;
 			}
             set
-			{
-				this._produto_bairros = value;
-			}
+            {
+                this._produto_bairros = value;
+            }
 		}
 		
 		private IList<Carrinho_produto> _carrinho_produtos = new List<Carrinho_produto>();
@@ -125,8 +138,21 @@ namespace MaisLifeModel
 			}
             set
 			{
-                this._carrinho_produtos = value;
+				this._carrinho_produtos = value;
 			}
+		}
+		
+		private IList<Devolucao_produto> _devolucao_produtos = new List<Devolucao_produto>();
+		public virtual IList<Devolucao_produto> Devolucao_produtos
+		{
+			get
+			{
+				return this._devolucao_produtos;
+			}
+            set
+            {
+                this._devolucao_produtos = value;
+            }
 		}
 		
 		#region ISerializable Implementation
@@ -140,9 +166,10 @@ namespace MaisLifeModel
 			this.Id = info.GetInt32("Id");
 			this.Nome = info.GetString("Nome");
 			this.Descricao = info.GetString("Descricao");
-			this.Preco = (decimal?)info.GetValue("Preco", typeof(decimal?));
+			this.Preco = info.GetDecimal("Preco");
 			this.Imagem = info.GetString("Imagem");
 			this.Unidade = (int?)info.GetValue("Unidade", typeof(int?));
+			this.Dias_entrega = info.GetInt32("Dias_entrega");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -151,9 +178,10 @@ namespace MaisLifeModel
 			info.AddValue("Id", this.Id, typeof(int));
 			info.AddValue("Nome", this.Nome, typeof(string));
 			info.AddValue("Descricao", this.Descricao, typeof(string));
-			info.AddValue("Preco", this.Preco, typeof(decimal?));
+			info.AddValue("Preco", this.Preco, typeof(decimal));
 			info.AddValue("Imagem", this.Imagem, typeof(string));
 			info.AddValue("Unidade", this.Unidade, typeof(int?));
+			info.AddValue("Dias_entrega", this.Dias_entrega, typeof(int));
 			CustomizeSerializationProcess(info, context);
 		}
 		

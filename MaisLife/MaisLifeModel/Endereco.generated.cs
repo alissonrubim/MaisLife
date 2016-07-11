@@ -176,9 +176,9 @@ namespace MaisLifeModel
 				return this._usuario_externos;
 			}
             set
-			{
+            {
                 this._usuario_externos = value;
-			}
+            }
 		}
 		
 		private IList<Pedido> _pedidos = new List<Pedido>();
