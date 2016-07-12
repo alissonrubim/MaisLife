@@ -31,7 +31,11 @@ namespace MaisLife.ViewModels
 
             var productCount = fr.ToInt("product-amount");
             if (productCount > 0)
-            {   
+            {                
+                // CHECA SE UM CLIENTE PRONTO FOI SELECIONADO
+                if (this.Order.Usuario_externo1.Id > 0)
+                    this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
+
                 if (this.Order.Id > 0)
                 {
                     // EDITAR                  
@@ -42,20 +46,17 @@ namespace MaisLife.ViewModels
                     this.Order.Endereco1 = newOrder.Usuario_externo1.Endereco1;
                     this.Order.Status = newOrder.Status;
                     this.Order.Metodo = newOrder.Metodo;
-                    if (this.Order.Metodo == "Prazo")
-                        this.Order.Parcelas = newOrder.Parcelas;
-                    else if (this.Order.Metodo == "Boleto")
-                        this.Order.Vencimento = newOrder.Vencimento;
+                    this.Order.Parcelas = newOrder.Parcelas;
+                    this.Order.Vencimento = newOrder.Vencimento;
 
                     this.Order.Tipo = newOrder.Tipo;
-                    if (this.Order.Tipo == "Troca")
-                        this.Order.Motivo_troca = newOrder.Motivo_troca;
+                    this.Order.Motivo_troca = newOrder.Motivo_troca;
 
                     this.Order.Desconto = newOrder.Desconto;
 
                 }
                 else
-                {
+                {     
                     // NOVO 
                     this.Order.Usuario1 = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == this.Order.Usuario1.Id);
                     this.Order.Carrinho1 = ConfigureCart();
@@ -83,10 +84,8 @@ namespace MaisLife.ViewModels
                     this.Order.Valor += (decimal)product.Preco * productAmount;
                 }
 
-                // CHECA SE UM CLIENTE PRONTO FOI SELECIONADO
-                if (this.Order.Usuario_externo1.Id > 0)
-                    this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
-
+                this.Order.Origem = Source;
+                
                 ConfigDB.Model.Add(this.Order);
                 if (ConfigDB.Model.HasChanges)
                     ConfigDB.Model.SaveChanges();

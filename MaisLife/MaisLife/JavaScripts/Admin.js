@@ -348,7 +348,7 @@ var externalOrderProducts = {
                 inputs[1].val("1");
                 inputs[2].val("R$ " + result.Preco);
                 inputs[3].val("R$ " + result.Preco);
-                inputs[4].val("R$ " + result.Preco);
+                //inputs[4].val("R$ " + result.Preco);
 
                 externalOrderProducts.calculateTotal();
 
@@ -371,9 +371,11 @@ var externalOrderProducts = {
         var content = $("div[data-id='products']");       
         var total = 0;
         content.find(".field-box").each(function () {
-            var price = parseFloat($(this).find("input[name='product-price']").val().split(" ")[1]);           
-            var count = parseInt($(this).find("input[name='product-count']").val());            
-            total += price * count;
+            if ($(this).find("input[name='product-price']").val() != "") {
+                var price = parseFloat($(this).find("input[name='product-price']").val().split(" ")[1]);
+                var count = parseInt($(this).find("input[name='product-count']").val());
+                total += price * count;
+            }            
         });
         
         var totalInput = $("input[name='Valor']");
