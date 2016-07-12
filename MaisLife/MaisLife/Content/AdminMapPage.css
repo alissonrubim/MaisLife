@@ -1,0 +1,73 @@
+﻿.order-box{
+    
+}
+
+.order-box .order-selected{
+
+}
+
+.order-box .order-unselected div {
+
+}
+
+.order-box .order-unselected div .order-content {
+    float: left;
+    padding: 5px;
+    border: 1px solid #DDD;
+    background: #EEE;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.order-box .order-unselected div .order-content:hover {
+    box-shadow: 0px 0px 10px #11252b;
+}
+
+.order-box .order-unselected div .selected {
+    background: #CCC;
+    box-shadow: 0px 0px 10px #11252b;
+}
+
+.order-box .order-unselected div .order-content .order-header {
+    float: left;
+    width: 100%;
+    padding: 5px;
+}
+
+.order-box .order-unselected div .order-content .order-header .order-header-client {
+    float:left;
+    width: 50%;
+}
+
+.order-box .order-unselected div .order-content .order-header .order-header-value {
+    float:left;
+    width: 50%;
+    text-align: right;   
+    font-weight: bold;
+}
+
+.order-box .order-unselected div .order-content .order-body {
+    float: left;
+    width: 100%;
+    padding: 5px;
+}
+
+.order-box .order-unselected div .order-content .order-body .order-deliveryDate {
+
+}
+
+.order-box .order-unselected div .order-content .order-footer {
+    float: left;
+    width: 100%;
+    padding: 5px;
+}
+
+.order-box .order-unselected div .order-content .order-footer .order-seller{
+
+}
+
+.add-footer {
+    float: left;
+    width: 100%;
+    padding: 10px;   
+}

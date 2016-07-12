@@ -51,6 +51,19 @@ namespace MaisLifeModel
 			}
 		}
 		
+		private DateTime? _data_entrega;
+		public virtual DateTime? Data_entrega
+		{
+			get
+			{
+				return this._data_entrega;
+			}
+			set
+			{
+				this._data_entrega = value;
+			}
+		}
+		
 		private IList<Mapa_pedido> _mapa_pedidos = new List<Mapa_pedido>();
 		public virtual IList<Mapa_pedido> Mapa_pedidos
 		{
@@ -58,6 +71,10 @@ namespace MaisLifeModel
 			{
 				return this._mapa_pedidos;
 			}
+            set
+            {
+                this._mapa_pedidos = value;
+            }
 		}
 		
 		#region ISerializable Implementation
@@ -70,6 +87,7 @@ namespace MaisLifeModel
 		{
 			this.Id = info.GetInt32("Id");
 			this.Observacao = info.GetString("Observacao");
+			this.Data_entrega = (DateTime?)info.GetValue("Data_entrega", typeof(DateTime?));
 			CustomizeDeserializationProcess(info, context);
 		}
 		
@@ -77,6 +95,7 @@ namespace MaisLifeModel
 		{
 			info.AddValue("Id", this.Id, typeof(int));
 			info.AddValue("Observacao", this.Observacao, typeof(string));
+			info.AddValue("Data_entrega", this.Data_entrega, typeof(DateTime?));
 			CustomizeSerializationProcess(info, context);
 		}
 		

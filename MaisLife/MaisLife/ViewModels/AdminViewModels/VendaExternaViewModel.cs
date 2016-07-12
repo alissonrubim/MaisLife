@@ -72,7 +72,7 @@ namespace MaisLife.ViewModels
                     this.Order.Carrinho1 = ConfigureCart();
                     this.Order.Endereco1 = this.Order.Usuario_externo1.Endereco1;
                     this.Order.Status = OnCreateStatus;
-                    this.Order.Data = DateTime.Now;
+                    this.Order.Data = DateTime.Now;                   
                 }
 
                 // VALOR DO PEDIDO
@@ -95,12 +95,26 @@ namespace MaisLife.ViewModels
                 }
 
                 this.Order.Origem = Source;
+                this.Order.Previsao_entrega = findShippingDate();
                 
                 ConfigDB.Model.Add(this.Order);
                 if (ConfigDB.Model.HasChanges)
                     ConfigDB.Model.SaveChanges();
 
             }
+        }
+
+        private DateTime? findShippingDate()
+        {
+            int maxPrize = 0;
+            foreach (var x in this.Order.Carrinho1.Carrinho_produtos) {
+                if (x.Produto1.Dias_entrega > maxPrize)
+                    maxPrize = x.Produto1.Dias_entrega;
+            }
+
+            var today = DateTime.Now;
+            return today.AddDays(maxPrize);
+
         }
         
         public Carrinho ConfigureCart(Carrinho cart = null)

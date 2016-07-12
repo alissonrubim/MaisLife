@@ -5,9 +5,7 @@
       <orm:class name="Usuario_externo" uniqueId="bdd535b4-71fd-4eab-94fb-a48af4eb81ba">
         <orm:table name="usuario_externo" />
         <orm:identity>
-          <orm:key-generator name="autoinc">
-            <orm:key-generator-member property-name="Idusuario" />
-          </orm:key-generator>
+          <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
@@ -222,6 +220,9 @@
         <orm:field name="_desconto" property="Desconto" behavior="readwrite" uniqueId="878f1565-d4e6-4322-b7fd-4cd88732215f" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="desconto" sql-type="integer" nullable="true" length="0" scale="0" has-default-value="true" ado-type="Int32" />
         </orm:field>
+        <orm:field name="_previsao_entrega" property="Previsao_entrega" behavior="readwrite" uniqueId="8ae22ed7-3333-4071-9c2d-65ae14802b13" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="previsao_entrega" sql-type="date" nullable="true" length="0" scale="0" ado-type="Date" />
+        </orm:field>
         <orm:field name="_carrinho1" property="Carrinho1" behavior="readwrite" uniqueId="7057926d-c64a-4fcf-80ba-a376dfe7ebc9" type="MaisLifeModel.Carrinho">
           <orm:reference uniqueId="c7024289-c27f-46da-b8ae-de6b6eab8173" association-name="PedidoHasCarrinho">
             <orm:sharedfield name="_carrinho" target-class="MaisLifeModel.Carrinho" target-field="_id" />
@@ -242,7 +243,7 @@
         </orm:field>
         <orm:field name="_usuario_externo1" property="Usuario_externo1" behavior="readwrite" uniqueId="af819adb-f84c-4bf3-b8e8-b759fc357939" type="MaisLifeModel.Usuario_externo">
           <orm:reference uniqueId="c52d3096-63c5-4235-b48e-a49ef38d8a17" association-name="PedidoHasUsuario_externo">
-            <orm:sharedfield name="_usuario_externo" target-class="MaisLifeModel.Usuario_externo" target-field="_idusuario" />
+            <orm:sharedfield name="_usuario_externo" />
             <orm:constraint name="fk_pedido_usuario_externo" delete-action="cascade" destination-table="usuario_externo" />
           </orm:reference>
         </orm:field>
@@ -514,6 +515,9 @@
         <orm:field name="_observacao" property="Observacao" behavior="readwrite" uniqueId="7d8171ec-0416-420d-881f-c6ef5ab5d37b" type="System.String">
           <orm:column name="observacao" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         </orm:field>
+        <orm:field name="_data_entrega" property="Data_entrega" behavior="readwrite" uniqueId="d38f1e27-ac5c-4a27-a935-3119bd6355a7" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="data_entrega" sql-type="date" nullable="true" length="0" scale="0" ado-type="Date" />
+        </orm:field>
         <orm:field name="_mapa_pedidos" property="Mapa_pedidos" behavior="readwrite" uniqueId="1bc53eac-f41b-49d3-8f80-74e7425710d8" type="MaisLifeModel.Mapa_pedido">
           <orm:collection element-class="MaisLifeModel.Mapa_pedido" inverse-field="_mapaentrega" order-by="" uniqueId="41fff1ef-4091-46b3-80e4-b9f79c66665c" />
         </orm:field>
@@ -705,6 +709,7 @@
         <orm:column name="parcelas" sql-type="integer" nullable="true" length="0" scale="0" has-default-value="true" ado-type="Int32" />
         <orm:column name="motivo_troca" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         <orm:column name="desconto" sql-type="integer" nullable="true" length="0" scale="0" has-default-value="true" ado-type="Int32" />
+        <orm:column name="previsao_entrega" sql-type="date" nullable="true" length="0" scale="0" ado-type="Date" />
         <orm:index name="fk_pedido_carrinho_idx">
           <orm:columnMapping>
             <orm:column name="carrinho" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
@@ -825,6 +830,7 @@
       <orm:table name="mapaentrega">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
         <orm:column name="observacao" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="data_entrega" sql-type="date" nullable="true" length="0" scale="0" ado-type="Date" />
       </orm:table>
       <orm:table name="mapa_pedido">
         <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
@@ -1041,6 +1047,7 @@
       <Property Id="311c93f6-538a-4d7b-afef-91ad256d24ad" name="Parcelas" type="Int32" label="Parcelas : Int32" nullable="true" kind="Persistent" fieldName="_parcelas" />
       <Property Id="88585b76-1b3a-40e4-9f37-7e637e433629" name="Motivo_troca" label="Motivo_troca : String" kind="Persistent" fieldName="_motivo_troca" />
       <Property Id="878f1565-d4e6-4322-b7fd-4cd88732215f" name="Desconto" type="Int32" label="Desconto : Int32" nullable="true" kind="Persistent" fieldName="_desconto" />
+      <Property Id="8ae22ed7-3333-4071-9c2d-65ae14802b13" name="Previsao_entrega" type="DateTime" label="Previsao_entrega : DateTime" nullable="true" kind="Persistent" fieldName="_previsao_entrega" />
       <AssociationTargets>
         <Association Id="c7024289-c27f-46da-b8ae-de6b6eab8173" SourceMultiplicity="One" name="PedidoHasCarrinho">
           <DomainClassMoniker name="/EntitiesModel/Carrinho" />
@@ -1272,6 +1279,7 @@
     <DomainClass Id="fb78bc1f-f216-4189-98a7-f2444dcdcf10" name="Mapaentrega" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
       <Property Id="c08f57c8-fad3-450b-9aff-ab99c202e316" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
       <Property Id="7d8171ec-0416-420d-881f-c6ef5ab5d37b" name="Observacao" label="Observacao : String" kind="Persistent" fieldName="_observacao" />
+      <Property Id="d38f1e27-ac5c-4a27-a935-3119bd6355a7" name="Data_entrega" type="DateTime" label="Data_entrega : DateTime" nullable="true" kind="Persistent" fieldName="_data_entrega" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="54d2a425-b58a-461a-aadf-20a36933159f">
           <NavigationalProperty Id="1bc53eac-f41b-49d3-8f80-74e7425710d8" name="Mapa_pedidos" type="IList&lt;Mapa_pedido&gt;" label="Mapa_pedidos : IList&lt;Mapa_pedido&gt;" nullable="true" kind="Persistent" fieldName="_mapa_pedidos" isDependent="false" isManaged="false" />

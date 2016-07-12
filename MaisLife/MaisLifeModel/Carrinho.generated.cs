@@ -84,8 +84,9 @@ namespace MaisLifeModel
 			{
 				return this._pedidos;
 			}
-            set {
-                this._pedidos = value;    
+            set
+            {
+                this._pedidos = value;
             }
 		}
 		

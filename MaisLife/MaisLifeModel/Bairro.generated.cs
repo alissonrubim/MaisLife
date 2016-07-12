@@ -72,9 +72,9 @@ namespace MaisLifeModel
 				return this._produto_bairros;
 			}
             set
-			{
-				this._produto_bairros = value;
-			}
+            {
+                this._produto_bairros = value;
+            }
 		}
 		
 		private IList<Endereco> _enderecos = new List<Endereco>();
@@ -85,9 +85,9 @@ namespace MaisLifeModel
 				return this._enderecos;
 			}
             set
-            {
-                this._enderecos = value;
-            }
+			{
+				this._enderecos = value;
+			}
 		}
 		
 		#region ISerializable Implementation

@@ -31,6 +31,8 @@ namespace MaisLife.Models.Adapter
         public int? Parcelas { get; set; }
         public string MotivoTroca { get; set; }
         public int Desconto { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime PrevisaoEntrega { get; set; }
 
         public Pedido ToPedido(){
              return new Pedido()
@@ -50,7 +52,8 @@ namespace MaisLife.Models.Adapter
                 Tipo = this.Tipo,
                 Parcelas = this.Parcelas,
                 Motivo_troca = this.MotivoTroca,
-                Desconto = this.Desconto
+                Desconto = this.Desconto,
+                Previsao_entrega = this.PrevisaoEntrega
              };
         }
 
@@ -73,7 +76,8 @@ namespace MaisLife.Models.Adapter
                 Tipo = pedido.Tipo,
                 Parcelas = pedido.Parcelas,
                 MotivoTroca = pedido.Motivo_troca,
-                Desconto = pedido.Desconto
+                Desconto = pedido.Desconto,
+                PrevisaoEntrega = (DateTime) pedido.Previsao_entrega
             };
         }
 

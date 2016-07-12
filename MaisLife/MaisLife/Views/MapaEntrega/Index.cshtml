@@ -1,6 +1,7 @@
-﻿@{
+﻿<script src="~/JavaScripts/MapScript.js"></script> 
+@{
     ViewBag.Title = "Mapas de entregas";
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var maps = (List<MaisLifeModel.Mapaentrega>)ViewBag.Maps;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -13,17 +14,14 @@
         </li>
     </ul>
 </div>
-<div id="productForm" class="container admin-page patner-page">
-    <div class="page-header">
-        <h3>Inserir Produto</h3>
-    </div>
+<div id="mapForm" class="container admin-page patner-page">   
     @Html.Partial("Partials/_MapAdd")
 </div>
-<div id="productTable" class="container admin-page patner-page">
+<div id="mapTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Produtos <small class="right">Gerenciamento (@products.Count)</small></h1>
+        <h1>Mapas de Entrega <small class="right">Gerenciamento (@maps.Count)</small></h1>
     </div>
-    @Html.Partial("Partials/_MapTable", products)
+    @Html.Partial("Partials/_MapTable", maps)
     @using (Ajax.BeginForm("RemoveItem", "Produto", new AjaxOptions()
         {
             HttpMethod = "POST",

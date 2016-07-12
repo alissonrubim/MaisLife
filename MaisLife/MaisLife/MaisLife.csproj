@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminMapPage.css" />
     <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -103,6 +104,7 @@
     <Content Include="JavaScripts\Admin.js" />
     <Content Include="JavaScripts\Cart.js" />
     <Content Include="JavaScripts\Home.js" />
+    <Content Include="JavaScripts\MapScript.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\Montserrat-Bold.ttf" />
@@ -143,6 +145,7 @@
     <Compile Include="Helper\Validation.cs" />
     <Compile Include="Models\Adapter\ContatoAdapter.cs" />
     <Compile Include="Models\Adapter\EnderecoAdapter.cs" />
+    <Compile Include="Models\Adapter\MapaAdapter.cs" />
     <Compile Include="Models\Adapter\ParceiroAdapter.cs" />
     <Compile Include="Models\Adapter\PedidoAdapter.cs" />
     <Compile Include="Models\Adapter\ProdutoAdapter.cs" />
