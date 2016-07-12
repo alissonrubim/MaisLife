@@ -379,7 +379,7 @@ var externalOrderProducts = {
         });
         
         var totalInput = $("input[name='Valor']");
-        totalInput.val("R$ " + total);
+        totalInput.val(total.toFixed(2).replace(".", ","));
 
     }
 }

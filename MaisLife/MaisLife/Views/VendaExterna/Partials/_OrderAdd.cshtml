@@ -1,4 +1,23 @@
-﻿@model MaisLife.Models.Adapter.PedidoAdapter
+﻿<script>
+    $(document).ready(function () {
+        if ($("select[name='UsuarioExterno.Id']").val() != 0) {
+            var inputs = externalOrder.getInputs();
+            inputs.forEach(function (item) {
+                item.attr("disabled", true);               
+            });
+        }
+
+        if ($("#Metodo").val() == "Prazo")
+            $("#Parcelas").attr("disabled", false);
+
+        if ($("#Metodo").val() == "Boleto")
+            $("#Vencimento").attr("disabled", false);
+
+        if ($("#Tipo").val() == "Troca")
+            $("#MotivoTroca").attr("disabled", false);
+    });
+</script>
+@model MaisLife.Models.Adapter.PedidoAdapter
 @{
     var outsideClients = (List<MaisLifeModel.Usuario_externo>)ViewBag.OutsideClients;
     var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
@@ -263,7 +282,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <div class="form-label">
-                    Total:
+                    Total (R$):
                 </div>
                 <div class="form-input">
                     @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", @placeholder = "Total", @disabled = true } })   

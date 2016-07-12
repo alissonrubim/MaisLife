@@ -168,8 +168,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private DateTime _vencimento;
-		public virtual DateTime Vencimento
+		private DateTime? _vencimento;
+        public virtual DateTime? Vencimento
 		{
 			get
 			{
@@ -194,8 +194,8 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private int _parcelas;
-		public virtual int Parcelas
+		private int? _parcelas;
+        public virtual int? Parcelas
 		{
 			get
 			{

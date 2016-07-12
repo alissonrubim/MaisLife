@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Admin\MapaEntregaController.cs" />
     <Compile Include="Controllers\Admin\ParceiroController.cs" />
     <Compile Include="Controllers\Admin\ProdutoController.cs" />
     <Compile Include="Controllers\Admin\VendaExternaController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Models\Adapter\UsuarioAdapter.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdminViewModels\MapaEntregaViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ParceiroViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ProdutoViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\VendaExternaViewModel.cs" />
@@ -179,6 +181,9 @@
     <Content Include="Views\VendaExterna\Index.cshtml" />
     <Content Include="Views\Parceiro\Index.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\MapaEntrega\Index.cshtml" />
+    <Content Include="Views\MapaEntrega\Partials\_MapTable.cshtml" />
+    <Content Include="Views\MapaEntrega\Partials\_MapAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

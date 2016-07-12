@@ -45,14 +45,24 @@ namespace MaisLife.ViewModels
                     this.Order.Carrinho1 = ConfigureCart(this.Order.Carrinho1);
                     this.Order.Endereco1 = newOrder.Usuario_externo1.Endereco1;
                     this.Order.Status = newOrder.Status;
-                    this.Order.Metodo = newOrder.Metodo;
-                    this.Order.Parcelas = newOrder.Parcelas;
-                    this.Order.Vencimento = newOrder.Vencimento;
-
+                    this.Order.Metodo = newOrder.Metodo;                   
                     this.Order.Tipo = newOrder.Tipo;
-                    this.Order.Motivo_troca = newOrder.Motivo_troca;
-
                     this.Order.Desconto = newOrder.Desconto;
+                    
+                    if (this.Order.Metodo != "Boleto")
+                        this.Order.Vencimento = null;
+                    else
+                        this.Order.Vencimento = newOrder.Vencimento;
+
+                    if (this.Order.Metodo != "Prazo")
+                        this.Order.Parcelas = null;
+                    else
+                        this.Order.Parcelas = newOrder.Parcelas;
+
+                    if (this.Order.Tipo != "Troca")
+                        this.Order.Motivo_troca = null;
+                    else
+                        this.Order.Motivo_troca = newOrder.Motivo_troca; 
 
                 }
                 else

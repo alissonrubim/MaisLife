@@ -25,9 +25,10 @@ namespace MaisLife.Models.Adapter
         public Usuario_externo UsuarioExterno { get; set; }
         [Required]
         public string Origem { get; set; }
-        public DateTime Vencimento { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? Vencimento { get; set; }
         public string Tipo { get; set; }
-        public int Parcelas { get; set; }
+        public int? Parcelas { get; set; }
         public string MotivoTroca { get; set; }
         public int Desconto { get; set; }
 

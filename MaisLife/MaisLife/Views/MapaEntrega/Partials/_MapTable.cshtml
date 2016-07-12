@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MaisLifeModel.Produto>
+<table class="table-hover">
+    <tr>
+        <th></th>
+        <th>Produto</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Unidades</th>
+    </tr>
+    @foreach (var product in @Model)
+    {
+        <tr data-id="@product.Id" data-content="patner-row" data-info="unselected">
+            <td style="width:100px; height: 100px;">
+                @if (@product.Imagem != null && @product.Imagem.Contains("http"))
+                {
+                    <img src="@product.Imagem" class="img-responsive patner-img" />
+                }
+                else
+                {
+                    <img src="@Url.Content("~/Images/Uploads/" + @product.Imagem)" class="img-responsive patner-img" />
+                }
+
+            </td>
+            <td>
+                @product.Nome
+            </td>
+            <td>
+                @product.Descricao
+            </td>
+            <td>
+                @product.Preco
+            </td>
+            <td>
+                @product.Unidade
+            </td>
+        </tr>
+    }
+</table>
