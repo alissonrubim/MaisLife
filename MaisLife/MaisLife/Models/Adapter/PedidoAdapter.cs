@@ -25,6 +25,11 @@ namespace MaisLife.Models.Adapter
         public Usuario_externo UsuarioExterno { get; set; }
         [Required]
         public string Origem { get; set; }
+        public DateTime Vencimento { get; set; }
+        public string Tipo { get; set; }
+        public int Parcelas { get; set; }
+        public string MotivoTroca { get; set; }
+        public int Desconto { get; set; }
 
         public Pedido ToPedido(){
              return new Pedido()
@@ -39,7 +44,12 @@ namespace MaisLife.Models.Adapter
                 Pago = this.Pago,
                 Metodo = this.Metodo,
                 Usuario_externo1 = this.UsuarioExterno,
-                Origem = this.Origem
+                Origem = this.Origem,
+                Vencimento = this.Vencimento,
+                Tipo = this.Tipo,
+                Parcelas = this.Parcelas,
+                Motivo_troca = this.MotivoTroca,
+                Desconto = this.Desconto
              };
         }
 
@@ -57,7 +67,12 @@ namespace MaisLife.Models.Adapter
                 Pago = pedido.Pago,
                 Metodo = pedido.Metodo,
                 UsuarioExterno = pedido.Usuario_externo1,
-                Origem = pedido.Origem
+                Origem = pedido.Origem,
+                Vencimento = pedido.Vencimento,
+                Tipo = pedido.Tipo,
+                Parcelas = pedido.Parcelas,
+                MotivoTroca = pedido.Motivo_troca,
+                Desconto = pedido.Desconto
             };
         }
 

@@ -26,7 +26,7 @@ namespace MaisLife.Models.Adapter
                 return ConfigDB.Model.Produto_bairros.Where(pb => pb.Produto == Id).ToList();
             }  
         }
-        public HttpPostedFileBase File { get; set; }
+        public int DiasEntrega { get; set; }
 
         public Produto ToProduto()
         {
@@ -38,7 +38,8 @@ namespace MaisLife.Models.Adapter
                 Preco = this.Preco,
                 Unidade = this.Unidade,
                 Imagem = this.Imagem,
-                Produto_bairros = this.Bairros
+                Produto_bairros = this.Bairros,
+                Dias_entrega = this.DiasEntrega
             };
         }
 
@@ -51,7 +52,8 @@ namespace MaisLife.Models.Adapter
                 Descricao = produto.Descricao,
                 Preco = (Decimal)produto.Preco,
                 Unidade = (int)produto.Unidade,
-                Imagem = produto.Imagem               
+                Imagem = produto.Imagem,
+                DiasEntrega = DiasEntrega
             };            
 
             return adapter;

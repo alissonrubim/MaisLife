@@ -13,7 +13,7 @@ namespace MaisLife.ViewModels
         public HttpRequestBase Request { get; set; }
         public Pedido Order { get; set; }
         public const string Source = "Vendedor";
-            
+        public const string OnCreateStatus = "Em aberto";
 
         public VendaExternaViewModel(HttpRequestBase r) {
             this.Request = r;
@@ -39,12 +39,29 @@ namespace MaisLife.ViewModels
                     this.Order = ConfigDB.Model.Pedidos.FirstOrDefault(f => f.Id == Order.Id);
                     this.Order.Usuario1 = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == newOrder.Usuario1.Id);
                     this.Order.Carrinho1 = ConfigureCart(this.Order.Carrinho1);
+                    this.Order.Endereco1 = newOrder.Usuario_externo1.Endereco1;
+                    this.Order.Status = newOrder.Status;
+                    this.Order.Metodo = newOrder.Metodo;
+                    if (this.Order.Metodo == "Prazo")
+                        this.Order.Parcelas = newOrder.Parcelas;
+                    else if (this.Order.Metodo == "Boleto")
+                        this.Order.Vencimento = newOrder.Vencimento;
+
+                    this.Order.Tipo = newOrder.Tipo;
+                    if (this.Order.Tipo == "Troca")
+                        this.Order.Motivo_troca = newOrder.Motivo_troca;
+
+                    this.Order.Desconto = newOrder.Desconto;
+
                 }
                 else
                 {
                     // NOVO 
                     this.Order.Usuario1 = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == this.Order.Usuario1.Id);
                     this.Order.Carrinho1 = ConfigureCart();
+                    this.Order.Endereco1 = this.Order.Usuario_externo1.Endereco1;
+                    this.Order.Status = OnCreateStatus;
+                    this.Order.Data = DateTime.Now;
                 }
 
                 // VALOR DO PEDIDO
@@ -70,11 +87,6 @@ namespace MaisLife.ViewModels
                 if (this.Order.Usuario_externo1.Id > 0)
                     this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
 
-                this.Order.Origem = Source;
-                this.Order.Data = DateTime.Now;
-                this.Order.Endereco1 = this.Order.Usuario_externo1.Endereco1;                
-                this.Order.Status = "Enviado";
-              
                 ConfigDB.Model.Add(this.Order);
                 if (ConfigDB.Model.HasChanges)
                     ConfigDB.Model.SaveChanges();
@@ -111,7 +123,7 @@ namespace MaisLife.ViewModels
             
             if (user.Permissao < 2)
             {
-                if (order.Status == "Enviado")
+                if (order.Status == "Em aberto")
                 {
                     return orderId;
                 }

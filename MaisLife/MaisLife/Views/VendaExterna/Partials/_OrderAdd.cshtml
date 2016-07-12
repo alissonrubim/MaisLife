@@ -7,9 +7,21 @@
     var locals = (List<MaisLifeModel.Bairro>) ViewBag.Locals;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var methods = new List<string>();
-    methods.Add("Dinheiro");
-    methods.Add("Cartão");
-   
+    methods.Add("A vista");
+    methods.Add("Prazo");
+    methods.Add("Boleto");
+    methods.Add("Consignado");
+
+    var types = new List<string>();
+    types.Add("Venda");
+    types.Add("Troca");
+    types.Add("Bonificado");
+    types.Add("Merchandising");
+
+    var status = new List<string>();
+    status.Add("Em aberto");
+    status.Add("Em trânsito");
+    status.Add("Entregue");   
 }
 @using (Ajax.BeginForm("CreateOrEditVendaExterna", "VendaExterna", new AjaxOptions()
 {
@@ -175,7 +187,7 @@
                 </div>
             </div>
         </div> 
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="form-group">
                 <div class="form-label">
                     Pagamento:
@@ -190,17 +202,33 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="form-group">
                 <div class="form-label">
-                    Valor a pagar (opcional):
+                    Tipo de venda:
                 </div>
                 <div class="form-input">
-                    @Html.EditorFor(model => model.Pago, new { htmlAttributes = new { @class = "form-control", @placeholder = "Valor a pagar" } })  
+                    @Html.DropDownListFor(model => model.Tipo,
+                            (types).Select(option => new SelectListItem
+                            {
+                                Text = option,
+                                Value = option
+                            }), new { @class = "form-control" })                    
                     
                 </div>  
             </div>
-        </div>         
+        </div> 
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="form-label">
+                    Desconto (%):
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Desconto, new { htmlAttributes = new { @class = "form-control", @placeholder = "(%)" } })   
+
+                </div>
+            </div>
+        </div>              
         <div class="col-lg-3">
             <div class="form-group">
                 <div class="form-label">
@@ -242,8 +270,70 @@
                     
                 </div>
             </div>
-        </div>                 
+        </div> 
+        <div class="col-lg-2" data-id="parcel">
+            <div class="form-group">
+                <div class="form-label">
+                    Parcelas:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Parcelas, new { htmlAttributes = new { @class = "form-control", @placeholder = "Parcelas", @min = 0, @disabled = true } })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" data-id="deadline">
+            <div class="form-group">
+                <div class="form-label">
+                    Vencimento:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Vencimento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Vencimento", @type = "date", @disabled = true} })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5" data-id="reason">
+            <div class="form-group">
+                <div class="form-label">
+                    Razão da troca:
+                </div>
+                <div class="form-input">
+                    @Html.TextAreaFor(model => model.MotivoTroca, new { rows = 4, columns = 40, @class = "form-control", @style = "width: 100%;", @disabled = true })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="form-label">
+                    Status:
+                </div>
+                @if (@Model != null && @user.Permissao == 2)
+                {
+                    <div class="form-input">
+                        @Html.DropDownListFor(model => model.Status,
+                            (status).Select(option => new SelectListItem
+                            {
+                                Text = option,
+                                Value = option
+                            }), new { @class = "form-control" })
+
+                    </div>
+                }
+                else
+                {
+                    <div class="form-input">
+                        @Html.DropDownListFor(model => model.Status,
+                            (status).Select(option => new SelectListItem
+                            {
+                                Text = option,
+                                Value = option
+                            }), "Em aberto", new { @class = "form-control", @disabled = true })
+
+                    </div>
+                }
                 
+            </div>
+        </div>  
         <div class="col-lg-11">
             @if (Model != null)
             {

@@ -32,7 +32,30 @@ $(document).on("click", "button[data-id='panel-submit']", function () {
     $(this).closest("form").submit();
 });
 
-$(document).on("change", "#UsuarioExterno_Idusuario", function () {
+$(document).on("change", "select[name='Metodo']", function () {
+    if ($(this).val() == "Prazo") {
+        $("#Parcelas").attr("disabled", false);
+        $("#Vencimento").attr("disabled", true);
+    } else {
+        $("#Parcelas").attr("disabled", true);
+        if ($(this).val() == "Boleto") {
+            $("#Vencimento").attr("disabled", false);
+        } else {
+            $("#Vencimento").attr("disabled", true);
+        }
+    }
+});
+
+$(document).on("change", "select[name='Tipo']", function () {
+    if ($(this).val() == "Troca") {
+        $("#MotivoTroca").attr("disabled", false);
+    }else{
+        $("#MotivoTroca").attr("disabled", true);
+    }
+
+});
+
+$(document).on("change", "#UsuarioExterno_Id", function () {
     var val = $(this).val();
     if (val > 0)
         externalOrder.addressChange(val);

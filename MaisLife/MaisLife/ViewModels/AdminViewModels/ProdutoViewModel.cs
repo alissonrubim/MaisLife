@@ -41,6 +41,7 @@ namespace MaisLife.ViewModels.AdminViewModels
                 this.Produto.Preco = newProduct.Preco;
                 this.Produto.Unidade = newProduct.Unidade;
                 this.Produto.Imagem = newProduct.Imagem;
+                this.Produto.Dias_entrega = newProduct.Dias_entrega;
             }
 
             var fr = new FastRequest(this.Request);
