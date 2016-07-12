@@ -292,16 +292,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-5" data-id="reason">
-            <div class="form-group">
-                <div class="form-label">
-                    Razão da troca:
-                </div>
-                <div class="form-input">
-                    @Html.TextAreaFor(model => model.MotivoTroca, new { rows = 4, columns = 40, @class = "form-control", @style = "width: 100%;", @disabled = true })
-                </div>
-            </div>
-        </div>
         <div class="col-lg-2">
             <div class="form-group">
                 <div class="form-label">
@@ -331,9 +321,19 @@
 
                     </div>
                 }
-                
+
             </div>
-        </div>  
+        </div> 
+        <div class="col-lg-5" data-id="reason">
+            <div class="form-group">
+                <div class="form-label">
+                    Razão da troca:
+                </div>
+                <div class="form-input">
+                    @Html.TextAreaFor(model => model.MotivoTroca, new { rows = 4, columns = 40, @class = "form-control", @style = "width: 100%;", @disabled = true })
+                </div>
+            </div>
+        </div>
         <div class="col-lg-11">
             @if (Model != null)
             {
