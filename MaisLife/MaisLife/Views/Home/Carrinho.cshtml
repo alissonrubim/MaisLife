@@ -7,7 +7,6 @@
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
     var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
-    var delivery = ViewBag.Delivery == null ? 0 : ViewBag.Delivery;
     
 }
 
@@ -107,70 +106,77 @@
             <span>
                 Total:
                 <strong>
-                    @cart.Total(delivery)
+                    @cart.Total(0)
                 </strong>
-                (Incluindo taxa de entrega)
             </span>
         }
 
     </div>
-    <form action="~/Home/CalcularEntrega" method="POST">
+    @if(cart.TotalItens() > 0)
+    {
+        <div class="col-lg-2 cart-btn">
+            <button type="submit" data-id="close-buy" class="btn btn-success">
+                <a href="@Url.Action("EnderecoEPagamento", "Home")">
+                    Finalizar
+                </a>
+
+        </div>
+    }
+    
+</div>
+
+    @*<form action="~/Home/CalcularEntrega" method="POST">
 
         <div class="col-lg-2 cart-label">
             <label>Taxa de entrega: </label>
         </div>
-        @if (localObj == null || localObj.Id == 0)
-        {
-            <div class="col-lg-3 cart-select">
-                <input type="radio" name="address-type" data-content="address-type" value="0" checked />
-                <select class="form-control" name="local" data-id="local-select">
-                    @if (user == null || user.Enderecos.Count == 0)
-                    {
-                        <option value="0">Nenhum endereço</option>
-                    }
-                    else if (user != null && user.Enderecos.Count > 0)
-                    {
-                        foreach (var local in user.Enderecos)
-                        {
-                            <option value="@local.Bairro1.Nome">@local.Bairro1.Nome</option>
-                        }
-                    }
-
-
-                </select>
-            </div>
-            <div class="col-lg-3 cart-text">
-                <input type="radio" name="address-type" data-content="address-type" value="1" />
-                <select class="form-control" name="local" data-id="local-text" disabled>
-                    @foreach (var local in locals)
-                    {
-                        <option value="@local.Nome">@local.Nome</option>
-                    }
-                </select>
-                <!-- <input type="text" name="local" data-id="local-text" class="form-control" placeholder="Seu bairro" disabled> -->
-            </div>
-
-            <div class="col-lg-2 cart-btn">
-                <button type="submit" class="btn btn-primary">Calcular</button>
-            </div>
-        }
-        else
-        {
-            <div class="col-lg-2 cart-shipping">
-                <input type="text" class="form-control" value="R$ @delivery" readonly data-toggle="tooltip" data-placement="top" title="@localObj.Nome" />
-                <button type="button" class="btn btn-primary">
-                    <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0, delivery = 0 })">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </a>
-               
-            </div>
-        }
-    </form>
-    <div class="col-lg-2 cart-btn">
-        <button type="submit" data-id="close-buy" class="btn btn-success">
-            <a href="@Url.Action("EnderecoEPagamento", "Home", new {valueDelivery = @delivery })">
-                Finalizar
-            </a>
         
-    </div>
-</div>
+            @if (localObj == null || localObj.Id == 0)
+            {
+                <div class="col-lg-3 cart-select">
+                    <input type="radio" name="address-type" data-content="address-type" value="0" checked />
+                    <select class="form-control" name="local" data-id="local-select">
+                        @if (user == null || user.Enderecos.Count == 0)
+                        {
+                            <option value="0">Nenhum endereço</option>
+                        }
+                        else if (user != null && user.Enderecos.Count > 0)
+                        {
+                            foreach (var local in user.Enderecos)
+                            {
+                                <option value="@local.Bairro1.Nome">@local.Bairro1.Nome</option>
+                            }
+                        }
+
+
+                    </select>
+                </div>
+                <div class="col-lg-3 cart-text">
+                    <input type="radio" name="address-type" data-content="address-type" value="1" />
+                    <select class="form-control" name="local" data-id="local-text" disabled>
+                        @foreach (var local in locals)
+                        {
+                            <option value="@local.Nome">@local.Nome</option>
+                        }
+                    </select>
+                     <input type="text" name="local" data-id="local-text" class="form-control" placeholder="Seu bairro" disabled> 
+                </div>
+
+                <div class="col-lg-2 cart-btn">
+                    <button type="submit" class="btn btn-primary">Calcular</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-2 cart-shipping">
+                    <input type="text" class="form-control" value="R$ @delivery" readonly data-toggle="tooltip" data-placement="top" title="@localObj.Nome" />
+                    <button type="button" class="btn btn-primary">
+                        <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0, delivery = 0 })">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </a>
+
+                </div>
+            }
+            </form>*@
+
+   

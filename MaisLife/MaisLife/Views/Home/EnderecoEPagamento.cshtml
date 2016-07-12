@@ -1,10 +1,10 @@
 ﻿<script src="~/JavaScripts/Address&Shipping.js"></script>
+
 @{
     ViewBag.Title = "Endereco e pagamento";
     var user = (MaisLifeModel.Usuario)ViewBag.User;
     var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
     var error = TempData["Error"];
-    var delivery = ViewBag.Delivery;
 }
 
 <div class="container store-page address-page">
@@ -75,6 +75,7 @@
         {
             <div class="col-lg-8">
                 <div class="btn-group" data-toggle="buttons">
+
                     @if (user != null)
                     {
                         foreach (var address in user.Enderecos)
@@ -136,10 +137,10 @@
                         </div>
                     </li>                    
                     <li class="list-group-item">
-                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$ 0,0" data-id="address-shipping" readonly value="R$ @delivery" />
+                        <label>Entrega:</label> <input type="text" class="form-control" placeholder="R$ 0,0" data-id="address-shipping" readonly value="R$ 0,00" />
                     </li>
                     <li class="list-group-item">
-                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" data-content="@cart.Total(delivery)" readonly value="R$ @cart.Total(delivery)" />
+                        <label>Total:</label> <input type="text" class="form-control" name="address-total" placeholder="R$" data-id="address-total" data-content="@cart.Total(0)" readonly value="R$ @cart.Total(0)" />
                     </li>                    
                     <li class="list-group-item">
                         <label>Troco para R$:</label>

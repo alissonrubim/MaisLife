@@ -43,7 +43,7 @@ namespace MaisLife.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Carrinho(int id, int local, decimal delivery)
+        public ActionResult Carrinho(int id, int local)
         {
 
             // CHECAMOS DE FOI PASSADO ALGUM PRODUTO PARA A PÁGINA
@@ -135,14 +135,7 @@ namespace MaisLife.Controllers
                 ViewBag.Local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == local); ;
             }
 
-            if(delivery != null && delivery != 0)
-            {
-                ViewBag.Delivery = delivery;
-            }
-
             ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
-
-            
 
             Injections.LayoutInjection(this);
             return View();
@@ -155,7 +148,6 @@ namespace MaisLife.Controllers
 
             if (amount > 0)
             {
-
                 Usuario user = (Usuario)HttpContext.Session["user"];
                 if (user != null) {
                     Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
@@ -176,8 +168,6 @@ namespace MaisLife.Controllers
                                 if (ConfigDB.Model.HasChanges)
                                     ConfigDB.Model.SaveChanges();
                             }
-                           
-
                         }
 
                         ConfigDB.Model.Add(cart);
@@ -201,18 +191,12 @@ namespace MaisLife.Controllers
             }
 
 
-            return RedirectToAction("Carrinho", "Home", new { id = 0, local = 0 });
+            return RedirectToAction("Carrinho", "Home", new { id = 0, local = 0, delivery = 0});
         }
 
-        public ActionResult EnderecoEPagamento(decimal valueDelivery) 
+        public ActionResult EnderecoEPagamento() 
         {
-           
             Usuario user = (Usuario)HttpContext.Session["user"];
-
-
-            ViewBag.Delivery = valueDelivery;
-
-
             if(user != null)
             {
                 Injections.LayoutInjection(this);
@@ -291,22 +275,6 @@ namespace MaisLife.Controllers
         
         public ActionResult CalcularEntrega(){
 
-            Carrinho cart;
-
-            //VERIFICA SE EXISTE USUARIO LOGADO
-            Usuario user = (Usuario)HttpContext.Session["user"];
-            if (user == null)
-            {
-                //RECUPERA CARRINHO DO COOKIE
-                cart = Sessions.FindShoppingCart();
-            }
-            else
-            {
-                //RECUPERA CARRINHO DO BD
-                cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-            }
-            
-            //RECUPERA BAIRRO
             var localString = Request.Form["local"];
             Bairro local = null;
 
@@ -315,9 +283,9 @@ namespace MaisLife.Controllers
                 local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == localString);
             }
 
-            decimal valueDelivery = CalculateShipping.Calculate(cart, local);
+            decimal valueDelivery = CalculateShipping.Calculate(local);
 
-            return RedirectToAction("Carrinho", "Home", new { id = 0, local = local.Id, delivery = valueDelivery});
+            return RedirectToAction("FinalizarPedido", "Home");
 
         }
 
