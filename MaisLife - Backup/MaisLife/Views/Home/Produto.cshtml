@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Product";
+    var product = (MaisLifeModel.Produto)ViewBag.Product;
+}
+
+<div class="container store-page product-page">
+    <div class="page-header">
+        <h1>@Html.DisplayFor(modelItem => product.Nome) <small class="right">@Html.DisplayFor(modelItem => product.Unidade) Unidade(s)</small></h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 product-img-box">
+            <img src="~/Images/know-img.png" class="img-responsive" />
+        </div>
+        <div class="col-lg-8 product-info-box">           
+            <div class="col-lg-12">
+                <div class="product-price">R$ @Html.DisplayFor(modelItem => product.Preco)</div>
+                <div class="product-btn"><button type="Button" class="btn btn-success"><a href="@Url.Action("Carrinho", "Home", new { id = product.Id, local = 0 })"><span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao carrinho</a></button></div>
+            </div>
+            <div class="col-lg-12 product-description-box">
+                @Html.DisplayFor(modelItem => product.Descricao)
+            </div>
+        </div>        
+    </div>
+</div>
+<div class="product-others">
+    @foreach (var item in (List<MaisLifeModel.Produto>)ViewBag.Products)
+    {
+        <div class="col-lg-3 product-box">
+            <a href="@Url.Action("Produto", "Home", new { id = item.Id })">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="~/Images/know-img.png" class="img-responsive" />
+                    </div>
+                    <div class="product-info">
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Nome)</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Unidade) Un.<div class="right">R$ @Html.DisplayFor(modelItem => item.Preco)</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+
+
+
+        </div>
+
+    }
+</div>
+
+
+
+
+

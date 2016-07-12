@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Produtos";
+    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+}
+
+<div class="container store-page products-page">
+    <div class="page-header">
+        <h1>Todos os produtos<small class="right">@products.Count() produtos</small></h1>
+    </div>
+    @foreach (var item in products)
+    {
+        <div class="col-lg-3 product-box">
+            <a href="@Url.Action("Produto", "Home", new { id = item.Id })">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="~/Images/know-img.png" class="img-responsive" />
+                    </div>
+                    <div class="product-info">
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Nome)</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Unidade) Un.<div class="right">R$ @Html.DisplayFor(modelItem => item.Preco)</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+            
+                
+            
+        </div>
+
+    }
+    
+</div>

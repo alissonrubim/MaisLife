@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" type="text/css" />  
+    <link href="~/Content/Admin.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/JavaScripts/Admin.js"></script>    
+</head>
+<body>
+    <div class="side-menu">       
+        <ul class="list-group">
+            <li class="list-group-item"><a href="@Url.Action("Parceiros", new { id = 0})"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Parceiros</a></li> 
+            <li class="list-group-item"><a href="@Url.Action("Produtos", new { id = 0})"><i class="fa fa-gift" aria-hidden="true"></i> Produtos</a></li>
+            <li class="list-group-item"><a href="@Url.Action("VendasExternas", new { id = 0})"><i class="glyphicon glyphicon-share-alt" aria-hidden="true"></i> Venda externa</a></li>                                        
+        </ul>
+    </div>
+    <div class="admin-content">
+        @RenderBody()
+    </div>
+</body>
+</html>

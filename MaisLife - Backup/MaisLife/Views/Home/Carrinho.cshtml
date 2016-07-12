@@ -1,0 +1,173 @@
+﻿<script src="~/JavaScripts/Cart.js"></script>
+@model MaisLifeModel.Carrinho
+
+@{
+    ViewBag.Title = "Carrinho";
+    var user = (MaisLifeModel.Usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+    var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
+    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
+}
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<div class="container store-page cart-page">
+    <div class="page-header">
+        <h1>Meu Carrinho <small class="right">@cart.Carrinho_produtos.Count() produto(s)</small></h1>
+    </div>
+
+    <form action="~/Home/AlterarCarrinho" method="POST" data-id="update-cart">
+        <input type="hidden" name="cart" value="@cart.Id" />
+        <table class="table-hover">
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Produto
+                </th>
+                <th>
+                    Preço
+                </th>
+                <th>
+                    Quantidade
+                </th>
+                <th>
+                    Remover
+                </th>
+            </tr>
+            @if (cart.Carrinho_produtos.Count == 0)
+            {
+                <tr>
+                    <td colspan="5" style="text-align:center; color: #777777; padding: 5px;">
+                        Nenhum item no carrinho :(
+                    </td>
+                </tr>
+            }
+            @foreach (var rel in cart.Carrinho_produtos)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/know-img.png" class="img-responsive" />
+                    </td>
+                    <td>
+                        @rel.Produto1.Nome
+                    </td>
+                    <td>
+                        @rel.Produto1.Preco
+                    </td>
+                    <td>
+                        @if (user != null)
+                        {
+                            <input type="hidden" name="@rel.Id" value="@rel.Id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Id" value="@rel.Quantidade" />
+                        }
+                        else
+                        {
+                            <input type="hidden" name="@rel.Produto1.Id" value="@rel.Produto1.Id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Produto1.Id" value="@rel.Quantidade" />
+                        }
+
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </td>
+                </tr>
+            }
+            @if (cart.Carrinho_produtos.Count > 0)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-id="update-cart">Alterar carrinho</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+    <div class="col-lg-12 cart-total">
+        @if (localObj == null || localObj.Id == 0)
+        {
+            <span>
+                Total:
+                <strong>@cart.Total(0)</strong>
+            </span>
+        }
+        else
+        {
+            <span>
+                Total:
+                <strong>
+                    @cart.Total(localObj.Taxa)
+                </strong>
+                (Incluindo taxa de entrega)
+            </span>
+        }
+
+    </div>
+    <form action="~/Home/CalcularEntrega" method="POST">
+
+        <div class="col-lg-2 cart-label">
+            <label>Taxa de entrega: </label>
+        </div>
+        @if (localObj == null || localObj.Id == 0)
+        {
+            <div class="col-lg-3 cart-select">
+                <input type="radio" name="address-type" data-content="address-type" value="0" checked />
+                <select class="form-control" name="local" data-id="local-select">
+                    @if (user == null || user.Enderecos.Count == 0)
+                    {
+                        <option value="0">Nenhum endereço</option>
+                    }
+                    else if (user != null && user.Enderecos.Count > 0)
+                    {
+                        foreach (var local in user.Enderecos)
+                        {
+                            <option value="@local.Bairro1.Nome">@local.Bairro1.Nome</option>
+                        }
+                    }
+
+
+                </select>
+            </div>
+            <div class="col-lg-3 cart-text">
+                <input type="radio" name="address-type" data-content="address-type" value="1" />
+                <select class="form-control" name="local" data-id="local-text" disabled>
+                    @foreach (var local in locals)
+                    {
+                        <option value="@local.Nome">@local.Nome</option>
+                    }
+                </select>
+                <!-- <input type="text" name="local" data-id="local-text" class="form-control" placeholder="Seu bairro" disabled> -->
+            </div>
+
+            <div class="col-lg-2 cart-btn">
+                <button type="submit" class="btn btn-primary">Calcular</button>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-2 cart-shipping">
+                <input type="text" class="form-control" value="R$ @localObj.Taxa" readonly data-toggle="tooltip" data-placement="top" title="@localObj.Nome" />
+                
+                    <a href="@Url.Action("Carrinho", "Home", new { id = 0, local = 0 })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+               
+            </div>
+        }
+    </form>
+    <div class="col-lg-2 cart-btn">       
+            <a href="@Url.Action("EnderecoEPagamento", "Home")" class="btn btn-success" data-id="close-buy">
+                Próximo passo
+            </a>
+        
+    </div>
+</div>
