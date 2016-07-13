@@ -3,7 +3,7 @@
 });
 
 $(document).on("click", "li[data-id='item-remove']", function () {
-    patner.callDeleteConfirm();
+    patner.callDeleteConfirm("fade-remove");
 });
 
 $(document).on("click", "li[data-id='item-edit']", function () {
@@ -206,9 +206,9 @@ var patner = {
         });        
         return id;
     },
-    callDeleteConfirm: function () {
+    callDeleteConfirm: function (target) {
         if (patner.checkItemCount() > 0) {           
-            var fade = $(".fade-io");
+            var fade = $("div[data-id='"+target+"']");
 
             fade.show();
         }

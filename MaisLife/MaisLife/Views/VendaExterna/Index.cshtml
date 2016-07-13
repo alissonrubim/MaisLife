@@ -19,7 +19,7 @@
 </div>
 <div id="orderTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Produtos <small class="right">Gerenciamento (@orders.Count)</small></h1>
+        <h1>Vendas <small class="right">Gerenciamento (@orders.Count)</small></h1>
     </div>
     @Html.Partial("Partials/_orderTable", orders)
     @using (Ajax.BeginForm("RemoveItem", "VendaExterna", new AjaxOptions()
@@ -40,7 +40,7 @@
         
     }    
 </div>
-<div class="fade-io">
+<div class="fade-io" data-id="fade-remove">
     <div class="panel panel-default confirm-panel">
         <div class="panel-heading">
             Você tem certeza que deseja remover estes itens?

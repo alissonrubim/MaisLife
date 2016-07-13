@@ -12,8 +12,7 @@
 
 $(document).on("click", "button[data-id='map-submit']", function () {
     var box = $("#order-box");
-    var form = $("form[name='map-data']");
-    form.empty();
+    var form = $("form[name='map-data']");   
     var itens = 1;    
     box.find("div[data-content='order-box']").each(function () {
         var info = $(this).attr("data-info");
@@ -41,4 +40,28 @@ $(document).on("click", "button[data-id='map-submit']", function () {
 
     form.submit();
 
+});
+
+$(document).on("click", "span[data-id='search-submit']", function () {
+    var form = $("form[name='search-form']");
+    form.submit();
+});
+
+$(document).on("click", "button[data-id='map-confirm']", function () {   
+    $("div[data-id='fade-confirm-map']").show();
+});
+
+$(document).on("click", "button[data-id='confirm-map-yes']", function () {
+    var form = $("form[name='confirm-form']");
+    form.empty();
+    var input = $("<input>");
+    var id = $("#Id").val();
+    input.attr({
+        type: "hidden",
+        name: "mapId",
+        value: id
+    });
+
+    form.append(input);
+    form.submit();
 });

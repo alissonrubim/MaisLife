@@ -70,7 +70,12 @@ input, select, textarea, button, a {
 */
 
 .upper-menu {
+    position: fixed;
+    top: 0;
     background-color: #EEEEEE;    
+    width: 100%;
+    z-index: 9999999;  
+    border-bottom: 1px solid #DDD;  
 }
 
 .upper-menu ul {
@@ -105,6 +110,7 @@ input, select, textarea, button, a {
 */
 .admin-content {
     margin-left: 150px;
+    margin-top: 50px;
 }
 
 .admin-page .page-header small {

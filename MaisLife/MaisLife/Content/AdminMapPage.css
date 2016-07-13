@@ -1,4 +1,12 @@
-﻿.order-box{
+﻿.search-btn {
+    cursor: pointer;
+}
+
+.search-btn:hover{
+    background: #DDD;
+}
+
+.order-box{
     
 }
 
@@ -10,7 +18,18 @@
 
 }
 
-.order-box .order-unselected div .order-content {
+.order-box div .map-report {
+    float: left;
+    padding: 10px;
+    border: 1px solid #CCC;
+    width: 100%;
+    text-align: center;
+    background: #CCC;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.order-box div div .order-content {
     float: left;
     padding: 5px;
     border: 1px solid #DDD;
@@ -19,50 +38,66 @@
     margin-bottom: 20px;
 }
 
-.order-box .order-unselected div .order-content:hover {
+.order-box div div .order-content:hover {
     box-shadow: 0px 0px 10px #11252b;
 }
 
-.order-box .order-unselected div .selected {
+.order-box div div .order-link {
+    position: absolute;
+    top: -25px;
+    border-radius: 60px;
+    float: right;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px solid #CCC;
+    right: 0px;
+    background-color: #DDDDDD;
+}
+
+.order-box div div .order-link:hover{
+    border: 2px solid #777;
+}
+
+.order-box div div .selected {
     background: #CCC;
     box-shadow: 0px 0px 10px #11252b;
 }
 
-.order-box .order-unselected div .order-content .order-header {
+.order-box div div .order-content .order-header {
     float: left;
     width: 100%;
     padding: 5px;
 }
 
-.order-box .order-unselected div .order-content .order-header .order-header-client {
+.order-box div div .order-content .order-header .order-header-client {
     float:left;
     width: 50%;
 }
 
-.order-box .order-unselected div .order-content .order-header .order-header-value {
+.order-box div div .order-content .order-header .order-header-value {
     float:left;
     width: 50%;
     text-align: right;   
     font-weight: bold;
 }
 
-.order-box .order-unselected div .order-content .order-body {
+.order-box div div .order-content .order-body {
     float: left;
     width: 100%;
     padding: 5px;
 }
 
-.order-box .order-unselected div .order-content .order-body .order-deliveryDate {
+.order-box div div .order-content .order-body .order-deliveryDate {
 
 }
 
-.order-box .order-unselected div .order-content .order-footer {
+.order-box div div .order-content .order-footer {
     float: left;
     width: 100%;
     padding: 5px;
 }
 
-.order-box .order-unselected div .order-content .order-footer .order-seller{
+.order-box div div .order-content .order-footer .order-seller{
 
 }
 

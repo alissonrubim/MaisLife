@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<MaisLifeModel.Pedido>
 <table class="table-hover">
     <tr>
-        <th></th>
+        <th>Nº</th>       
+        <th>Contato</th>
         <th>Cliente</th>
         <th>Endereço</th>
         <th>Método</th>
@@ -12,7 +13,10 @@
     @foreach (var order in @Model)
     {
         <tr data-id="@order.Id" data-content="patner-row" data-info="unselected">
-            <td style="width:100px; height: 100px;">               
+            <td style="width:30px; height: 30px;">
+                @order.Id
+            </td>
+            <td style="width:100px;">               
                 @order.Usuario_externo1.Telefone
             </td>
             <td>

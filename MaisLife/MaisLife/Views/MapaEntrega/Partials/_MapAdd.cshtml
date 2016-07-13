@@ -3,117 +3,323 @@
 @{
     var orders = (List<MaisLife.Models.Adapter.PedidoAdapter>)ViewBag.Orders;
     var today = DateTime.Now;
-    DateTime forDate = DateTime.Now;   
+    DateTime forDate = DateTime.Now;
 }
 
-@using (Ajax.BeginForm("CreateOrEditMap", "MapaEntrega", new AjaxOptions()
+
+@using (Ajax.BeginForm("ConfirmMap", "MapaEntrega", new AjaxOptions()
+        {
+            HttpMethod = "POST"
+        }, new { name = "confirm-form" }))
+{ }
+
+@using (Ajax.BeginForm("SearchMap", "MapaEntrega", new AjaxOptions()
+        {
+            HttpMethod = "POST"
+        }, new { name = "search-form" }))
+{
+    <div class="form-horizontal">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <div class="form-label">
+                    Buscar mapa:
+                </div>
+                <div class="form-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="map" placeholder="Nº" aria-describedby="basic-addon2" style="margin-top:0;">
+                        <span class="input-group-addon search-btn" id="basic-addon2" data-id="search-submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div style="clear: both; margin: 10px 0; border-top: 1px solid #333;">
+
+</div>
+    @using (Ajax.BeginForm("CreateOrEditMap", "MapaEntrega", new AjaxOptions()
         {
             HttpMethod = "POST",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "mapTable"
         }, new { name = "map-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
-    <div class="col-lg-3">
-        <div class="form-group">
-            <div class="form-label">
-                Data:
-            </div>
-            <div class="form-input">
-                @Html.EditorFor(model => model.DataEntrega, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data", @type = "date" } })
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12" style="float: left;">
-        <div class="form-group">
-            <div class="form-label">
-                Observação:
-            </div>
-            <div class="form-input">
-                @Html.TextAreaFor(model => model.Observacao, new { rows = 5, columns = 40, @class = "form-control", @style = "width: 100%;" })
-            </div>
-        </div>
-    </div>
-}
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
 
-<div class="order-box" id="order-box">
-    <div class="order-selected">
 
-    </div>
-    <div class="order-unselected">
-        @foreach (var order in orders)
-        {
-            if (order.PrevisaoEntrega != forDate)
+        <div class="page-header">            
+            @if (Model != null)
             {
-                <div style="clear: both; margin: 5px 0; border-top: 1px solid #ccc;">
-                    <h3>
-                        <small>
-                            Entrega: <span style="font-weight: bold; color: #333;">@order.PrevisaoEntrega.ToString("dd / MM")</span>
-                            @if (@order.PrevisaoEntrega < today)
-                            {
-                                <span style="font-weight: bold; color: #ce4949;">ATRASADO</span>
-                            }
-                        </small>
-                    </h3>
-                </div>
-                            forDate = order.PrevisaoEntrega;
+                <h1>
+                    Alterar mapa <small><button class="btn btn-primary" data-id="map-confirm" type="button"><span class="glyphicon glyphicon-ok"></span> Confirmar mapa</button></small>   
+                </h1>
             }
-            <div class="col-lg-4">
-                <div class="order-content" data-content="order-box" data-info="unselected" data-id="@order.Id">
-                    <div class="order-header">
-                        <div class="order-header-client">
-                            @if (@order.Origem == "Vendedor")
-                            {
-                                @order.UsuarioExterno.Nome
-                            }
-                            else
-                            {
-                                @order.Usuario.Nome
-                            }
+            else
+            {
+                <h1>
+                    Novo mapa
+                </h1>
+            } 
+                
+        </div>       
+        <div class="form-horizontal">
+            @if (Model != null)
+            {
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="form-label">
+                            Número:
                         </div>
-                        <div class="order-header-value">
-                            @order.Valor
-                        </div>
-                    </div>
-                    <div class="order-body">
-                        <div class="order-deliveryDate">
-                            <span>
-                                Pedido feito em:
-                                @{
-                                    <span style="font-weight: bold; float: right;">
-                                        @order.Data.ToString("dd/MM/yyyy")
-                                    </span>
-                                }
-                            </span>
-                        </div>
-                    </div>
-                    <div class="order-footer">
-                        <div class="order-seller">
-                            <span>
-                                Colaborador/PDV:
-                                @if (@order.Origem == "Vendedor")
-                                {
-                                    <span style="font-weight: bold; float: right;">
-                                        @order.Usuario.Nome
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span style="font-weight: bold; float: right;">
-                                        Site
-                                    </span>
-                                }
-                            </span>
+                        <div class="form-input">
+                            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "Número", @disabled = true } })
                         </div>
                     </div>
                 </div>
+            }
 
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="form-label">
+                        Data:
+                    </div>
+                    <div class="form-input">
+                        @Html.EditorFor(model => model.DataEntrega, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data", @type = "date" } })
+                    </div>
+                </div>
             </div>
-        }
-    </div>
-</div>
-<div class="add-footer">
-    <button type="button" class="btn btn-success" data-id="map-submit">Adicionar itens ao novo mapa</button>
-</div>
+            <div class="col-lg-12" style="float: left;">
+                <div class="form-group">
+                    <div class="form-label">
+                        Observação:
+                    </div>
+                    <div class="form-input">
+                        @Html.TextAreaFor(model => model.Observacao, new { rows = 5, columns = 40, @class = "form-control", @style = "width: 100%;" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12" style="float: left;">
+                <div class="form-group">
+                    <div class="order-box" id="order-box">
+                        <div class="order-selected">
+                            @if (@Model != null)
+                            {
+                                <div style="clear: both; margin: 5px 0;">
+                                    <h3>
+                                        <small style="font-weight: bold; color: #333;">
+                                            Pedidos no mapa (@Model.MapaPedidos.Count)
+                                        </small>
+                                    </h3>
+                                </div>
+                                if (Model.MapaPedidos.Count == 0)
+                                {
+                                    <div class="col-lg-12">
+                                        <div class="map-report">No momento não há nenhum pedido neste mapa</div>
+                                    </div>
+                                }
+                                foreach (var selectedOrder in @Model.MapaPedidos)
+                                {
+                                    <div class="col-lg-4">
+                                        <div class="order-content selected" data-content="order-box" data-info="selected" data-id="@selectedOrder.Pedido1.Id">
+                                            <div class="order-header">
+                                                <div class="order-header-client">
+                                                   Nº
+                                                </div>
+                                                <div class="order-header-value">
+                                                    @selectedOrder.Pedido1.Id
+                                                </div>
+                                            </div>
+                                            <div class="order-header">
+                                                <div class="order-header-client">
+                                                    @if (@selectedOrder.Pedido1.Origem == "Vendedor")
+                                                    {
+                                                        @selectedOrder.Pedido1.Usuario_externo1.Nome
+                                                    }
+                                                    else
+                                                    {
+                                                        @selectedOrder.Pedido1.Usuario1.Nome
+                                                    }
+                                                </div>
+                                                <div class="order-header-value">
+                                                    @selectedOrder.Pedido1.Valor
+                                                </div>
+                                            </div>
+                                            <div class="order-body">
+                                                <div class="order-deliveryDate">
+                                                    <span>
+                                                        Pedido feito em:
+                                                        @{
+                                                            <span style="font-weight: bold; float: right;">
+                                                                @selectedOrder.Pedido1.Data.ToString("dd/MM/yyyy")
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="order-footer">
+                                                <div class="order-seller">
+                                                    <span>
+                                                        Colaborador/PDV:
+                                                        @if (@selectedOrder.Pedido1.Origem == "Vendedor")
+                                                        {
+                                                            <span style="font-weight: bold; float: right;">
+                                                                @selectedOrder.Pedido1.Usuario1.Nome
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span style="font-weight: bold; float: right;">
+                                                                Site
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="order-footer">
+                                                <div class="order-seller">
+                                                    <span>
+                                                        Entrega:
+                                                        @if (selectedOrder.Pedido1.Previsao_entrega < today)
+                                                        {
+                                                            <span style="font-weight: bold; float: right; color: #ce4949;">
+                                                                @selectedOrder.Pedido1.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span style="font-weight: bold; float: right;">
+                                                                @selectedOrder.Pedido1.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                                                            </span>
+                                                        }
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                        <div class="order-unselected">
+                            @if (orders.Count == 0 && Model == null)
+                            {
+                                <div class="col-lg-12">
+                                    <div class="map-report">No momento não há nenhum pedido em aberto :(</div>
+                                </div>
+                            }
+                            @foreach (var order in orders)
+                            {
+                                if (order.PrevisaoEntrega != forDate)
+                                {
+                                    <div style="clear: both; margin: 5px 0; border-top: 1px solid #ccc;">
+                                        <h3>
+                                            <small>
+                                                Entrega: <span style="font-weight: bold; color: #333;">@order.PrevisaoEntrega.ToString("dd / MM")</span>
+                                                @if (@order.PrevisaoEntrega < today)
+                                                {
+                                                    <span style="font-weight: bold; color: #ce4949;">ATRASADO</span>
+                                                }
+                                            </small>
+                                        </h3>
+                                    </div>
+                                                forDate = order.PrevisaoEntrega;
+                                }
+                                <div class="col-lg-4">
+                                    @if (@order.Origem == "Vendedor")
+                                    {
+                                        <a href="@Url.Action("Index", "VendaExterna", new { id = @order.Id})" target="_blank">
+                                            <div class="order-link">
+                                                <span class="glyphicon glyphicon-link"></span>
+                                            </div>
+                                        </a>
+                                    }
+                                    <div class="order-content" data-content="order-box" data-info="unselected" data-id="@order.Id">
+                                        <div class="order-header">
+                                            <div class="order-header-client">
+                                                Nº
+                                            </div>
+                                            <div class="order-header-value">
+                                                @order.Id
+                                            </div>
+                                        </div>
+                                        <div class="order-header">
+                                            <div class="order-header-client">
+                                                @if (@order.Origem == "Vendedor")
+                                                {
+                                                    @order.UsuarioExterno.Nome
+                                                }
+                                                else
+                                                {
+                                                    @order.Usuario.Nome
+                                                }
+                                            </div>
+                                            <div class="order-header-value">
+                                                @order.Valor
+                                            </div>
+                                        </div>
+                                        <div class="order-body">
+                                            <div class="order-deliveryDate">
+                                                <span>
+                                                    Pedido feito em:
+                                                    @{
+                                                        <span style="font-weight: bold; float: right;">
+                                                            @order.Data.ToString("dd/MM/yyyy")
+                                                        </span>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="order-footer">
+                                            <div class="order-seller">
+                                                <span>
+                                                    Colaborador/PDV:
+                                                    @if (@order.Origem == "Vendedor")
+                                                    {
+                                                        <span style="font-weight: bold; float: right;">
+                                                            @order.Usuario.Nome
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="font-weight: bold; float: right;">
+                                                            Site
+                                                        </span>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-footer">
+            @if (Model != null)
+            {
+                <button type="button" class="btn btn-success" data-id="map-submit">Alterar itens neste mapa</button>
+                <a class="btn btn-default" href="@Url.Action("Index", "MapaEntrega", new { id = 0 })">Voltar</a>
+            }
+            else
+            {
+                if (orders.Count > 0)
+                {
+                    <button type="button" class="btn btn-success" data-id="map-submit">Adicionar itens ao novo mapa</button>
+                }
+            }
+        </div>
+    }

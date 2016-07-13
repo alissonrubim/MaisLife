@@ -22,7 +22,7 @@
         <h1>Mapas de Entrega <small class="right">Gerenciamento (@maps.Count)</small></h1>
     </div>
     @Html.Partial("Partials/_MapTable", maps)
-    @using (Ajax.BeginForm("RemoveItem", "Produto", new AjaxOptions()
+    @using (Ajax.BeginForm("RemoveItem", "MapaEntrega", new AjaxOptions()
         {
             HttpMethod = "POST",
             InsertionMode = InsertionMode.Replace
@@ -31,7 +31,7 @@
 
     }
 
-    @using (Ajax.BeginForm("SendItemToEdit", "Produto", new AjaxOptions()
+    @using (Ajax.BeginForm("SendItemToEdit", "MapaEntrega", new AjaxOptions()
         {
             HttpMethod = "POST",
             InsertionMode = InsertionMode.Replace
@@ -40,13 +40,24 @@
 
     }
 </div>
-<div class="fade-io">
+<div class="fade-io" data-id="fade-remove">
     <div class="panel panel-default confirm-panel">
         <div class="panel-heading">
             Você tem certeza que deseja remover estes itens?
         </div>
         <div class="panel-body">
             <button class="btn btn-danger" data-id="confirm-panel-yes">Remover</button>
+            <button class="btn btn-default" data-id="confirm-panel-close">Fechar</button>
+        </div>
+    </div>
+</div>
+<div class="fade-io" data-id="fade-confirm-map">
+    <div class="panel panel-default confirm-panel">
+        <div class="panel-heading">
+            Você tem certeza que deseja confirmar este mapa (Todos os pedidos serão marcados como "Entregue")?
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-primary" data-id="confirm-map-yes">Confirmar</button>
             <button class="btn btn-default" data-id="confirm-panel-close">Fechar</button>
         </div>
     </div>
