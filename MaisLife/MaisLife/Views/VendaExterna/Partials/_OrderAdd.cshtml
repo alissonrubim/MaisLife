@@ -79,7 +79,7 @@
                     Nome:
                 </div>
                 @Html.EditorFor(model => model.UsuarioExterno.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })              
-                              
+                @Html.ValidationMessageFor(model => model.UsuarioExterno.Nome, "", new { @class = "text-danger" })              
             </div>
         </div>
         <div class="col-lg-2">

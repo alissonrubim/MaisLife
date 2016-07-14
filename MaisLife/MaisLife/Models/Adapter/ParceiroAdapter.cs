@@ -10,12 +10,14 @@ namespace MaisLife.Models.Adapter
     public class ParceiroAdapter{
 
         public int Id { get; set; }
+        
         [Required]
         [StringLength(60, ErrorMessage = "Limite de caracteres excedido")]
         public string Nome { get; set; }
         [Required]
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
         public string Endereco { get; set; }
+        [Required]
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
         public string Telefone { get; set; }
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
