@@ -91,6 +91,7 @@
                     </div>
                     <div class="form-input">
                         @Html.EditorFor(model => model.DataEntrega, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

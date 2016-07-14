@@ -19,13 +19,14 @@ namespace MaisLife.Models.Adapter
         public decimal Preco { get; set; }
         [Required]
         public int Unidade { get; set; }
-        [Required]
+        [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
         public string Imagem { get; set; }
         public IList<Produto_bairro> Bairros { 
             get {
                 return ConfigDB.Model.Produto_bairros.Where(pb => pb.Produto == Id).ToList();
             }  
         }
+        [Required]
         public int DiasEntrega { get; set; }
 
         public Produto ToProduto()

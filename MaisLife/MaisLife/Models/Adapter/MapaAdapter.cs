@@ -11,6 +11,7 @@ namespace MaisLife.Models.Adapter
 
         public int Id { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required]
         public DateTime? DataEntrega { get; set; }
         public string Observacao { get; set; }
         public IList<Mapa_pedido> MapaPedidos { get; set; }
