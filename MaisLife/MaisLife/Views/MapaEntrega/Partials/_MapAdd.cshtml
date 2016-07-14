@@ -58,7 +58,19 @@
             @if (Model != null)
             {
                 <h1>
-                    Alterar mapa <small><button class="btn btn-primary" data-id="map-confirm" type="button"><span class="glyphicon glyphicon-ok"></span> Confirmar mapa</button></small>   
+                    Alterar mapa 
+                    <small>
+                        <button class="btn btn-primary" data-id="map-confirm" type="button">
+                            <span class="glyphicon glyphicon-ok">
+                            </span> 
+                            Confirmar mapa
+                        </button>
+                        <a class="btn btn-primary" href="@Url.Action("PrintMap", "MapaEntrega", new { id = @Model.Id })">
+                            <span class="glyphicon glyphicon-print">
+                            </span> 
+                            Imprimir
+                        </a>
+                    </small>   
                 </h1>
             }
             else

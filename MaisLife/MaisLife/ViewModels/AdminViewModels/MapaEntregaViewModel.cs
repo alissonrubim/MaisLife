@@ -1,4 +1,5 @@
 ﻿using MaisLife.Helper;
+using MaisLife.Models.Adapter;
 using MaisLifeModel;
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,12 @@ namespace MaisLife.ViewModels.AdminViewModels
 
             if (ConfigDB.Model.HasChanges)
                 ConfigDB.Model.SaveChanges();
+        }
+
+        public MapaAdapter DoPrint(int id)
+        {
+            var map = ConfigDB.Model.Mapaentregas.FirstOrDefault(p => p.Id == id);
+            return new MapaAdapter().ToMapaAdapter(map);
         }
     }
 }

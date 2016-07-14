@@ -224,6 +224,7 @@
     <Content Include="Views\MapaEntrega\Index.cshtml" />
     <Content Include="Views\MapaEntrega\Partials\_MapTable.cshtml" />
     <Content Include="Views\MapaEntrega\Partials\_MapAdd.cshtml" />
+    <Content Include="Views\MapaEntrega\PrintMap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

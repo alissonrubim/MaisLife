@@ -106,3 +106,21 @@
     width: 100%;
     padding: 10px;   
 }
+
+.print-area {
+    font-size: 12px!important;
+    padding: 20px;
+}
+
+.print-area table{
+    font-size: inherit!important;
+}
+
+.print-area table tr th{
+    font-weight: 700;
+}
+
+.print-area table tr td, .print-area table tr th {
+    text-align: center;
+    min-height: 30px;
+}

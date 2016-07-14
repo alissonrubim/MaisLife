@@ -1,0 +1,208 @@
+﻿@model MaisLife.Models.Adapter.MapaAdapter
+
+@{
+    ViewBag.Title = "Mapa ";
+    Layout = "";
+}
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/AdminMapPage.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/JavaScripts/Admin.js"></script>
+</head>
+<body>
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+        <div class="print-area">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Data </th>
+                    <th>@Model.DataEntrega.ToString().Split(new Char[] { ' ' })[0]</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Motorista</th>
+                    <th colspan="2"></th>
+                </tr>
+                <tr>
+                    <th colspan="2">Cliente</th>
+                    <th>Unidade</th>
+                    <th>R$</th>
+                    <th>Troca</th>
+                    <th>A vista</th>
+                    <th>A prazo</th>
+                    <th>PG Not.</th>
+                </tr>
+                @foreach (var map in @Model.MapaPedidos)
+                {
+                    <tr style="border-top: 2px solid #333;">
+                        @if (map.Pedido1.Origem == "Vendedor")
+                        {
+                            <td colspan="2">@map.Pedido1.Usuario_externo1.Nome</td>
+                        }
+                        else if (map.Pedido1.Origem == "Site")
+                        {
+                            <td colspan="2">@map.Pedido1.Usuario1.Nome</td>
+                        }
+
+                        <td>00</td>
+                        <td>@map.Pedido1.Valor</td>
+                        @if (map.Pedido1.Tipo == "Troca")
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (map.Pedido1.Metodo == "A vista")
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (map.Pedido1.Metodo == "Prazo")
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Endereço:</th>
+                        <td colspan="7">@map.Pedido1.Endereco1.Rua, Nº @map.Pedido1.Endereco1.Numero - @map.Pedido1.Endereco1.Bairro1.Nome</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="8" style="background-color: #333;"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Total a vista</td>
+                    <td></td>
+                    <td></td>
+                    <td>@Model.CalcTotalAVistaComTroca()</td>
+                    <td>@Model.CalcTotalAVista()</td>
+                    <td style="background-color: #333"></td>
+                    <td style="background-color: #333"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Total a prazo</td>
+                    <td></td>
+                    <td></td>
+                    <td>@Model.CalcTotalAPrazoComTroca()</td>
+                    <td style="background-color: #333"></td>
+                    <td>@Model.CalcTotalAPrazo()</td>
+                    <td style="background-color: #333"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Total PG Notinhas</td>
+                    <td></td>
+                    <td style="background-color: #333"></td>
+                    <td style="background-color: #333"></td>
+                    <td style="background-color: #333"></td>
+                    <td style="background-color: #333"></td>
+                    <td></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="print-area">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Carro</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td style="background-color: #333"></td>
+                    <td style="background-color: #333"></td>
+                </tr>
+                <tr>
+                    <th>Viagem</th>
+                    <th>Quantidade</th>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="print-area">
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2">Comandas</th>                    
+                </tr>
+                <tr>
+                    <th colspan="2">Entregues</th> 
+                </tr>
+                <tr>
+                    <th>Nº Inicial</th>
+                    <th>Nº Final</th>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>               
+            </table>
+        </div>
+        <div class="print-area">
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2">Final</th>
+                </tr>                
+                <tr>
+                    <th>Nº Inicial</th>
+                    <th>Nº Final</th>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 30px"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+

@@ -77,5 +77,10 @@ namespace MaisLife.Controllers.Admin
 
             return RedirectToAction("Index", new { id = 0 });
         }
+
+        public ActionResult PrintMap(int id) {
+            var viewmodel = new MapaEntregaViewModel(Request);
+            return View(viewmodel.DoPrint(id));
+        }
     }
 }
