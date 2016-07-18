@@ -1,0 +1,138 @@
+﻿@model IEnumerable<MaisLifeModel.Pedido>
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="opened" role="tab" data-toggle="tab">Em aberto</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="trafic" role="tab" data-toggle="tab">Em trânsito</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="closed" role="tab" data-toggle="tab">Entregues</a></li>     
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <table class="table">
+                <tr>
+                    <th>Nº</th>
+                    <th>Origem</th>
+                    <th>Cliente</th>
+                    <th>Desconto</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    if (@order.Status == "Em aberto")
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Origem</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario_externo1.Nome</td>
+                            }
+                            <td>@order.Desconto %</td>
+                            <td>@order.Valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <table class="table">
+                <tr>
+                    <th>Nº</th>
+                    <th>Origem</th>
+                    <th>Cliente</th>
+                    <th>Desconto</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    if (@order.Status == "Em trânsito")
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Origem</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario_externo1.Nome</td>
+                            }
+                            <td>@order.Desconto %</td>
+                            <td>@order.Valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+            <table class="table">
+                <tr>
+                    <th>Nº</th>
+                    <th>Origem</th>
+                    <th>Cliente</th>
+                    <th>Desconto</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    if (@order.Status == "Entregue")
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Origem</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            @if (@order.Origem == "Site")
+                            {
+                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                            }
+                            else if (@order.Origem == "Vendedor")
+                            {
+                                <td>@order.Usuario_externo1.Nome</td>
+                            }
+                            <td>@order.Desconto %</td>
+                            <td>@order.Valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </div>    
+    </div>
+
+</div>

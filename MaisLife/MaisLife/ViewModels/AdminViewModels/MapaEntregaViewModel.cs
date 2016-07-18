@@ -59,6 +59,9 @@ namespace MaisLife.ViewModels.AdminViewModels
 
             }
 
+            if (this.Map.Observacao == null)
+                this.Map.Observacao = "Nenhuma observação.";
+
             ConfigDB.Model.Add(this.Map);
             if (ConfigDB.Model.HasChanges)
                 ConfigDB.Model.SaveChanges();

@@ -13,13 +13,14 @@ namespace MaisLife.Helper
             this.Request = r;
         }
 
-        public int ToInt(string field) {
+        public int ToInt(string field) 
+        {
             return Convert.ToInt32(this.Request.Form[field]);
         }
 
         public double ToDouble(string field)
         {
-            return Convert.ToDouble(this.Request.Form[field]);
+            return Convert.ToDouble(this.Request.Form[field]);            
         }
 
         public string ToString(string field)
@@ -29,7 +30,7 @@ namespace MaisLife.Helper
 
         public decimal ToDecimal(string field)
         {
-            return Convert.ToDecimal(this.Request.Form[field]);
+            return Convert.ToDecimal(this.Request.Form[field]);                    
         }
 
     }

@@ -55,6 +55,18 @@ $(document).on("change", "select[name='Tipo']", function () {
 
 });
 
+$(document).on("click", "label[data-content='checkbox']", function () {
+    if ($(this).attr("data-info") == "unchecked") {
+        $(this).addClass("active");
+        $(this).find("input").attr("checked", true);
+        $(this).attr("data-info", "checked");
+    } else {
+        $(this).removeClass("active");
+        $(this).find("input").attr("checked", false);
+        $(this).attr("data-info", "unchecked");
+    }
+});
+
 $(document).on("change", "#UsuarioExterno_Id", function () {
     var val = $(this).val();
     if (val > 0)
@@ -95,6 +107,23 @@ $(document).on("click", "button[data-id='panel-submit']", function (e) {
     e.preventDefault();
     externalOrderProductsManager.listFields();
     $(this).closest("form").submit();
+});
+
+$(document).on("change", "#Desconto", function () {
+    if ($(this).val() > 100) 
+        $(this).val(100);
+    
+    externalOrderProducts.calculateTotal();
+});
+
+$(document).on("click", "button[data-id='filter-btn']", function (e) {
+    if ($(this).attr("data-info") == "closed") {
+        $(this).attr("data-info", "opened");
+        $("#filterCollapse").slideDown();
+    } else {
+        $(this).attr("data-info", "closed");
+        $("#filterCollapse").slideUp();
+    }
 });
 
 var delivery = {
@@ -378,6 +407,8 @@ var externalOrderProducts = {
             }            
         });
         
+        var discount = $("#Desconto").val();
+        total -= total * (discount / 100.00);
         var totalInput = $("input[name='Valor']");
         totalInput.val(total.toFixed(2).replace(".", ","));
 

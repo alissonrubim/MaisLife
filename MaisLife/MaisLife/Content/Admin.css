@@ -7,6 +7,26 @@ body {
     font-family: 'Montserrat', Arial, sans-serif;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.profileView {
+    padding: 20px;
+    margin-top: -50px;
+}
+.center {
+    text-align: center;
+}
+
 input, select, textarea, button, a {
     border-radius: 0 !important;
 }
@@ -23,6 +43,20 @@ input, select, textarea, button, a {
     width: 200px;
 }
 
+.filter-btn {
+    width: 100%;
+    border: 0;
+}
+
+#filterCollapse {
+    float: left;
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+    border-top: 0;
+    background-color: rgba(66, 139, 202, 0.10);
+}
+
+
 /* 
  LAYOUT PROPERTY - SIDE MENU
 */
@@ -31,7 +65,7 @@ input, select, textarea, button, a {
     top: 0;
     left: 0;
     height: 100%;
-    width: 150px;
+    width: 250px;
     background: #333333;
 }
 
@@ -54,6 +88,7 @@ input, select, textarea, button, a {
     color: #FFFFFF;
     border-radius: 0;
     cursor: pointer;
+    padding: 0;
 }
 
 .side-menu .list-group .list-group-item:hover {
@@ -61,8 +96,15 @@ input, select, textarea, button, a {
 }
 
 .side-menu .list-group .list-group-item a {
+    float: left;
+    width: 100%;
     color: inherit;
     text-decoration: none;
+    padding: 10px 15px;
+}
+
+.side-menu .list-group .list-group-item a:hover {
+    background-color: rgba(204, 204, 204, 0.27);
 }
 
 /* 
@@ -109,7 +151,7 @@ input, select, textarea, button, a {
  LAYOUT PROPERTY - CONTENT
 */
 .admin-content {
-    margin-left: 150px;
+    margin-left: 250px;
     margin-top: 50px;
 }
 

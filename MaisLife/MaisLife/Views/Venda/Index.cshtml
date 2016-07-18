@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Vendas";
+    var orders = (List<MaisLifeModel.Pedido>)ViewBag.Orders;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="upper-menu">
+    <ul class="list-group">
+        <li class="list-group-item disabled" data-id="item-edit">
+            <a href="#"><span class="fa fa-edit" aria-hidden="true"></span></a>
+        </li>
+        <li class="list-group-item disabled" data-id="item-remove">
+            <a href="#"><span class="fa fa-remove" aria-hidden="true"></span></a>
+        </li>        
+    </ul>
+</div>
+<div id="orderFilter" class="container admin-page patner-page">
+    @Html.Partial("Partials/_OrderFilter")
+</div>
+<div id="orderList" class="container admin-page patner-page">
+    <div class="page-header">
+        <h1>Vendas <small class="right">Gerenciamento (@orders.Count)</small></h1>
+    </div>
+    @Html.Partial("Partials/_OrderList", orders)   
+  
+</div>

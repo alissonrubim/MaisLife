@@ -1,0 +1,247 @@
+﻿<script>$('.collapse').collapse()</script>
+@{
+    var sellers = (List<MaisLifeModel.Usuario>)ViewBag.Sellers;
+    var clients = (List<MaisLifeModel.Usuario>)ViewBag.Clients;
+    var outsideClients = (List<MaisLifeModel.Usuario_externo>)ViewBag.OutsideClients;
+    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;     
+}
+@using (Ajax.BeginForm("FilterOrders", "Venda", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "orderList"
+    //LoadingElementId = "divProgress"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn btn-primary filter-btn" type="button" data-id="filter-btn" data-info="closed">
+                        <span class="glyphicon glyphicon-search"></span> Filtros
+                    </button>
+                </div>
+            </div>
+                <div class="collapse" id="filterCollapse">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Númeroº:
+                                </div>
+                                <input type="number" class="form-control" name="search-num" min="0" value="0" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Origem:
+                                </div>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-source" value="site"> E-commerce
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-source" value="external"> Vendedor externo
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Tipo:
+                                </div>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-type" value="default"> Venda
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-type" value="change"> Troca
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-type" value="bonus"> Bonificado
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-type" value="merchan"> Merchandising
+                                    </label>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Pagamento:
+                                </div>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-payment" value="cash"> A vista
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-payment" value="deadline"> A prazo
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-payment" value="billet"> Boleto
+                                    </label>
+                                    <label class="btn btn-primary" data-content="checkbox" data-info="unchecked">
+                                        <input type="radio" autocomplete="off" name="search-payment" value="roll"> Consignado
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Desconto:
+                                </div>
+                                <select class="form-control" name="search-discount">
+                                    <option value="0">Selecione</option>
+                                    <option value="Com desconto">Com desconto</option>
+                                    <option value="Sem desconto">Sem desconto</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Menor valor:
+                                </div>
+                                <input type="text" class="form-control" name="search-minusValue" value="0.00" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Maior valor:
+                                </div>
+                                <input type="text" class="form-control" name="search-maximusValue" value="0.00" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Vendedor:
+                                </div>
+                                <select class="form-control" name="search-seller">
+                                    <option value="0">Selecione</option>
+                                    @foreach (var seller in sellers)
+                                    {
+                                        <option value="@seller.Id">@seller.Nome @seller.Sobrenome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Cliente:
+                                </div>
+                                <select class="form-control" name="search-client">
+                                    <option value="0">Selecione</option>
+                                    @foreach (var client in clients)
+                                    {
+                                        <option value="@client.Id">@client.Nome @client.Sobrenome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Cliente externo:
+                                </div>
+                                <select class="form-control" name="search-external">
+                                    <option value="0">Selecione</option>
+                                    @foreach (var outsideClient in outsideClients)
+                                    {
+                                        <option value="@outsideClient.Id">@outsideClient.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Produto:
+                                </div>
+                                <select class="form-control" name="search-product">
+                                    <option value="0">Selecione</option>
+                                    @foreach (var product in products)
+                                    {
+                                        <option value="@product.Id">@product.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Bairro:
+                                </div>
+                                <select class="form-control" name="search-local">
+                                    <option value="0">Selecione</option>
+                                    @foreach (var local in locals)
+                                    {
+                                        <option value="@local.Id">@local.Nome</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Data inicial:
+                                </div>
+                                <input type="date" class="form-control" name="search-startDate" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Data final:
+                                </div>
+                                <input type="date" class="form-control" name="search-endDate" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Entrega inicial:
+                                </div>
+                                <input type="date" class="form-control" name="search-startShippingDate" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group center">
+                                <div class="form-label">
+                                    Entrega final:
+                                </div>
+                                <input type="date" class="form-control" name="search-endShippingDate" />
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="submit" value="Aplicar filtros" class="btn btn-primary"/>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+            
+        </div>
+
+}

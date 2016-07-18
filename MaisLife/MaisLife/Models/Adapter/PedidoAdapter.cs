@@ -81,6 +81,19 @@ namespace MaisLife.Models.Adapter
             };
         }
 
+        public static string OrderWithOutDiscount(decimal value, int discount) { 
+            var a = value + (value * (discount / 100M));
+            var b = String.Format("{0:0.00}", a);
+            return b;
+        }
+
+        public static string OrderDiscountValue(decimal value, int discount)
+        {
+            var a = (value - (value + (value * (discount / 100M)))) * -1;
+            var b = String.Format("{0:0.00}", a);
+            return b;
+        }
+
     }
 
    

@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<MaisLifeModel.Pedido>
+@{
+    var today = DateTime.Now;   
+}
 <table class="table-hover">
     <tr>
         <th>Nº</th>       
@@ -7,7 +10,7 @@
         <th>Endereço</th>
         <th>Método</th>
         <th>Valor</th>
-        <th>Valor pago/Troco</th>
+        <th>Entrega</th>
         <th>Status</th>
     </tr>
     @foreach (var order in @Model)
@@ -29,10 +32,24 @@
                 @order.Metodo
             </td>
             <td>
-                @order.Valor
+                <span style="font-weight: bold;">
+                   @order.Valor
+                </span>
+                
             </td>
             <td>
-                @order.Pago/@order.Troco()
+                @if (@order.Previsao_entrega < today) { 
+                    <span style="font-weight: bold; color: #ce4949;">
+                        @order.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                    </span>
+                }
+                else
+                {
+                    <span style="font-weight: bold;">
+                        @order.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                    </span>
+                }
+                
             </td>
             <td>
                 @order.Status

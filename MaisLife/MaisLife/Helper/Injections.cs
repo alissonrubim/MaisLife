@@ -14,12 +14,12 @@ namespace MaisLife.Helper
             var logged = Helper.App.Logged();
             if (logged.Permissao < 2)
             {
-                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.Where(w => w.Usuario == logged.Id && w.Origem == "Vendedor");
+                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.Where(w => w.Usuario == logged.Id && w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
                 controller.ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(w => w.Id == logged.Id);        
             }
             else
             {
-                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.ToList();
+                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.ToList().OrderBy(w => w.Previsao_entrega).ToList();
                 controller.ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(w => w.Permissao >= 1).ToList();
             }
 

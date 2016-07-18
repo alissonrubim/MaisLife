@@ -54,7 +54,19 @@
     background-color: #DDDDDD;
 }
 
-.order-box div div .order-link:hover{
+.order-box div div .order-edit {
+    position: absolute;
+    top: -25px;
+    border-radius: 60px;
+    float: right;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px solid #CCC;
+    right: 35px;
+    background-color: #DDDDDD;
+}
+
+.order-box div div .order-link:hover, .order-box div div .order-edit:hover{
     border: 2px solid #777;
 }
 

@@ -1,0 +1,120 @@
+﻿@model MaisLifeModel.Pedido
+@{
+    ViewBag.Title = "ProfileView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var withOutDiscount = MaisLife.Models.Adapter.PedidoAdapter.OrderWithOutDiscount(Model.Valor, Model.Desconto);
+    var discountValue = MaisLife.Models.Adapter.PedidoAdapter.OrderDiscountValue(Model.Valor, Model.Desconto);
+    var today = @DateTime.Now;
+}
+
+<div class="profileView">
+    <div class="page-header">
+        <h1>Pedido <small>No @Model.Id<span class="right">@Model.Data</span></small></h1>
+    </div>
+    <div class="profileView-content">
+        <h2>@Model.Status 
+            @if (@Model.Status != "Entregue" && @Model.Previsao_entrega < @today)
+            { 
+                <span style="color: #ce4949"> (Atrasado)</span>
+            }
+        </h2>
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>@Model.Tipo <small> Tipo</small></h3>
+            </div>
+            <div class="col-lg-8">
+                @if (@Model.Metodo == "Prazo")
+                {
+                    <h3 class="right">@Model.Metodo (@Model.Parcelas x) <small> Pagamento</small></h3>
+                }
+                else if (@Model.Metodo == "Boleto")
+                {
+                    <h3 class="right">@Model.Metodo (@Model.Vencimento.ToString().Split(new Char[] { ' ' })[0]) <small> Pagamento</small></h3>
+                }
+                else
+                {
+                    <h3 class="right">@Model.Metodo <small> Pagamento</small></h3>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>
+                    @if (@Model.Origem == "Vendedor")
+                    {
+                        <span>@Model.Usuario1.Nome @Model.Usuario1.Sobrenome<small> Vendedor</small></span>
+                    }
+                    else
+                    {
+                        <span>@Model.Origem <small> Origem</small></span>
+                    }
+                </h3>
+            </div>
+            <div class="col-lg-8">
+                <h3 class="right">
+                    @if (@Model.Origem == "Vendedor")
+                    {
+                        <span>
+                            @Model.Usuario_externo1.Nome <small> Cliente</small>
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            @Model.Usuario1.Nome <small> Cliente</small>
+                        </span>
+                    }
+                </h3>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <ul class="list-group left fullwidth">
+                <li class="list-group-item active">Produtos</li>
+                @foreach (var x in @Model.Carrinho1.Carrinho_produtos)
+                {
+                    <li class="list-group-item left fullwidth">
+                        @x.Produto1.Nome <span class="right">(@x.Quantidade Un.) R$ <strong>@x.Produto1.Preco</strong></span>
+                    </li>
+                }
+               
+            </ul>
+        </div>
+        <div class="col-lg-6">
+            <ul class="list-group right fullwidth">
+                <li class="list-group-item active">Endereço</li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Cidade:</label><span class="right">@Model.Endereco1.Cidade</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Bairro:</label><span class="right">@Model.Endereco1.Bairro1.Nome</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Rua:</label><span class="right">@Model.Endereco1.Rua</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Nº:</label><span class="right">@Model.Endereco1.Numero</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Entrega:</label><span class="right"> @Model.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]</span></li>
+            </ul>
+        </div>
+    </div>
+    @if (@Model.Tipo == "Troca"){
+        <div style="padding: 10px;">
+            <ul class="list-group right fullwidth">
+                <li class="list-group-item active">Motivo da troca</li>
+                <li class="list-group-item">@Model.Motivo_troca</li>
+            </ul>
+                
+        </div>
+    }   
+    <footer>
+        <ul class="list-group left fullwidth">
+            <li class="list-group-item left fullwidth">
+                <div class="left"><strong>Sub-valor</strong></div>
+                <div class="right">R$ @withOutDiscount</div>
+            </li>
+            <li class="list-group-item left fullwidth">
+                <div class="left"><strong>Desconto</strong></div>
+                <div class="right">@Model.Desconto % (R$ @discountValue)</div>
+            </li>
+            <li class="list-group-item left fullwidth active">
+                <div class="left"><strong>Valor final</strong></div>
+                <div class="right">R$ @Model.Valor</div>
+            </li>
+        </ul>
+    </footer>
+</div>
+
+

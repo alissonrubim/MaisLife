@@ -65,7 +65,7 @@
                             </span> 
                             Confirmar mapa
                         </button>
-                        <a class="btn btn-primary" href="@Url.Action("PrintMap", "MapaEntrega", new { id = @Model.Id })">
+                        <a class="btn btn-primary" href="@Url.Action("PrintMap", "MapaEntrega", new { id = @Model.Id })" target="_blank">
                             <span class="glyphicon glyphicon-print">
                             </span> 
                             Imprimir
@@ -252,10 +252,15 @@
                                     {
                                         <a href="@Url.Action("Index", "VendaExterna", new { id = @order.Id})" target="_blank">
                                             <div class="order-link">
-                                                <span class="glyphicon glyphicon-link"></span>
+                                                <span class="glyphicon glyphicon-edit"></span>
                                             </div>
                                         </a>
                                     }
+                                    <a href="@Url.Action("ProfileView", "Venda", new { id = @order.Id})" target="_blank">
+                                        <div class="order-edit">
+                                            <span class="glyphicon glyphicon-link"></span>
+                                        </div>
+                                    </a>
                                     <div class="order-content" data-content="order-box" data-info="unselected" data-id="@order.Id">
                                         <div class="order-header">
                                             <div class="order-header-client">
@@ -324,14 +329,14 @@
         <div class="add-footer">
             @if (Model != null)
             {
-                <button type="button" class="btn btn-success" data-id="map-submit">Alterar itens neste mapa</button>
+                <button type="button" class="btn btn-success" data-id="map-submit">Atualizar mapa</button>
                 <a class="btn btn-default" href="@Url.Action("Index", "MapaEntrega", new { id = 0 })">Voltar</a>
             }
             else
             {
                 if (orders.Count > 0)
                 {
-                    <button type="button" class="btn btn-success" data-id="map-submit">Adicionar itens ao novo mapa</button>
+                    <button type="button" class="btn btn-success" data-id="map-submit">Criar mapa</button>
                 }
             }
         </div>

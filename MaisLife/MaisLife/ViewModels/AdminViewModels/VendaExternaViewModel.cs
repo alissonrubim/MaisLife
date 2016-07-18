@@ -96,6 +96,9 @@ namespace MaisLife.ViewModels
 
                 this.Order.Origem = Source;
                 this.Order.Previsao_entrega = findShippingDate();
+                var percent = this.Order.Desconto / 100M;
+                var discount = (this.Order.Valor * percent);
+                this.Order.Valor -= discount; 
                 
                 ConfigDB.Model.Add(this.Order);
                 if (ConfigDB.Model.HasChanges)
