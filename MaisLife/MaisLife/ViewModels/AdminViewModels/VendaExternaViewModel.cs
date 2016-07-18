@@ -95,7 +95,7 @@ namespace MaisLife.ViewModels
                 }
 
                 this.Order.Origem = Source;
-                this.Order.Previsao_entrega = findShippingDate();
+                this.Order.Previsao_entrega = Helper.CalculateShipping.findShippingDate(this.Order);
                 var percent = this.Order.Desconto / 100M;
                 var discount = (this.Order.Valor * percent);
                 this.Order.Valor -= discount; 
@@ -105,19 +105,6 @@ namespace MaisLife.ViewModels
                     ConfigDB.Model.SaveChanges();
 
             }
-        }
-
-        private DateTime? findShippingDate()
-        {
-            int maxPrize = 0;
-            foreach (var x in this.Order.Carrinho1.Carrinho_produtos) {
-                if (x.Produto1.Dias_entrega > maxPrize)
-                    maxPrize = x.Produto1.Dias_entrega;
-            }
-
-            var today = DateTime.Now;
-            return today.AddDays(maxPrize);
-
         }
         
         public Carrinho ConfigureCart(Carrinho cart = null)

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace MaisLife.Controllers
 {
@@ -217,7 +218,7 @@ namespace MaisLife.Controllers
                     Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
                     
 
-                    var metodo = Request.Form["payMethod"];
+                    var metodo = Request.Form["payMethod"];                                    
                     var payValue = Convert.ToDecimal(Request.Form["payValue"]);
                     if (payValue < cart.Total(address.Bairro1.Taxa) && metodo == "Dinheiro")
                     {
@@ -234,9 +235,27 @@ namespace MaisLife.Controllers
                             Endereco1 = address,
                             Pago = payValue,
                             Metodo = metodo,
-                            Status = "Enviado",
-                            Data = DateTime.Now
+                            Status = "Em aberto",
+                            Data = DateTime.Now,
+                            Tipo = "Venda",
+                            Origem = "Site",
+                            Desconto = 0                            
                         };
+
+                        if (metodo == "Prazo")
+                        {
+                            var parcels = Convert.ToInt32(Request.Form["payment-parcels"]);
+                            if (parcels < 1 || parcels > 3)
+                            {
+                                TempData["Error"] = "Número de parcelas deve ser entre 1 e 3.";
+                                return RedirectToAction("EnderecoEPagamento", "Home");
+                            }
+                            else {
+                                order.Parcelas = parcels;
+                            }
+                        }  
+
+                        order.Previsao_entrega = Helper.CalculateShipping.findShippingDate(order);
 
                         ConfigDB.Model.Add(order);
 
@@ -478,7 +497,15 @@ namespace MaisLife.Controllers
 
             
         }
-       
+
+        public string AjaxUse_Shipping(int id) { 
+            var local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == id);
+
+            var shippingValue = Helper.CalculateShipping.Calculate(local);
+
+            var serializer = new JavaScriptSerializer();
+            return serializer.Serialize(shippingValue);
+        }       
 
     }
 }

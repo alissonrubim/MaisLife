@@ -19,7 +19,7 @@ namespace MaisLife.Helper
             }
             else
             {
-                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.ToList().OrderBy(w => w.Previsao_entrega).ToList();
+                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.Where(w => w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
                 controller.ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(w => w.Permissao >= 1).ToList();
             }
 

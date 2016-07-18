@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Perfil";
-    var user = (MaisLifeModel.Usuario)ViewBag.User;  
+    var user = (MaisLifeModel.Usuario)ViewBag.User;
+    var pedidos = user.Pedidos.Where(w => w.Origem == "Site").OrderBy(p => p.Data).ToList(); 
 }
 
 <script>
@@ -36,9 +37,9 @@
                             <th>Método de pagamento</th>
                             <th>Status <span id="status-icon" data-toggle="tooltip" data-placement="left" title="Tooltip on left" class="glyphicon glyphicon-question-sign"></span></th>
                         </tr>
-                        @if (user.Pedidos.Count() > 0)
+                        @if (pedidos.Count() > 0)
                         {
-                            foreach (var order in user.Pedidos)
+                            foreach (var order in pedidos)
                             {
                                 <tr>
                                     <td><a data-toggle="modal" data-target="#order-modal-@order.Id" href="#"><span class="glyphicon glyphicon-list"></span></a></td>

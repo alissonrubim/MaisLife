@@ -1096,7 +1096,7 @@ footer .brand-footer div .footer-menu ul li a:hover {
     max-width: 200px;
 }
 
-.cart-page .cart-btn button {
+.cart-page .cart-btn a {
     width: 100%;
 }
 

@@ -42,5 +42,19 @@ namespace MaisLife.Helper
             }
         }
 
+        public static DateTime? findShippingDate(Pedido order)
+        {
+            int maxPrize = 0;
+            foreach (var x in order.Carrinho1.Carrinho_produtos)
+            {
+                if (x.Produto1.Dias_entrega > maxPrize)
+                    maxPrize = x.Produto1.Dias_entrega;
+            }
+
+            var today = DateTime.Now;
+            return today.AddDays(maxPrize);
+
+        }
+
     }
 }

@@ -14,7 +14,14 @@
         <div class="col-lg-8 product-info-box">           
             <div class="col-lg-12">
                 <div class="product-price">R$ @Html.DisplayFor(modelItem => product.Preco)</div>
-                <div class="product-btn"><button type="Button" class="btn btn-success"><a href="@Url.Action("Carrinho", "Home", new { id = product.Id, local = 0, delivery = 0 })"><span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao carrinho</a></button></div>
+                <div class="product-btn">
+                   
+                        <a href="@Url.Action("Carrinho", "Home", new { id = product.Id, local = 0, delivery = 0 })" class="btn btn-success">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            Adicionar ao carrinho
+                        </a>
+                    
+                </div>
             </div>
             <div class="col-lg-12 product-description-box">
                 @Html.DisplayFor(modelItem => product.Descricao)
