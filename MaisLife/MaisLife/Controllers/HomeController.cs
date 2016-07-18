@@ -19,6 +19,31 @@ namespace MaisLife.Controllers
         {            
             Injections.LayoutInjection(this);
             ViewBag.patners = ConfigDB.Model.Parceiros.ToList();
+
+            var products = ConfigDB.Model.Produtos.ToList();
+            
+            var slideProducts = new List<List<Produto>>();
+            var count = 0;
+
+            var x = new List<Produto>();
+            
+            foreach (var product in products) {
+                if (count == 0) {
+                    x = new List<Produto>();
+                }
+
+                x.Add(product);
+
+                count++;
+
+                if (count == 3 || count == products.Count) {
+                    slideProducts.Add(x);
+                    count = 0;
+                }
+            }
+
+            ViewBag.SlideProducts = slideProducts;           
+            
             return View();
         }
 
