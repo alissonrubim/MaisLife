@@ -153,6 +153,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.maskMoney.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -177,6 +178,7 @@
     </Compile>
     <Compile Include="Helper\App.cs" />
     <Compile Include="Helper\CalculateShipping.cs" />
+    <Compile Include="Helper\Converter.cs" />
     <Compile Include="Helper\FastRequest.cs" />
     <Compile Include="Helper\Injections.cs" />
     <Compile Include="Helper\Sessions.cs" />

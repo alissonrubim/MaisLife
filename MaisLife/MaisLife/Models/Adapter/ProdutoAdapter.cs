@@ -1,4 +1,5 @@
-﻿using MaisLifeModel;
+﻿using MaisLife.Helper;
+using MaisLifeModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,8 +16,8 @@ namespace MaisLife.Models.Adapter
         public string Nome { get; set; }
         [Required]        
         public string Descricao { get; set; }
-        [Required]       
-        public decimal Preco { get; set; }
+        [Required]
+        public string Preco { get; set; }
         [Required]
         public int Unidade { get; set; }
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
@@ -36,7 +37,7 @@ namespace MaisLife.Models.Adapter
                 Id = this.Id,
                 Nome = this.Nome,
                 Descricao = this.Descricao,
-                Preco = this.Preco,
+                Preco = Converter.ConvertMoney(this.Preco),
                 Unidade = this.Unidade,
                 Imagem = this.Imagem,
                 Produto_bairros = this.Bairros,
@@ -51,7 +52,7 @@ namespace MaisLife.Models.Adapter
                 Id = produto.Id,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
-                Preco = (Decimal)produto.Preco,
+                Preco = Convert.ToString(produto.Preco),
                 Unidade = (int)produto.Unidade,
                 Imagem = produto.Imagem,
                 DiasEntrega = DiasEntrega
