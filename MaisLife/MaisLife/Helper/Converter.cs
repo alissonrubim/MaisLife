@@ -11,7 +11,8 @@ namespace MaisLife.Helper
         {
             if(value != null)
             {
-                return Convert.ToDecimal(value);
+                String money = value.Replace(".", "");
+                return Convert.ToDecimal(money);
             }
             return 0;   
         }

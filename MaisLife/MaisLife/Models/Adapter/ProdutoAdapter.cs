@@ -55,7 +55,7 @@ namespace MaisLife.Models.Adapter
                 Preco = Convert.ToString(produto.Preco),
                 Unidade = (int)produto.Unidade,
                 Imagem = produto.Imagem,
-                DiasEntrega = DiasEntrega
+                DiasEntrega = produto.Dias_entrega
             };            
 
             return adapter;
