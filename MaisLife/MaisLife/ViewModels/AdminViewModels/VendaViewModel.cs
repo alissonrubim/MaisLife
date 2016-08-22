@@ -61,13 +61,15 @@ namespace MaisLife.ViewModels.AdminViewModels
                 else if (discount == "Sem desconto")
                     allOrders = allOrders.Where(w => w.Desconto == 0).ToList();
 
-                var minValue = fr.ToDecimal("search-minusValue");
+                var minValueString = fr.ToString("search-minusValue");
+                var minValue = Converter.ConvertMoney(minValueString);
                 if (minValue > 0) 
                 {
                     allOrders = allOrders.Where(w => w.Valor >= minValue).ToList();
                 }
 
-                var maxValue = fr.ToDecimal("search-maximusValue");
+                var maxValueString = fr.ToString("search-maximusValue");
+                var maxValue = Converter.ConvertMoney(maxValueString);
                 if (maxValue > 0)
                 {
                     allOrders = allOrders.Where(w => w.Valor <= maxValue).ToList();

@@ -114,7 +114,7 @@
                                 <div class="form-label">
                                     Menor valor:
                                 </div>
-                                <input type="text" class="form-control" name="search-minusValue" value="0.00" />
+                                <input type="text" class="form-control" name="search-minusValue" placeholder="0,00" id="MenorValor"/>
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -122,7 +122,7 @@
                                 <div class="form-label">
                                     Maior valor:
                                 </div>
-                                <input type="text" class="form-control" name="search-maximusValue" value="0.00" />
+                                <input type="text" class="form-control" name="search-maximusValue" placeholder="0,00" id="MaiorValor" />
                             </div>
                         </div>
                     </div>
@@ -243,5 +243,11 @@
             </div>        
             
         </div>
+        <script type="text/javascript">
+        $(function () {
+            $("#MenorValor").maskMoney({ thousands: '.', decimal: ',' });
+            $("#MaiorValor").maskMoney({ thousands: '.', decimal: ',' });
+        })
+        </script>
 
 }
