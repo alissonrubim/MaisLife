@@ -24,6 +24,7 @@ namespace MaisLife.Controllers
             
             var slideProducts = new List<List<Produto>>();
             var count = 0;
+            var total = 0;
 
             var x = new List<Produto>();
             
@@ -35,8 +36,10 @@ namespace MaisLife.Controllers
                 x.Add(product);
 
                 count++;
+                total++;
 
-                if (count == 3 || count == products.Count) {
+                if (count == 3 || total == products.Count)
+                {
                     slideProducts.Add(x);
                     count = 0;
                 }

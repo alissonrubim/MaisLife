@@ -123,6 +123,10 @@ namespace MaisLifeModel
 			{
 				return this._pedidos;
 			}
+            set
+            {
+                this._pedidos = value;
+            }
 		}
 		
 		private IList<Endereco> _enderecos = new List<Endereco>();
@@ -132,6 +136,10 @@ namespace MaisLifeModel
 			{
 				return this._enderecos;
 			}
+            set
+            {
+                this._enderecos = value;
+            }
 		}
 		
 		private IList<Carrinho> _carrinhos = new List<Carrinho>();
@@ -141,6 +149,10 @@ namespace MaisLifeModel
 			{
 				return this._carrinhos;
 			}
+            set
+            {
+                this._carrinhos = value;
+            }
 		}
 		
 		#region ISerializable Implementation

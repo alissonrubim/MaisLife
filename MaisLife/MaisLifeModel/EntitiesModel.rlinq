@@ -635,6 +635,133 @@
           <orm:collection element-class="MaisLifeModel.Devolucao_produto" inverse-field="_devolucao1" order-by="" uniqueId="067cb20c-c828-407a-aa04-d434a351e0d9" />
         </orm:field>
       </orm:class>
+      <orm:class name="Fornecedor" uniqueId="107d94ff-cd24-4321-8509-d549c603c918">
+        <orm:table name="fornecedor" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="d76a6d17-1b99-4035-8afa-5fb0b20e4bb5" type="System.Int32">
+          <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_razao_social" property="Razao_social" behavior="readwrite" uniqueId="ed338c88-9ad6-4b8c-b168-25c0c4551f4f" type="System.String">
+          <orm:column name="razao_social" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_documento" property="Documento" behavior="readwrite" uniqueId="a48e8277-e529-4efa-9db6-6aaf81943137" type="System.String">
+          <orm:column name="documento" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_nome" property="Nome" behavior="readwrite" uniqueId="53c70094-35b7-42bf-baf9-eea58ae6fa4a" type="System.String">
+          <orm:column name="nome" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_telefone" property="Telefone" behavior="readwrite" uniqueId="4dfe3912-5a0f-420e-a870-8f7a60279faf" type="System.String">
+          <orm:column name="telefone" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_email" property="Email" behavior="readwrite" uniqueId="6e780e31-f6e3-49a1-89e4-58c4de7502a8" type="System.String">
+          <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_entradas" property="Entradas" behavior="readwrite" uniqueId="ea259274-2919-42ac-be89-2f6a7fc3551b" type="MaisLifeModel.Entrada">
+          <orm:collection element-class="MaisLifeModel.Entrada" inverse-field="_fornecedor1" order-by="" uniqueId="b6db94e1-413d-4c25-839a-fd051f9a4adf" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Estoque" uniqueId="1d617d18-d2dc-4a34-9ee8-a784123749b8">
+        <orm:table name="estoque" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="c3da2993-b646-4428-98ca-e1e76746aed2" type="System.Int32">
+          <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_tipo" property="Tipo" behavior="readwrite" uniqueId="6f9d796e-04f6-45c4-a051-594cf31ab22e" type="System.String">
+          <orm:column name="tipo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
+        </orm:field>
+        <orm:field name="_entrada_estoques" property="Entrada_estoques" behavior="readwrite" uniqueId="00fd3bd0-521e-48c0-bf6e-9601bf42bb51" type="MaisLifeModel.Entrada_estoque">
+          <orm:collection element-class="MaisLifeModel.Entrada_estoque" inverse-field="_estoque1" order-by="" uniqueId="a13393b8-5d02-4587-b00b-8fa587074354" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Entrada_estoque" uniqueId="619cfb4e-ade1-4465-880b-e03699cc7151">
+        <orm:table name="entrada_estoque" />
+        <orm:identity>
+          <orm:single-field field-name="_codigo" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_codigo" property="Codigo" behavior="readwrite" uniqueId="047e302a-4dad-474b-9feb-e150571f7f06" type="System.Int32">
+          <orm:column name="codigo" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_entrada" property="Entrada" behavior="readwrite" uniqueId="c575afe6-0f5a-4312-a816-6126affb92dd" type="System.Int32">
+          <orm:column name="entrada" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_estoque" property="Estoque" behavior="readwrite" uniqueId="730055c9-b4fe-4354-aa52-1b0881386dd2" type="System.Int32">
+          <orm:column name="estoque" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_data_entrada" property="Data_entrada" behavior="readwrite" uniqueId="c6e61ea8-4b2b-48eb-aad5-08c8b6cdeec4" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="data_entrada" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_estoque1" property="Estoque1" behavior="readwrite" uniqueId="a6977cb8-cfe8-41fc-a0b1-312f58a173a8" type="MaisLifeModel.Estoque">
+          <orm:reference uniqueId="a13393b8-5d02-4587-b00b-8fa587074354" association-name="Entrada_estoqueHasEstoque">
+            <orm:sharedfield name="_estoque" target-class="MaisLifeModel.Estoque" target-field="_id" />
+            <orm:constraint name="fk_entrada_estoque_estoque" delete-action="cascade" destination-table="estoque" />
+          </orm:reference>
+        </orm:field>
+        <orm:field name="_entrada1" property="Entrada1" behavior="readwrite" uniqueId="fe52fb29-1769-4da4-b7f7-079f4daa4bc0" type="MaisLifeModel.Entrada">
+          <orm:reference uniqueId="b2a84277-f879-4efa-9101-9cac3b0e021c" association-name="Entrada_estoqueHasEntrada">
+            <orm:sharedfield name="_entrada" target-class="MaisLifeModel.Entrada" target-field="_id" />
+            <orm:constraint name="fk_entrada_estoque_entrada" delete-action="cascade" destination-table="entrada" />
+          </orm:reference>
+        </orm:field>
+        <orm:index name="fk_entrada_estoque_estoque_idx">
+          <orm:columnMapping>
+            <orm:column name="estoque" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="fk_entrada_estoque_entrada_idx">
+          <orm:columnMapping>
+            <orm:column name="entrada" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="Entrada" uniqueId="61e8e839-93b2-4577-a11a-5d67609942d6">
+        <orm:table name="entrada" />
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_id" property="Id" behavior="readwrite" uniqueId="9371d98a-48e0-439b-9dca-73fb6e05b387" type="System.Int32">
+          <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_numero" property="Numero" behavior="readwrite" uniqueId="078e6bdf-bd83-4ef1-9e37-dcfc7830efa0" type="System.Int32">
+          <orm:column name="numero" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_data" property="Data" behavior="readwrite" uniqueId="6e741596-486f-4688-bc75-eddf1174ec94" type="System.DateTime">
+          <orm:column name="data" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_fornecedor" property="Fornecedor" behavior="readwrite" uniqueId="37a001c3-20fe-4de0-a169-d7cd1470b733" type="System.Int32">
+          <orm:column name="fornecedor" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_entrada_estoques" property="Entrada_estoques" behavior="readwrite" uniqueId="3fac182d-a3da-40da-a0ff-509d129c333e" type="MaisLifeModel.Entrada_estoque">
+          <orm:collection element-class="MaisLifeModel.Entrada_estoque" inverse-field="_entrada1" order-by="" uniqueId="b2a84277-f879-4efa-9101-9cac3b0e021c" />
+        </orm:field>
+        <orm:field name="_fornecedor1" property="Fornecedor1" behavior="readwrite" uniqueId="386af665-efb1-4cbe-bc8c-6d2547f3af4e" type="MaisLifeModel.Fornecedor">
+          <orm:reference uniqueId="b6db94e1-413d-4c25-839a-fd051f9a4adf" association-name="EntradaHasFornecedor">
+            <orm:sharedfield name="_fornecedor" target-class="MaisLifeModel.Fornecedor" target-field="_id" />
+            <orm:constraint name="fk_entrada_fornecedor" delete-action="cascade" destination-table="fornecedor" />
+          </orm:reference>
+        </orm:field>
+        <orm:index name="fk_entrada_fornecedor_idx">
+          <orm:columnMapping>
+            <orm:column name="fornecedor" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="usuario_externo">
@@ -881,6 +1008,54 @@
         <orm:column name="tipo" sql-type="enum" nullable="false" length="0" scale="0" has-default-value="true" ado-type="Character" />
         <orm:column name="cliente" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
         <orm:column name="motivo" sql-type="text" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+      </orm:table>
+      <orm:table name="fornecedor">
+        <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="razao_social" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="documento" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="nome" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="telefone" sql-type="nvarchar" nullable="false" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="email" sql-type="nvarchar" nullable="true" length="45" scale="0" ado-type="UnicodeStringVariableLength" />
+      </orm:table>
+      <orm:table name="estoque">
+        <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="tipo" sql-type="enum" nullable="false" length="0" scale="0" ado-type="Character" />
+      </orm:table>
+      <orm:table name="entrada_estoque">
+        <orm:column name="codigo" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" ado-type="Int32" />
+        <orm:column name="entrada" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="estoque" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="data_entrada" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        <orm:index name="fk_entrada_estoque_estoque_idx">
+          <orm:columnMapping>
+            <orm:column name="estoque" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="fk_entrada_estoque_entrada_idx">
+          <orm:columnMapping>
+            <orm:column name="entrada" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="fk_entrada_estoque_estoque" delete-action="cascade" destination-table="estoque">
+          <orm:column name="estoque" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+        <orm:constraint name="fk_entrada_estoque_entrada" delete-action="cascade" destination-table="entrada">
+          <orm:column name="entrada" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
+      </orm:table>
+      <orm:table name="entrada">
+        <orm:column name="id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="numero" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:column name="data" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="fornecedor" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        <orm:index name="fk_entrada_fornecedor_idx">
+          <orm:columnMapping>
+            <orm:column name="fornecedor" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:constraint name="fk_entrada_fornecedor" delete-action="cascade" destination-table="fornecedor">
+          <orm:column name="fornecedor" sql-type="integer" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:constraint>
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -1381,6 +1556,99 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="107d94ff-cd24-4321-8509-d549c603c918" name="Fornecedor" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="d76a6d17-1b99-4035-8afa-5fb0b20e4bb5" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="a48e8277-e529-4efa-9db6-6aaf81943137" name="Documento" label="Documento : String" kind="Persistent" fieldName="_documento" />
+      <Property Id="6e780e31-f6e3-49a1-89e4-58c4de7502a8" name="Email" label="Email : String" kind="Persistent" fieldName="_email" />
+      <Property Id="53c70094-35b7-42bf-baf9-eea58ae6fa4a" name="Nome" label="Nome : String" kind="Persistent" fieldName="_nome" />
+      <Property Id="ed338c88-9ad6-4b8c-b168-25c0c4551f4f" name="Razao_social" label="Razao_social : String" kind="Persistent" fieldName="_razao_social" />
+      <Property Id="4dfe3912-5a0f-420e-a870-8f7a60279faf" name="Telefone" label="Telefone : String" kind="Persistent" fieldName="_telefone" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="0a3c7750-4313-425e-b4f9-b39f022aa389">
+          <NavigationalProperty Id="ea259274-2919-42ac-be89-2f6a7fc3551b" name="Entradas" type="IList&lt;Entrada&gt;" label="Entradas : IList&lt;Entrada&gt;" nullable="true" kind="Persistent" fieldName="_entradas" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="1d617d18-d2dc-4a34-9ee8-a784123749b8" name="Estoque" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="c3da2993-b646-4428-98ca-e1e76746aed2" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="6f9d796e-04f6-45c4-a051-594cf31ab22e" name="Tipo" label="Tipo : String" kind="Persistent" fieldName="_tipo" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="8a66786d-f453-4712-9cb1-534403c9a00a">
+          <NavigationalProperty Id="00fd3bd0-521e-48c0-bf6e-9601bf42bb51" name="Entrada_estoques" type="IList&lt;Entrada_estoque&gt;" label="Entrada_estoques : IList&lt;Entrada_estoque&gt;" nullable="true" kind="Persistent" fieldName="_entrada_estoques" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="619cfb4e-ade1-4465-880b-e03699cc7151" name="Entrada_estoque" namespace="MaisLifeModel" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="047e302a-4dad-474b-9feb-e150571f7f06" name="Codigo" type="Int32" label="Codigo : Int32" kind="Persistent" identity="true" fieldName="_codigo" />
+      <Property Id="c6e61ea8-4b2b-48eb-aad5-08c8b6cdeec4" name="Data_entrada" type="DateTime" label="Data_entrada : DateTime" nullable="true" kind="Persistent" fieldName="_data_entrada" />
+      <Property Id="c575afe6-0f5a-4312-a816-6126affb92dd" name="Entrada" type="Int32" label="Entrada : Int32" kind="Persistent" fieldName="_entrada" />
+      <Property Id="730055c9-b4fe-4354-aa52-1b0881386dd2" name="Estoque" type="Int32" label="Estoque : Int32" kind="Persistent" fieldName="_estoque" />
+      <AssociationTargets>
+        <Association Id="a13393b8-5d02-4587-b00b-8fa587074354" SourceMultiplicity="One" name="Entrada_estoqueHasEstoque">
+          <DomainClassMoniker name="/EntitiesModel/Estoque" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="e6752856-bf10-4a85-8538-880e59545752">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Estoque/Entrada_estoques" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="45fd2957-acf4-48a1-aed2-816a7cf5250f">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Entrada_estoque/Estoque1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="b2a84277-f879-4efa-9101-9cac3b0e021c" SourceMultiplicity="One" name="Entrada_estoqueHasEntrada">
+          <DomainClassMoniker name="/EntitiesModel/Entrada" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="f3a21b3a-09a3-4ae9-a375-d4d6eb1ef737">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Entrada/Entrada_estoques" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="bd8c6362-0e49-44aa-9da4-23513b6cfa16">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Entrada_estoque/Entrada1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="d9407bd0-a830-4466-99aa-67441a835580">
+          <NavigationalProperty Id="a6977cb8-cfe8-41fc-a0b1-312f58a173a8" name="Estoque1" type="Estoque" label="Estoque1 : Estoque" nullable="true" kind="Persistent" fieldName="_estoque1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="62e6ec42-57a1-4798-af23-38ba47eb6eff">
+          <NavigationalProperty Id="fe52fb29-1769-4da4-b7f7-079f4daa4bc0" name="Entrada1" type="Entrada" label="Entrada1 : Entrada" nullable="true" kind="Persistent" fieldName="_entrada1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="61e8e839-93b2-4577-a11a-5d67609942d6" name="Entrada" namespace="MaisLifeModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="9371d98a-48e0-439b-9dca-73fb6e05b387" name="Id" type="Int32" label="Id : Int32" kind="Persistent" identity="true" fieldName="_id" />
+      <Property Id="6e741596-486f-4688-bc75-eddf1174ec94" name="Data" type="DateTime" label="Data : DateTime" kind="Persistent" fieldName="_data" />
+      <Property Id="37a001c3-20fe-4de0-a169-d7cd1470b733" name="Fornecedor" type="Int32" label="Fornecedor : Int32" kind="Persistent" fieldName="_fornecedor" />
+      <Property Id="078e6bdf-bd83-4ef1-9e37-dcfc7830efa0" name="Numero" type="Int32" label="Numero : Int32" kind="Persistent" fieldName="_numero" />
+      <AssociationTargets>
+        <Association Id="b6db94e1-413d-4c25-839a-fd051f9a4adf" SourceMultiplicity="One" name="EntradaHasFornecedor">
+          <DomainClassMoniker name="/EntitiesModel/Fornecedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="8b4e22e5-2471-44e4-92e5-3a0d6e2694fe">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Fornecedor/Entradas" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="02a3d1e3-107c-44b0-89dc-c1df9cb3f9fd">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Entrada/Fornecedor1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="ef4833e4-c53f-45ca-b539-43e5c17eaa70">
+          <NavigationalProperty Id="3fac182d-a3da-40da-a0ff-509d129c333e" name="Entrada_estoques" type="IList&lt;Entrada_estoque&gt;" label="Entrada_estoques : IList&lt;Entrada_estoque&gt;" nullable="true" kind="Persistent" fieldName="_entrada_estoques" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="090dbcf1-a087-407d-bc97-3b17a9d28a2f">
+          <NavigationalProperty Id="386af665-efb1-4cbe-bc8c-6d2547f3af4e" name="Fornecedor1" type="Fornecedor" label="Fornecedor1 : Fornecedor" nullable="true" kind="Persistent" fieldName="_fornecedor1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="cdf88837-69b5-4d89-b695-aec324aef653">
@@ -1400,6 +1668,10 @@
         <entitySetProperty name="Mapa_pedidos" namespace="MaisLifeModel" type="Mapa_pedido" label="Mapa_pedidos : IQueryable&lt;MaisLifeModel.Mapa_pedido&gt;" />
         <entitySetProperty name="Devolucao_produtos" namespace="MaisLifeModel" type="Devolucao_produto" label="Devolucao_produtos : IQueryable&lt;MaisLifeModel.Devolucao_produto&gt;" />
         <entitySetProperty name="Devolucaos" namespace="MaisLifeModel" type="Devolucao" label="Devolucaos : IQueryable&lt;MaisLifeModel.Devolucao&gt;" />
+        <entitySetProperty name="Fornecedors" namespace="MaisLifeModel" type="Fornecedor" label="Fornecedors : IQueryable&lt;MaisLifeModel.Fornecedor&gt;" />
+        <entitySetProperty name="Estoques" namespace="MaisLifeModel" type="Estoque" label="Estoques : IQueryable&lt;MaisLifeModel.Estoque&gt;" />
+        <entitySetProperty name="Entrada_estoques" namespace="MaisLifeModel" type="Entrada_estoque" label="Entrada_estoques : IQueryable&lt;MaisLifeModel.Entrada_estoque&gt;" />
+        <entitySetProperty name="Entradas" namespace="MaisLifeModel" type="Entrada" label="Entradas : IQueryable&lt;MaisLifeModel.Entrada&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

@@ -23,7 +23,7 @@ using MaisLifeModel;
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Bairro : System.Runtime.Serialization.ISerializable
+	public partial class Estoque : System.Runtime.Serialization.ISerializable
 	{
 		private int _id;
 		public virtual int Id
@@ -38,77 +38,49 @@ namespace MaisLifeModel
 			}
 		}
 		
-		private string _nome;
-		public virtual string Nome
+		private string _tipo;
+		public virtual string Tipo
 		{
 			get
 			{
-				return this._nome;
+				return this._tipo;
 			}
 			set
 			{
-				this._nome = value;
+				this._tipo = value;
 			}
 		}
 		
-		private decimal _taxa;
-		public virtual decimal Taxa
+		private IList<Entrada_estoque> _entrada_estoques = new List<Entrada_estoque>();
+		public virtual IList<Entrada_estoque> Entrada_estoques
 		{
 			get
 			{
-				return this._taxa;
-			}
-			set
-			{
-				this._taxa = value;
-			}
-		}
-		
-		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
-		public virtual IList<Produto_bairro> Produto_bairros
-		{
-			get
-			{
-				return this._produto_bairros;
+				return this._entrada_estoques;
 			}
             set
             {
-                this._produto_bairros = value;
-            }
-		}
-		
-		private IList<Endereco> _enderecos = new List<Endereco>();
-		public virtual IList<Endereco> Enderecos
-		{
-			get
-			{
-				return this._enderecos;
-			}
-            set
-            {
-                this._enderecos = value;
+                this._entrada_estoques = value;
             }
 		}
 		
 		#region ISerializable Implementation
 		
-		public Bairro()
+		public Estoque()
 		{
 		}
 		
-		protected Bairro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Estoque(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			this.Id = info.GetInt32("Id");
-			this.Nome = info.GetString("Nome");
-			this.Taxa = (decimal)info.GetValue("Taxa", typeof(decimal?));
+			this.Tipo = info.GetString("Tipo");
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Nome", this.Nome, typeof(string));
-			info.AddValue("Taxa", this.Taxa, typeof(decimal?));
+			info.AddValue("Tipo", this.Tipo, typeof(string));
 			CustomizeSerializationProcess(info, context);
 		}
 		

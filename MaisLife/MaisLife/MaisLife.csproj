@@ -169,6 +169,7 @@
     <Compile Include="Controllers\Admin\MapaEntregaController.cs" />
     <Compile Include="Controllers\Admin\ParceiroController.cs" />
     <Compile Include="Controllers\Admin\ProdutoController.cs" />
+    <Compile Include="Controllers\Admin\UsuarioController.cs" />
     <Compile Include="Controllers\Admin\VendaController.cs" />
     <Compile Include="Controllers\Admin\VendaExternaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="ViewModels\AdminViewModels\MapaEntregaViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ParceiroViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ProdutoViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\UsuarioViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\VendaExternaViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\VendaViewModel.cs" />
   </ItemGroup>
@@ -231,6 +233,9 @@
     <Content Include="Views\Venda\Partials\_OrderList.cshtml" />
     <Content Include="Views\Venda\Partials\_OrderFilter.cshtml" />
     <Content Include="Views\Venda\ProfileView.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Partials\_UserAdd.cshtml" />
+    <Content Include="Views\Usuario\Partials\_UserTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

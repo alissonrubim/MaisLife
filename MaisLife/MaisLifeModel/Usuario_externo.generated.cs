@@ -114,7 +114,6 @@ namespace MaisLifeModel
             {
                 this._pedidos = value;
             }
-
 		}
 		
 		#region ISerializable Implementation

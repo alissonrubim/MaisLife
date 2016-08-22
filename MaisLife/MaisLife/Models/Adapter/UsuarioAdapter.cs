@@ -22,7 +22,8 @@ namespace MaisLife.Models.Adapter
         [Required]            
         [DataType(DataType.Password)]
         [StringLength(10, MinimumLength = 6, ErrorMessage = "A senha deve conter de 6 a 10 dígitos")]  
-        public string Senha { get; set; }               
+        public string Senha { get; set; }
+        public int Permissao { get; set; }     
 
         public Usuario ToUsuario()
         {
@@ -32,7 +33,8 @@ namespace MaisLife.Models.Adapter
                 Nome = this.Nome,
                 Sobrenome = this.Sobrenome,
                 Email = this.Email,
-                Senha = this.Senha                          
+                Senha = this.Senha,
+                Permissao = this.Permissao          
             };
         }
 
@@ -44,7 +46,8 @@ namespace MaisLife.Models.Adapter
                 Nome = usuario.Nome,
                 Sobrenome = usuario.Sobrenome,
                 Email = usuario.Email,
-                Senha = usuario.Senha                           
+                Senha = usuario.Senha,
+                Permissao = (int)usuario.Permissao                           
             };
         }
 

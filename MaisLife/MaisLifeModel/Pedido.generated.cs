@@ -305,6 +305,10 @@ namespace MaisLifeModel
 			{
 				return this._mapa_pedidos;
 			}
+            set
+            {
+                this._mapa_pedidos = value;
+            }
 		}
 		
 		#region ISerializable Implementation
@@ -369,7 +373,5 @@ namespace MaisLifeModel
 		partial void CustomizeDeserializationProcess(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);
 		#endregion
 	}
-
-   
 }
 #pragma warning restore 1591

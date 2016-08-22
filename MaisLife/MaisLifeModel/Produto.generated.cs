@@ -137,9 +137,9 @@ namespace MaisLifeModel
 				return this._carrinho_produtos;
 			}
             set
-			{
-				this._carrinho_produtos = value;
-			}
+            {
+                this._carrinho_produtos = value;
+            }
 		}
 		
 		private IList<Devolucao_produto> _devolucao_produtos = new List<Devolucao_produto>();

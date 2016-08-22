@@ -170,6 +170,38 @@ namespace MaisLifeModel
 			}
 		}
 		
+		public IQueryable<Fornecedor> Fornecedors 
+		{
+			get
+			{
+				return this.GetAll<Fornecedor>();
+			}
+		}
+		
+		public IQueryable<Estoque> Estoques 
+		{
+			get
+			{
+				return this.GetAll<Estoque>();
+			}
+		}
+		
+		public IQueryable<Entrada_estoque> Entrada_estoques 
+		{
+			get
+			{
+				return this.GetAll<Entrada_estoque>();
+			}
+		}
+		
+		public IQueryable<Entrada> Entradas 
+		{
+			get
+			{
+				return this.GetAll<Entrada>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -248,6 +280,22 @@ namespace MaisLifeModel
 			get;
 		}
 		IQueryable<Devolucao> Devolucaos
+		{
+			get;
+		}
+		IQueryable<Fornecedor> Fornecedors
+		{
+			get;
+		}
+		IQueryable<Estoque> Estoques
+		{
+			get;
+		}
+		IQueryable<Entrada_estoque> Entrada_estoques
+		{
+			get;
+		}
+		IQueryable<Entrada> Entradas
 		{
 			get;
 		}

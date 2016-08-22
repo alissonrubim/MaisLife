@@ -1,0 +1,104 @@
+﻿@model MaisLife.Models.Adapter.UsuarioAdapter
+
+@{
+    var permissionsValues = new List<int>();
+    permissionsValues.Add(0);
+    permissionsValues.Add(1);
+    permissionsValues.Add(2);
+
+    var permissionsTags = new List<string>();
+    permissionsTags.Add("Cliente");
+    permissionsTags.Add("Vendedor");
+    permissionsTags.Add("Administrador");        
+}
+
+@using (Ajax.BeginForm("CreateOrEditUsuario", "Usuario", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "userTable"
+    //LoadingElementId = "divProgress"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })
+        <input type="hidden" name="delivery-amount" value="0" />
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Nome:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })                   
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Sobrenome:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Sobrenome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sobrenome" } })
+                    @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    E-mail:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })  
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="form-label">
+                    Senha:
+                </div>
+                <div class="form-input">
+                    @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })  
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="float: left;">
+            <div class="form-group">
+                <div class="form-label">
+                    Permissão:
+                </div>
+                <div class="form-input">
+                    @Html.DropDownListFor(model => model.Permissao,
+                        (permissionsValues).Select(option => new SelectListItem
+                            {
+                                Text = permissionsTags[option],
+                                Value = option + ""
+                            }),                           
+                            new { @class = "form-control" }) 
+                </div>
+            </div>
+        </div>                   
+        <div class="col-lg-11">           
+            @if (Model != null)
+            {
+                <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Alterar</button>
+                <a class="btn btn-default" href="@Url.Action("Index", "Usuario", new { id = 0 })">Voltar</a>
+            }
+            else
+            {
+                <button class="btn btn-success panel-submit" type="submit" data-id="panel-submit">Inserir</button>
+            }
+
+        </div>
+
+    </div>
+}

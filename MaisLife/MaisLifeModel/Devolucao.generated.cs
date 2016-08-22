@@ -97,6 +97,10 @@ namespace MaisLifeModel
 			{
 				return this._devolucao_produtos;
 			}
+            set
+            {
+                this._devolucao_produtos = value;
+            }
 		}
 		
 		#region ISerializable Implementation

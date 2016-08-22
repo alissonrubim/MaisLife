@@ -23,92 +23,107 @@ using MaisLifeModel;
 namespace MaisLifeModel	
 {
 	[System.Serializable()]
-	public partial class Bairro : System.Runtime.Serialization.ISerializable
+	public partial class Entrada_estoque : System.Runtime.Serialization.ISerializable
 	{
-		private int _id;
-		public virtual int Id
+		private int _codigo;
+		public virtual int Codigo
 		{
 			get
 			{
-				return this._id;
+				return this._codigo;
 			}
 			set
 			{
-				this._id = value;
+				this._codigo = value;
 			}
 		}
 		
-		private string _nome;
-		public virtual string Nome
+		private int _entrada;
+		public virtual int Entrada
 		{
 			get
 			{
-				return this._nome;
+				return this._entrada;
 			}
 			set
 			{
-				this._nome = value;
+				this._entrada = value;
 			}
 		}
 		
-		private decimal _taxa;
-		public virtual decimal Taxa
+		private int _estoque;
+		public virtual int Estoque
 		{
 			get
 			{
-				return this._taxa;
+				return this._estoque;
 			}
 			set
 			{
-				this._taxa = value;
+				this._estoque = value;
 			}
 		}
 		
-		private IList<Produto_bairro> _produto_bairros = new List<Produto_bairro>();
-		public virtual IList<Produto_bairro> Produto_bairros
+		private DateTime? _data_entrada;
+		public virtual DateTime? Data_entrada
 		{
 			get
 			{
-				return this._produto_bairros;
+				return this._data_entrada;
 			}
-            set
-            {
-                this._produto_bairros = value;
-            }
+			set
+			{
+				this._data_entrada = value;
+			}
 		}
 		
-		private IList<Endereco> _enderecos = new List<Endereco>();
-		public virtual IList<Endereco> Enderecos
+		private Estoque _estoque1;
+		public virtual Estoque Estoque1
 		{
 			get
 			{
-				return this._enderecos;
+				return this._estoque1;
 			}
-            set
-            {
-                this._enderecos = value;
-            }
+			set
+			{
+				this._estoque1 = value;
+			}
+		}
+		
+		private Entrada _entrada1;
+		public virtual Entrada Entrada1
+		{
+			get
+			{
+				return this._entrada1;
+			}
+			set
+			{
+				this._entrada1 = value;
+			}
 		}
 		
 		#region ISerializable Implementation
 		
-		public Bairro()
+		public Entrada_estoque()
 		{
 		}
 		
-		protected Bairro(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected Entrada_estoque(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
-			this.Id = info.GetInt32("Id");
-			this.Nome = info.GetString("Nome");
-			this.Taxa = (decimal)info.GetValue("Taxa", typeof(decimal?));
+			this.Codigo = info.GetInt32("Codigo");
+			this.Entrada = info.GetInt32("Entrada");
+			this.Estoque = info.GetInt32("Estoque");
+			this.Data_entrada = (DateTime?)info.GetValue("Data_entrada", typeof(DateTime?));
 			CustomizeDeserializationProcess(info, context);
 		}
 		
 		public virtual void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
-			info.AddValue("Id", this.Id, typeof(int));
-			info.AddValue("Nome", this.Nome, typeof(string));
-			info.AddValue("Taxa", this.Taxa, typeof(decimal?));
+			info.AddValue("Codigo", this.Codigo, typeof(int));
+			info.AddValue("Entrada", this.Entrada, typeof(int));
+			info.AddValue("Estoque", this.Estoque, typeof(int));
+			info.AddValue("Data_entrada", this.Data_entrada, typeof(DateTime?));
 			CustomizeSerializationProcess(info, context);
 		}
 		

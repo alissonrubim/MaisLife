@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Usuários";
+    var users = (List<MaisLifeModel.Usuario>)ViewBag.Users;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="upper-menu">
+    <ul class="list-group">
+        <li class="list-group-item disabled" data-id="item-edit">
+            <a href="#"><span class="fa fa-edit" aria-hidden="true"></span></a>
+        </li>
+        <li class="list-group-item disabled" data-id="item-remove">
+            <a href="#"><span class="fa fa-remove" aria-hidden="true"></span></a>
+        </li>
+    </ul>
+</div>
+<div id="patnerForm" class="container admin-page patner-page">
+    <div class="page-header">
+        <h3>Inserir Usuário</h3>
+    </div>
+    @Html.Partial("Partials/_UserAdd")
+</div>
+<div id="patnerTable" class="container admin-page patner-page">
+    <div class="page-header">
+        <h1>Usuários <small class="right">Gerenciamento (@users.Count)</small></h1>
+    </div>
+    @Html.Partial("Partials/_UserTable", users)
+    @using (Ajax.BeginForm("RemoveItem", "Parceiro", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace
+    }, new { name = "item-remove" }))
+    {
+
+    }
+
+    @using (Ajax.BeginForm("SendItemToEdit", "Parceiro", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace
+    }, new { name = "item-edit" }))
+    {
+
+    }
+
+</div>
+<div class="fade-io" data-id="fade-remove">
+    <div class="panel panel-default confirm-panel">
+        <div class="panel-heading">
+            Você tem certeza que deseja remover este(s) usuário(s)?
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-danger" data-id="confirm-panel-yes">Remover</button>
+            <button class="btn btn-default" data-id="confirm-panel-close">Fechar</button>
+        </div>
+    </div>
+</div>
+
+
