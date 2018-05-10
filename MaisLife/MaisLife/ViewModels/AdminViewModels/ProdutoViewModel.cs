@@ -12,7 +12,7 @@ namespace MaisLife.ViewModels.AdminViewModels
     public class ProdutoViewModel{
 
         public HttpRequestBase Request { get; set; }
-        public Produto Produto { get; set; }
+        public produto Produto { get; set; }
 
         public ProdutoViewModel(HttpRequestBase r) {
             this.Request = r;
@@ -26,23 +26,23 @@ namespace MaisLife.ViewModels.AdminViewModels
 
         public void ProdutoCreateOrEdit() {           
             
-            if (this.Produto.Id > 0)
+            if (this.Produto.id > 0)
             {  
 
                 var newProduct = this.Produto;
-                this.Produto = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == this.Produto.Id);
+                this.Produto = MaisLifeModel.DatabaseContext.Model.produto.FirstOrDefault(f => f.id == this.Produto.id);
                 
-                foreach (var rel in this.Produto.Produto_bairros)
+                foreach (var rel in this.Produto.produto_bairro)
                 {
-                    MaisLifeModel.DatabaseContext.Model.Produto_bairro.Remove(rel);
+                    MaisLifeModel.DatabaseContext.Model.produto_bairro.Remove(rel);
                 }
 
-                this.Produto.Nome = newProduct.Nome;
-                this.Produto.Descricao = newProduct.Descricao;
-                this.Produto.Preco = newProduct.Preco;
-                this.Produto.Unidade = newProduct.Unidade;
-                this.Produto.Imagem = newProduct.Imagem;
-                this.Produto.Dias_entrega = newProduct.Dias_entrega;
+                this.Produto.nome = newProduct.nome;
+                this.Produto.descricao = newProduct.descricao;
+                this.Produto.preco = newProduct.preco;
+                this.Produto.unidade = newProduct.unidade;
+                this.Produto.imagem = newProduct.imagem;
+                this.Produto.dias_entrega = newProduct.dias_entrega;
             }
 
             var fr = new FastRequest(this.Request);
@@ -50,25 +50,25 @@ namespace MaisLife.ViewModels.AdminViewModels
             var amount = fr.ToInt("delivery-amount");
             if (amount > 0)
             {
-                this.Produto.Produto_bairros = new List<Produto_bairro>();
+                this.Produto.produto_bairro = new List<produto_bairro>();
                 for (var i = 1; i <= amount; i++)
                 {
                     var local = fr.ToInt("delivery-local-" + i);
                     var tax = fr.ToDecimal("delivery-tax-" + i);
 
-                    var rel = new Produto_bairro()
+                    var rel = new produto_bairro()
                     {
-                        Bairro1 = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(b => b.Id == local),
-                        Produto1 = this.Produto,
-                        Taxa = tax
+                        bairro1 = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(b => b.id == local),
+                        produto1 = this.Produto,
+                        taxa = tax
                     };
 
-                    this.Produto.Produto_bairros.Add(rel);
+                    this.Produto.produto_bairro.Add(rel);
 
                 }
             }      
 
-            MaisLifeModel.DatabaseContext.Model.Produto.Add(this.Produto);
+            MaisLifeModel.DatabaseContext.Model.produto.Add(this.Produto);
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -81,8 +81,8 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(p => p.Id == id);
-                MaisLifeModel.DatabaseContext.Model.Produto.Remove(product);
+                var product = MaisLifeModel.DatabaseContext.Model.produto.FirstOrDefault(p => p.id == id);
+                MaisLifeModel.DatabaseContext.Model.produto.Remove(product);
             }
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)

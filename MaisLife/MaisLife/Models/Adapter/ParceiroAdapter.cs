@@ -28,31 +28,31 @@ namespace MaisLife.Models.Adapter
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
         public string Imagem { get; set; }
 
-        public Parceiro ToParceiro()
+        public parceiro ToParceiro()
         {
-            return new Parceiro()
+            return new parceiro()
             {               
-                Id = this.Id,
-                Nome = this.Nome,
-                Enderec = this.Endereco,
-                Telefone = this.Telefone,
-                Site = this.Site,
-                Facebook = this.Facebook,
-                Imagem = this.Imagem
+                id = this.Id,
+                nome = this.Nome,
+                enderec = this.Endereco,
+                telefone = this.Telefone,
+                site = this.Site,
+                facebook = this.Facebook,
+                imagem = this.Imagem
             };
         }
 
-        public ParceiroAdapter ToParceiroAdapter(Parceiro patner)
+        public ParceiroAdapter ToParceiroAdapter(parceiro patner)
         {
             return new ParceiroAdapter()
             {
-                Id = patner.Id,
-                Nome = patner.Nome,
-                Endereco = patner.Enderec,
-                Telefone = patner.Telefone,
-                Site = patner.Site,
-                Facebook = patner.Facebook,
-                Imagem = patner.Imagem
+                Id = patner.id,
+                Nome = patner.nome,
+                Endereco = patner.enderec,
+                Telefone = patner.telefone,
+                Site = patner.site,
+                Facebook = patner.facebook,
+                Imagem = patner.imagem
             };
         }
 

@@ -16,11 +16,11 @@ namespace MaisLife.Controllers.Admin
             var viewmodel = new VendaViewModel(Request);
             ViewBag.Orders = viewmodel.DoSearch(0);
 
-            ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Permissao >= 1).ToList();
-            ViewBag.Clients = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Permissao == 0 && w.Id > 1).ToList();
-            ViewBag.OutsideClients = MaisLifeModel.DatabaseContext.Model.Usuario_externo.ToList();
-            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
-            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
+            ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.usuario.Where(w => w.permissao >= 1).ToList();
+            ViewBag.Clients = MaisLifeModel.DatabaseContext.Model.usuario.Where(w => w.permissao == 0 && w.id > 1).ToList();
+            ViewBag.OutsideClients = MaisLifeModel.DatabaseContext.Model.usuario_externo.ToList();
+            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.produto.ToList();
+            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.bairro.ToList();
             return View();
         }
 
@@ -29,17 +29,17 @@ namespace MaisLife.Controllers.Admin
             var viewmodel = new VendaViewModel(Request);
             ViewBag.Orders = viewmodel.DoSearch(1);
 
-            ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Permissao >= 1).ToList();
-            ViewBag.Clients = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Permissao == 0 && w.Id > 1).ToList();
-            ViewBag.OutsideClients = MaisLifeModel.DatabaseContext.Model.Usuario_externo.ToList();
-            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
-            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
+            ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.usuario.Where(w => w.permissao >= 1).ToList();
+            ViewBag.Clients = MaisLifeModel.DatabaseContext.Model.usuario.Where(w => w.permissao == 0 && w.id > 1).ToList();
+            ViewBag.OutsideClients = MaisLifeModel.DatabaseContext.Model.usuario_externo.ToList();
+            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.produto.ToList();
+            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.bairro.ToList();
             
             return View("Index");
         }
 
         public ActionResult ProfileView(int id) {
-            var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(w => w.Id == id);
+            var order = MaisLifeModel.DatabaseContext.Model.pedido.FirstOrDefault(w => w.id == id);
             return View(order);
         }
     }

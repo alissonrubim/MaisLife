@@ -14,10 +14,10 @@ namespace MaisLife.Controllers.Admin
         // GET: Usuario
         public ActionResult Index(int id = 0)
         {
-            ViewBag.Users = MaisLifeModel.DatabaseContext.Model.Usuario.ToList();
+            ViewBag.Users = MaisLifeModel.DatabaseContext.Model.usuario.ToList();
             if (id > 0)
             {
-                var user = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == id);
+                var user = MaisLifeModel.DatabaseContext.Model.usuario.FirstOrDefault(f => f.id == id);
                 var adapter = new UsuarioAdapter().ToUsuarioAdapter(user);
                 return View(adapter);
             }

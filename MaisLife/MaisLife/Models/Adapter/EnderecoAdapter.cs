@@ -28,34 +28,34 @@ namespace MaisLife.Models.Adapter
         public string Numero { get; set; }        
         public string Cep { get; set; }
 
-        public Endereco ToEndereco()
+        public endereco ToEndereco()
         {            
-            return new Endereco(){
-                Id = this.Id,
-                Usuario = this.Usuario,
-                Pais = this.Pais,
-                Estado = this.Estado,
-                Cidade = this.Cidade,
-                Bairro1 = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome == this.Bairro),
-                Rua = this.Rua,
-                Numero = this.Numero,
-                Cep = this.Cep
+            return new endereco(){
+                id = this.Id,
+                usuario = this.Usuario,
+                pais = this.Pais,
+                estado = this.Estado,
+                cidade = this.Cidade,
+                bairro1 = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(f => f.nome == this.Bairro),
+                rua = this.Rua,
+                numero = this.Numero,
+                cep = this.Cep
             };
         }
 
-        public EnderecoAdapter ToEnderecoAdapter(Endereco endereco)
+        public EnderecoAdapter ToEnderecoAdapter(endereco endereco)
         {
             return new EnderecoAdapter()
             {
-                Id = endereco.Id,
-                Usuario = (int) endereco.Usuario,
-                Pais = endereco.Pais,
-                Estado = endereco.Estado,
-                Cidade = endereco.Cidade,
-                Bairro = endereco.Bairro1.Nome,
-                Rua = endereco.Rua,
-                Numero = endereco.Numero,
-                Cep = endereco.Cep
+                Id = endereco.id,
+                Usuario = (int) endereco.usuario,
+                Pais = endereco.pais,
+                Estado = endereco.estado,
+                Cidade = endereco.cidade,
+                Bairro = endereco.bairro1.nome,
+                Rua = endereco.rua,
+                Numero = endereco.numero,
+                Cep = endereco.cep
             };
         }
 

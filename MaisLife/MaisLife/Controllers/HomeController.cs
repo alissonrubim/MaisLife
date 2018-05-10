@@ -19,19 +19,19 @@ namespace MaisLife.Controllers
         public ActionResult Index()
         {            
             Injections.LayoutInjection(this);
-            ViewBag.patners = MaisLifeModel.DatabaseContext.Model.Parceiro.ToList();
+            ViewBag.patners = MaisLifeModel.DatabaseContext.Model.parceiro.ToList();
 
-            var products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
+            var products = MaisLifeModel.DatabaseContext.Model.produto.ToList();
             
-            var slideProducts = new List<List<Produto>>();
+            var slideProducts = new List<List<produto>>();
             var count = 0;
             var total = 0;
 
-            var x = new List<Produto>();
+            var x = new List<produto>();
             
             foreach (var product in products) {
                 if (count == 0) {
-                    x = new List<Produto>();
+                    x = new List<produto>();
                 }
 
                 x.Add(product);
@@ -39,7 +39,7 @@ namespace MaisLife.Controllers
                 count++;
                 total++;
 
-                if (count == 3 || total == products.Count)
+                if (count == 3 || total == products.Count())
                 {
                     slideProducts.Add(x);
                     count = 0;
@@ -53,7 +53,7 @@ namespace MaisLife.Controllers
 
         public ActionResult Produtos()
         {           
-            var products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
+            var products = MaisLifeModel.DatabaseContext.Model.produto.ToList();
             ViewBag.Products = products;
             Injections.LayoutInjection(this);
             return View();
@@ -61,8 +61,8 @@ namespace MaisLife.Controllers
 
         public ActionResult Produto(int id)
         {           
-            var products = MaisLifeModel.DatabaseContext.Model.Produto;
-            var product = products.FirstOrDefault(f => f.Id == id);
+            var products = MaisLifeModel.DatabaseContext.Model.produto;
+            var product = products.FirstOrDefault(f => f.id == id);
             if (product != null)
             {
                 ViewBag.Products = products.ToList();
@@ -79,53 +79,53 @@ namespace MaisLife.Controllers
             // CHECAMOS DE FOI PASSADO ALGUM PRODUTO PARA A PÁGINA
             if (id > 0)
             {
-                var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == id);
+                var product = MaisLifeModel.DatabaseContext.Model.produto.FirstOrDefault(f => f.id == id);
                 // CHECAMOS DE O PRODUTO PASSADO EXISTE
                 if (product != null)
                 {
-                    Usuario user = (Usuario)HttpContext.Session["user"];
+                    usuario user = (usuario)HttpContext.Session["user"];
                     // CHECAMOS DE HÁ ALGUM USUÁRIO LOGADO
                     if (user != null)
                     {
-                        Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                        carrinho cart = user.carrinho.FirstOrDefault(f => f.status == "Ativo");
                         // CHECAMOS SE HÁ ALGUM CARRINHO ATIVO
                         if (cart == null)
                         {
-                            cart = new Carrinho()
+                            cart = new carrinho()
                             {
-                                Usuario1 = user,
-                                Status = "Ativo"
+                                usuario1 = user,
+                                status = "Ativo"
                             };
 
-                            MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                            MaisLifeModel.DatabaseContext.Model.carrinho.Add(cart);
                             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
                         }
                         
-                        Carrinho_produto rel = cart.checkProduct(product);
+                        carrinho_produto rel = cart.checkProduct(product);
                         // CHECAMOS SE O PRODUTO JÁ ESTÁ NO CARRINHO
                         if (rel == null)
                         {
-                            rel = new Carrinho_produto()
+                            rel = new carrinho_produto()
                             {
-                                Produto1 = product,
-                                Carrinho1 = cart,
-                                Quantidade = 1
+                                produto1 = product,
+                                carrinho1 = cart,
+                                quantidade = 1
                             };
                         }
                         else
-                            rel.Quantidade++;
+                            rel.quantidade++;
 
                         // SALVA/EDITA RELAÇÃO NO BANCO DE DADOS
-                        MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(rel);
+                        MaisLifeModel.DatabaseContext.Model.carrinho_produto.Add(rel);
                         //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                             MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                     }
                     else
                     {
-                        Produto produto = new Produto(){
-                            Id = id
+                        produto produto = new produto(){
+                            id = id
                         };
 
                         Sessions.AddProductInShoppingCart(produto);                        
@@ -135,20 +135,20 @@ namespace MaisLife.Controllers
             }
             else
             {
-                Usuario user = (Usuario)HttpContext.Session["user"];
+                usuario user = (usuario)HttpContext.Session["user"];
                  // CHECAMOS DE HÁ ALGUM USUÁRIO LOGADO
                 if (user != null)
                 {
-                    Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                    carrinho cart = user.carrinho.FirstOrDefault(f => f.status == "Ativo");
                     if (cart == null)
                     {
-                        cart = new Carrinho()
+                        cart = new carrinho()
                         {
-                            Usuario1 = user,
-                            Status = "Ativo"
+                            usuario1 = user,
+                            status = "Ativo"
                         };
 
-                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                        MaisLifeModel.DatabaseContext.Model.carrinho.Add(cart);
                         //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                             MaisLifeModel.DatabaseContext.Model.SaveChanges();
                     }
@@ -162,10 +162,10 @@ namespace MaisLife.Controllers
 
             if ( local != 0 )
             {
-                ViewBag.Local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Id == local); ;
+                ViewBag.Local = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(f => f.id == local); ;
             }
 
-            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
+            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.bairro.ToList();
 
             Injections.LayoutInjection(this);
             return View();
@@ -178,9 +178,9 @@ namespace MaisLife.Controllers
 
             if (amount > 0)
             {
-                Usuario user = (Usuario)HttpContext.Session["user"];
+                usuario user = (usuario)HttpContext.Session["user"];
                 if (user != null) {
-                    Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                    carrinho cart = user.carrinho.FirstOrDefault(f => f.status == "Ativo");
                     if (cart != null)
                     {
                         for (var i = 1; i <= amount; i++)
@@ -188,19 +188,19 @@ namespace MaisLife.Controllers
                             var qtd = Convert.ToInt32(Request.Form["qtd-" + i]);
                             var id = Convert.ToInt32(Request.Form["hidden-" + i]);
 
-                            var rel = cart.Carrinho_produtos.FirstOrDefault(f => f.Id == id);
-                            rel.Quantidade = qtd;
+                            var rel = cart.carrinho_produto.FirstOrDefault(f => f.id == id);
+                            rel.quantidade = qtd;
 
-                            if (rel.Quantidade <= 0)
+                            if (rel.quantidade <= 0)
                             {
-                                cart.Carrinho_produtos.Remove(rel);
-                                MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Remove(rel);
+                                cart.carrinho_produto.Remove(rel);
+                                MaisLifeModel.DatabaseContext.Model.carrinho_produto.Remove(rel);
                                // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                                     MaisLifeModel.DatabaseContext.Model.SaveChanges();
                             }
                         }
 
-                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                        MaisLifeModel.DatabaseContext.Model.carrinho.Add(cart);
                        // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                             MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
@@ -226,7 +226,7 @@ namespace MaisLife.Controllers
 
         public ActionResult EnderecoEPagamento() 
         {
-            Usuario user = (Usuario)HttpContext.Session["user"];
+            usuario user = (usuario)HttpContext.Session["user"];
             if(user != null)
             {
                 Injections.LayoutInjection(this);
@@ -240,35 +240,35 @@ namespace MaisLife.Controllers
         {           
             try { 
                 var id = Convert.ToInt32(Request.Form["address"]);
-                Endereco address = MaisLifeModel.DatabaseContext.Model.Endereco.FirstOrDefault(f => f.Id == id);
+                endereco address = MaisLifeModel.DatabaseContext.Model.endereco.FirstOrDefault(f => f.id == id);
                 if (address != null)
                 {
-                    Usuario user = (Usuario)HttpContext.Session["user"];
-                    Carrinho cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+                    usuario user = (usuario)HttpContext.Session["user"];
+                    carrinho cart = user.carrinho.FirstOrDefault(f => f.status == "Ativo");
                     
 
                     var metodo = Request.Form["payMethod"];                                    
                     var payValue = Convert.ToDecimal(Request.Form["payValue"]);
-                    if (payValue < cart.Total(address.Bairro1.Taxa) && metodo == "Dinheiro")
+                    if (payValue < cart.Total(address.bairro1.taxa) && metodo == "Dinheiro")
                     {
                         TempData["Error"] = "Valor digitado é menor que o valor total da compra.";
                         return RedirectToAction("EnderecoEPagamento", "Home");
                     }
                     else
                     {
-                        Pedido order = new Pedido()
+                        pedido order = new pedido()
                         {
-                            Usuario1 = user,
-                            Valor = cart.Total(address.Bairro1.Taxa),
-                            Carrinho1 = cart,
-                            Endereco1 = address,
-                            Pago = payValue,
-                            Metodo = metodo,
-                            Status = "Em aberto",
-                            Data = DateTime.Now,
-                            Tipo = "Venda",
-                            Origem = "Site",
-                            Desconto = 0                            
+                            usuario1 = user,
+                            valor = cart.Total(address.bairro1.taxa),
+                            carrinho1 = cart,
+                            endereco1 = address,
+                            pago = payValue,
+                            metodo = metodo,
+                            status = "Em aberto",
+                            data = DateTime.Now,
+                            tipo = "Venda",
+                            origem = "Site",
+                            desconto = 0                            
                         };
 
                         if (metodo == "Prazo")
@@ -280,24 +280,24 @@ namespace MaisLife.Controllers
                                 return RedirectToAction("EnderecoEPagamento", "Home");
                             }
                             else {
-                                order.Parcelas = parcels;
+                                order.parcelas = parcels;
                             }
                         }  
 
-                        order.Previsao_entrega = Helper.CalculateShipping.findShippingDate(order);
+                        order.previsao_entrega = Helper.CalculateShipping.findShippingDate(order);
 
-                        MaisLifeModel.DatabaseContext.Model.Pedido.Add(order);
+                        MaisLifeModel.DatabaseContext.Model.pedido.Add(order);
 
-                        cart.Status = "Fechado";
-                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                        cart.status = "Fechado";
+                        MaisLifeModel.DatabaseContext.Model.carrinho.Add(cart);
 
-                        Carrinho newCart = new Carrinho()
+                        carrinho newCart = new carrinho()
                         {
-                            Usuario1 = user,
-                            Status = "Ativo"
+                            usuario1 = user,
+                            status = "Ativo"
                         };
 
-                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(newCart);
+                        MaisLifeModel.DatabaseContext.Model.carrinho.Add(newCart);
 
                         //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                             MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -324,11 +324,11 @@ namespace MaisLife.Controllers
         public ActionResult CalcularEntrega(){
 
             var localString = Request.Form["local"];
-            Bairro local = null;
+            bairro local = null;
 
             if (localString != "0" && localString != "")
             {
-                local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome == localString);
+                local = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(f => f.nome == localString);
             }
 
             decimal valueDelivery = CalculateShipping.Calculate(local);
@@ -339,21 +339,21 @@ namespace MaisLife.Controllers
 
         public ActionResult NovoEndereco(EnderecoAdapter endereco)
         {
-            Bairro bairro = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome.ToLower() == endereco.Bairro.ToLower());
+            bairro bairro = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(f => f.nome.ToLower() == endereco.Bairro.ToLower());
             if (bairro != null)
             {
-                Usuario user = (Usuario)HttpContext.Session["user"];
+                usuario user = (usuario)HttpContext.Session["user"];
 
                 if (user != null)
                 {
-                    endereco.Usuario = user.Id;
+                    endereco.Usuario = user.id;
                     endereco.Pais = "Brasil";
                     endereco.Estado = "MG";
 
                     var end = endereco.ToEndereco();
-                    end.Bairro1 = bairro;
+                    end.bairro1 = bairro;
 
-                    MaisLifeModel.DatabaseContext.Model.Endereco.Add(end);
+                    MaisLifeModel.DatabaseContext.Model.endereco.Add(end);
                     //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                         MaisLifeModel.DatabaseContext.Model.SaveChanges();
                 }
@@ -365,7 +365,7 @@ namespace MaisLife.Controllers
 
         public ActionResult CreateContact(ContatoAdapter contato)
         {
-            MaisLifeModel.DatabaseContext.Model.Contato.Add(contato.ToContato());
+            MaisLifeModel.DatabaseContext.Model.contato.Add(contato.ToContato());
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
             //{
                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -378,9 +378,9 @@ namespace MaisLife.Controllers
             if (Validation.ExistingEmailValidation(user))
             {
                 var newUser = user.ToUsuario();
-                newUser.Permissao = 0;
-                newUser.Tipo = "client";
-                MaisLifeModel.DatabaseContext.Model.Usuario.Add(newUser);
+                newUser.permissao = 0;
+                newUser.tipo = "client";
+                MaisLifeModel.DatabaseContext.Model.usuario.Add(newUser);
                 //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                 //{
                     MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -406,17 +406,17 @@ namespace MaisLife.Controllers
                 Sessions.CreateCookie(usuario, false);
 
                 //RECUPERA LISTA DE RELAÇÕES DO COOKIE
-                Carrinho cartCookie = Sessions.FindShoppingCart();
+                carrinho cartCookie = Sessions.FindShoppingCart();
 
-                if (cartCookie != null && cartCookie.Carrinho_produtos.Count() > 0)
+                if (cartCookie != null && cartCookie.carrinho_produto.Count() > 0)
                 {
                     //RECUPERA CARRINHO BD
-                    Carrinho cartBd = usuario.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
-                    List<Carrinho_produto> relCartCookie = cartCookie.Carrinho_produtos.ToList();
+                    carrinho cartBd = usuario.carrinho.FirstOrDefault(f => f.status == "Ativo");
+                    List<carrinho_produto> relCartCookie = cartCookie.carrinho_produto.ToList();
 
                     //PASSANDO DADOS RELAÇÃO BD PARA LISTA AXU
-                    List<Carrinho_produto> relCartAxu = new List<Carrinho_produto>();
-                    foreach (Carrinho_produto relCokie in relCartCookie)
+                    List<carrinho_produto> relCartAxu = new List<carrinho_produto>();
+                    foreach (carrinho_produto relCokie in relCartCookie)
                     {
                         relCartAxu.Add(relCokie);
                     }
@@ -424,20 +424,20 @@ namespace MaisLife.Controllers
                     if (cartBd != null)
                     {
                         //LISTA COM RELAÇOES DO BD
-                        List<Carrinho_produto> relCartBd = cartBd.Carrinho_produtos.ToList();
+                        List<carrinho_produto> relCartBd = cartBd.carrinho_produto.ToList();
 
                         //PERCORRE AS DUAS LSITAS PROCURANDO POR PRODUTOS IGUAIS
-                        foreach (Carrinho_produto relacaoCookie in relCartCookie)
+                        foreach (carrinho_produto relacaoCookie in relCartCookie)
                         {
-                            foreach (Carrinho_produto relacaoBd in relCartBd)
+                            foreach (carrinho_produto relacaoBd in relCartBd)
                             {
                                 // SE É =
-                                if (relacaoCookie.Produto1.Id == relacaoBd.Produto1.Id)
+                                if (relacaoCookie.produto1.id == relacaoBd.produto1.id)
                                 {
                                     //REMOVE DA LISTA AUXILIAR
                                     relCartAxu.Remove(relacaoCookie);
                                     //MDA JUNTA AS QUANTIDADES
-                                    relacaoBd.Quantidade += relacaoCookie.Quantidade;
+                                    relacaoBd.quantidade += relacaoCookie.quantidade;
                                     
                                     //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                                         MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -451,11 +451,11 @@ namespace MaisLife.Controllers
                         //INSERE COMO NOVO PRODUTO OS QUE NÃO FORAM ENCONTRADOS NA RELAÇÃO EXISTENTE
                         if (relCartAxu.Count > 0)
                         {
-                            foreach (Carrinho_produto cp in relCartAxu)
+                            foreach (carrinho_produto cp in relCartAxu)
                             {
-                                cp.Carrinho1 = cartBd;
+                                cp.carrinho1 = cartBd;
 
-                                MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(cp);
+                                MaisLifeModel.DatabaseContext.Model.carrinho_produto.Add(cp);
 
                                 //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                                     MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -465,26 +465,26 @@ namespace MaisLife.Controllers
                     //CRIA E INSERE UM CARRINHO CASO NÃO EXISTA
                     else
                     {
-                        cartBd = new Carrinho()
+                        cartBd = new carrinho()
                         {
-                            Usuario1 = usuario,
-                            Status = "Ativo"
+                            usuario1 = usuario,
+                            status = "Ativo"
                         };
 
-                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cartBd);
+                        MaisLifeModel.DatabaseContext.Model.carrinho.Add(cartBd);
 
                        // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                             MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                         //BUSCA CARRINHO INSERIDO
-                        Carrinho cartInserted = MaisLifeModel.DatabaseContext.Model.Carrinho.FirstOrDefault(f => f.Usuario1.Id == usuario.Id && f.Status == "Ativo");
+                        carrinho cartInserted = MaisLifeModel.DatabaseContext.Model.carrinho.FirstOrDefault(f => f.usuario1.id == usuario.id && f.status == "Ativo");
 
                         //SETA CARRINHO DAS RELAÇÕES E INSERE RELAÇÃO
-                        foreach (Carrinho_produto cp in relCartCookie)
+                        foreach (carrinho_produto cp in relCartCookie)
                         {
-                            cp.Carrinho1 = cartInserted;
+                            cp.carrinho1 = cartInserted;
 
-                            MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(cp);
+                            MaisLifeModel.DatabaseContext.Model.carrinho_produto.Add(cp);
 
                            // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -514,7 +514,7 @@ namespace MaisLife.Controllers
         {
             Injections.LayoutInjection(this);
             
-            Usuario user = (Usuario)HttpContext.Session["user"];
+            usuario user = (usuario)HttpContext.Session["user"];
             if (user == null)
             {
                 return RedirectToAction("Index");
@@ -527,7 +527,7 @@ namespace MaisLife.Controllers
         }
 
         public string AjaxUse_Shipping(int id) { 
-            var local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Id == id);
+            var local = MaisLifeModel.DatabaseContext.Model.bairro.FirstOrDefault(f => f.id == id);
 
             var shippingValue = Helper.CalculateShipping.Calculate(local);
 

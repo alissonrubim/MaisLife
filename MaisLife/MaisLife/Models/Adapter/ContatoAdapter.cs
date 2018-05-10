@@ -29,29 +29,29 @@ namespace MaisLife.Models.Adapter
         [DataType(DataType.MultilineText)]
         public string Mensagem { get; set; }
 
-        public Contato ToContato()
+        public contato ToContato()
         {
-            return new Contato()
+            return new contato()
             {
-                Id = this.Id,
-                Nome = this.Nome,
-                Assunto = this.Assunto,
-                Email = this.Email,
-                Telefone = this.Telefone,
-                Mensagem = this.Mensagem
+                id = this.Id,
+                nome = this.Nome,
+                assunto = this.Assunto,
+                email = this.Email,
+                telefone = this.Telefone,
+                mensagem = this.Mensagem
             };
         }
 
-        public ContatoAdapter ToContatoAdapter(Contato contato)
+        public ContatoAdapter ToContatoAdapter(contato contato)
         {
             return new ContatoAdapter()
             {
-                Id = contato.Id,
-                Nome = contato.Nome,
-                Assunto = contato.Assunto,
-                Email = contato.Email,
-                Telefone = contato.Telefone,
-                Mensagem = contato.Mensagem
+                Id = contato.id,
+                Nome = contato.nome,
+                Assunto = contato.assunto,
+                Email = contato.email,
+                Telefone = contato.telefone,
+                Mensagem = contato.mensagem
             };
         }
     }

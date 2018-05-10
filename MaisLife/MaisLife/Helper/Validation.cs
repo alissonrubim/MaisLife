@@ -10,16 +10,16 @@ namespace MaisLife.Helper
 {
     public class Validation
     {
-        public static Usuario ValidationLogin(UsuarioAdapter u)
+        public static usuario ValidationLogin(UsuarioAdapter u)
         {
-            var user = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == u.Email && f.Senha == u.Senha).FirstOrDefault();
+            var user = MaisLifeModel.DatabaseContext.Model.usuario.Where(f => f.email == u.Email && f.senha == u.Senha).FirstOrDefault();
 
             return user;
         }
 
         public static bool ExistingEmailValidation(UsuarioAdapter u)
         {
-            var user = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == u.Email).FirstOrDefault();
+            var user = MaisLifeModel.DatabaseContext.Model.usuario.Where(f => f.email == u.Email).FirstOrDefault();
 
             if (user == null)
                 return true;

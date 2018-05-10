@@ -12,7 +12,7 @@ namespace MaisLife.ViewModels.AdminViewModels
     public class UsuarioViewModel{
 
         public HttpRequestBase Request { get; set; }
-        public Usuario Usuario { get; set; }
+        public usuario Usuario { get; set; }
 
         public UsuarioViewModel(HttpRequestBase r) {
             this.Request = r;
@@ -26,33 +26,33 @@ namespace MaisLife.ViewModels.AdminViewModels
 
         public void UsuarioCreateOrEdit() {
 
-            if (this.Usuario.Id > 0) {
+            if (this.Usuario.id > 0) {
 
                 var newUser = this.Usuario;
-                this.Usuario = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == this.Usuario.Id);
+                this.Usuario = MaisLifeModel.DatabaseContext.Model.usuario.FirstOrDefault(f => f.id == this.Usuario.id);
 
-                this.Usuario.Nome = newUser.Nome;
-                this.Usuario.Sobrenome = newUser.Sobrenome;
-                this.Usuario.Email = newUser.Email;
-                this.Usuario.Senha = newUser.Senha;
-                this.Usuario.Permissao = newUser.Permissao;
+                this.Usuario.nome = newUser.nome;
+                this.Usuario.sobrenome = newUser.sobrenome;
+                this.Usuario.email = newUser.email;
+                this.Usuario.senha = newUser.senha;
+                this.Usuario.permissao = newUser.permissao;
 
             }
 
-            if (this.Usuario.Permissao == 0)
+            if (this.Usuario.permissao == 0)
             {
-                this.Usuario.Tipo = "Cliente";
+                this.Usuario.tipo = "Cliente";
             }
-            else if (this.Usuario.Permissao == 1)
+            else if (this.Usuario.permissao == 1)
             {
-                this.Usuario.Tipo = "Vendedor";
+                this.Usuario.tipo = "Vendedor";
             }
-            else if (this.Usuario.Permissao == 2)
+            else if (this.Usuario.permissao == 2)
             {
-                this.Usuario.Tipo = "Administrador";
+                this.Usuario.tipo = "Administrador";
             }
 
-            MaisLifeModel.DatabaseContext.Model.Usuario.Add(this.Usuario);
+            MaisLifeModel.DatabaseContext.Model.usuario.Add(this.Usuario);
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
@@ -67,8 +67,8 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var user = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(u => u.Id == id);
-                MaisLifeModel.DatabaseContext.Model.Usuario.Remove(user);
+                var user = MaisLifeModel.DatabaseContext.Model.usuario.FirstOrDefault(u => u.id == id);
+                MaisLifeModel.DatabaseContext.Model.usuario.Remove(user);
             }
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)

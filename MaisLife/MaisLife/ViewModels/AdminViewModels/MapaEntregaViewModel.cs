@@ -12,7 +12,7 @@ namespace MaisLife.ViewModels.AdminViewModels
     public class MapaEntregaViewModel
     {
         public HttpRequestBase Request { get; set; }
-        public Mapaentrega Map { get; set; }
+        public mapaentrega Map { get; set; }
 
         public MapaEntregaViewModel(HttpRequestBase Request)
         {            
@@ -29,42 +29,42 @@ namespace MaisLife.ViewModels.AdminViewModels
         {
             var fr = new FastRequest(this.Request);
 
-            if (this.Map.Id > 0) { 
+            if (this.Map.id > 0) { 
                 var newMap = this.Map;
-                this.Map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == this.Map.Id);
-                this.Map.Observacao = newMap.Observacao;
-                this.Map.Data_entrega = newMap.Data_entrega;
+                this.Map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(f => f.id == this.Map.id);
+                this.Map.observacao = newMap.observacao;
+                this.Map.data_entrega = newMap.data_entrega;
 
-                foreach (var x in this.Map.Mapa_pedidos) {
-                    x.Pedido1.Status = "Em aberto";
+                foreach (var x in this.Map.mapa_pedido) {
+                    x.pedido1.status = "Em aberto";
                 }
                 
-                foreach(Mapa_pedido mp in this.Map.Mapa_pedidos)
-                    MaisLifeModel.DatabaseContext.Model.Mapa_pedido.Remove(mp);
+                foreach(mapa_pedido mp in this.Map.mapa_pedido)
+                    MaisLifeModel.DatabaseContext.Model.mapa_pedido.Remove(mp);
             }
             
-            this.Map.Mapa_pedidos = new List<Mapa_pedido>();
+            this.Map.mapa_pedido = new List<mapa_pedido>();
 
             var orderCount = fr.ToInt("orderCount");
             for (var i = 1; i <= orderCount; i++) {
                 var orderId = fr.ToInt("order-" + i);
-                var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(f => f.Id == orderId);
+                var order = MaisLifeModel.DatabaseContext.Model.pedido.FirstOrDefault(f => f.id == orderId);
 
-                var x = new Mapa_pedido()
+                var x = new mapa_pedido()
                 {
-                    Mapaentrega = this.Map,
-                    Pedido1 = order                    
+                    mapaentrega = this.Map,
+                    pedido1 = order                    
                 };
 
-                order.Status = "Em trânsito";
-                this.Map.Mapa_pedidos.Add(x);
+                order.status = "Em trânsito";
+                this.Map.mapa_pedido.Add(x);
 
             }
 
-            if (this.Map.Observacao == null)
-                this.Map.Observacao = "Nenhuma observação.";
+            if (this.Map.observacao == null)
+                this.Map.observacao = "Nenhuma observação.";
 
-            MaisLifeModel.DatabaseContext.Model.Mapaentrega.Add(this.Map);
+            MaisLifeModel.DatabaseContext.Model.mapaentrega.Add(this.Map);
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
@@ -80,7 +80,7 @@ namespace MaisLife.ViewModels.AdminViewModels
             var fr = new FastRequest(this.Request);
             var id = fr.ToInt("map");
 
-            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == id);
+            var map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(f => f.id == id);
             if (map != null)
                 return id;
             else
@@ -90,13 +90,13 @@ namespace MaisLife.ViewModels.AdminViewModels
         public void DoConfirm() {
             var fr = new FastRequest(this.Request);
             var mapId = fr.ToInt("mapId");
-            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == mapId);
+            var map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(f => f.id == mapId);
 
-            foreach (var x in map.Mapa_pedidos) {
-                x.Pedido1.Status = "Entregue";
+            foreach (var x in map.mapa_pedido) {
+                x.pedido1.status = "Entregue";
             }
 
-            MaisLifeModel.DatabaseContext.Model.Mapaentrega.Remove(map);
+            MaisLifeModel.DatabaseContext.Model.mapaentrega.Remove(map);
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
                 MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
@@ -109,14 +109,14 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(p => p.Id == id);
+                var map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(p => p.id == id);
 
-                foreach (var x in map.Mapa_pedidos)
+                foreach (var x in map.mapa_pedido)
                 {
-                    x.Pedido1.Status = "Em aberto";
+                    x.pedido1.status = "Em aberto";
                 }
 
-                MaisLifeModel.DatabaseContext.Model.Mapaentrega.Remove(map);
+                MaisLifeModel.DatabaseContext.Model.mapaentrega.Remove(map);
             }
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
@@ -125,7 +125,7 @@ namespace MaisLife.ViewModels.AdminViewModels
 
         public MapaAdapter DoPrint(int id)
         {
-            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(p => p.Id == id);
+            var map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(p => p.id == id);
             return new MapaAdapter().ToMapaAdapter(map);
         }
     }

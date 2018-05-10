@@ -14,8 +14,8 @@ namespace MaisLife.Controllers.Admin
         // GET: MapaEntrega
         public ActionResult Index(int id = 0)
         {
-            ViewBag.Maps = MaisLifeModel.DatabaseContext.Model.Mapaentrega.ToList();
-            var orders = MaisLifeModel.DatabaseContext.Model.Pedido.Where(w => w.Status == "Em aberto").OrderBy(w => w.Previsao_entrega).ToList();
+            ViewBag.Maps = MaisLifeModel.DatabaseContext.Model.mapaentrega.ToList();
+            var orders = MaisLifeModel.DatabaseContext.Model.pedido.Where(w => w.status == "Em aberto").OrderBy(w => w.previsao_entrega).ToList();
             var adapters = new List<PedidoAdapter>();
             foreach (var order in orders) {
                 var adapter = new PedidoAdapter().ToPedidoAdapter(order);
@@ -24,7 +24,7 @@ namespace MaisLife.Controllers.Admin
             ViewBag.Orders = adapters;
             if (id > 0)
             {
-                var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == id);
+                var map = MaisLifeModel.DatabaseContext.Model.mapaentrega.FirstOrDefault(f => f.id == id);
                 var adapter = new MapaAdapter().ToMapaAdapter(map);
                 return View(adapter);
             }

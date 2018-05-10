@@ -12,11 +12,11 @@ namespace MaisLife.Helper
 {
     public class Sessions
     {
-        private static Usuario Login(Usuario user)
+        private static usuario Login(usuario user)
         {
             if (user != null)
             {
-                HttpContext.Current.Session["user"] = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == user.Email).FirstOrDefault();
+                HttpContext.Current.Session["user"] = MaisLifeModel.DatabaseContext.Model.usuario.Where(f => f.email == user.email).FirstOrDefault();
             }
             return user;
         }
@@ -27,13 +27,13 @@ namespace MaisLife.Helper
             HttpContext.Current.Request.Cookies.Remove("UserMaisLife");
         }
 
-        public static Usuario CreateCookie(Usuario user, Boolean keep)
+        public static usuario CreateCookie(usuario user, Boolean keep)
         {
             if (user != null)
             {
 
                 HttpCookie cookie = new HttpCookie("UserMaisLife");
-                cookie.Value = user.Email;
+                cookie.Value = user.email;
 
                 //Tempo expiração
                 TimeSpan expiration;
@@ -50,7 +50,7 @@ namespace MaisLife.Helper
             return Login(user);
         }
 
-        public static void AddProductInShoppingCart(Produto produto)
+        public static void AddProductInShoppingCart(produto produto)
         {
             string[] productsString;
             List<string> productsList = new List<string>();
@@ -81,7 +81,7 @@ namespace MaisLife.Helper
                     int idProduct = Convert.ToInt16(aux[0]);
                     int amount = Convert.ToInt16(aux[1]);
 
-                    if (idProduct == produto.Id)
+                    if (idProduct == produto.id)
                     {
                         amount = (amount + 1);
                         productToDelete = p;
@@ -93,7 +93,7 @@ namespace MaisLife.Helper
                 if (!existingProduct)
                 {
                     //ADD NOVO PRODUTO
-                    productsList.Add(produto.Id + ":1");
+                    productsList.Add(produto.id + ":1");
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace MaisLife.Helper
             else
             {
                 //ADD NOVO PRODUTO
-                productsList.Add(produto.Id + ":1");
+                productsList.Add(produto.id + ":1");
             }
 
             //PASSA LISTA PARA STRING
@@ -141,10 +141,10 @@ namespace MaisLife.Helper
             HttpContext.Current.Response.Cookies["shoppingCartMaisLife"].Expires = DateTime.Now.AddDays(-1);
         }
 
-        public static Carrinho FindShoppingCart()
+        public static MaisLifeModel.Models.carrinho FindShoppingCart()
         {
 
-            List<Carrinho_produto> relProducts = new List<Carrinho_produto>();
+            List<carrinho_produto> relProducts = new List<carrinho_produto>();
 
             string[] productsString;
 
@@ -159,20 +159,20 @@ namespace MaisLife.Helper
                    int idProduct = Convert.ToInt16(aux[0]);
                    int amount = Convert.ToInt16(aux[1]);
 
-                   Carrinho_produto relProduct = new Carrinho_produto();
+                   carrinho_produto relProduct = new carrinho_produto();
 
-                   Produto product = MaisLifeModel.DatabaseContext.Model.Produto.Where(f => f.Id == idProduct).First();
-                   relProduct.Produto1 = product;
-                   relProduct.Quantidade = amount;
+                   produto product = MaisLifeModel.DatabaseContext.Model.produto.Where(f => f.id == idProduct).First();
+                   relProduct.produto1 = product;
+                   relProduct.quantidade = amount;
 
                    relProducts.Add(relProduct);
                }
             }
 
-            Carrinho cart = new Carrinho()
+            carrinho cart = new carrinho()
             {
-                Carrinho_produtos = relProducts,
-                Status = "Ativo"
+                carrinho_produto = relProducts,
+                status = "Ativo"
             };
 
             return cart;

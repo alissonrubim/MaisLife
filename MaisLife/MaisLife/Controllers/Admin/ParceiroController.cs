@@ -15,10 +15,10 @@ namespace MaisLife.Controllers.Admin
         // GET: Parceiro
         public ActionResult Index(int id = 0)
         {  
-            ViewBag.Patners = MaisLifeModel.DatabaseContext.Model.Parceiro.ToList();
+            ViewBag.Patners = MaisLifeModel.DatabaseContext.Model.parceiro.ToList();
             
             if (id > 0) {
-                var patner = MaisLifeModel.DatabaseContext.Model.Parceiro.FirstOrDefault(p => p.Id == id);
+                var patner = MaisLifeModel.DatabaseContext.Model.parceiro.FirstOrDefault(p => p.id == id);
                 var adapter = new ParceiroAdapter().ToParceiroAdapter(patner);
                 return View(adapter);
             }else{

@@ -13,7 +13,7 @@ namespace MaisLife.ViewModels.AdminViewModels
     public class ParceiroViewModel{
 
         public HttpRequestBase Request { get; set; }
-        public Parceiro Parceiro { get; set; }
+        public parceiro Parceiro { get; set; }
 
         public ParceiroViewModel(HttpRequestBase r) {
             this.Request = r;
@@ -27,21 +27,21 @@ namespace MaisLife.ViewModels.AdminViewModels
 
         public void ParceiroCreateOrEdit() {
 
-            if (this.Parceiro.Id == 0)
+            if (this.Parceiro.id == 0)
             {
-                MaisLifeModel.DatabaseContext.Model.Parceiro.Add(this.Parceiro);
+                MaisLifeModel.DatabaseContext.Model.parceiro.Add(this.Parceiro);
             }
             else
             {
                 var newPatner = this.Parceiro;
-                this.Parceiro = MaisLifeModel.DatabaseContext.Model.Parceiro.FirstOrDefault(f => f.Id == this.Parceiro.Id);
-                this.Parceiro.Nome = newPatner.Nome;
-                this.Parceiro.Enderec = newPatner.Enderec;
-                this.Parceiro.Telefone = newPatner.Telefone;
-                this.Parceiro.Site = newPatner.Site;
-                this.Parceiro.Facebook = newPatner.Facebook;
-                this.Parceiro.Imagem = newPatner.Imagem;
-                MaisLifeModel.DatabaseContext.Model.Parceiro.Add(this.Parceiro);
+                this.Parceiro = MaisLifeModel.DatabaseContext.Model.parceiro.FirstOrDefault(f => f.id == this.Parceiro.id);
+                this.Parceiro.nome = newPatner.nome;
+                this.Parceiro.enderec = newPatner.enderec;
+                this.Parceiro.telefone = newPatner.telefone;
+                this.Parceiro.site = newPatner.site;
+                this.Parceiro.facebook = newPatner.facebook;
+                this.Parceiro.imagem = newPatner.imagem;
+                MaisLifeModel.DatabaseContext.Model.parceiro.Add(this.Parceiro);
             }
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
@@ -56,8 +56,8 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var patner = MaisLifeModel.DatabaseContext.Model.Parceiro.FirstOrDefault(p => p.Id == id);
-                MaisLifeModel.DatabaseContext.Model.Parceiro.Remove(patner);
+                var patner = MaisLifeModel.DatabaseContext.Model.parceiro.FirstOrDefault(p => p.id == id);
+                MaisLifeModel.DatabaseContext.Model.parceiro.Remove(patner);
             }
 
             //if (MaisLifeModel.DatabaseContext.Model.HasChanges)

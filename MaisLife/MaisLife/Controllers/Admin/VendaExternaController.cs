@@ -59,14 +59,14 @@ namespace MaisLife.Controllers.Admin
         public string AjaxUse_ClientsQuery()
         {
             var id = Convert.ToInt32(Request.Form["exid"]);
-            var externalUser = MaisLifeModel.DatabaseContext.Model.Usuario_externo.FirstOrDefault(eu => eu.Id == id);
+            var externalUser = MaisLifeModel.DatabaseContext.Model.usuario_externo.FirstOrDefault(eu => eu.id == id);
 
             // ANULAR REFERÊNCIAS
-            externalUser.Endereco1.Bairro1.Enderecos = null;
-            externalUser.Endereco1.Usuario_externos = null;
-            externalUser.Endereco1.Usuario1 = null;
-            externalUser.Pedidos = null;
-            externalUser.Endereco1.Pedidos = null;
+            externalUser.endereco1.bairro1.endereco = null;
+            externalUser.endereco1.usuario_externo = null;
+            externalUser.endereco1.usuario1 = null;
+            externalUser.pedido = null;
+            externalUser.endereco1.pedido = null;
 
             var serializer = new JavaScriptSerializer();
             return serializer.Serialize(externalUser);
@@ -75,11 +75,11 @@ namespace MaisLife.Controllers.Admin
         public string AjaxUse_ProductsQuery()
         {
             var id = Convert.ToInt32(Request.Form["id"]);
-            var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(p => p.Id == id);
+            var product = MaisLifeModel.DatabaseContext.Model.produto.FirstOrDefault(p => p.id == id);
 
             // ANULAR REFERÊNCIAS
-            product.Produto_bairros = null;
-            product.Carrinho_produtos = null;
+            product.produto_bairro = null;
+            product.carrinho_produto = null;
 
             var serializer = new JavaScriptSerializer();
             return serializer.Serialize(product);

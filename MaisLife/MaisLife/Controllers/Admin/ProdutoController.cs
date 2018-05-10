@@ -15,12 +15,12 @@ namespace MaisLife.Controllers.Admin
         // GET: Produto
         public ActionResult Index(int id = 0)
         {
-            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
-            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
+            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.bairro.ToList();
+            ViewBag.Products = MaisLifeModel.DatabaseContext.Model.produto.ToList();
 
             if (id > 0)
             {
-                var produto = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == id);
+                var produto = MaisLifeModel.DatabaseContext.Model.produto.FirstOrDefault(f => f.id == id);
                 var adapter = new ProdutoAdapter().ToProdutoAdapter(produto);
                 return View(adapter);
             }else{

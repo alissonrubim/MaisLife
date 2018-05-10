@@ -12,18 +12,18 @@ namespace MaisLife.Models.Adapter
 
         public int Id { get; set; }
         [Required]
-        public Usuario Usuario { get; set; }
+        public usuario Usuario { get; set; }
         [Required]
-        public Endereco Endereco { get; set; }
+        public endereco Endereco { get; set; }
         [Required]
         public decimal Valor { get; set; }       
         public DateTime Data { get; set; }       
         public string Status { get; set; }
-        public Carrinho Carrinho { get; set; }
+        public carrinho Carrinho { get; set; }
         public decimal Pago { get; set; }
         [Required]
         public string Metodo { get; set; }
-        public Usuario_externo UsuarioExterno { get; set; }
+        public usuario_externo UsuarioExterno { get; set; }
         [Required]
         public string Origem { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -35,50 +35,50 @@ namespace MaisLife.Models.Adapter
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PrevisaoEntrega { get; set; }
 
-        public Pedido ToPedido(){
-             return new Pedido()
+        public pedido ToPedido(){
+             return new pedido()
              {
-                Id = this.Id,
-                Usuario1 = this.Usuario,
-                Endereco1 = this.Endereco,
-                Valor = this.Valor,
-                Data = this.Data,
-                Status = this.Status,
-                Carrinho1 = this.Carrinho,
-                Pago = this.Pago,
-                Metodo = this.Metodo,
-                Usuario_externo1 = this.UsuarioExterno,
-                Origem = this.Origem,
-                Vencimento = this.Vencimento,
-                Tipo = this.Tipo,
-                Parcelas = this.Parcelas,
-                Motivo_troca = this.MotivoTroca,
-                Desconto = this.Desconto,
-                Previsao_entrega = this.PrevisaoEntrega
+                id = this.Id,
+                usuario1 = this.Usuario,
+                endereco1 = this.Endereco,
+                valor = this.Valor,
+                data = this.Data,
+                status = this.Status,
+                carrinho1 = this.Carrinho,
+                pago = this.Pago,
+                metodo = this.Metodo,
+                usuario_externo1 = this.UsuarioExterno,
+                origem = this.Origem,
+                vencimento = this.Vencimento,
+                tipo = this.Tipo,
+                parcelas = this.Parcelas,
+                motivo_troca = this.MotivoTroca,
+                desconto = this.Desconto,
+                previsao_entrega = this.PrevisaoEntrega
              };
         }
 
-        public PedidoAdapter ToPedidoAdapter(Pedido pedido)
+        public PedidoAdapter ToPedidoAdapter(pedido pedido)
         {
             return new PedidoAdapter()
             {
-                Id = pedido.Id,
-                Usuario = pedido.Usuario1,
-                Endereco = pedido.Endereco1,
-                Valor = pedido.Valor,
-                Data = pedido.Data,
-                Status = pedido.Status,
-                Carrinho = pedido.Carrinho1,
-                Pago = pedido.Pago,
-                Metodo = pedido.Metodo,
-                UsuarioExterno = pedido.Usuario_externo1,
-                Origem = pedido.Origem,
-                Vencimento = pedido.Vencimento,
-                Tipo = pedido.Tipo,
-                Parcelas = pedido.Parcelas,
-                MotivoTroca = pedido.Motivo_troca,
-                Desconto = pedido.Desconto,
-                PrevisaoEntrega = (DateTime) pedido.Previsao_entrega
+                Id = pedido.id,
+                Usuario = pedido.usuario1,
+                Endereco = pedido.endereco1,
+                Valor = pedido.valor,
+                Data = pedido.data,
+                Status = pedido.status,
+                Carrinho = pedido.carrinho1,
+                Pago = pedido.pago.Value,
+                Metodo = pedido.metodo,
+                UsuarioExterno = pedido.usuario_externo1,
+                Origem = pedido.origem,
+                Vencimento = pedido.vencimento,
+                Tipo = pedido.tipo,
+                Parcelas = pedido.parcelas,
+                MotivoTroca = pedido.motivo_troca,
+                Desconto = pedido.desconto.Value,
+                PrevisaoEntrega = (DateTime) pedido.previsao_entrega
             };
         }
 

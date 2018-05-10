@@ -1,0 +1,1415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MaislifeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bairro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="255" />
+          <Property Name="taxa" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="carrinho">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="int" />
+          <Property Name="status" Type="enum" />
+        </EntityType>
+        <EntityType Name="carrinho_produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="produto" Type="int" />
+          <Property Name="carrinho" Type="int" />
+          <Property Name="quantidade" Type="int" />
+        </EntityType>
+        <EntityType Name="contato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="45" />
+          <Property Name="assunto" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="telefone" Type="varchar" MaxLength="45" />
+          <Property Name="mensagem" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="devolucao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="tipo" Type="enum" Nullable="false" />
+          <Property Name="cliente" Type="int" Nullable="false" />
+          <Property Name="motivo" Type="text" />
+        </EntityType>
+        <EntityType Name="devolucao_produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="devolucao" Type="int" Nullable="false" />
+          <Property Name="produto" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="int" />
+          <Property Name="pais" Type="varchar" MaxLength="255" />
+          <Property Name="estado" Type="varchar" MaxLength="2" />
+          <Property Name="cidade" Type="varchar" MaxLength="255" />
+          <Property Name="bairro" Type="int" />
+          <Property Name="rua" Type="varchar" MaxLength="255" />
+          <Property Name="numero" Type="varchar" MaxLength="255" />
+          <Property Name="cep" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="entrada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="data" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="fornecedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="entrada_estoque">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="entrada" Type="int" Nullable="false" />
+          <Property Name="estoque" Type="int" Nullable="false" />
+          <Property Name="data_entrada" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="estoque">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="enum" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="razao_social" Type="varchar" MaxLength="45" />
+          <Property Name="documento" Type="varchar" MaxLength="45" />
+          <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="mapa_pedido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mapa" Type="int" Nullable="false" />
+          <Property Name="pedido" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mapaentrega">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="observacao" Type="text" />
+          <Property Name="data_entrega" Type="date" />
+        </EntityType>
+        <EntityType Name="parceiro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="imagem" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="enderec" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="255" />
+          <Property Name="site" Type="varchar" MaxLength="255" />
+          <Property Name="facebook" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="pedido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="enum" />
+          <Property Name="origem" Type="enum" />
+          <Property Name="data" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="metodo" Type="enum" />
+          <Property Name="usuario" Type="int" Nullable="false" />
+          <Property Name="carrinho" Type="int" Nullable="false" />
+          <Property Name="usuario_externo" Type="int" />
+          <Property Name="endereco" Type="int" Nullable="false" />
+          <Property Name="valor" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="status" Type="enum" />
+          <Property Name="pago" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="desconto" Type="int" />
+          <Property Name="parcelas" Type="int" />
+          <Property Name="vencimento" Type="date" />
+          <Property Name="motivo_troca" Type="text" />
+          <Property Name="previsao_entrega" Type="date" />
+        </EntityType>
+        <EntityType Name="produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descricao" Type="text" Nullable="false" />
+          <Property Name="preco" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="imagem" Type="varchar" MaxLength="255" />
+          <Property Name="unidade" Type="int" />
+          <Property Name="dias_entrega" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="produto_bairro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="produto" Type="int" Nullable="false" />
+          <Property Name="bairro" Type="int" Nullable="false" />
+          <Property Name="taxa" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="255" />
+          <Property Name="sobrenome" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="senha" Type="varchar" MaxLength="255" />
+          <Property Name="tipo" Type="enum" />
+          <Property Name="permissao" Type="int" />
+        </EntityType>
+        <EntityType Name="usuario_externo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="documento" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="endereco" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_carrinho_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carrinhoProduto_carrinho">
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho_produto" Type="Self.carrinho_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrinho">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho_produto">
+              <PropertyRef Name="carrinho" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carrinhoProduto_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho_produto" Type="Self.carrinho_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho_produto">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_devolucao_produto_devolucao">
+          <End Role="devolucao" Type="Self.devolucao" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devolucao_produto" Type="Self.devolucao_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devolucao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="devolucao_produto">
+              <PropertyRef Name="devolucao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_devolucao_produto_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devolucao_produto" Type="Self.devolucao_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="devolucao_produto">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_endereco_bairro">
+          <End Role="bairro" Type="Self.bairro" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="endereco" Type="Self.endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bairro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="endereco">
+              <PropertyRef Name="bairro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_endereco_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="endereco" Type="Self.endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="endereco">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_estoque_entrada">
+          <End Role="entrada" Type="Self.entrada" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada_estoque" Type="Self.entrada_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="entrada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada_estoque">
+              <PropertyRef Name="entrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_estoque_estoque">
+          <End Role="estoque" Type="Self.estoque" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada_estoque" Type="Self.entrada_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estoque">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada_estoque">
+              <PropertyRef Name="estoque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_fornecedor">
+          <End Role="fornecedor" Type="Self.fornecedor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada" Type="Self.entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada">
+              <PropertyRef Name="fornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mapa_pedido_mapa">
+          <End Role="mapaentrega" Type="Self.mapaentrega" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mapa_pedido" Type="Self.mapa_pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mapaentrega">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mapa_pedido">
+              <PropertyRef Name="mapa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mapa_pedido_pedido">
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mapa_pedido" Type="Self.mapa_pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mapa_pedido">
+              <PropertyRef Name="pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_carrinho">
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrinho">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="carrinho" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_endereco">
+          <End Role="endereco" Type="Self.endereco" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="endereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_usuario_externo">
+          <End Role="usuario_externo" Type="Self.usuario_externo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario_externo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="usuario_externo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produtoBairro_bairro">
+          <End Role="bairro" Type="Self.bairro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produto_bairro" Type="Self.produto_bairro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bairro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="produto_bairro">
+              <PropertyRef Name="bairro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produtoBairro_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produto_bairro" Type="Self.produto_bairro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="produto_bairro">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioExterno_endereco">
+          <End Role="endereco" Type="Self.endereco" Multiplicity="1" />
+          <End Role="usuario_externo" Type="Self.usuario_externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario_externo">
+              <PropertyRef Name="endereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MaislifeModelStoreContainer">
+          <EntitySet Name="bairro" EntityType="Self.bairro" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="carrinho" EntityType="Self.carrinho" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="carrinho_produto" EntityType="Self.carrinho_produto" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="contato" EntityType="Self.contato" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="devolucao" EntityType="Self.devolucao" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="devolucao_produto" EntityType="Self.devolucao_produto" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="endereco" EntityType="Self.endereco" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="entrada" EntityType="Self.entrada" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="entrada_estoque" EntityType="Self.entrada_estoque" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="estoque" EntityType="Self.estoque" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="mapa_pedido" EntityType="Self.mapa_pedido" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="mapaentrega" EntityType="Self.mapaentrega" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="parceiro" EntityType="Self.parceiro" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="pedido" EntityType="Self.pedido" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="produto" EntityType="Self.produto" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="produto_bairro" EntityType="Self.produto_bairro" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="maislife" store:Type="Tables" />
+          <EntitySet Name="usuario_externo" EntityType="Self.usuario_externo" Schema="maislife" store:Type="Tables" />
+          <AssociationSet Name="fk_carrinho_usuario" Association="Self.fk_carrinho_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="carrinho" EntitySet="carrinho" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carrinhoProduto_carrinho" Association="Self.fk_carrinhoProduto_carrinho">
+            <End Role="carrinho" EntitySet="carrinho" />
+            <End Role="carrinho_produto" EntitySet="carrinho_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carrinhoProduto_produto" Association="Self.fk_carrinhoProduto_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="carrinho_produto" EntitySet="carrinho_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_devolucao_produto_devolucao" Association="Self.fk_devolucao_produto_devolucao">
+            <End Role="devolucao" EntitySet="devolucao" />
+            <End Role="devolucao_produto" EntitySet="devolucao_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_devolucao_produto_produto" Association="Self.fk_devolucao_produto_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="devolucao_produto" EntitySet="devolucao_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_endereco_bairro" Association="Self.fk_endereco_bairro">
+            <End Role="bairro" EntitySet="bairro" />
+            <End Role="endereco" EntitySet="endereco" />
+          </AssociationSet>
+          <AssociationSet Name="fk_endereco_usuario" Association="Self.fk_endereco_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="endereco" EntitySet="endereco" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_estoque_entrada" Association="Self.fk_entrada_estoque_entrada">
+            <End Role="entrada" EntitySet="entrada" />
+            <End Role="entrada_estoque" EntitySet="entrada_estoque" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_estoque_estoque" Association="Self.fk_entrada_estoque_estoque">
+            <End Role="estoque" EntitySet="estoque" />
+            <End Role="entrada_estoque" EntitySet="entrada_estoque" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_fornecedor" Association="Self.fk_entrada_fornecedor">
+            <End Role="fornecedor" EntitySet="fornecedor" />
+            <End Role="entrada" EntitySet="entrada" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mapa_pedido_mapa" Association="Self.fk_mapa_pedido_mapa">
+            <End Role="mapaentrega" EntitySet="mapaentrega" />
+            <End Role="mapa_pedido" EntitySet="mapa_pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mapa_pedido_pedido" Association="Self.fk_mapa_pedido_pedido">
+            <End Role="pedido" EntitySet="pedido" />
+            <End Role="mapa_pedido" EntitySet="mapa_pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_carrinho" Association="Self.fk_pedido_carrinho">
+            <End Role="carrinho" EntitySet="carrinho" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_endereco" Association="Self.fk_pedido_endereco">
+            <End Role="endereco" EntitySet="endereco" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_usuario" Association="Self.fk_pedido_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_usuario_externo" Association="Self.fk_pedido_usuario_externo">
+            <End Role="usuario_externo" EntitySet="usuario_externo" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produtoBairro_bairro" Association="Self.fk_produtoBairro_bairro">
+            <End Role="bairro" EntitySet="bairro" />
+            <End Role="produto_bairro" EntitySet="produto_bairro" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produtoBairro_produto" Association="Self.fk_produtoBairro_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="produto_bairro" EntitySet="produto_bairro" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioExterno_endereco" Association="Self.fk_usuarioExterno_endereco">
+            <End Role="endereco" EntitySet="endereco" />
+            <End Role="usuario_externo" EntitySet="usuario_externo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MaislifeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bairro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="taxa" Type="Decimal" />
+          <NavigationProperty Name="endereco" Relationship="Self.fk_endereco_bairro" FromRole="bairro" ToRole="endereco" />
+          <NavigationProperty Name="produto_bairro" Relationship="Self.fk_produtoBairro_bairro" FromRole="bairro" ToRole="produto_bairro" />
+        </EntityType>
+        <EntityType Name="carrinho">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario1" Relationship="Self.fk_carrinho_usuario" FromRole="carrinho" ToRole="usuario" />
+          <NavigationProperty Name="carrinho_produto" Relationship="Self.fk_carrinhoProduto_carrinho" FromRole="carrinho" ToRole="carrinho_produto" />
+          <NavigationProperty Name="pedido" Relationship="Self.fk_pedido_carrinho" FromRole="carrinho" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="carrinho_produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="produto" Type="Int32" />
+          <Property Name="carrinho" Type="Int32" />
+          <Property Name="quantidade" Type="Int32" />
+          <NavigationProperty Name="carrinho1" Relationship="Self.fk_carrinhoProduto_carrinho" FromRole="carrinho_produto" ToRole="carrinho" />
+          <NavigationProperty Name="produto1" Relationship="Self.fk_carrinhoProduto_produto" FromRole="carrinho_produto" ToRole="produto" />
+        </EntityType>
+        <EntityType Name="contato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="assunto" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="telefone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="mensagem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="devolucao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente" Type="Int32" Nullable="false" />
+          <Property Name="motivo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="devolucao_produto" Relationship="Self.fk_devolucao_produto_devolucao" FromRole="devolucao" ToRole="devolucao_produto" />
+        </EntityType>
+        <EntityType Name="devolucao_produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="devolucao" Type="Int32" Nullable="false" />
+          <Property Name="produto" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="devolucao1" Relationship="Self.fk_devolucao_produto_devolucao" FromRole="devolucao_produto" ToRole="devolucao" />
+          <NavigationProperty Name="produto1" Relationship="Self.fk_devolucao_produto_produto" FromRole="devolucao_produto" ToRole="produto" />
+        </EntityType>
+        <EntityType Name="endereco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="Int32" />
+          <Property Name="pais" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cidade" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bairro" Type="Int32" />
+          <Property Name="rua" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bairro1" Relationship="Self.fk_endereco_bairro" FromRole="endereco" ToRole="bairro" />
+          <NavigationProperty Name="usuario1" Relationship="Self.fk_endereco_usuario" FromRole="endereco" ToRole="usuario" />
+          <NavigationProperty Name="pedido" Relationship="Self.fk_pedido_endereco" FromRole="endereco" ToRole="pedido" />
+          <NavigationProperty Name="usuario_externo" Relationship="Self.fk_usuarioExterno_endereco" FromRole="endereco" ToRole="usuario_externo" />
+        </EntityType>
+        <EntityType Name="entrada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" />
+          <Property Name="fornecedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="entrada_estoque" Relationship="Self.fk_entrada_estoque_entrada" FromRole="entrada" ToRole="entrada_estoque" />
+          <NavigationProperty Name="fornecedor1" Relationship="Self.fk_entrada_fornecedor" FromRole="entrada" ToRole="fornecedor" />
+        </EntityType>
+        <EntityType Name="entrada_estoque">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="entrada" Type="Int32" Nullable="false" />
+          <Property Name="estoque" Type="Int32" Nullable="false" />
+          <Property Name="data_entrada" Type="DateTime" />
+          <NavigationProperty Name="entrada1" Relationship="Self.fk_entrada_estoque_entrada" FromRole="entrada_estoque" ToRole="entrada" />
+          <NavigationProperty Name="estoque1" Relationship="Self.fk_entrada_estoque_estoque" FromRole="entrada_estoque" ToRole="estoque" />
+        </EntityType>
+        <EntityType Name="estoque">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="entrada_estoque" Relationship="Self.fk_entrada_estoque_estoque" FromRole="estoque" ToRole="entrada_estoque" />
+        </EntityType>
+        <EntityType Name="fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="razao_social" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="documento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="entrada" Relationship="Self.fk_entrada_fornecedor" FromRole="fornecedor" ToRole="entrada" />
+        </EntityType>
+        <EntityType Name="mapa_pedido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mapa" Type="Int32" Nullable="false" />
+          <Property Name="pedido" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mapaentrega" Relationship="Self.fk_mapa_pedido_mapa" FromRole="mapa_pedido" ToRole="mapaentrega" />
+          <NavigationProperty Name="pedido1" Relationship="Self.fk_mapa_pedido_pedido" FromRole="mapa_pedido" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="mapaentrega">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="observacao" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="data_entrega" Type="DateTime" />
+          <NavigationProperty Name="mapa_pedido" Relationship="Self.fk_mapa_pedido_mapa" FromRole="mapaentrega" ToRole="mapa_pedido" />
+        </EntityType>
+        <EntityType Name="parceiro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imagem" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enderec" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="facebook" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="pedido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="origem" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" />
+          <Property Name="metodo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
+          <Property Name="carrinho" Type="Int32" Nullable="false" />
+          <Property Name="usuario_externo" Type="Int32" />
+          <Property Name="endereco" Type="Int32" Nullable="false" />
+          <Property Name="valor" Type="Decimal" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="pago" Type="Decimal" />
+          <Property Name="desconto" Type="Int32" />
+          <Property Name="parcelas" Type="Int32" />
+          <Property Name="vencimento" Type="DateTime" />
+          <Property Name="motivo_troca" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="previsao_entrega" Type="DateTime" />
+          <NavigationProperty Name="carrinho1" Relationship="Self.fk_pedido_carrinho" FromRole="pedido" ToRole="carrinho" />
+          <NavigationProperty Name="endereco1" Relationship="Self.fk_pedido_endereco" FromRole="pedido" ToRole="endereco" />
+          <NavigationProperty Name="mapa_pedido" Relationship="Self.fk_mapa_pedido_pedido" FromRole="pedido" ToRole="mapa_pedido" />
+          <NavigationProperty Name="usuario1" Relationship="Self.fk_pedido_usuario" FromRole="pedido" ToRole="usuario" />
+          <NavigationProperty Name="usuario_externo1" Relationship="Self.fk_pedido_usuario_externo" FromRole="pedido" ToRole="usuario_externo" />
+        </EntityType>
+        <EntityType Name="produto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="preco" Type="Decimal" Nullable="false" />
+          <Property Name="imagem" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="unidade" Type="Int32" />
+          <Property Name="dias_entrega" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="carrinho_produto" Relationship="Self.fk_carrinhoProduto_produto" FromRole="produto" ToRole="carrinho_produto" />
+          <NavigationProperty Name="devolucao_produto" Relationship="Self.fk_devolucao_produto_produto" FromRole="produto" ToRole="devolucao_produto" />
+          <NavigationProperty Name="produto_bairro" Relationship="Self.fk_produtoBairro_produto" FromRole="produto" ToRole="produto_bairro" />
+        </EntityType>
+        <EntityType Name="produto_bairro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="produto" Type="Int32" Nullable="false" />
+          <Property Name="bairro" Type="Int32" Nullable="false" />
+          <Property Name="taxa" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="bairro1" Relationship="Self.fk_produtoBairro_bairro" FromRole="produto_bairro" ToRole="bairro" />
+          <NavigationProperty Name="produto1" Relationship="Self.fk_produtoBairro_produto" FromRole="produto_bairro" ToRole="produto" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sobrenome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="permissao" Type="Int32" />
+          <NavigationProperty Name="carrinho" Relationship="Self.fk_carrinho_usuario" FromRole="usuario" ToRole="carrinho" />
+          <NavigationProperty Name="endereco" Relationship="Self.fk_endereco_usuario" FromRole="usuario" ToRole="endereco" />
+          <NavigationProperty Name="pedido" Relationship="Self.fk_pedido_usuario" FromRole="usuario" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="usuario_externo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="documento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="endereco" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="endereco1" Relationship="Self.fk_usuarioExterno_endereco" FromRole="usuario_externo" ToRole="endereco" />
+          <NavigationProperty Name="pedido" Relationship="Self.fk_pedido_usuario_externo" FromRole="usuario_externo" ToRole="pedido" />
+        </EntityType>
+        <Association Name="fk_endereco_bairro">
+          <End Role="bairro" Type="Self.bairro" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="endereco" Type="Self.endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bairro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="endereco">
+              <PropertyRef Name="bairro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produtoBairro_bairro">
+          <End Role="bairro" Type="Self.bairro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produto_bairro" Type="Self.produto_bairro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bairro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="produto_bairro">
+              <PropertyRef Name="bairro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carrinho_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carrinhoProduto_carrinho">
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho_produto" Type="Self.carrinho_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrinho">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho_produto">
+              <PropertyRef Name="carrinho" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_carrinho">
+          <End Role="carrinho" Type="Self.carrinho" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carrinho">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="carrinho" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_carrinhoProduto_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="carrinho_produto" Type="Self.carrinho_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carrinho_produto">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_devolucao_produto_devolucao">
+          <End Role="devolucao" Type="Self.devolucao" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devolucao_produto" Type="Self.devolucao_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devolucao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="devolucao_produto">
+              <PropertyRef Name="devolucao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_devolucao_produto_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="devolucao_produto" Type="Self.devolucao_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="devolucao_produto">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_endereco_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="endereco" Type="Self.endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="endereco">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_endereco">
+          <End Role="endereco" Type="Self.endereco" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="endereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioExterno_endereco">
+          <End Role="endereco" Type="Self.endereco" Multiplicity="1" />
+          <End Role="usuario_externo" Type="Self.usuario_externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="endereco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario_externo">
+              <PropertyRef Name="endereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_estoque_entrada">
+          <End Role="entrada" Type="Self.entrada" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada_estoque" Type="Self.entrada_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="entrada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada_estoque">
+              <PropertyRef Name="entrada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_fornecedor">
+          <End Role="fornecedor" Type="Self.fornecedor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada" Type="Self.entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fornecedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada">
+              <PropertyRef Name="fornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entrada_estoque_estoque">
+          <End Role="estoque" Type="Self.estoque" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="entrada_estoque" Type="Self.entrada_estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estoque">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entrada_estoque">
+              <PropertyRef Name="estoque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mapa_pedido_mapa">
+          <End Role="mapaentrega" Type="Self.mapaentrega" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mapa_pedido" Type="Self.mapa_pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mapaentrega">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mapa_pedido">
+              <PropertyRef Name="mapa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mapa_pedido_pedido">
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mapa_pedido" Type="Self.mapa_pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mapa_pedido">
+              <PropertyRef Name="pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pedido_usuario_externo">
+          <End Role="usuario_externo" Type="Self.usuario_externo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario_externo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="usuario_externo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produtoBairro_produto">
+          <End Role="produto" Type="Self.produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="produto_bairro" Type="Self.produto_bairro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="produto_bairro">
+              <PropertyRef Name="produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MaislifeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bairro" EntityType="Self.bairro" />
+          <EntitySet Name="carrinho" EntityType="Self.carrinho" />
+          <EntitySet Name="carrinho_produto" EntityType="Self.carrinho_produto" />
+          <EntitySet Name="contato" EntityType="Self.contato" />
+          <EntitySet Name="devolucao" EntityType="Self.devolucao" />
+          <EntitySet Name="devolucao_produto" EntityType="Self.devolucao_produto" />
+          <EntitySet Name="endereco" EntityType="Self.endereco" />
+          <EntitySet Name="entrada" EntityType="Self.entrada" />
+          <EntitySet Name="entrada_estoque" EntityType="Self.entrada_estoque" />
+          <EntitySet Name="estoque" EntityType="Self.estoque" />
+          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" />
+          <EntitySet Name="mapa_pedido" EntityType="Self.mapa_pedido" />
+          <EntitySet Name="mapaentrega" EntityType="Self.mapaentrega" />
+          <EntitySet Name="parceiro" EntityType="Self.parceiro" />
+          <EntitySet Name="pedido" EntityType="Self.pedido" />
+          <EntitySet Name="produto" EntityType="Self.produto" />
+          <EntitySet Name="produto_bairro" EntityType="Self.produto_bairro" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="usuario_externo" EntityType="Self.usuario_externo" />
+          <AssociationSet Name="fk_endereco_bairro" Association="Self.fk_endereco_bairro">
+            <End Role="bairro" EntitySet="bairro" />
+            <End Role="endereco" EntitySet="endereco" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produtoBairro_bairro" Association="Self.fk_produtoBairro_bairro">
+            <End Role="bairro" EntitySet="bairro" />
+            <End Role="produto_bairro" EntitySet="produto_bairro" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carrinho_usuario" Association="Self.fk_carrinho_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="carrinho" EntitySet="carrinho" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carrinhoProduto_carrinho" Association="Self.fk_carrinhoProduto_carrinho">
+            <End Role="carrinho" EntitySet="carrinho" />
+            <End Role="carrinho_produto" EntitySet="carrinho_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_carrinho" Association="Self.fk_pedido_carrinho">
+            <End Role="carrinho" EntitySet="carrinho" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_carrinhoProduto_produto" Association="Self.fk_carrinhoProduto_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="carrinho_produto" EntitySet="carrinho_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_devolucao_produto_devolucao" Association="Self.fk_devolucao_produto_devolucao">
+            <End Role="devolucao" EntitySet="devolucao" />
+            <End Role="devolucao_produto" EntitySet="devolucao_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_devolucao_produto_produto" Association="Self.fk_devolucao_produto_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="devolucao_produto" EntitySet="devolucao_produto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_endereco_usuario" Association="Self.fk_endereco_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="endereco" EntitySet="endereco" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_endereco" Association="Self.fk_pedido_endereco">
+            <End Role="endereco" EntitySet="endereco" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioExterno_endereco" Association="Self.fk_usuarioExterno_endereco">
+            <End Role="endereco" EntitySet="endereco" />
+            <End Role="usuario_externo" EntitySet="usuario_externo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_estoque_entrada" Association="Self.fk_entrada_estoque_entrada">
+            <End Role="entrada" EntitySet="entrada" />
+            <End Role="entrada_estoque" EntitySet="entrada_estoque" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_fornecedor" Association="Self.fk_entrada_fornecedor">
+            <End Role="fornecedor" EntitySet="fornecedor" />
+            <End Role="entrada" EntitySet="entrada" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entrada_estoque_estoque" Association="Self.fk_entrada_estoque_estoque">
+            <End Role="estoque" EntitySet="estoque" />
+            <End Role="entrada_estoque" EntitySet="entrada_estoque" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mapa_pedido_mapa" Association="Self.fk_mapa_pedido_mapa">
+            <End Role="mapaentrega" EntitySet="mapaentrega" />
+            <End Role="mapa_pedido" EntitySet="mapa_pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mapa_pedido_pedido" Association="Self.fk_mapa_pedido_pedido">
+            <End Role="pedido" EntitySet="pedido" />
+            <End Role="mapa_pedido" EntitySet="mapa_pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_usuario" Association="Self.fk_pedido_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pedido_usuario_externo" Association="Self.fk_pedido_usuario_externo">
+            <End Role="usuario_externo" EntitySet="usuario_externo" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produtoBairro_produto" Association="Self.fk_produtoBairro_produto">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="produto_bairro" EntitySet="produto_bairro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MaislifeModelStoreContainer" CdmEntityContainer="MaislifeEntities">
+          <EntitySetMapping Name="bairro">
+            <EntityTypeMapping TypeName="MaislifeModel.bairro">
+              <MappingFragment StoreEntitySet="bairro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="taxa" ColumnName="taxa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carrinho">
+            <EntityTypeMapping TypeName="MaislifeModel.carrinho">
+              <MappingFragment StoreEntitySet="carrinho">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carrinho_produto">
+            <EntityTypeMapping TypeName="MaislifeModel.carrinho_produto">
+              <MappingFragment StoreEntitySet="carrinho_produto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="produto" ColumnName="produto" />
+                <ScalarProperty Name="carrinho" ColumnName="carrinho" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contato">
+            <EntityTypeMapping TypeName="MaislifeModel.contato">
+              <MappingFragment StoreEntitySet="contato">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="assunto" ColumnName="assunto" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="mensagem" ColumnName="mensagem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devolucao">
+            <EntityTypeMapping TypeName="MaislifeModel.devolucao">
+              <MappingFragment StoreEntitySet="devolucao">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="motivo" ColumnName="motivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devolucao_produto">
+            <EntityTypeMapping TypeName="MaislifeModel.devolucao_produto">
+              <MappingFragment StoreEntitySet="devolucao_produto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="devolucao" ColumnName="devolucao" />
+                <ScalarProperty Name="produto" ColumnName="produto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="endereco">
+            <EntityTypeMapping TypeName="MaislifeModel.endereco">
+              <MappingFragment StoreEntitySet="endereco">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="rua" ColumnName="rua" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entrada">
+            <EntityTypeMapping TypeName="MaislifeModel.entrada">
+              <MappingFragment StoreEntitySet="entrada">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="fornecedor" ColumnName="fornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entrada_estoque">
+            <EntityTypeMapping TypeName="MaislifeModel.entrada_estoque">
+              <MappingFragment StoreEntitySet="entrada_estoque">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="entrada" ColumnName="entrada" />
+                <ScalarProperty Name="estoque" ColumnName="estoque" />
+                <ScalarProperty Name="data_entrada" ColumnName="data_entrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estoque">
+            <EntityTypeMapping TypeName="MaislifeModel.estoque">
+              <MappingFragment StoreEntitySet="estoque">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fornecedor">
+            <EntityTypeMapping TypeName="MaislifeModel.fornecedor">
+              <MappingFragment StoreEntitySet="fornecedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="razao_social" ColumnName="razao_social" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mapa_pedido">
+            <EntityTypeMapping TypeName="MaislifeModel.mapa_pedido">
+              <MappingFragment StoreEntitySet="mapa_pedido">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="mapa" ColumnName="mapa" />
+                <ScalarProperty Name="pedido" ColumnName="pedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mapaentrega">
+            <EntityTypeMapping TypeName="MaislifeModel.mapaentrega">
+              <MappingFragment StoreEntitySet="mapaentrega">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="data_entrega" ColumnName="data_entrega" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parceiro">
+            <EntityTypeMapping TypeName="MaislifeModel.parceiro">
+              <MappingFragment StoreEntitySet="parceiro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="imagem" ColumnName="imagem" />
+                <ScalarProperty Name="enderec" ColumnName="enderec" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="facebook" ColumnName="facebook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedido">
+            <EntityTypeMapping TypeName="MaislifeModel.pedido">
+              <MappingFragment StoreEntitySet="pedido">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="origem" ColumnName="origem" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="metodo" ColumnName="metodo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="carrinho" ColumnName="carrinho" />
+                <ScalarProperty Name="usuario_externo" ColumnName="usuario_externo" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="pago" ColumnName="pago" />
+                <ScalarProperty Name="desconto" ColumnName="desconto" />
+                <ScalarProperty Name="parcelas" ColumnName="parcelas" />
+                <ScalarProperty Name="vencimento" ColumnName="vencimento" />
+                <ScalarProperty Name="motivo_troca" ColumnName="motivo_troca" />
+                <ScalarProperty Name="previsao_entrega" ColumnName="previsao_entrega" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produto">
+            <EntityTypeMapping TypeName="MaislifeModel.produto">
+              <MappingFragment StoreEntitySet="produto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="imagem" ColumnName="imagem" />
+                <ScalarProperty Name="unidade" ColumnName="unidade" />
+                <ScalarProperty Name="dias_entrega" ColumnName="dias_entrega" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produto_bairro">
+            <EntityTypeMapping TypeName="MaislifeModel.produto_bairro">
+              <MappingFragment StoreEntitySet="produto_bairro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="produto" ColumnName="produto" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="taxa" ColumnName="taxa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="MaislifeModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="sobrenome" ColumnName="sobrenome" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="permissao" ColumnName="permissao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario_externo">
+            <EntityTypeMapping TypeName="MaislifeModel.usuario_externo">
+              <MappingFragment StoreEntitySet="usuario_externo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

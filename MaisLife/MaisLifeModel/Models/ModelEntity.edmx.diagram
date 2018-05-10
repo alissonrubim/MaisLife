@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="71dab2a2704b4dfdb12ec26166930f9e" Name="Diagram1">
+        <EntityTypeShape EntityType="MaislifeModel.bairro" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.carrinho" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.carrinho_produto" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.contato" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.devolucao" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.devolucao_produto" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.endereco" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.entrada" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.entrada_estoque" Width="1.5" PointX="15.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.estoque" Width="1.5" PointX="13" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.fornecedor" Width="1.5" PointX="10.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.mapa_pedido" Width="1.5" PointX="10.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.mapaentrega" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.parceiro" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.pedido" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.produto" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.produto_bairro" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.usuario" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaislifeModel.usuario_externo" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="MaislifeModel.fk_endereco_bairro" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_produtoBairro_bairro" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_carrinho_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_carrinhoProduto_carrinho" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_pedido_carrinho" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_carrinhoProduto_produto" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_devolucao_produto_devolucao" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_devolucao_produto_produto" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_endereco_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_pedido_endereco" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_usuarioExterno_endereco" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_entrada_estoque_entrada" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_entrada_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_entrada_estoque_estoque" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_mapa_pedido_mapa" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_mapa_pedido_pedido" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_pedido_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_pedido_usuario_externo" ManuallyRouted="false" />
+        <AssociationConnector Association="MaislifeModel.fk_produtoBairro_produto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

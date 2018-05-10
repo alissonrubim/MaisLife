@@ -26,29 +26,29 @@ namespace MaisLife.Models.Adapter
         public string Senha { get; set; }
         public int Permissao { get; set; }     
 
-        public Usuario ToUsuario()
+        public usuario ToUsuario()
         {
-            return new Usuario()
+            return new usuario()
             {
-                Id = this.Id,
-                Nome = this.Nome,
-                Sobrenome = this.Sobrenome,
-                Email = this.Email,
-                Senha = this.Senha,
-                Permissao = this.Permissao          
+                id = this.Id,
+                nome = this.Nome,
+                sobrenome = this.Sobrenome,
+                email = this.Email,
+                senha = this.Senha,
+                permissao = this.Permissao          
             };
         }
 
-        public UsuarioAdapter ToUsuarioAdapter(Usuario usuario)
+        public UsuarioAdapter ToUsuarioAdapter(usuario usuario)
         {
             return new UsuarioAdapter()
             {
-                Id = usuario.Id,
-                Nome = usuario.Nome,
-                Sobrenome = usuario.Sobrenome,
-                Email = usuario.Email,
-                Senha = usuario.Senha,
-                Permissao = (int)usuario.Permissao                           
+                Id = usuario.id,
+                Nome = usuario.nome,
+                Sobrenome = usuario.sobrenome,
+                Email = usuario.email,
+                Senha = usuario.senha,
+                Permissao = (int)usuario.permissao                           
             };
         }
 

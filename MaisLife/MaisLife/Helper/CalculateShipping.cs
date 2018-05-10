@@ -10,47 +10,47 @@ namespace MaisLife.Helper
     public static class CalculateShipping
     {
         
-        public static decimal Calculate(Bairro local)
+        public static decimal Calculate(MaisLifeModel.Models.bairro local)
         {
 
             var cart = getCartActive();
             var prices = new List<decimal>();
-            foreach(Carrinho_produto cp in cart.Carrinho_produtos){
+            foreach(MaisLifeModel.Models.carrinho_produto cp in cart.carrinho_produto){
 
 
-                var value = MaisLifeModel.DatabaseContext.Model.Produto_bairro.FirstOrDefault(f => f.Bairro == local.Id && f.Produto == cp.Produto);
+                var value = MaisLifeModel.DatabaseContext.Model.produto_bairro.FirstOrDefault(f => f.bairro == local.id && f.produto == cp.produto);
                 if (value != null)
                 {
-                    prices.Add(value.Taxa);
+                    prices.Add(value.taxa);
                 }
                 else
                 {
-                    prices.Add(local.Taxa);
+                    prices.Add(local.taxa.Value);
                 }
             }
             return prices.Min();
         }
 
-        public static Carrinho getCartActive(){
-            Carrinho cart;
-            Usuario user = (Usuario)HttpContext.Current.Session["user"];
+        public static carrinho getCartActive(){
+            carrinho cart;
+            usuario user = (usuario)HttpContext.Current.Session["user"];
             if (user == null)
             {
                return cart = Sessions.FindShoppingCart();
             }
             else
             {
-              return  cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
+              return  cart = user.carrinho.FirstOrDefault(f => f.status == "Ativo");
             }
         }
 
-        public static DateTime? findShippingDate(Pedido order)
+        public static DateTime? findShippingDate(MaisLifeModel.Models.pedido order)
         {
             int maxPrize = 0;
-            foreach (var x in order.Carrinho1.Carrinho_produtos)
+            foreach (var x in order.carrinho1.carrinho_produto)
             {
-                if (x.Produto1.Dias_entrega > maxPrize)
-                    maxPrize = x.Produto1.Dias_entrega;
+                if (x.produto1.dias_entrega > maxPrize)
+                    maxPrize = x.produto1.dias_entrega;
             }
 
             var today = DateTime.Now;

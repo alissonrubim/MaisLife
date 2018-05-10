@@ -10,18 +10,18 @@ namespace MaisLife.Helper
     public class App{
 
         public static bool IsLogged() { 
-            var user = (Usuario)HttpContext.Current.Session["user"];
+            var user = (usuario)HttpContext.Current.Session["user"];
             if (user == null)
                 return false;
             else
                 return true;
         }
 
-        public static Usuario Logged() {
+        public static usuario Logged() {
             if (IsLogged())
             {
-                var logged = (Usuario)HttpContext.Current.Session["user"];
-                return MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == logged.Id);
+                var logged = (usuario)HttpContext.Current.Session["user"];
+                return MaisLifeModel.DatabaseContext.Model.usuario.FirstOrDefault(f => f.id == logged.id);
             }
             else {
                 return null;

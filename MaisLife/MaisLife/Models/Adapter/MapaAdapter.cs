@@ -15,34 +15,34 @@ namespace MaisLife.Models.Adapter
         [Required]
         public DateTime? DataEntrega { get; set; }
         public string Observacao { get; set; }
-        public IList<Mapa_pedido> MapaPedidos { get; set; }
+        public IList<mapa_pedido> MapaPedidos { get; set; }
 
-        public Mapaentrega ToMapa() {
-            return new Mapaentrega()
+        public mapaentrega ToMapa() {
+            return new mapaentrega()
             {
-                Id = this.Id,
-                Data_entrega = this.DataEntrega,
-                Observacao = this.Observacao,
-                Mapa_pedidos = this.MapaPedidos
+                id = this.Id,
+                data_entrega = this.DataEntrega,
+                observacao = this.Observacao,
+                mapa_pedido = this.MapaPedidos
             };
         }
 
-        public MapaAdapter ToMapaAdapter(Mapaentrega map)
+        public MapaAdapter ToMapaAdapter(mapaentrega map)
         {
             return new MapaAdapter()
             {
-                Id = map.Id,
-                DataEntrega = map.Data_entrega,
-                Observacao = map.Observacao,
-                MapaPedidos = map.Mapa_pedidos
+                Id = map.id,
+                DataEntrega = map.data_entrega,
+                Observacao = map.observacao,
+                MapaPedidos = map.mapa_pedido.ToList()
             };
         }
 
         public decimal CalcTotalAVista() {
             var total = 0.0M;
             foreach (var x in MapaPedidos) {
-                if (x.Pedido1.Metodo == "A vista") {
-                    total += x.Pedido1.Valor;
+                if (x.pedido1.metodo == "A vista") {
+                    total += x.pedido1.valor;
                 }
             }
 
@@ -54,9 +54,9 @@ namespace MaisLife.Models.Adapter
             var total = 0.0M;
             foreach (var x in MapaPedidos)
             {
-                if (x.Pedido1.Metodo == "Prazo")
+                if (x.pedido1.metodo == "Prazo")
                 {
-                    total += x.Pedido1.Valor;
+                    total += x.pedido1.valor;
                 }
             }
 
@@ -68,9 +68,9 @@ namespace MaisLife.Models.Adapter
             var total = 0.0M;
             foreach (var x in MapaPedidos)
             {
-                if (x.Pedido1.Metodo == "Prazo" && x.Pedido1.Tipo == "Troca")
+                if (x.pedido1.metodo == "Prazo" && x.pedido1.tipo == "Troca")
                 {
-                    total += x.Pedido1.Valor;
+                    total += x.pedido1.valor;
                 }
             }
 
@@ -82,9 +82,9 @@ namespace MaisLife.Models.Adapter
             var total = 0.0M;
             foreach (var x in MapaPedidos)
             {
-                if (x.Pedido1.Metodo == "A vista" && x.Pedido1.Tipo == "Troca")
+                if (x.pedido1.metodo == "A vista" && x.pedido1.tipo == "Troca")
                 {
-                    total += x.Pedido1.Valor;
+                    total += x.pedido1.valor;
                 }
             }
 

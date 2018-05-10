@@ -23,40 +23,40 @@ namespace MaisLife.Models.Adapter
         public int Unidade { get; set; }
         [StringLength(255, ErrorMessage = "Limite de caracteres excedido")]
         public string Imagem { get; set; }
-        public IList<Produto_bairro> Bairros { 
+        public IList<produto_bairro> Bairros { 
             get {
-                return MaisLifeModel.DatabaseContext.Model.Produto_bairro.Where(pb => pb.Produto == Id).ToList();
+                return MaisLifeModel.DatabaseContext.Model.produto_bairro.Where(pb => pb.produto == Id).ToList();
             }  
         }
         [Required]
         public int DiasEntrega { get; set; }
 
-        public Produto ToProduto()
+        public produto ToProduto()
         {
-            return new Produto()
+            return new produto()
             {
-                Id = this.Id,
-                Nome = this.Nome,
-                Descricao = this.Descricao,
-                Preco = Converter.ConvertMoney(this.Preco),
-                Unidade = this.Unidade,
-                Imagem = this.Imagem,
-                Produto_bairros = this.Bairros,
-                Dias_entrega = this.DiasEntrega
+                id = this.Id,
+                nome = this.Nome,
+                descricao = this.Descricao,
+                preco = Converter.ConvertMoney(this.Preco),
+                unidade = this.Unidade,
+                imagem = this.Imagem,
+                produto_bairro = this.Bairros,
+                dias_entrega = this.DiasEntrega
             };
         }
 
-        public ProdutoAdapter ToProdutoAdapter(Produto produto)
+        public ProdutoAdapter ToProdutoAdapter(produto produto)
         {
             var adapter = new ProdutoAdapter()
             {
-                Id = produto.Id,
-                Nome = produto.Nome,
-                Descricao = produto.Descricao,
-                Preco = Convert.ToString(produto.Preco),
-                Unidade = (int)produto.Unidade,
-                Imagem = produto.Imagem,
-                DiasEntrega = produto.Dias_entrega
+                Id = produto.id,
+                Nome = produto.nome,
+                Descricao = produto.descricao,
+                Preco = Convert.ToString(produto.preco),
+                Unidade = (int)produto.unidade,
+                Imagem = produto.imagem,
+                DiasEntrega = produto.dias_entrega
             };            
 
             return adapter;

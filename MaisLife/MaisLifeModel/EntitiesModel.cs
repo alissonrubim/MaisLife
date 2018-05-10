@@ -10,7 +10,7 @@ using MySql.Data.Entity;
 
 namespace MaisLifeModel
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    /*[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class EntitiesModel : DbContext
     {
         public DbSet<Bairro> Bairro { get; set; }
@@ -68,5 +68,5 @@ namespace MaisLifeModel
             modelBuilder.Entity<Usuario>().MapToStoredProcedures();
             modelBuilder.Entity<Usuario_externo>().MapToStoredProcedures();
         }
-    }
+    }*/
 }
