@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Pedido>
+﻿@model IEnumerable<MaisLifeModel.Models.pedido>
 <div>
 
     <!-- Nav tabs -->
@@ -22,29 +22,29 @@
                 </tr>
                 @foreach (var order in Model)
                 {
-                    if (@order.Status == "Em aberto")
+                    if (@order.status == "Em aberto")
                     {
                         <tr>
-                            <td>@order.Id</td>
-                            @if (@order.Origem == "Site")
+                            <td>@order.id</td>
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Origem</td>
+                                <td>@order.origem</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            @if (@order.Origem == "Site")
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario_externo1.Nome</td>
+                                <td>@order.usuario_externo1.nome</td>
                             }
-                            <td>@order.Desconto %</td>
-                            <td>@order.Valor</td>
-                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                            <td>@order.desconto %</td>
+                            <td>@order.valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
                     }
 
@@ -63,29 +63,29 @@
                 </tr>
                 @foreach (var order in Model)
                 {
-                    if (@order.Status == "Em trânsito")
+                    if (@order.status == "Em trânsito")
                     {
                         <tr>
-                            <td>@order.Id</td>
-                            @if (@order.Origem == "Site")
+                            <td>@order.id</td>
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Origem</td>
+                                <td>@order.origem</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            @if (@order.Origem == "Site")
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario_externo1.Nome</td>
+                                <td>@order.usuario_externo1.nome</td>
                             }
-                            <td>@order.Desconto %</td>
-                            <td>@order.Valor</td>
-                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                            <td>@order.desconto %</td>
+                            <td>@order.valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
                     }
 
@@ -104,29 +104,29 @@
                 </tr>
                 @foreach (var order in Model)
                 {
-                    if (@order.Status == "Entregue")
+                    if (@order.status == "Entregue")
                     {
                         <tr>
-                            <td>@order.Id</td>
-                            @if (@order.Origem == "Site")
+                            <td>@order.id</td>
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Origem</td>
+                                <td>@order.origem</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            @if (@order.Origem == "Site")
+                            @if (@order.origem == "Site")
                             {
-                                <td>@order.Usuario1.Nome @order.Usuario1.Sobrenome</td>
+                                <td>@order.usuario1.nome @order.usuario1.sobrenome</td>
                             }
-                            else if (@order.Origem == "Vendedor")
+                            else if (@order.origem == "Vendedor")
                             {
-                                <td>@order.Usuario_externo1.Nome</td>
+                                <td>@order.usuario_externo1.nome</td>
                             }
-                            <td>@order.Desconto %</td>
-                            <td>@order.Valor</td>
-                            <td><a href="@Url.Action("ProfileView", new { id = @order.Id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                            <td>@order.desconto %</td>
+                            <td>@order.valor</td>
+                            <td><a href="@Url.Action("ProfileView", new { id = @order.id})"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
                     }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Parceiro>
+﻿@model IEnumerable<MaisLifeModel.Models.parceiro>
 <table class="table-hover">
     <tr>
         <th></th>
@@ -9,27 +9,27 @@
     </tr>
     @foreach (var patner in @Model)
     {
-        <tr data-id="@patner.Id" data-content="patner-row" data-info="unselected">
+        <tr data-id="@patner.id" data-content="patner-row" data-info="unselected">
             <td>
-                @if (@patner.Imagem.Contains("http"))
+                @if (@patner.imagem.Contains("http"))
                 {
-                    <img src="@patner.Imagem" class="img-responsive patner-img" />
+                    <img src="@patner.imagem" class="img-responsive patner-img" />
                 }
                 else
                 {
-                    <img src="@Url.Content("~/Images/Uploads/" + @patner.Imagem)" class="img-responsive patner-img" />
+                    <img src="@Url.Content("~/Images/Uploads/" + @patner.imagem)" class="img-responsive patner-img" />
                 }               
             </td>
             <td>
-                @patner.Nome
+                @patner.nome
             </td>
             <td>
-                @patner.Enderec
+                @patner.enderec
             </td>
             <td>
-                @if (patner.Telefone != null)
+                @if (patner.telefone != null)
                 {
-                    <div class="patner-phone">@patner.Telefone</div>
+                    <div class="patner-phone">@patner.telefone</div>
                 }
                 else
                 {
@@ -38,16 +38,16 @@
 
             </td>
             <td>
-                @if (patner.Facebook != null)
+                @if (patner.facebook != null)
                 {
                     <div class="patner-social-item">
-                        <a href="@patner.Facebook" target="_blank"><span class="fa fa-facebook"></span></a>
+                        <a href="@patner.facebook" target="_blank"><span class="fa fa-facebook"></span></a>
                     </div>
                 }
-                @if (patner.Site != null)
+                @if (patner.site != null)
                 {
                     <div class="patner-social-item">
-                        <a href="@patner.Site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
+                        <a href="@patner.site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
                     </div>
                 }
             </td>

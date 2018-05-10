@@ -141,28 +141,28 @@
                                 foreach (var selectedOrder in @Model.MapaPedidos)
                                 {
                                     <div class="col-lg-4">
-                                        <div class="order-content selected" data-content="order-box" data-info="selected" data-id="@selectedOrder.Pedido1.Id">
+                                        <div class="order-content selected" data-content="order-box" data-info="selected" data-id="@selectedOrder.pedido1.id">
                                             <div class="order-header">
                                                 <div class="order-header-client">
                                                    Nº
                                                 </div>
                                                 <div class="order-header-value">
-                                                    @selectedOrder.Pedido1.Id
+                                                    @selectedOrder.pedido1.id
                                                 </div>
                                             </div>
                                             <div class="order-header">
                                                 <div class="order-header-client">
-                                                    @if (@selectedOrder.Pedido1.Origem == "Vendedor")
+                                                    @if (@selectedOrder.pedido1.origem == "Vendedor")
                                                     {
-                                                        @selectedOrder.Pedido1.Usuario_externo1.Nome
+                                                        @selectedOrder.pedido1.usuario_externo1.nome
                                                     }
                                                     else
                                                     {
-                                                        @selectedOrder.Pedido1.Usuario1.Nome
+                                                        @selectedOrder.pedido1.usuario1.nome
                                                     }
                                                 </div>
                                                 <div class="order-header-value">
-                                                    @selectedOrder.Pedido1.Valor
+                                                    @selectedOrder.pedido1.valor
                                                 </div>
                                             </div>
                                             <div class="order-body">
@@ -171,7 +171,7 @@
                                                         Pedido feito em:
                                                         @{
                                                             <span style="font-weight: bold; float: right;">
-                                                                @selectedOrder.Pedido1.Data.ToString("dd/MM/yyyy")
+                                                                @selectedOrder.pedido1.data.ToString("dd/MM/yyyy")
                                                             </span>
                                                         }
                                                     </span>
@@ -181,10 +181,10 @@
                                                 <div class="order-seller">
                                                     <span>
                                                         Colaborador/PDV:
-                                                        @if (@selectedOrder.Pedido1.Origem == "Vendedor")
+                                                        @if (@selectedOrder.pedido1.origem == "Vendedor")
                                                         {
                                                             <span style="font-weight: bold; float: right;">
-                                                                @selectedOrder.Pedido1.Usuario1.Nome
+                                                                @selectedOrder.pedido1.usuario1.nome
                                                             </span>
                                                         }
                                                         else
@@ -200,16 +200,16 @@
                                                 <div class="order-seller">
                                                     <span>
                                                         Entrega:
-                                                        @if (selectedOrder.Pedido1.Previsao_entrega < today)
+                                                        @if (selectedOrder.pedido1.previsao_entrega < today)
                                                         {
                                                             <span style="font-weight: bold; float: right; color: #ce4949;">
-                                                                @selectedOrder.Pedido1.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                                                                @selectedOrder.pedido1.previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
                                                             </span>
                                                         }
                                                         else
                                                         {
                                                             <span style="font-weight: bold; float: right;">
-                                                                @selectedOrder.Pedido1.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                                                                @selectedOrder.pedido1.previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
                                                             </span>
                                                         }
 
@@ -274,11 +274,11 @@
                                             <div class="order-header-client">
                                                 @if (@order.Origem == "Vendedor")
                                                 {
-                                                    @order.UsuarioExterno.Nome
+                                                    @order.UsuarioExterno.nome
                                                 }
                                                 else
                                                 {
-                                                    @order.Usuario.Nome
+                                                    @order.Usuario.nome
                                                 }
                                             </div>
                                             <div class="order-header-value">
@@ -304,7 +304,7 @@
                                                     @if (@order.Origem == "Vendedor")
                                                     {
                                                         <span style="font-weight: bold; float: right;">
-                                                            @order.Usuario.Nome
+                                                            @order.Usuario.nome
                                                         </span>
                                                     }
                                                     else

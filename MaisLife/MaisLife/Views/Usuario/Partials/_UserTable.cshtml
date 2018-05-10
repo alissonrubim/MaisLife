@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Usuario>
+﻿@model IEnumerable<MaisLifeModel.Models.usuario>
 <table class="table-hover">
     <tr>
         <th></th>
@@ -9,21 +9,21 @@
     </tr>
     @foreach (var user in @Model)
     {
-        <tr data-id="@user.Id" data-content="patner-row" data-info="unselected">
+        <tr data-id="@user.id" data-content="patner-row" data-info="unselected">
             <td style="width:100px; height: 100px;">               
                
             </td>
             <td>
-                @user.Nome
+                @user.nome
             </td>
             <td>
-                @user.Sobrenome
+                @user.sobrenome
             </td>
             <td>
-                @user.Permissao
+                @user.permissao
             </td>
             <td>
-                @user.Email
+                @user.email
             </td>
         </tr>
     }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Mapaentrega>
+﻿@model IEnumerable<MaisLifeModel.Models.mapaentrega>
 <table class="table-hover">
     <tr>       
         <th>Entrega</th>
@@ -6,12 +6,12 @@
     </tr>
     @foreach (var map in @Model)
     {
-        <tr data-id="@map.Id" data-content="patner-row" data-info="unselected">            
+        <tr data-id="@map.id" data-content="patner-row" data-info="unselected">            
             <td style="height: 60px">
-                @map.Data_entrega
+                @map.data_entrega
             </td>
             <td>
-                @map.Observacao
+                @map.observacao
             </td>           
         </tr>
     }

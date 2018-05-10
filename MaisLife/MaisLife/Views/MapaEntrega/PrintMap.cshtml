@@ -45,18 +45,18 @@
                 @foreach (var map in @Model.MapaPedidos)
                 {
                     <tr style="border-top: 2px solid #333;">
-                        @if (map.Pedido1.Origem == "Vendedor")
+                        @if (map.pedido1.origem == "Vendedor")
                         {
-                            <td colspan="2">@map.Pedido1.Usuario_externo1.Nome</td>
+                            <td colspan="2">@map.pedido1.usuario_externo1.nome</td>
                         }
-                        else if (map.Pedido1.Origem == "Site")
+                        else if (map.pedido1.origem == "Site")
                         {
-                            <td colspan="2">@map.Pedido1.Usuario1.Nome</td>
+                            <td colspan="2">@map.pedido1.usuario1.nome</td>
                         }
 
                         <td>00</td>
-                        <td>@map.Pedido1.Valor</td>
-                        @if (map.Pedido1.Tipo == "Troca")
+                        <td>@map.pedido1.valor</td>
+                        @if (map.pedido1.tipo == "Troca")
                         {
                             <td>
                                 <span class="glyphicon glyphicon-ok"></span>
@@ -66,7 +66,7 @@
                         {
                             <td></td>
                         }
-                        @if (map.Pedido1.Metodo == "A vista")
+                        @if (map.pedido1.metodo == "A vista")
                         {
                             <td>
                                 <span class="glyphicon glyphicon-ok"></span>
@@ -76,7 +76,7 @@
                         {
                             <td></td>
                         }
-                        @if (map.Pedido1.Metodo == "Prazo")
+                        @if (map.pedido1.metodo == "Prazo")
                         {
                             <td>
                                 <span class="glyphicon glyphicon-ok"></span>
@@ -90,7 +90,7 @@
                     </tr>
                     <tr>
                         <th>Endereço:</th>
-                        <td colspan="7">@map.Pedido1.Endereco1.Rua, Nº @map.Pedido1.Endereco1.Numero - @map.Pedido1.Endereco1.Bairro1.Nome</td>
+                        <td colspan="7">@map.pedido1.endereco1.rua, Nº @map.pedido1.endereco1.numero - @map.pedido1.endereco1.bairro1.nome</td>
                     </tr>
                 }
                 <tr>

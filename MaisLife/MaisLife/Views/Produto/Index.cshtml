@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Produtos";
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var products = (List<MaisLifeModel.Models.produto>)ViewBag.Products;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -21,7 +21,7 @@
 </div>
 <div id="productTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Produtos <small class="right">Gerenciamento (@products.Count)</small></h1>
+        <h1>Produtos <small class="right">Gerenciamento (@products.Count())</small></h1>
     </div>
     @Html.Partial("Partials/_ProductTable", products)
        @using (Ajax.BeginForm("RemoveItem", "Produto", new AjaxOptions()

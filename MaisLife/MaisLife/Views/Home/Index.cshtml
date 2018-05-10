@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Principal";
-    var patners = (List<MaisLifeModel.Parceiro>)ViewBag.patners;
-    var slideProducts = (List<List<MaisLifeModel.Produto>>)ViewBag.SlideProducts;
+    var patners = (List<MaisLifeModel.Models.parceiro>)ViewBag.patners;
+    var slideProducts = (List<List<MaisLifeModel.Models.produto>>)ViewBag.SlideProducts;
     var count = 1;
     var turn = false;  
 }
@@ -86,10 +86,10 @@
                                         </div>
                                         <div class="product-info">
                                             <ul class="list-group">
-                                                <li class="list-group-item">@product.Nome</li>
-                                                <li class="list-group-item">3 Un.<div class="right">R$ @product.Preco</div></li>
+                                                <li class="list-group-item">@product.nome</li>
+                                                <li class="list-group-item">3 Un.<div class="right">R$ @product.preco</div></li>
                                                 <li class="list-group-item">
-                                                    <a href="@Url.Action("Produto", new { id = @product.Id})" class="btn btn-success">Comprar agora</a>
+                                                    <a href="@Url.Action("Produto", new { id = @product.id})" class="btn btn-success">Comprar agora</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -115,10 +115,10 @@
                                         </div>
                                         <div class="product-info">
                                             <ul class="list-group">
-                                                <li class="list-group-item">@product.Nome</li>
-                                                <li class="list-group-item">3 Un.<div class="right">R$ @product.Preco</div></li>
+                                                <li class="list-group-item">@product.nome</li>
+                                                <li class="list-group-item">3 Un.<div class="right">R$ @product.preco</div></li>
                                                 <li class="list-group-item">
-                                                    <a href="@Url.Action("Produto", new { id = @product.Id})" class="btn btn-success">Comprar agora</a>
+                                                    <a href="@Url.Action("Produto", new { id = @product.id})" class="btn btn-success">Comprar agora</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -241,25 +241,25 @@
                                         <img src="http://spacenews.com.br/wp-content/uploads/2015/11/maxresdefault.jpg" class="img-circle patner-img" />
                                         <div class="patner-name"><h3>Bahamas</h3></div>
                                         <div class="patner-address">Av Getulio Vargas, 713, Centro</div>
-                                        @if (patner.Telefone != null)
+                                        @if (patner.telefone != null)
                         {
-                                            <div class="patner-phone">@patner.Telefone</div>
+                                            <div class="patner-phone">@patner.telefone</div>
                         }
                         else
                         {
                                             <div class="patner-phone">&nbsp;</div>
                         }
                                         <div class="patner-social">
-                                            @if (patner.Facebook != null)
+                                            @if (patner.facebook != null)
                             {
                                                 <div class="patner-social-item">
-                                                    <a href="@patner.Facebook" target="_blank"><span class="fa fa-facebook"></span></a>
+                                                    <a href="@patner.facebook" target="_blank"><span class="fa fa-facebook"></span></a>
                                                 </div>
                             }
-                                            @if (patner.Site != null)
+                                            @if (patner.site != null)
                             {
                                                 <div class="patner-social-item">
-                                                    <a href="@patner.Site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
+                                                    <a href="@patner.site" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
                                                 </div>
                             }
 

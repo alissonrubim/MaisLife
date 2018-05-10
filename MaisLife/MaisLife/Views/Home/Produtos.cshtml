@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Produtos";
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var products = (List<MaisLifeModel.Models.produto>)ViewBag.Products;
 }
 
 <div class="container store-page products-page">
@@ -10,15 +10,15 @@
     @foreach (var item in products)
     {
         <div class="col-lg-3 product-box">
-            <a href="@Url.Action("Produto", "Home", new { id = item.Id })">
+            <a href="@Url.Action("Produto", "Home", new { id = item.id })">
                 <div class="product">
                     <div class="product-img">
                         <img src="~/Images/know-img.png" class="img-responsive" />
                     </div>
                     <div class="product-info">
                         <ul class="list-group">
-                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Nome)</li>
-                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Unidade) Un.<div class="right">R$ @Html.DisplayFor(modelItem => item.Preco)</div></li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.nome)</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.unidade) Un.<div class="right">R$ @Html.DisplayFor(modelItem => item.preco)</div></li>
                         </ul>
                     </div>
                 </div>

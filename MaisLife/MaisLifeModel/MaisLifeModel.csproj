@@ -76,6 +76,7 @@
     <Compile Include="Models\Carrinho.cs">
       <DependentUpon>ModelEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\carrinho_extend.cs" />
     <Compile Include="Models\Carrinho_produto.cs">
       <DependentUpon>ModelEntity.tt</DependentUpon>
     </Compile>

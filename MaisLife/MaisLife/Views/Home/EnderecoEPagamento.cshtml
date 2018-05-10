@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Endereco e pagamento";
-    var user = (MaisLifeModel.Usuario)ViewBag.User;
-    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
+    var user = (MaisLifeModel.Models.usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Models.carrinho)ViewBag.Cart;
     var error = TempData["Error"];
 }
 
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        @if (user.Enderecos.Count == 0)
+        @if (user.endereco.Count() == 0)
         {
             <div class="col-lg-8 no-item">
                 <span data-toggle="modal" data-target="#new-address"> Cadastre um novo endereço</span>
@@ -78,22 +78,22 @@
 
                     @if (user != null)
                     {
-                        foreach (var address in user.Enderecos)
+                        foreach (var address in user.endereco)
                         {
-                            <div data-content="address" data-id="@address.Id" data-info="@address.Bairro1.Id" class="btn btn-primary btn-address ">
+                            <div data-content="address" data-id="@address.id" data-info="@address.bairro1.id" class="btn btn-primary btn-address ">
                                 <input type="radio" name="options" id="option1" autocomplete="off">
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <label>Cidade:</label> @address.Cidade
+                                        <label>Cidade:</label> @address.cidade
                                     </li>
                                     <li class="list-group-item">
-                                        <label>Bairro:</label> @address.Bairro1.Nome
+                                        <label>Bairro:</label> @address.bairro1.nome
                                     </li>
                                     <li class="list-group-item">
-                                        <label>Rua:</label> @address.Rua
+                                        <label>Rua:</label> @address.rua
                                     </li>
                                     <li class="list-group-item">
-                                        <label>Número:</label> @address.Numero
+                                        <label>Número:</label> @address.numero
                                     </li>
                                     @*<li class="list-group-item">
                                             <label>Taxa:</label> R$<span data-id="address-tax"> @address.Bairro1.Taxa</span>
@@ -121,9 +121,9 @@
 
                         <li class="list-group-item">
                             <ul class="list-group product-list">
-                                @foreach (var rel in cart.Carrinho_produtos)
+                                @foreach (var rel in cart.carrinho_produto)
                                 {
-                                    <li class="list-group-item">@rel.Produto1.Nome<div class="right">@rel.Quantidade x R$ @rel.Produto1.Preco</div></li>
+                                    <li class="list-group-item">@rel.produto1.nome<div class="right">@rel.quantidade x R$ @rel.produto1.preco</div></li>
                                 }
                                 <li class="list-group-item">Subtotal: <strong>R$ @cart.Total(0)</strong></li>
                             </ul>

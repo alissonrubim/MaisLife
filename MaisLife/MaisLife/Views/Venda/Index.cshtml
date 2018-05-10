@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Vendas";
-    var orders = (List<MaisLifeModel.Pedido>)ViewBag.Orders;
+    var orders = (List<MaisLifeModel.Models.pedido>)ViewBag.Orders;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -18,7 +18,7 @@
 </div>
 <div id="orderList" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Vendas <small class="right">Gerenciamento (@orders.Count)</small></h1>
+        <h1>Vendas <small class="right">Gerenciamento (@orders.Count())</small></h1>
     </div>
     @Html.Partial("Partials/_OrderList", orders)   
   

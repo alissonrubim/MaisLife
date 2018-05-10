@@ -249,7 +249,7 @@ namespace MaisLife.Controllers
 
                     var metodo = Request.Form["payMethod"];                                    
                     var payValue = Convert.ToDecimal(Request.Form["payValue"]);
-                    if (payValue < cart.Total(address.bairro1.taxa) && metodo == "Dinheiro")
+                    if (payValue < cart.Total(address.bairro1.taxa.Value) && metodo == "Dinheiro")
                     {
                         TempData["Error"] = "Valor digitado é menor que o valor total da compra.";
                         return RedirectToAction("EnderecoEPagamento", "Home");
@@ -259,7 +259,7 @@ namespace MaisLife.Controllers
                         pedido order = new pedido()
                         {
                             usuario1 = user,
-                            valor = cart.Total(address.bairro1.taxa),
+                            valor = cart.Total(address.bairro1.taxa.Value),
                             carrinho1 = cart,
                             endereco1 = address,
                             pago = payValue,

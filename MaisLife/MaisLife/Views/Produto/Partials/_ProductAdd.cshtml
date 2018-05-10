@@ -1,7 +1,7 @@
 ﻿@model MaisLife.Models.Adapter.ProdutoAdapter
 
 @{
-    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
+    var locals = (List<MaisLifeModel.Models.bairro>)ViewBag.Locals;
 }
 
 @using (Ajax.BeginForm("CreateOrEditProduto", "Produto", new AjaxOptions()
@@ -96,7 +96,7 @@
                                 <option value="0">Bairro</option>
                                 @foreach (var local in locals)
                                 {
-                                    <option value="@local.Id">@local.Nome</option>
+                                    <option value="@local.id">@local.nome</option>
                                 }
                             </select>
                             <input type="text" class="form-control" placeholder="Taxa" data-id="delivery-tax" />
@@ -116,17 +116,17 @@
                                         <option value="0">Bairro</option>
                                         @foreach (var local in locals)
                                         {
-                                            if (local.Nome == delivery.Bairro1.Nome)
+                                            if (local.nome == delivery.bairro1.nome)
                                             {
-                                                <option value="@local.Id" selected>@local.Nome</option>
+                                                <option value="@local.id" selected>@local.nome</option>
                                             }
                                             else
                                             {
-                                                <option value="@local.Id">@local.Nome</option>
+                                                <option value="@local.id">@local.nome</option>
                                             }
                                         }
                                     </select>
-                                    <input type="text" class="form-control" placeholder="Taxa" value="@delivery.Taxa" />
+                                    <input type="text" class="form-control" placeholder="Taxa" value="@delivery.taxa" />
                                 </div>
                                 <div class="field-more">
                                     <button type="button" class="btn btn-danger" data-id="remove-delivery"><span class="glyphicon glyphicon-remove"></span></button>

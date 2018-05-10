@@ -1,7 +1,7 @@
 ﻿<script src="~/JavaScripts/MapScript.js"></script> 
 @{
     ViewBag.Title = "Mapas de entregas";
-    var maps = (List<MaisLifeModel.Mapaentrega>)ViewBag.Maps;
+    var maps = (List<MaisLifeModel.Models.mapaentrega>)ViewBag.Maps;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -19,7 +19,7 @@
 </div>
 <div id="mapTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Mapas de Entrega <small class="right">Gerenciamento (@maps.Count)</small></h1>
+        <h1>Mapas de Entrega <small class="right">Gerenciamento (@maps.Count())</small></h1>
     </div>
     @Html.Partial("Partials/_MapTable", maps)
     @using (Ajax.BeginForm("RemoveItem", "MapaEntrega", new AjaxOptions()

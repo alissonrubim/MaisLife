@@ -1,12 +1,12 @@
 ﻿<script src="~/JavaScripts/Cart.js"></script>
-@model MaisLifeModel.Carrinho
+@model MaisLifeModel.Models.carrinho
 
 @{
     ViewBag.Title = "Carrinho";
-    var user = (MaisLifeModel.Usuario)ViewBag.User;
-    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
-    var localObj = (MaisLifeModel.Bairro)ViewBag.Local;
-    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;
+    var user = (MaisLifeModel.Models.usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Models.carrinho)ViewBag.Cart;
+    var localObj = (MaisLifeModel.Models.bairro)ViewBag.Local;
+    var locals = (List<MaisLifeModel.Models.bairro>)ViewBag.Locals;
     
 }
 
@@ -18,11 +18,11 @@
 
 <div class="container store-page cart-page">
     <div class="page-header">
-        <h1>Meu Carrinho <small class="right">@cart.Carrinho_produtos.Count() produto(s)</small></h1>
+        <h1>Meu Carrinho <small class="right">@cart.carrinho_produto.Count() produto(s)</small></h1>
     </div>
 
     <form action="~/Home/AlterarCarrinho" method="POST" data-id="update-cart">
-        <input type="hidden" name="cart" value="@cart.Id" />
+        <input type="hidden" name="cart" value="@cart.id" />
         <table class="table-hover">
             <tr>
                 <th>
@@ -41,7 +41,7 @@
                     Remover
                 </th>
             </tr>
-            @if (cart.Carrinho_produtos.Count == 0)
+            @if (cart.carrinho_produto.Count == 0)
             {
                 <tr>
                     <td colspan="5" style="text-align:center; color: #777777; padding: 5px;">
@@ -49,28 +49,28 @@
                     </td>
                 </tr>
             }
-            @foreach (var rel in cart.Carrinho_produtos)
+            @foreach (var rel in cart.carrinho_produto)
             {
                 <tr>
                     <td>
                         <img src="~/Images/know-img.png" class="img-responsive" />
                     </td>
                     <td>
-                        @rel.Produto1.Nome
+                        @rel.produto1.nome
                     </td>
                     <td>
-                        @rel.Produto1.Preco
+                        @rel.produto1.preco
                     </td>
                     <td>
                         @if (user != null)
                         {
-                            <input type="hidden" name="@rel.Id" value="@rel.Id" />
-                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Id" value="@rel.Quantidade" />
+                            <input type="hidden" name="@rel.id" value="@rel.id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.id" value="@rel.quantidade" />
                         }
                         else
                         {
-                            <input type="hidden" name="@rel.Produto1.Id" value="@rel.Produto1.Id" />
-                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.Produto1.Id" value="@rel.Quantidade" />
+                            <input type="hidden" name="@rel.produto1.id" value="@rel.produto1.id" />
+                            <input type="number" class="form-control" data-content="rel-qtd" data-id="@rel.produto1.id" value="@rel.quantidade" />
                         }
 
                     </td>
@@ -79,7 +79,7 @@
                     </td>
                 </tr>
             }
-            @if (cart.Carrinho_produtos.Count > 0)
+            @if (cart.carrinho_produto.Count() > 0)
             {
                 <tr>
                     <td></td>
@@ -94,7 +94,7 @@
         </table>
     </form>
     <div class="col-lg-12 cart-total">
-        @if (localObj == null || localObj.Id == 0)
+        @if (localObj == null || localObj.id == 0)
         {
             <span>
                 Total:

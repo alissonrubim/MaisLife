@@ -1,7 +1,7 @@
 ﻿@{
-    var user = (MaisLifeModel.Usuario)ViewBag.User;
-    var cart = (MaisLifeModel.Carrinho)ViewBag.Cart;
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
+    var user = (MaisLifeModel.Models.usuario)ViewBag.User;
+    var cart = (MaisLifeModel.Models.carrinho)ViewBag.Cart;
+    var products = (List<MaisLifeModel.Models.produto>)ViewBag.Products;
 }
 
 <!DOCTYPE html>
@@ -37,7 +37,7 @@
                 {
                     <li><a href="@Url.Action("Perfil", "Home")">Meus pedidos</a></li>
                     <li><a href='/Home/LogoutUser'>Sair</a></li>
-                    if (user.Permissao > 0)
+                    if (user.permissao > 0)
                     {
                         <li><a href="@Url.Action("Index", "Admin")">Painel de Controle</a></li>
                     }
@@ -119,7 +119,7 @@
                         <div>Carrinho de compras</div>
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         <div class="header-item-text">
-                            @if (cart.Carrinho_produtos.Count() == 0)
+                            @if (cart.carrinho_produto.Count() == 0)
                             {
                                 <p>
                                     Nenhum item <br />
@@ -278,7 +278,7 @@
                         @foreach (var product in products)
                         {
                             <li class="list-group-item">
-                                <a href="@Url.Action("Produto", "Home", new { id = product.Id })"><span class="glyphicon glyphicon-inbox"></span> @product.Nome</a>
+                                <a href="@Url.Action("Produto", "Home", new { id = product.id })"><span class="glyphicon glyphicon-inbox"></span> @product.nome</a>
 </li>
                         }                        
                        

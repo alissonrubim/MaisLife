@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Pedido>
+﻿@model IEnumerable<MaisLifeModel.Models.pedido>
 @{
     var today = DateTime.Now;   
 }
@@ -15,44 +15,44 @@
     </tr>
     @foreach (var order in @Model)
     {
-        <tr data-id="@order.Id" data-content="patner-row" data-info="unselected">
+        <tr data-id="@order.id" data-content="patner-row" data-info="unselected">
             <td style="width:30px; height: 30px;">
-                @order.Id
+                @order.id
             </td>
             <td style="width:100px;">               
-                @order.Usuario_externo1.Telefone
+                @order.usuario_externo1.telefone
             </td>
             <td>
-                @order.Usuario_externo1.Nome
+                @order.usuario_externo1.nome
             </td>
             <td>
-                @order.Endereco1.Bairro1.Nome
+                @order.endereco1.bairro1.nome
             </td>
             <td>
-                @order.Metodo
+                @order.metodo
             </td>
             <td>
                 <span style="font-weight: bold;">
-                   @order.Valor
+                   @order.valor
                 </span>
                 
             </td>
             <td>
-                @if (@order.Previsao_entrega < today) { 
+                @if (@order.previsao_entrega < today) { 
                     <span style="font-weight: bold; color: #ce4949;">
-                        @order.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                        @order.previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
                     </span>
                 }
                 else
                 {
                     <span style="font-weight: bold;">
-                        @order.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
+                        @order.previsao_entrega.ToString().Split(new Char[] { ' ' })[0]
                     </span>
                 }
                 
             </td>
             <td>
-                @order.Status
+                @order.status
             </td>
         </tr>
     }

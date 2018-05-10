@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Parceiros";
-    var patners = (List<MaisLifeModel.Parceiro>)ViewBag.Patners;
+    var patners = (List<MaisLifeModel.Models.parceiro>)ViewBag.Patners;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="upper-menu">
@@ -21,7 +21,7 @@
 </div>
 <div id="patnerTable" class="container admin-page patner-page">
     <div class="page-header">
-        <h1>Parceiros <small class="right">Gerenciamento (@patners.Count)</small></h1>
+        <h1>Parceiros <small class="right">Gerenciamento (@patners.Count())</small></h1>
     </div>
     @Html.Partial("Partials/_PatnerTable", patners)
     @using (Ajax.BeginForm("RemoveItem", "Parceiro", new AjaxOptions()

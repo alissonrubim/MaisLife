@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Perfil";
-    var user = (MaisLifeModel.Usuario)ViewBag.User;
-    var pedidos = user.Pedidos.Where(w => w.Origem == "Site").OrderBy(p => p.Data).ToList(); 
+    var user = (MaisLifeModel.Models.usuario)ViewBag.User;
+    var pedidos = user.pedido.Where(w => w.origem == "Site").OrderBy(p => p.data).ToList(); 
 }
 
 <script>
@@ -42,13 +42,13 @@
                             foreach (var order in pedidos)
                             {
                                 <tr>
-                                    <td><a data-toggle="modal" data-target="#order-modal-@order.Id" href="#"><span class="glyphicon glyphicon-list"></span></a></td>
-                                    <td>@order.Data</td>
-                                    <td>@order.Valor</td>
-                                    <td>@order.Metodo</td>
-                                    <td>@order.Status</td>
+                                    <td><a data-toggle="modal" data-target="#order-modal-@order.id" href="#"><span class="glyphicon glyphicon-list"></span></a></td>
+                                    <td>@order.data</td>
+                                    <td>@order.valor</td>
+                                    <td>@order.metodo</td>
+                                    <td>@order.status</td>
                                 </tr>
-                                <div class="modal fade" id="order-modal-@order.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal fade" id="order-modal-@order.id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -56,9 +56,9 @@
                                                 <h4 class="modal-title" id="myModalLabel">Produtos</h4>
                                             </div>
                                             <div class="modal-body">
-                                                @foreach (var rel in @order.Carrinho1.Carrinho_produtos)
+                                                @foreach (var rel in @order.carrinho1.carrinho_produto)
                                                 {
-                                                    <div class="rel-order">@rel.Produto1.Nome (@rel.Quantidade x)<span class="right">R$ @rel.Produto1.Preco</span></div>
+                                                    <div class="rel-order">@rel.produto1.nome (@rel.quantidade x)<span class="right">R$ @rel.produto1.preco</span></div>
                                                 }
                                             </div>
                                             <div class="modal-footer">

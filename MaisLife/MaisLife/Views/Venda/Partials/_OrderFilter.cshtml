@@ -1,10 +1,10 @@
 ﻿<script>$('.collapse').collapse()</script>
 @{
-    var sellers = (List<MaisLifeModel.Usuario>)ViewBag.Sellers;
-    var clients = (List<MaisLifeModel.Usuario>)ViewBag.Clients;
-    var outsideClients = (List<MaisLifeModel.Usuario_externo>)ViewBag.OutsideClients;
-    var products = (List<MaisLifeModel.Produto>)ViewBag.Products;
-    var locals = (List<MaisLifeModel.Bairro>)ViewBag.Locals;     
+    var sellers = (List<MaisLifeModel.Models.usuario>)ViewBag.Sellers;
+    var clients = (List<MaisLifeModel.Models.usuario>)ViewBag.Clients;
+    var outsideClients = (List<MaisLifeModel.Models.usuario_externo>)ViewBag.OutsideClients;
+    var products = (List<MaisLifeModel.Models.produto>)ViewBag.Products;
+    var locals = (List<MaisLifeModel.Models.bairro>)ViewBag.Locals;     
 }
 @using (Ajax.BeginForm("FilterOrders", "Venda", new AjaxOptions()
 {
@@ -136,7 +136,7 @@
                                     <option value="0">Selecione</option>
                                     @foreach (var seller in sellers)
                                     {
-                                        <option value="@seller.Id">@seller.Nome @seller.Sobrenome</option>
+                                        <option value="@seller.id">@seller.nome @seller.sobrenome</option>
                                     }
                                 </select>
                             </div>
@@ -150,7 +150,7 @@
                                     <option value="0">Selecione</option>
                                     @foreach (var client in clients)
                                     {
-                                        <option value="@client.Id">@client.Nome @client.Sobrenome</option>
+                                        <option value="@client.id">@client.nome @client.sobrenome</option>
                                     }
                                 </select>
                             </div>
@@ -164,7 +164,7 @@
                                     <option value="0">Selecione</option>
                                     @foreach (var outsideClient in outsideClients)
                                     {
-                                        <option value="@outsideClient.Id">@outsideClient.Nome</option>
+                                        <option value="@outsideClient.id">@outsideClient.nome</option>
                                     }
                                 </select>
                             </div>
@@ -180,7 +180,7 @@
                                     <option value="0">Selecione</option>
                                     @foreach (var product in products)
                                     {
-                                        <option value="@product.Id">@product.Nome</option>
+                                        <option value="@product.id">@product.nome</option>
                                     }
                                 </select>
                             </div>
@@ -194,7 +194,7 @@
                                     <option value="0">Selecione</option>
                                     @foreach (var local in locals)
                                     {
-                                        <option value="@local.Id">@local.Nome</option>
+                                        <option value="@local.id">@local.nome</option>
                                     }
                                 </select>
                             </div>

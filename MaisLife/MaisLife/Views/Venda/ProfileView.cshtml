@@ -1,67 +1,67 @@
-﻿@model MaisLifeModel.Pedido
+﻿@model MaisLifeModel.Models.pedido
 @{
     ViewBag.Title = "ProfileView";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    var withOutDiscount = MaisLife.Models.Adapter.PedidoAdapter.OrderWithOutDiscount(Model.Valor, Model.Desconto);
-    var discountValue = MaisLife.Models.Adapter.PedidoAdapter.OrderDiscountValue(Model.Valor, Model.Desconto);
+    var withOutDiscount = MaisLife.Models.Adapter.PedidoAdapter.OrderWithOutDiscount(Model.valor, Model.desconto.Value);
+    var discountValue = MaisLife.Models.Adapter.PedidoAdapter.OrderDiscountValue(Model.valor, Model.desconto.Value);
     var today = @DateTime.Now;
 }
 
 <div class="profileView">
     <div class="page-header">
-        <h1>Pedido <small>No @Model.Id<span class="right">@Model.Data</span></small></h1>
+        <h1>Pedido <small>No @Model.id<span class="right">@Model.data</span></small></h1>
     </div>
     <div class="profileView-content">
-        <h2>@Model.Status 
-            @if (@Model.Status != "Entregue" && @Model.Previsao_entrega < @today)
+        <h2>@Model.status 
+            @if (@Model.status != "Entregue" && @Model.previsao_entrega < @today)
             { 
                 <span style="color: #ce4949"> (Atrasado)</span>
             }
         </h2>
         <div class="row">
             <div class="col-lg-4">
-                <h3>@Model.Tipo <small> Tipo</small></h3>
+                <h3>@Model.tipo <small> Tipo</small></h3>
             </div>
             <div class="col-lg-8">
-                @if (@Model.Metodo == "Prazo")
+                @if (@Model.metodo == "Prazo")
                 {
-                    <h3 class="right">@Model.Metodo (@Model.Parcelas x) <small> Pagamento</small></h3>
+                    <h3 class="right">@Model.metodo (@Model.parcelas x) <small> Pagamento</small></h3>
                 }
-                else if (@Model.Metodo == "Boleto")
+                else if (@Model.metodo == "Boleto")
                 {
-                    <h3 class="right">@Model.Metodo (@Model.Vencimento.ToString().Split(new Char[] { ' ' })[0]) <small> Pagamento</small></h3>
+                    <h3 class="right">@Model.metodo (@Model.vencimento.ToString().Split(new Char[] { ' ' })[0]) <small> Pagamento</small></h3>
                 }
                 else
                 {
-                    <h3 class="right">@Model.Metodo <small> Pagamento</small></h3>
+                    <h3 class="right">@Model.metodo <small> Pagamento</small></h3>
                 }
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4">
                 <h3>
-                    @if (@Model.Origem == "Vendedor")
+                    @if (@Model.origem == "Vendedor")
                     {
-                        <span>@Model.Usuario1.Nome @Model.Usuario1.Sobrenome<small> Vendedor</small></span>
+                        <span>@Model.usuario1.nome @Model.usuario1.sobrenome<small> Vendedor</small></span>
                     }
                     else
                     {
-                        <span>@Model.Origem <small> Origem</small></span>
+                        <span>@Model.origem <small> Origem</small></span>
                     }
                 </h3>
             </div>
             <div class="col-lg-8">
                 <h3 class="right">
-                    @if (@Model.Origem == "Vendedor")
+                    @if (@Model.origem == "Vendedor")
                     {
                         <span>
-                            @Model.Usuario_externo1.Nome <small> Cliente</small>
+                            @Model.usuario_externo1.nome <small> Cliente</small>
                         </span>
                     }
                     else
                     {
                         <span>
-                            @Model.Usuario1.Nome <small> Cliente</small>
+                            @Model.usuario1.nome <small> Cliente</small>
                         </span>
                     }
                 </h3>
@@ -70,10 +70,10 @@
         <div class="col-lg-6">
             <ul class="list-group left fullwidth">
                 <li class="list-group-item active">Produtos</li>
-                @foreach (var x in @Model.Carrinho1.Carrinho_produtos)
+                @foreach (var x in @Model.carrinho1.carrinho_produto)
                 {
                     <li class="list-group-item left fullwidth">
-                        @x.Produto1.Nome <span class="right">(@x.Quantidade Un.) R$ <strong>@x.Produto1.Preco</strong></span>
+                        @x.produto1.nome <span class="right">(@x.quantidade Un.) R$ <strong>@x.produto1.preco</strong></span>
                     </li>
                 }
                
@@ -82,19 +82,19 @@
         <div class="col-lg-6">
             <ul class="list-group right fullwidth">
                 <li class="list-group-item active">Endereço</li>
-                <li class="list-group-item"><label class="label" style="color: #428bca;">Cidade:</label><span class="right">@Model.Endereco1.Cidade</span></li>
-                <li class="list-group-item"><label class="label" style="color: #428bca;">Bairro:</label><span class="right">@Model.Endereco1.Bairro1.Nome</span></li>
-                <li class="list-group-item"><label class="label" style="color: #428bca;">Rua:</label><span class="right">@Model.Endereco1.Rua</span></li>
-                <li class="list-group-item"><label class="label" style="color: #428bca;">Nº:</label><span class="right">@Model.Endereco1.Numero</span></li>
-                <li class="list-group-item"><label class="label" style="color: #428bca;">Entrega:</label><span class="right"> @Model.Previsao_entrega.ToString().Split(new Char[] { ' ' })[0]</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Cidade:</label><span class="right">@Model.endereco1.cidade</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Bairro:</label><span class="right">@Model.endereco1.bairro1.nome</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Rua:</label><span class="right">@Model.endereco1.rua</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Nº:</label><span class="right">@Model.endereco1.numero</span></li>
+                <li class="list-group-item"><label class="label" style="color: #428bca;">Entrega:</label><span class="right"> @Model.previsao_entrega.ToString().Split(new Char[] { ' ' })[0]</span></li>
             </ul>
         </div>
     </div>
-    @if (@Model.Tipo == "Troca"){
+    @if (@Model.tipo == "Troca"){
         <div style="padding: 10px;">
             <ul class="list-group right fullwidth">
                 <li class="list-group-item active">Motivo da troca</li>
-                <li class="list-group-item">@Model.Motivo_troca</li>
+                <li class="list-group-item">@Model.motivo_troca</li>
             </ul>
                 
         </div>
@@ -107,11 +107,11 @@
             </li>
             <li class="list-group-item left fullwidth">
                 <div class="left"><strong>Desconto</strong></div>
-                <div class="right">@Model.Desconto % (R$ @discountValue)</div>
+                <div class="right">@Model.desconto % (R$ @discountValue)</div>
             </li>
             <li class="list-group-item left fullwidth active">
                 <div class="left"><strong>Valor final</strong></div>
-                <div class="right">R$ @Model.Valor</div>
+                <div class="right">R$ @Model.valor</div>
             </li>
         </ul>
     </footer>

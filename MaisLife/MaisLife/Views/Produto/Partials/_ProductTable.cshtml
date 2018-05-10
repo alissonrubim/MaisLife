@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MaisLifeModel.Produto>
+﻿@model IEnumerable<MaisLifeModel.Models.produto>
 <table class="table-hover">
     <tr>
         <th></th>
@@ -9,29 +9,29 @@
     </tr>
     @foreach (var product in @Model)
     {
-        <tr data-id="@product.Id" data-content="patner-row" data-info="unselected">
+        <tr data-id="@product.id" data-content="patner-row" data-info="unselected">
             <td style="width:100px; height: 100px;">               
-                @if (@product.Imagem != null && @product.Imagem.Contains("http"))
+                @if (@product.imagem != null && @product.imagem.Contains("http"))
                 {
-                    <img src="@product.Imagem" class="img-responsive patner-img" />
+                    <img src="@product.imagem" class="img-responsive patner-img" />
                 }
                 else
                 {
-                    <img src="@Url.Content("~/Images/Uploads/" + @product.Imagem)" class="img-responsive patner-img" />
+                    <img src="@Url.Content("~/Images/Uploads/" + @product.imagem)" class="img-responsive patner-img" />
                 }
 
             </td>
             <td>
-                @product.Nome
+                @product.nome
             </td>
             <td>
-                @product.Descricao
+                @product.descricao
             </td>
             <td>
-                @product.Preco
+                @product.preco
             </td>
             <td>
-                @product.Unidade
+                @product.unidade
             </td>
         </tr>
     }
