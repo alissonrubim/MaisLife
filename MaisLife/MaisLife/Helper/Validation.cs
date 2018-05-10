@@ -1,5 +1,6 @@
 ﻿using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,14 @@ namespace MaisLife.Helper
     {
         public static Usuario ValidationLogin(UsuarioAdapter u)
         {
-            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == u.Email && f.Senha == u.Senha).FirstOrDefault();
+            var user = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == u.Email && f.Senha == u.Senha).FirstOrDefault();
 
             return user;
         }
 
         public static bool ExistingEmailValidation(UsuarioAdapter u)
         {
-            var user = ConfigDB.Model.Usuarios.Where(f => f.Email == u.Email).FirstOrDefault();
+            var user = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == u.Email).FirstOrDefault();
 
             if (user == null)
                 return true;

@@ -1,4 +1,5 @@
 ﻿using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace MaisLife.Helper
             if (IsLogged())
             {
                 var logged = (Usuario)HttpContext.Current.Session["user"];
-                return ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == logged.Id);
+                return MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == logged.Id);
             }
             else {
                 return null;

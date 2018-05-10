@@ -1,5 +1,6 @@
 ﻿using MaisLife.Helper;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MaisLife.Helper
         {
             if (user != null)
             {
-                HttpContext.Current.Session["user"] = ConfigDB.Model.Usuarios.Where(f => f.Email == user.Email).FirstOrDefault();
+                HttpContext.Current.Session["user"] = MaisLifeModel.DatabaseContext.Model.Usuario.Where(f => f.Email == user.Email).FirstOrDefault();
             }
             return user;
         }
@@ -160,7 +161,7 @@ namespace MaisLife.Helper
 
                    Carrinho_produto relProduct = new Carrinho_produto();
 
-                   Produto product = ConfigDB.Model.Produtos.Where(f => f.Id == idProduct).First();
+                   Produto product = MaisLifeModel.DatabaseContext.Model.Produto.Where(f => f.Id == idProduct).First();
                    relProduct.Produto1 = product;
                    relProduct.Quantidade = amount;
 

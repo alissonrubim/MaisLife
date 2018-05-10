@@ -6,6 +6,7 @@ using MaisLifeModel;
 using MaisLife.Models.Adapter;
 using System.IO;
 using MaisLife.Helper;
+using MaisLifeModel.Models;
 
 namespace MaisLife.ViewModels.AdminViewModels
 {
@@ -28,23 +29,23 @@ namespace MaisLife.ViewModels.AdminViewModels
 
             if (this.Parceiro.Id == 0)
             {
-                ConfigDB.Model.Add(this.Parceiro);
+                MaisLifeModel.DatabaseContext.Model.Parceiro.Add(this.Parceiro);
             }
             else
             {
                 var newPatner = this.Parceiro;
-                this.Parceiro = ConfigDB.Model.Parceiros.FirstOrDefault(f => f.Id == this.Parceiro.Id);
+                this.Parceiro = MaisLifeModel.DatabaseContext.Model.Parceiro.FirstOrDefault(f => f.Id == this.Parceiro.Id);
                 this.Parceiro.Nome = newPatner.Nome;
                 this.Parceiro.Enderec = newPatner.Enderec;
                 this.Parceiro.Telefone = newPatner.Telefone;
                 this.Parceiro.Site = newPatner.Site;
                 this.Parceiro.Facebook = newPatner.Facebook;
                 this.Parceiro.Imagem = newPatner.Imagem;
-                ConfigDB.Model.Add(this.Parceiro);
+                MaisLifeModel.DatabaseContext.Model.Parceiro.Add(this.Parceiro);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public void DoRemove() {
@@ -55,12 +56,12 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var patner = ConfigDB.Model.Parceiros.FirstOrDefault(p => p.Id == id);
-                ConfigDB.Model.Delete(patner);
+                var patner = MaisLifeModel.DatabaseContext.Model.Parceiro.FirstOrDefault(p => p.Id == id);
+                MaisLifeModel.DatabaseContext.Model.Parceiro.Remove(patner);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public int DoEdit() {

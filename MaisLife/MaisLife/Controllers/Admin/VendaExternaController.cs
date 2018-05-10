@@ -59,7 +59,7 @@ namespace MaisLife.Controllers.Admin
         public string AjaxUse_ClientsQuery()
         {
             var id = Convert.ToInt32(Request.Form["exid"]);
-            var externalUser = ConfigDB.Model.Usuario_externos.FirstOrDefault(eu => eu.Id == id);
+            var externalUser = MaisLifeModel.DatabaseContext.Model.Usuario_externo.FirstOrDefault(eu => eu.Id == id);
 
             // ANULAR REFERÊNCIAS
             externalUser.Endereco1.Bairro1.Enderecos = null;
@@ -75,7 +75,7 @@ namespace MaisLife.Controllers.Admin
         public string AjaxUse_ProductsQuery()
         {
             var id = Convert.ToInt32(Request.Form["id"]);
-            var product = ConfigDB.Model.Produtos.FirstOrDefault(p => p.Id == id);
+            var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(p => p.Id == id);
 
             // ANULAR REFERÊNCIAS
             product.Produto_bairros = null;

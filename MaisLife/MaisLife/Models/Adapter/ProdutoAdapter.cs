@@ -1,5 +1,6 @@
 ﻿using MaisLife.Helper;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace MaisLife.Models.Adapter
         public string Imagem { get; set; }
         public IList<Produto_bairro> Bairros { 
             get {
-                return ConfigDB.Model.Produto_bairros.Where(pb => pb.Produto == Id).ToList();
+                return MaisLifeModel.DatabaseContext.Model.Produto_bairro.Where(pb => pb.Produto == Id).ToList();
             }  
         }
         [Required]

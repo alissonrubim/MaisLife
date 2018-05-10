@@ -1,6 +1,7 @@
 ﻿using MaisLife.Helper;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace MaisLife.ViewModels.AdminViewModels
 
             if (this.Map.Id > 0) { 
                 var newMap = this.Map;
-                this.Map = ConfigDB.Model.Mapaentregas.FirstOrDefault(f => f.Id == this.Map.Id);
+                this.Map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == this.Map.Id);
                 this.Map.Observacao = newMap.Observacao;
                 this.Map.Data_entrega = newMap.Data_entrega;
 
@@ -38,7 +39,8 @@ namespace MaisLife.ViewModels.AdminViewModels
                     x.Pedido1.Status = "Em aberto";
                 }
                 
-                ConfigDB.Model.Delete(this.Map.Mapa_pedidos);
+                foreach(Mapa_pedido mp in this.Map.Mapa_pedidos)
+                    MaisLifeModel.DatabaseContext.Model.Mapa_pedido.Remove(mp);
             }
             
             this.Map.Mapa_pedidos = new List<Mapa_pedido>();
@@ -46,7 +48,7 @@ namespace MaisLife.ViewModels.AdminViewModels
             var orderCount = fr.ToInt("orderCount");
             for (var i = 1; i <= orderCount; i++) {
                 var orderId = fr.ToInt("order-" + i);
-                var order = ConfigDB.Model.Pedidos.FirstOrDefault(f => f.Id == orderId);
+                var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(f => f.Id == orderId);
 
                 var x = new Mapa_pedido()
                 {
@@ -62,9 +64,9 @@ namespace MaisLife.ViewModels.AdminViewModels
             if (this.Map.Observacao == null)
                 this.Map.Observacao = "Nenhuma observação.";
 
-            ConfigDB.Model.Add(this.Map);
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            MaisLifeModel.DatabaseContext.Model.Mapaentrega.Add(this.Map);
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public int DoEdit()
@@ -78,7 +80,7 @@ namespace MaisLife.ViewModels.AdminViewModels
             var fr = new FastRequest(this.Request);
             var id = fr.ToInt("map");
 
-            var map = ConfigDB.Model.Mapaentregas.FirstOrDefault(f => f.Id == id);
+            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == id);
             if (map != null)
                 return id;
             else
@@ -88,15 +90,15 @@ namespace MaisLife.ViewModels.AdminViewModels
         public void DoConfirm() {
             var fr = new FastRequest(this.Request);
             var mapId = fr.ToInt("mapId");
-            var map = ConfigDB.Model.Mapaentregas.FirstOrDefault(f => f.Id == mapId);
+            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(f => f.Id == mapId);
 
             foreach (var x in map.Mapa_pedidos) {
                 x.Pedido1.Status = "Entregue";
             }
 
-            ConfigDB.Model.Delete(map);
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            MaisLifeModel.DatabaseContext.Model.Mapaentrega.Remove(map);
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
         }
 
@@ -107,23 +109,23 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var map = ConfigDB.Model.Mapaentregas.FirstOrDefault(p => p.Id == id);
+                var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(p => p.Id == id);
 
                 foreach (var x in map.Mapa_pedidos)
                 {
                     x.Pedido1.Status = "Em aberto";
                 }
 
-                ConfigDB.Model.Delete(map);
+                MaisLifeModel.DatabaseContext.Model.Mapaentrega.Remove(map);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public MapaAdapter DoPrint(int id)
         {
-            var map = ConfigDB.Model.Mapaentregas.FirstOrDefault(p => p.Id == id);
+            var map = MaisLifeModel.DatabaseContext.Model.Mapaentrega.FirstOrDefault(p => p.Id == id);
             return new MapaAdapter().ToMapaAdapter(map);
         }
     }

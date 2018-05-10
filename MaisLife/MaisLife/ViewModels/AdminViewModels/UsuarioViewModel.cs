@@ -1,6 +1,7 @@
 ﻿using MaisLife.Helper;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace MaisLife.ViewModels.AdminViewModels
             if (this.Usuario.Id > 0) {
 
                 var newUser = this.Usuario;
-                this.Usuario = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == this.Usuario.Id);
+                this.Usuario = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == this.Usuario.Id);
 
                 this.Usuario.Nome = newUser.Nome;
                 this.Usuario.Sobrenome = newUser.Sobrenome;
@@ -51,10 +52,10 @@ namespace MaisLife.ViewModels.AdminViewModels
                 this.Usuario.Tipo = "Administrador";
             }
 
-            ConfigDB.Model.Add(this.Usuario);
+            MaisLifeModel.DatabaseContext.Model.Usuario.Add(this.Usuario);
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
         }
 
@@ -66,12 +67,12 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var user = ConfigDB.Model.Usuarios.FirstOrDefault(u => u.Id == id);
-                ConfigDB.Model.Delete(user);
+                var user = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(u => u.Id == id);
+                MaisLifeModel.DatabaseContext.Model.Usuario.Remove(user);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public int DoEdit()

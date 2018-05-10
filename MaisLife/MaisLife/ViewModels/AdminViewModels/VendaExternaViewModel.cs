@@ -1,6 +1,7 @@
 ﻿using MaisLife.Helper;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +35,14 @@ namespace MaisLife.ViewModels
             {                
                 // CHECA SE UM CLIENTE PRONTO FOI SELECIONADO
                 if (this.Order.Usuario_externo1.Id > 0)
-                    this.Order.Usuario_externo1 = ConfigDB.Model.Usuario_externos.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
+                    this.Order.Usuario_externo1 = MaisLifeModel.DatabaseContext.Model.Usuario_externo.FirstOrDefault(f => f.Id == this.Order.Usuario_externo1.Id);
 
                 if (this.Order.Id > 0)
                 {
                     // EDITAR                  
                     var newOrder = this.Order;
-                    this.Order = ConfigDB.Model.Pedidos.FirstOrDefault(f => f.Id == Order.Id);
-                    this.Order.Usuario1 = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == newOrder.Usuario1.Id);
+                    this.Order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(f => f.Id == Order.Id);
+                    this.Order.Usuario1 = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == newOrder.Usuario1.Id);
                     this.Order.Carrinho1 = ConfigureCart(this.Order.Carrinho1);
                     this.Order.Endereco1 = newOrder.Usuario_externo1.Endereco1;
                     this.Order.Status = newOrder.Status;
@@ -68,7 +69,7 @@ namespace MaisLife.ViewModels
                 else
                 {     
                     // NOVO 
-                    this.Order.Usuario1 = ConfigDB.Model.Usuarios.FirstOrDefault(f => f.Id == this.Order.Usuario1.Id);
+                    this.Order.Usuario1 = MaisLifeModel.DatabaseContext.Model.Usuario.FirstOrDefault(f => f.Id == this.Order.Usuario1.Id);
                     this.Order.Carrinho1 = ConfigureCart();
                     this.Order.Endereco1 = this.Order.Usuario_externo1.Endereco1;
                     this.Order.Status = OnCreateStatus;
@@ -83,7 +84,7 @@ namespace MaisLife.ViewModels
                     var productId = fr.ToInt("product-" + i);
                     var productAmount = fr.ToInt("product-count-" + i);
 
-                    var product = ConfigDB.Model.Produtos.FirstOrDefault(f => f.Id == productId);                   
+                    var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == productId);                   
 
                     this.Order.Carrinho1.Carrinho_produtos.Add(new Carrinho_produto() {
                         Produto1 = product,
@@ -100,9 +101,9 @@ namespace MaisLife.ViewModels
                 var discount = (this.Order.Valor * percent);
                 this.Order.Valor -= discount; 
                 
-                ConfigDB.Model.Add(this.Order);
-                if (ConfigDB.Model.HasChanges)
-                    ConfigDB.Model.SaveChanges();
+                MaisLifeModel.DatabaseContext.Model.Pedido.Add(this.Order);
+                //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                    MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
             }
         }
@@ -120,7 +121,8 @@ namespace MaisLife.ViewModels
             }
             else
             {  
-                ConfigDB.Model.Delete(cart.Carrinho_produtos);
+                foreach(Carrinho_produto cp in cart.Carrinho_produtos)
+                    MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Remove(cp);
                 cart.Carrinho_produtos = new List<Carrinho_produto>();
                 cart.Usuario1 = this.Order.Usuario1;
                 return cart;
@@ -132,7 +134,7 @@ namespace MaisLife.ViewModels
           
             var user = Helper.App.Logged();           
             var orderId = fr.ToInt("item");
-            var order = ConfigDB.Model.Pedidos.FirstOrDefault(f => f.Id == orderId);
+            var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(f => f.Id == orderId);
             
             if (user.Permissao < 2)
             {
@@ -158,17 +160,17 @@ namespace MaisLife.ViewModels
             for (var i = 1; i <= countItensToRemove; i++)
             {
                 var id = Convert.ToInt32(this.Request.Form["item-" + i]);
-                var order = ConfigDB.Model.Pedidos.FirstOrDefault(p => p.Id == id);
-                ConfigDB.Model.Delete(order);
+                var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(p => p.Id == id);
+                MaisLifeModel.DatabaseContext.Model.Pedido.Remove(order);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+           // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         internal PedidoAdapter GetAdapterFromPedidoId(int id)
         {
-            var order = ConfigDB.Model.Pedidos.FirstOrDefault(f => f.Id == id);
+            var order = MaisLifeModel.DatabaseContext.Model.Pedido.FirstOrDefault(f => f.Id == id);
             return new PedidoAdapter().ToPedidoAdapter(order);
         }
     }

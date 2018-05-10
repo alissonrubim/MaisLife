@@ -1,6 +1,7 @@
 ﻿using MaisLife.Controllers;
 using MaisLife.Controllers.Admin;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,19 @@ namespace MaisLife.Helper
             var logged = Helper.App.Logged();
             if (logged.Permissao < 2)
             {
-                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.Where(w => w.Usuario == logged.Id && w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
-                controller.ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(w => w.Id == logged.Id);        
+                controller.ViewBag.Orders = MaisLifeModel.DatabaseContext.Model.Pedido.Where(w => w.Usuario == logged.Id && w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
+                controller.ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Id == logged.Id);        
             }
             else
             {
-                controller.ViewBag.Orders = ConfigDB.Model.Pedidos.Where(w => w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
-                controller.ViewBag.Sellers = ConfigDB.Model.Usuarios.Where(w => w.Permissao >= 1).ToList();
+                controller.ViewBag.Orders = MaisLifeModel.DatabaseContext.Model.Pedido.Where(w => w.Origem == "Vendedor").OrderBy(w => w.Previsao_entrega).ToList();
+                controller.ViewBag.Sellers = MaisLifeModel.DatabaseContext.Model.Usuario.Where(w => w.Permissao >= 1).ToList();
             }
 
             controller.ViewBag.User = logged;
-            controller.ViewBag.OutsideClients = ConfigDB.Model.Usuario_externos.ToList();
-            controller.ViewBag.Products = ConfigDB.Model.Produtos.ToList();
-            controller.ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
+            controller.ViewBag.OutsideClients = MaisLifeModel.DatabaseContext.Model.Usuario_externo.ToList();
+            controller.ViewBag.Products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
+            controller.ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
                 
         }   
         
@@ -44,10 +45,10 @@ namespace MaisLife.Helper
                         Status = "Ativo"
                     };
 
-                    ConfigDB.Model.Add(cart);
+                    MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
 
-                    if (ConfigDB.Model.HasChanges)
-                        ConfigDB.Model.SaveChanges();
+                   // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                        MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                     cart = user.Carrinhos.FirstOrDefault(f => f.Status == "Ativo");
                 }
@@ -59,7 +60,7 @@ namespace MaisLife.Helper
             {
                 home.ViewBag.Cart = Sessions.FindShoppingCart();
             }
-            home.ViewBag.Products = ConfigDB.Model.Produtos.ToList();
+            home.ViewBag.Products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using MaisLife.Helper;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,11 @@ namespace MaisLife.ViewModels.AdminViewModels
 
             if (situation == 0)
             {
-                return ConfigDB.Model.Pedidos.ToList().OrderBy(w => w.Previsao_entrega).ToList();
+                return MaisLifeModel.DatabaseContext.Model.Pedido.ToList().OrderBy(w => w.Previsao_entrega).ToList();
             }
             else { 
                 
-                var allOrders = ConfigDB.Model.Pedidos.ToList().OrderBy(w => w.Previsao_entrega).ToList();
+                var allOrders = MaisLifeModel.DatabaseContext.Model.Pedido.ToList().OrderBy(w => w.Previsao_entrega).ToList();
                 var num = fr.ToInt("search-num");
                 if (num > 0)
                     allOrders = allOrders.Where(w => w.Id == num).ToList();
@@ -96,7 +97,7 @@ namespace MaisLife.ViewModels.AdminViewModels
                 var product = fr.ToInt("search-product");
                 if (product > 0)
                 {
-                    var supportList = ConfigDB.Model.Pedidos.ToList();
+                    var supportList = MaisLifeModel.DatabaseContext.Model.Pedido.ToList();
                     var have = false;
                     foreach (var order in supportList) {
                         foreach (var x in order.Carrinho1.Carrinho_produtos) {

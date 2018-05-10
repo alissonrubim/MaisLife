@@ -1,4 +1,5 @@
 ﻿using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace MaisLife.Helper
             var cart = getCartActive();
             var prices = new List<decimal>();
             foreach(Carrinho_produto cp in cart.Carrinho_produtos){
-                var value = ConfigDB.Model.Produto_bairros.FirstOrDefault
-                    (f => f.Bairro == local.Id && f.Produto == cp.Produto);
+
+
+                var value = MaisLifeModel.DatabaseContext.Model.Produto_bairro.FirstOrDefault(f => f.Bairro == local.Id && f.Produto == cp.Produto);
                 if (value != null)
                 {
                     prices.Add(value.Taxa);

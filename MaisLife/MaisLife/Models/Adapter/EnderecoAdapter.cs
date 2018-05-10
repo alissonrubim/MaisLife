@@ -1,4 +1,5 @@
 ﻿using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,7 +36,7 @@ namespace MaisLife.Models.Adapter
                 Pais = this.Pais,
                 Estado = this.Estado,
                 Cidade = this.Cidade,
-                Bairro1 = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == this.Bairro),
+                Bairro1 = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome == this.Bairro),
                 Rua = this.Rua,
                 Numero = this.Numero,
                 Cep = this.Cep

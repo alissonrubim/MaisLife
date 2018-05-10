@@ -1,6 +1,7 @@
 ﻿using MaisLife.Helper;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +30,11 @@ namespace MaisLife.ViewModels.AdminViewModels
             {  
 
                 var newProduct = this.Produto;
-                this.Produto = ConfigDB.Model.Produtos.FirstOrDefault(f => f.Id == this.Produto.Id);
+                this.Produto = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == this.Produto.Id);
                 
                 foreach (var rel in this.Produto.Produto_bairros)
                 {
-                    ConfigDB.Model.Delete(rel);
+                    MaisLifeModel.DatabaseContext.Model.Produto_bairro.Remove(rel);
                 }
 
                 this.Produto.Nome = newProduct.Nome;
@@ -57,7 +58,7 @@ namespace MaisLife.ViewModels.AdminViewModels
 
                     var rel = new Produto_bairro()
                     {
-                        Bairro1 = ConfigDB.Model.Bairros.FirstOrDefault(b => b.Id == local),
+                        Bairro1 = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(b => b.Id == local),
                         Produto1 = this.Produto,
                         Taxa = tax
                     };
@@ -67,10 +68,10 @@ namespace MaisLife.ViewModels.AdminViewModels
                 }
             }      
 
-            ConfigDB.Model.Add(this.Produto);
+            MaisLifeModel.DatabaseContext.Model.Produto.Add(this.Produto);
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public void DoRemove() {
@@ -80,12 +81,12 @@ namespace MaisLife.ViewModels.AdminViewModels
             for (var i = 1; i <= count; i++)
             {
                 var id = fr.ToInt("item-" + i);
-                var product = ConfigDB.Model.Produtos.FirstOrDefault(p => p.Id == id);
-                ConfigDB.Model.Delete(product);
+                var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(p => p.Id == id);
+                MaisLifeModel.DatabaseContext.Model.Produto.Remove(product);
             }
 
-            if (ConfigDB.Model.HasChanges)
-                ConfigDB.Model.SaveChanges();
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
         }
 
         public int DoEdit() {

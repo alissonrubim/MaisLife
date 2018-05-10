@@ -2,6 +2,7 @@
 using MaisLife.Models;
 using MaisLife.Models.Adapter;
 using MaisLifeModel;
+using MaisLifeModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace MaisLife.Controllers
         public ActionResult Index()
         {            
             Injections.LayoutInjection(this);
-            ViewBag.patners = ConfigDB.Model.Parceiros.ToList();
+            ViewBag.patners = MaisLifeModel.DatabaseContext.Model.Parceiro.ToList();
 
-            var products = ConfigDB.Model.Produtos.ToList();
+            var products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
             
             var slideProducts = new List<List<Produto>>();
             var count = 0;
@@ -52,7 +53,7 @@ namespace MaisLife.Controllers
 
         public ActionResult Produtos()
         {           
-            var products = ConfigDB.Model.Produtos.ToList();
+            var products = MaisLifeModel.DatabaseContext.Model.Produto.ToList();
             ViewBag.Products = products;
             Injections.LayoutInjection(this);
             return View();
@@ -60,7 +61,7 @@ namespace MaisLife.Controllers
 
         public ActionResult Produto(int id)
         {           
-            var products = ConfigDB.Model.Produtos;
+            var products = MaisLifeModel.DatabaseContext.Model.Produto;
             var product = products.FirstOrDefault(f => f.Id == id);
             if (product != null)
             {
@@ -78,7 +79,7 @@ namespace MaisLife.Controllers
             // CHECAMOS DE FOI PASSADO ALGUM PRODUTO PARA A PÁGINA
             if (id > 0)
             {
-                var product = ConfigDB.Model.Produtos.FirstOrDefault(f => f.Id == id);
+                var product = MaisLifeModel.DatabaseContext.Model.Produto.FirstOrDefault(f => f.Id == id);
                 // CHECAMOS DE O PRODUTO PASSADO EXISTE
                 if (product != null)
                 {
@@ -96,9 +97,9 @@ namespace MaisLife.Controllers
                                 Status = "Ativo"
                             };
 
-                            ConfigDB.Model.Add(cart);
-                            if (ConfigDB.Model.HasChanges)
-                                ConfigDB.Model.SaveChanges();
+                            MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                                MaisLifeModel.DatabaseContext.Model.SaveChanges();
                         }
                         
                         Carrinho_produto rel = cart.checkProduct(product);
@@ -116,9 +117,9 @@ namespace MaisLife.Controllers
                             rel.Quantidade++;
 
                         // SALVA/EDITA RELAÇÃO NO BANCO DE DADOS
-                        ConfigDB.Model.Add(rel);
-                        if (ConfigDB.Model.HasChanges)
-                            ConfigDB.Model.SaveChanges();
+                        MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(rel);
+                        //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                            MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                     }
                     else
@@ -147,9 +148,9 @@ namespace MaisLife.Controllers
                             Status = "Ativo"
                         };
 
-                        ConfigDB.Model.Add(cart);
-                        if (ConfigDB.Model.HasChanges)
-                            ConfigDB.Model.SaveChanges();
+                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                        //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                            MaisLifeModel.DatabaseContext.Model.SaveChanges();
                     }
                 }
                 else
@@ -161,10 +162,10 @@ namespace MaisLife.Controllers
 
             if ( local != 0 )
             {
-                ViewBag.Local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == local); ;
+                ViewBag.Local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Id == local); ;
             }
 
-            ViewBag.Locals = ConfigDB.Model.Bairros.ToList();
+            ViewBag.Locals = MaisLifeModel.DatabaseContext.Model.Bairro.ToList();
 
             Injections.LayoutInjection(this);
             return View();
@@ -193,15 +194,15 @@ namespace MaisLife.Controllers
                             if (rel.Quantidade <= 0)
                             {
                                 cart.Carrinho_produtos.Remove(rel);
-                                ConfigDB.Model.Delete(rel);
-                                if (ConfigDB.Model.HasChanges)
-                                    ConfigDB.Model.SaveChanges();
+                                MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Remove(rel);
+                               // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                                    MaisLifeModel.DatabaseContext.Model.SaveChanges();
                             }
                         }
 
-                        ConfigDB.Model.Add(cart);
-                        if (ConfigDB.Model.HasChanges)
-                            ConfigDB.Model.SaveChanges();
+                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
+                       // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                            MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                     }
 
@@ -239,7 +240,7 @@ namespace MaisLife.Controllers
         {           
             try { 
                 var id = Convert.ToInt32(Request.Form["address"]);
-                Endereco address = ConfigDB.Model.Enderecos.FirstOrDefault(f => f.Id == id);
+                Endereco address = MaisLifeModel.DatabaseContext.Model.Endereco.FirstOrDefault(f => f.Id == id);
                 if (address != null)
                 {
                     Usuario user = (Usuario)HttpContext.Session["user"];
@@ -285,10 +286,10 @@ namespace MaisLife.Controllers
 
                         order.Previsao_entrega = Helper.CalculateShipping.findShippingDate(order);
 
-                        ConfigDB.Model.Add(order);
+                        MaisLifeModel.DatabaseContext.Model.Pedido.Add(order);
 
                         cart.Status = "Fechado";
-                        ConfigDB.Model.Add(cart);
+                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cart);
 
                         Carrinho newCart = new Carrinho()
                         {
@@ -296,10 +297,10 @@ namespace MaisLife.Controllers
                             Status = "Ativo"
                         };
 
-                        ConfigDB.Model.Add(newCart);
+                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(newCart);
 
-                        if (ConfigDB.Model.HasChanges)
-                            ConfigDB.Model.SaveChanges();
+                        //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                            MaisLifeModel.DatabaseContext.Model.SaveChanges();
                         
                         return RedirectToAction("Perfil", "Home");
                     }
@@ -327,7 +328,7 @@ namespace MaisLife.Controllers
 
             if (localString != "0" && localString != "")
             {
-                local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome == localString);
+                local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome == localString);
             }
 
             decimal valueDelivery = CalculateShipping.Calculate(local);
@@ -338,7 +339,7 @@ namespace MaisLife.Controllers
 
         public ActionResult NovoEndereco(EnderecoAdapter endereco)
         {
-            Bairro bairro = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Nome.ToLower() == endereco.Bairro.ToLower());
+            Bairro bairro = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Nome.ToLower() == endereco.Bairro.ToLower());
             if (bairro != null)
             {
                 Usuario user = (Usuario)HttpContext.Session["user"];
@@ -352,9 +353,9 @@ namespace MaisLife.Controllers
                     var end = endereco.ToEndereco();
                     end.Bairro1 = bairro;
 
-                    ConfigDB.Model.Add(end);
-                    if (ConfigDB.Model.HasChanges)
-                        ConfigDB.Model.SaveChanges();
+                    MaisLifeModel.DatabaseContext.Model.Endereco.Add(end);
+                    //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                        MaisLifeModel.DatabaseContext.Model.SaveChanges();
                 }
                 
             }           
@@ -364,11 +365,11 @@ namespace MaisLife.Controllers
 
         public ActionResult CreateContact(ContatoAdapter contato)
         {
-            ConfigDB.Model.Add(contato.ToContato());
-            if (ConfigDB.Model.HasChanges)
-            {
-                ConfigDB.Model.SaveChanges();
-            }
+            MaisLifeModel.DatabaseContext.Model.Contato.Add(contato.ToContato());
+            //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+            //{
+                MaisLifeModel.DatabaseContext.Model.SaveChanges();
+            //}
             return RedirectToAction("Index");
         }
 
@@ -379,12 +380,12 @@ namespace MaisLife.Controllers
                 var newUser = user.ToUsuario();
                 newUser.Permissao = 0;
                 newUser.Tipo = "client";
-                ConfigDB.Model.Add(newUser);
-                if (ConfigDB.Model.HasChanges)
-                {
-                    ConfigDB.Model.SaveChanges();
+                MaisLifeModel.DatabaseContext.Model.Usuario.Add(newUser);
+                //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                //{
+                    MaisLifeModel.DatabaseContext.Model.SaveChanges();
                     Sessions.CreateCookie(user.ToUsuario(), false);
-                }
+                //}
             }
             else
             {
@@ -438,8 +439,8 @@ namespace MaisLife.Controllers
                                     //MDA JUNTA AS QUANTIDADES
                                     relacaoBd.Quantidade += relacaoCookie.Quantidade;
                                     
-                                    if (ConfigDB.Model.HasChanges)
-                                        ConfigDB.Model.SaveChanges();
+                                    //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                                        MaisLifeModel.DatabaseContext.Model.SaveChanges();
                                     
 
 
@@ -454,10 +455,10 @@ namespace MaisLife.Controllers
                             {
                                 cp.Carrinho1 = cartBd;
 
-                                ConfigDB.Model.Add(cp);
+                                MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(cp);
 
-                                if (ConfigDB.Model.HasChanges)
-                                    ConfigDB.Model.SaveChanges();
+                                //if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                                    MaisLifeModel.DatabaseContext.Model.SaveChanges();
                             }
                         }
                     }
@@ -470,24 +471,23 @@ namespace MaisLife.Controllers
                             Status = "Ativo"
                         };
 
-                        ConfigDB.Model.Add(cartBd);
+                        MaisLifeModel.DatabaseContext.Model.Carrinho.Add(cartBd);
 
-                        if (ConfigDB.Model.HasChanges)
-                            ConfigDB.Model.SaveChanges();
+                       // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                            MaisLifeModel.DatabaseContext.Model.SaveChanges();
 
                         //BUSCA CARRINHO INSERIDO
-                        Carrinho cartInserted = ConfigDB.Model.Carrinhos.FirstOrDefault
-                            (f => f.Usuario1.Id == usuario.Id && f.Status == "Ativo");
+                        Carrinho cartInserted = MaisLifeModel.DatabaseContext.Model.Carrinho.FirstOrDefault(f => f.Usuario1.Id == usuario.Id && f.Status == "Ativo");
 
                         //SETA CARRINHO DAS RELAÇÕES E INSERE RELAÇÃO
                         foreach (Carrinho_produto cp in relCartCookie)
                         {
                             cp.Carrinho1 = cartInserted;
 
-                            ConfigDB.Model.Add(cp);
+                            MaisLifeModel.DatabaseContext.Model.Carrinho_produto.Add(cp);
 
-                            if (ConfigDB.Model.HasChanges)
-                                ConfigDB.Model.SaveChanges();
+                           // if (MaisLifeModel.DatabaseContext.Model.HasChanges)
+                                MaisLifeModel.DatabaseContext.Model.SaveChanges();
                         }
                     }
                 }
@@ -527,7 +527,7 @@ namespace MaisLife.Controllers
         }
 
         public string AjaxUse_Shipping(int id) { 
-            var local = ConfigDB.Model.Bairros.FirstOrDefault(f => f.Id == id);
+            var local = MaisLifeModel.DatabaseContext.Model.Bairro.FirstOrDefault(f => f.Id == id);
 
             var shippingValue = Helper.CalculateShipping.Calculate(local);
 
